@@ -3,172 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducaNobre - Inteligência Pedagógica</title>
+    <title>EducaNobre - Sistema Pedagógico Profissional</title>
     <style>
-        /* CSS para Tela */
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #eef2f3; padding: 20px; color: #333; }
-        .no-print { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #ffcb05; padding-bottom: 10px; }
-        label { font-weight: bold; display: block; margin-top: 15px; font-size: 14px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        button { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-add { background-color: #27ae60; color: white; grid-column: span 2; font-size: 16px; }
-        .btn-manual { background-color: #f39c12; color: white; width: 100%; margin-bottom: 15px; }
-        .btn-action { background-color: #2980b9; color: white; }
-        .btn-clear { background-color: #c0392b; color: white; }
+        /* ESTILO INTERFACE */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .no-print { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #1a5276; text-align: center; border-bottom: 3px solid #ffcb05; padding-bottom: 10px; }
+        .grid-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { font-weight: bold; display: block; margin-top: 15px; font-size: 13px; color: #555; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-add { background: #27ae60; color: white; width: 100%; margin-top: 20px; padding: 15px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-fra-tex { flex: 1; padding: 15px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; }
+        .btn-frase { background: #2980b9; }
+        .btn-texto { background: #8e44ad; }
+        .btn-manual { background: #f39c12; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        .aviso-duplicado { background: #ff7675 !important; color: white; padding: 5px; border-radius: 4px; }
         
-        /* CSS Padrão ABNT para Impressão */
+        /* PADRÃO ABNT PARA IMPRESSÃO */
         #folhaA4 { 
-            display: none; 
-            background: white; 
-            width: 210mm; min-height: 297mm; 
-            padding: 3cm 2cm 2cm 3cm; /* ABNT: Sup/Esq 3, Inf/Dir 2 */
-            margin: 30px auto; 
-            font-family: Arial, sans-serif; 
-            font-size: 12pt; 
-            line-height: 1.5; 
-            text-align: justify; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            box-sizing: border-box;
+            display: none; background: white; width: 210mm; min-height: 297mm; 
+            padding: 3cm 2cm 2cm 3cm; margin: 20px auto;
+            font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; 
+            text-align: justify; box-sizing: border-box; position: relative;
         }
-        .paragrafo { text-indent: 1.25cm; margin-bottom: 10px; }
-        .titulo-secao { font-weight: bold; text-transform: uppercase; margin-top: 20px; display: block; }
-
+        .paragrafo { text-indent: 1.25cm; margin-bottom: 0; margin-top: 0; }
+        .cabecalho-abnt { text-align: center; font-weight: bold; margin-bottom: 40px; line-height: 1.2; }
+        
         @media print {
             body { background: white; padding: 0; }
             .no-print { display: none; }
-            #folhaA4 { display: block !important; box-shadow: none; margin: 0; width: 100%; border: none; }
+            #folhaA4 { display: block !important; margin: 0; border: none; box-shadow: none; }
             @page { size: A4; margin: 0; }
         }
+
+        /* MODAL ESTÉTICO */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 80%; max-width: 600px; }
     </style>
 </head>
 <body>
 
 <div class="no-print">
-    <button class="btn-manual" onclick="abrirManual()">📖 Manual de Uso</button>
+    <button class="btn-manual" onclick="abrirManual()">📖 MANUAL DE USO E TERMOS</button>
     <h1>EducaNobre 🍎</h1>
     
-    <label>Nome da Criança:</label>
-    <input type="text" id="nome" placeholder="Nome completo">
+    <div class="grid-campos">
+        <div>
+            <label>Nome do Aluno:</label>
+            <input type="text" id="nomeAluno">
+            <label>Idade / Etapa:</label>
+            <select id="idade">
+                <option value="bebês">Bebês (0 a 1a 6m)</option>
+                <option value="pequenas">Crianças Bem Pequenas (1a 7m a 3a 11m)</option>
+                <option value="grandes">Crianças Pequenas (4a a 5a 11m)</option>
+            </select>
+        </div>
+        <div>
+            <label>Nome da Escola:</label>
+            <input type="text" id="escola">
+            <label>Cidade:</label>
+            <input type="text" id="cidade">
+        </div>
+    </div>
+    <label>Nome do Professor(a):</label>
+    <input type="text" id="professor">
 
-    <label>Grupo de Faixa Etária (BNCC):</label>
-    <select id="idade">
-        <option value="bebês">Bebês (0 a 1 ano e 6 meses)</option>
-        <option value="bem-pequenas">Crianças Bem Pequenas (1 ano e 7 meses a 3 anos e 11 meses)</option>
-        <option value="pequenas">Crianças Pequenas (4 anos a 5 anos e 11 meses)</option>
-    </select>
+    <hr style="margin-top:20px">
 
-    <label>Área de Desenvolvimento / Habilidade:</label>
+    <label>Área / Habilidade BNCC:</label>
     <select id="habilidade">
-        <option value="coord-ampla">Coordenação Motora Ampla</option>
-        <option value="coord-fina">Coordenação Motora Fina</option>
-        <option value="linguagem">Linguagem Oral</option>
-        <option value="nome">Escrita/Reconhecimento do Nome</option>
-        <option value="socioafetivo">Socioafetivo e Convívio Social</option>
-        <option value="cognitivo">Desenvolvimento Cognitivo</option>
+        <option value="COORD_AMPLA">Coordenação Motora Ampla</option>
+        <option value="COORD_FINA">Coordenação Motora Fina</option>
+        <option value="LINGUAGEM">Linguagem Oral</option>
+        <option value="SOCIO">Socioafetivo e Convívio Social</option>
+        <option value="COGNITIVO">Desenvolvimento Cognitivo</option>
     </select>
 
-    <label>Momento Atual:</label>
+    <label>Nível de Desenvolvimento:</label>
     <select id="nivel">
-        <option value="avancado">Desenvolvimento Pleno / Avançado</option>
-        <option value="intermediario">Em Processo / Intermediário</option>
-        <option value="inicial">Fase Inicial / Com Apoio</option>
+        <option value="avancado">Avançado / Protagonista</option>
+        <option value="intermediario">Intermediário / Em Processo</option>
+        <option value="inicial">Inicial / Com Mediação</option>
     </select>
 
-    <button class="btn-add" onclick="adicionarBloco()">➕ Adicionar esta Habilidade ao Relatório</button>
+    <button class="btn-add" onclick="adicionarHabilidade()">➕ ADICIONAR HABILIDADE AO RASCUNHO</button>
+    
+    <div id="listaTemporaria" style="margin-top:10px; font-size:12px"></div>
+    <button id="btnLimparRepetidos" style="display:none; background:#ff7675; color:white; border:none; padding:5px; cursor:pointer" onclick="limparRepetidos()">Remover Repetições em Vermelho</button>
 
     <div class="btn-group">
-        <button class="btn-action" onclick="gerarDocumento('lista')">Gerar por Campos</button>
-        <button class="btn-action" onclick="gerarDocumento('texto')">Gerar Texto Corrido</button>
-        <button class="btn-clear" onclick="limpar()">Limpar Tudo</button>
+        <button class="btn-fra-tex btn-frase" onclick="gerar('FRASE')">GERAR FRASE</button>
+        <button class="btn-fra-tex btn-texto" onclick="gerar('TEXTO')">GERAR TEXTO (ABNT)</button>
     </div>
-    
-    <button class="btn-action" style="width:100%; margin-top:10px; background:#34495e;" onclick="window.print()">🖨️ Imprimir em PDF (Padrão ABNT)</button>
 </div>
 
 <div id="folhaA4">
-    <center><b>RELATÓRIO INDIVIDUAL DE ACOMPANHAMENTO PEDAGÓGICO</b></center>
-    <br>
-    <p><b>ALUNO(A):</b> <span id="outNome"></span></p>
-    <p><b>FAIXA ETÁRIA:</b> <span id="outIdade"></span></p>
-    <p><b>DATA DE EMISSÃO:</b> <span id="outData"></span></p>
-    <hr>
-    <div id="corpoTexto"></div>
-    <br><br>
-    <center>_________________________________________________<br>Assinatura do Educador(a)</center>
+    <div class="cabecalho-abnt" id="cabecalhoOut"></div>
+    <div id="conteudoRelatorio" contenteditable="true"></div>
+    <div style="margin-top:50px; text-align:right" id="dataOut"></div>
+    <div style="margin-top:80px; text-align:center">
+        __________________________________________<br>
+        <span id="profOut"></span><br>
+        Professor(a) Responsável
+    </div>
 </div>
 
-<div id="manualModal" style="display:none; position:fixed; background:rgba(0,0,0,0.8); top:0; left:0; width:100%; height:100%; z-index:100;">
-    <div style="background:white; margin:10% auto; padding:20px; width:80%; max-width:500px; border-radius:10px;">
-        <h3>Guia EducaNobre</h3>
-        <p>1. Digite o nome da criança.<br>2. Escolha a idade (o App ajusta os termos técnicos sozinho).<br>3. Adicione quantas habilidades desejar.<br>4. Escolha "Texto Corrido" para um parecer descritivo ou "Por Campos" para tópicos.</p>
-        <button onclick="document.getElementById('manualModal').style.display='none'">Fechar</button>
+<div id="modalManual" class="modal">
+    <div class="modal-content">
+        <h2>Manual EducaNobre</h2>
+        <p>1. Preencha os dados da escola e aluno (sairão em CAIXA ALTA).</p>
+        <p>2. Adicione habilidades uma a uma. Se repetir, o sistema avisará em vermelho.</p>
+        <p>3. <b>FRASE:</b> Gera tópicos. <b>TEXTO:</b> Gera relatório contínuo ABNT.</p>
+        <p>4. <b>TERMOS DE USO:</b> Este app é uma ferramenta de apoio. O conteúdo é de responsabilidade do docente. Os dados não são salvos em nuvem.</p>
+        <button onclick="fecharManual()">ENTENDI</button>
     </div>
 </div>
 
 <script>
-    let memoriaRelatorio = [];
+    let rascunho = [];
+    const conectores = ["Além disso, ", "Somado a isso, ", "No que tange ao aspecto, ", "Vale ressaltar que ", "De maneira processual, "];
+    
+    function abrirManual() { document.getElementById('modalManual').style.display='block'; }
+    function fecharManual() { document.getElementById('modalManual').style.display='none'; }
 
-    function abrirManual() { document.getElementById('manualModal').style.display='block'; }
+    function adicionarHabilidade() {
+        const hab = document.getElementById('habilidade').value;
+        const niv = document.getElementById('nivel').value;
+        rascunho.push({id: hab, nivel: niv});
+        atualizarLista();
+    }
 
-    function sortear(habilidade, nivel) {
-        const inicios = ["Observamos que, no cotidiano escolar, ", "Neste período de vivências, a criança ", "Em relação às propostas pedagógicas, nota-se que ", "É perceptível que "];
-        
-        const banco = {
-            "coord-ampla": {
-                "avancado": ["demonstra domínio corporal ao saltar e correr com equilíbrio.", "coordena movimentos complexos em circuitos físicos com autonomia."],
-                "intermediario": ["está aprimorando sua percepção espacial em brincadeiras motoras.", "demonstra interesse em desafios que envolvem o equilíbrio e força."],
-                "inicial": ["inicia a exploração de movimentos amplos com apoio da professora.", "está sendo estimulada a ganhar confiança em deslocamentos físicos."]
-            },
-            "linguagem": {
-                "avancado": ["expressa seus desejos e ideias com clareza e vocabulário amplo.", "participa ativamente de rodas de conversa, respeitando os turnos de fala."],
-                "intermediario": ["utiliza frases curtas para comunicar necessidades diárias.", "está ampliando seu repertório oral através de histórias e músicas."],
-                "inicial": ["comunica-se predominantemente através de gestos e palavras isoladas.", "demonstra atenção à fala do outro, iniciando sua expressão oral."]
+    function atualizarLista() {
+        const div = document.getElementById('listaTemporaria');
+        const btnL = document.getElementById('btnLimparRepetidos');
+        div.innerHTML = "";
+        let ids = rascunho.map(r => r.id);
+        let temDuplicado = false;
+
+        rascunho.forEach((r, index) => {
+            const span = document.createElement('span');
+            span.style.marginRight = "10px";
+            span.innerText = "• " + r.id;
+            if (ids.indexOf(r.id) !== index) {
+                span.className = "aviso-duplicado";
+                temDuplicado = true;
             }
-            // Adicionaremos mais habilidades conforme o banco cresce
+            div.appendChild(span);
+        });
+        btnL.style.display = temDuplicado ? 'block' : 'none';
+    }
+
+    function limparRepetidos() {
+        rascunho = rascunho.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+        atualizarLista();
+    }
+
+    function sortearTexto(hab, niv, etapa) {
+        const banco = {
+            COORD_AMPLA: { 
+                avancado: "demonstra pleno domínio da motricidade ampla, explorando espaços com segurança.", 
+                intermediario: "desenvolve gradualmente o equilíbrio em circuitos e atividades motoras.",
+                inicial: "apresenta-se em fase inicial de exploração de grandes movimentos com apoio."
+            },
+            LINGUAGEM: {
+                avancado: "expressa ideias e desejos com clareza e vocabulário diversificado.",
+                intermediario: "comunica-se de forma funcional, ampliando seu repertório oral.",
+                inicial: "utiliza gestos e palavras isoladas para expressar suas necessidades."
+            }
+            // Adicionar as demais 300 variações aqui...
         };
+        return banco[hab] ? banco[hab][niv] : "apresenta evolução nas habilidades correspondentes.";
+    }
 
-        const r1 = inicios[Math.floor(Math.random() * inicios.length)];
-        const r2 = banco[habilidade] ? banco[habilidade][nivel][Math.floor(Math.random() * banco[habilidade][nivel].length)] : "demonstra evolução constante em suas aprendizagens.";
+    function gerar(tipo) {
+        const aluno = document.getElementById('nomeAluno').value.toUpperCase();
+        const escola = document.getElementById('escola').value.toUpperCase();
+        const cidade = document.getElementById('cidade').value.toUpperCase();
+        const prof = document.getElementById('professor').value.toUpperCase();
         
-        return r1 + r2;
-    }
-
-    function adicionarBloco() {
-        const h = document.getElementById('habilidade').value;
-        const n = document.getElementById('nivel').value;
-        memoriaRelatorio.push({ area: h, texto: sortear(h, n) });
-        alert("Habilidade adicionada ao rascunho!");
-    }
-
-    function gerarDocumento(tipo) {
-        const nomeUpper = document.getElementById('nome').value.toUpperCase() || "CRIANÇA";
-        document.getElementById('outNome').innerText = nomeUpper;
-        document.getElementById('outIdade').innerText = document.getElementById('idade').options[document.getElementById('idade').selectedIndex].text;
-        document.getElementById('outData').innerText = new Date().toLocaleDateString('pt-BR');
-
-        let htmlFinal = "";
-        if (tipo === 'lista') {
-            memoriaRelatorio.forEach(item => {
-                htmlFinal += `<span class="titulo-secao">${item.area.replace('-',' ').toUpperCase()}</span><p class="paragrafo">${item.texto}</p>`;
+        document.getElementById('cabecalhoOut').innerHTML = `${escola}<br>RELATÓRIO DE DESENVOLVIMENTO - ${aluno}`;
+        document.getElementById('profOut').innerText = prof;
+        document.getElementById('dataOut').innerText = `${cidade}, ${new Date().toLocaleDateString('pt-BR')}`;
+        
+        let htmlRelatorio = "";
+        if(tipo === 'FRASE') {
+            rascunho.forEach(r => {
+                htmlRelatorio += `<p class="paragrafo"><b>${r.id}:</b> ${sortearTexto(r.id, r.nivel)}</p>`;
             });
         } else {
-            htmlFinal += `<p class="paragrafo">Introdução: O presente relatório descreve o processo de aprendizagem da criança com base nos objetivos da BNCC e DCNEI. </p>`;
-            let textoUnido = memoriaRelatorio.map(i => i.texto).join(" Além disso, ");
-            htmlFinal += `<p class="paragrafo">${textoUnido}</p>`;
-            htmlFinal += `<p class="paragrafo">Conclusão: Seguimos acompanhando o desenvolvimento integral, valorizando cada conquista alcançada.</p>`;
+            htmlRelatorio += `<p class="paragrafo">O presente documento descreve o percurso de aprendizagem de ${aluno}. Através da observação sistemática, notou-se que:</p>`;
+            rascunho.forEach((r, i) => {
+                let con = i > 0 ? conectores[Math.floor(Math.random()*conectores.length)] : "";
+                htmlRelatorio += `<p class="paragrafo">${con}${aluno} ${sortearTexto(r.id, r.nivel)}</p>`;
+            });
+            htmlRelatorio += `<p class="paragrafo">Concluímos que a criança segue em desenvolvimento integral, sendo estimulada diariamente em suas potencialidades.</p>`;
         }
 
-        document.getElementById('corpoTexto').innerHTML = htmlFinal;
+        document.getElementById('conteudoRelatorio').innerHTML = htmlRelatorio;
         document.getElementById('folhaA4').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function limpar() {
-        memoriaRelatorio = [];
-        document.getElementById('folhaA4').style.display = 'none';
-        document.getElementById('nome').value = "";
     }
 </script>
 
