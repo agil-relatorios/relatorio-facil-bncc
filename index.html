@@ -10,67 +10,62 @@
             --txt: #2f3542; --bg: #f1f2f6; --white: #ffffff;
         }
 
-        /* Interface Visual */
+        /* Interface Principal */
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--txt); margin: 0; padding: 10px; }
         .app-container { max-width: 950px; margin: auto; background: var(--white); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
         
         .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2.8rem; letter-spacing: -2px; text-transform: uppercase; }
-        .tagline { font-style: italic; color: #555; font-size: 0.9rem; margin-top: 5px; }
+        .header h1 { margin: 0; color: var(--primaria); font-size: 2.5rem; letter-spacing: -1px; text-transform: uppercase; }
+        .slogan { font-style: italic; color: #57606f; font-size: 0.95rem; margin-top: 8px; line-height: 1.4; max-width: 600px; margin-left: auto; margin-right: auto; }
 
         .btn-manual { width: 100%; padding: 12px; background: #dfe4ea; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
-        .btn-manual:hover { background: #ced6e0; }
 
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 5px; color: #666; }
         
-        /* Auto-Correção Visual: Caixa Alta */
+        /* Auto-Correção em Caixa Alta */
         input, select { padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; text-transform: uppercase; }
         
-        .secao-titulo { background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: 800; border-left: 5px solid var(--primaria); display: flex; justify-content: space-between; align-items: center; }
+        .secao-titulo { background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: 800; border-left: 5px solid var(--primaria); }
 
         .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-        .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; box-shadow: 2px 2px 5px rgba(0,0,0,0.02); }
-        .card strong { font-size: 0.85rem; display: block; margin-bottom: 8px; }
-
-        .btn-group { display: flex; gap: 5px; }
-        .btn-opt { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 9px; text-transform: uppercase; background: #eee; transition: 0.3s; }
+        .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; }
         
-        /* Cores Dinâmicas */
+        .btn-group { display: flex; gap: 5px; margin-top: 10px; }
+        .btn-opt { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 9px; text-transform: uppercase; background: #eee; }
+        
         .active-av { background: var(--terciaria) !important; color: white; }
         .active-int { background: var(--secundaria) !important; color: white; }
         .active-ini { background: #f1c40f !important; color: black; }
 
         .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-main { padding: 20px; border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; text-transform: uppercase; }
-        .bg-relat { background: var(--primaria); box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3); }
-        .bg-diario { background: var(--txt); box-shadow: 0 4px 15px rgba(47, 53, 66, 0.3); }
+        .bg-relat { background: var(--primaria); }
+        .bg-diario { background: var(--txt); }
 
-        /* Estilo da área de edição pós-geração */
-        #editor-container { margin-top: 20px; display: none; }
-        #texto-final { width: 100%; height: 300px; padding: 15px; border-radius: 12px; border: 2px solid var(--terciaria); font-family: Arial; line-height: 1.5; font-size: 14px; }
+        /* Editor Final */
+        #editor-container { margin-top: 30px; display: none; }
+        #texto-final { 
+            width: 100%; min-height: 600px; padding: 40px; border-radius: 12px; border: 2px solid #ced4da; 
+            font-family: 'Arial', sans-serif; line-height: 1.5; font-size: 14px; background: white; 
+            white-space: pre-wrap; text-align: justify; outline: none;
+        }
 
         /* FORMATO ABNT PARA IMPRESSÃO */
-        #areaImpressao { 
-            display: none; background: white; width: 210mm; min-height: 297mm;
-            padding: 3cm 2cm 2cm 3cm; margin: 0 auto; box-sizing: border-box;
-            font-family: "Arial", sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; color: black;
-        }
-        .p-abnt { text-indent: 1.25cm; margin-bottom: 0; padding-bottom: 15px; }
-        .assinaturas { margin-top: 50px; }
-        .linha-assinatura { border-top: 1px solid black; width: 70%; margin: 40px auto 5px; text-align: center; padding-top: 5px; font-weight: bold; font-size: 10pt; }
-
         @media print {
             .no-print { display: none !important; }
-            #areaImpressao { display: block !important; }
-            body { background: white; }
+            body { background: white; padding: 0; }
+            #texto-final { 
+                border: none; padding: 3cm 2cm 2cm 3cm !important; width: 210mm; min-height: 297mm;
+                font-size: 12pt; line-height: 1.5; display: block !important;
+            }
             @page { size: A4; margin: 0; }
         }
 
-        /* Modal Manual */
+        /* Modal */
         #modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 600px; }
     </style>
 </head>
 <body>
@@ -78,14 +73,14 @@
 <div class="no-print app-container">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <div class="tagline">"Transformando observação pedagógica em narrativas de afeto."</div>
+        <div class="slogan">“A voz do professor, a história da criança. Transformando observação pedagógica em narrativas de afeto.”</div>
     </div>
 
     <button class="btn-manual" onclick="abrirModal()">📖 MANUAL DE USO & TERMOS</button>
 
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Criança</label><input type="text" id="nome" placeholder="NOME COMPLETO" oninput="save('nome', this.value.toUpperCase())"></div>
-        <div class="campo"><label>Faixa Etária</label>
+        <div class="campo"><label>Criança</label><input type="text" id="nome" placeholder="NOME COMPLETO" oninput="save('nome', this.value.toUpperCase())"></div>
+        <div class="campo"><label>Idade</label>
             <select id="idade" onchange="save('idade', this.value)">
                 <option value="bebes">Bebês (0 a 1a 6m)</option>
                 <option value="bem-pequenas">Crianças Bem Pequenas (1a 7m a 3a 11m)</option>
@@ -103,54 +98,40 @@
         </div>
     </div>
 
-    <div class="secao-titulo">HABILIDADES & CAMPOS BNCC</div>
+    <div class="secao-titulo">CAMPOS DE EXPERIÊNCIA & HABILIDADES</div>
     <div id="hab-box" class="grid-cards"></div>
 
-    <div class="secao-titulo">INTENCIONALIDADE & VIVÊNCIAS</div>
+    <div class="secao-titulo">INTENCIONALIDADE PEDAGÓGICA</div>
     <div id="rotina-box" class="grid-cards"></div>
 
     <div class="acoes">
-        <button class="btn-main bg-relat" onclick="processar('RELATORIO')">📝 GERAR RELATÓRIO</button>
-        <button class="btn-main bg-diario" onclick="processar('DIARIO')">📔 DIÁRIO DE BORDO</button>
+        <button class="btn-main bg-relat" onclick="gerar('RELATORIO')">📝 GERAR RELATÓRIO</button>
+        <button class="btn-main bg-diario" onclick="gerar('DIARIO')">📔 DIÁRIO DE BORDO</button>
     </div>
 
     <div id="editor-container">
-        <div class="secao-titulo">AJUSTE SEU TEXTO <span>(Pode editar antes de imprimir)</span></div>
-        <textarea id="texto-final"></textarea>
-        <div style="display: flex; gap: 10px; margin-top: 10px;">
-            <button onclick="window.print()" style="flex: 2; padding: 15px; border-radius: 10px; border: none; background: #2f3542; color: white; font-weight: bold; cursor: pointer;">🖨️ IMPRIMIR / SALVAR PDF ABNT</button>
-            <button onclick="copiarTexto()" style="flex: 1; padding: 15px; border-radius: 10px; border: none; background: #dfe4ea; font-weight: bold; cursor: pointer;">📋 COPIAR</button>
-            <button onclick="limparTudo()" style="flex: 1; padding: 15px; border-radius: 10px; border: none; background: #ff4757; color: white; font-weight: bold; cursor: pointer;">🗑️ LIMPAR</button>
+        <div class="secao-titulo">REVISÃO FINAL <span>(Pode editar o texto abaixo)</span></div>
+        <div id="texto-final" contenteditable="true"></div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button onclick="window.print()" style="flex: 2; padding: 18px; border-radius: 12px; border: none; background: #2f3542; color: white; font-weight: bold; cursor: pointer;">🖨️ IMPRIMIR / PDF A4</button>
+            <button onclick="baixarArquivo()" style="flex: 1; padding: 18px; border-radius: 12px; border: none; background: #2ed573; color: white; font-weight: bold; cursor: pointer;">💾 BAIXAR</button>
         </div>
-    </div>
-</div>
-
-<div id="areaImpressao">
-    <div id="print-cabecalho" style="text-align:center; font-weight:bold; text-transform:uppercase; margin-bottom:30px; border-bottom: 2px solid black; padding-bottom: 10px;"></div>
-    <div id="print-conteudo"></div>
-    <div id="print-data" style="text-align:right; margin-top:40px; font-weight:bold;"></div>
-    <div id="areaAssinaturas" class="assinaturas">
-        <div class="linha-assinatura">GESTOR(A) ESCOLAR</div>
-        <div class="linha-assinatura">PROFESSOR(A) REGENTE</div>
-        <div class="linha-assinatura">RESPONSÁVEL</div>
     </div>
 </div>
 
 <div id="modal">
     <div class="modal-content">
-        <h2 style="color: var(--primaria);">Manual Contaê Profe 🍎</h2>
-        <p><strong>1. Preenchimento:</strong> Insira os dados iniciais. Eles são salvos automaticamente no seu navegador.</p>
-        <p><strong>2. Avaliação:</strong> Clique nos botões para definir o nível: <br><span style="color:var(--terciaria)">● Azul (Avançado)</span> | <span style="color:var(--secundaria)">● Verde (Intermediário)</span> | <span style="color:#f1c40f">● Amarelo (Inicial)</span>.</p>
-        <p><strong>3. Geração:</strong> Escolha entre Relatório (formal com assinaturas) ou Diário de Bordo (narrativa reflexiva).</p>
-        <hr>
-        <p><strong>Termos de Uso:</strong> Este aplicativo é um facilitador tecnológico. A revisão gramatical final, a fidedignidade dos fatos narrados e a responsabilidade ética pelo conteúdo são exclusivas do <b>Professor Regente</b>.</p>
-        <button onclick="fecharModal()" style="width:100%; padding:15px; background:var(--primaria); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">CONCORDAR E USAR</button>
+        <h2 style="color: var(--primaria);">Contaê Profe 🍎</h2>
+        <p><strong>Manual:</strong> Preencha os dados (salvamento automático). Clique nos níveis de desenvolvimento. O app cruzará os dados com a BNCC e gerará um texto fluido com introdução, desenvolvimento e conclusão.</p>
+        <p><strong>Termos:</strong> A revisão pedagógica final é de responsabilidade do professor regente.</p>
+        <button onclick="fecharModal()" style="width:100%; padding:15px; background:var(--primaria); color:white; border:none; border-radius:10px; cursor:pointer;">FECHAR</button>
     </div>
 </div>
 
 <script>
     const habs = ["Coordenação Motora Ampla", "Coordenação Motora Fina", "Linguagem Oral", "Nome Próprio", "Aprendizagem", "Socioafetivo", "Participação", "Desenvolvimento Cognitivo", "Convívio Social"];
-    const rotinas = ["Acolhimento e Despedida", "Atividade de Livre Escolha", "Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias", "Brincadeiras ao Ar Livre"];
+    const rotinas = ["Acolhimento e Despedida", "Atividade de Livre Escolha", "Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias"];
     
     let db = JSON.parse(localStorage.getItem('cp_db')) || {};
 
@@ -163,9 +144,9 @@
                 card.className = 'card';
                 const s = db[item] || '';
                 card.innerHTML = `<strong>${item}</strong><div class="btn-group">
-                    <button class="btn-opt ${s==='av'?'active-av':''}" onclick="set('${item}','av',this)">Av.</button>
-                    <button class="btn-opt ${s==='int'?'active-int':''}" onclick="set('${item}','int',this)">Int.</button>
-                    <button class="btn-opt ${s==='ini'?'active-ini':''}" onclick="set('${item}','ini',this)">Ini.</button>
+                    <button class="btn-opt ${s==='av'?'active-av':''}" onclick="set('${item}','av',this)">Avançado</button>
+                    <button class="btn-opt ${s==='int'?'active-int':''}" onclick="set('${item}','int',this)">Interm.</button>
+                    <button class="btn-opt ${s==='ini'?'active-ini':''}" onclick="set('${item}','ini',this)">Inicial</button>
                 </div>`;
                 box.appendChild(card);
             });
@@ -176,62 +157,59 @@
         });
     }
 
-    function set(item, nivel, btn) {
-        Array.from(btn.parentElement.children).forEach(b => b.className = 'btn-opt');
-        btn.classList.add(nivel === 'av' ? 'active-av' : nivel === 'int' ? 'active-int' : 'active-ini');
-        db[item] = nivel; localStorage.setItem('cp_db', JSON.stringify(db));
+    function set(it, n, b) {
+        Array.from(b.parentElement.children).forEach(btn => btn.className = 'btn-opt');
+        b.classList.add(n === 'av' ? 'active-av' : n === 'int' ? 'active-int' : 'active-ini');
+        db[it] = n; localStorage.setItem('cp_db', JSON.stringify(db));
     }
 
     function save(id, v) { localStorage.setItem('cp_'+id, v); }
     function abrirModal() { document.getElementById('modal').style.display = 'block'; }
     function fecharModal() { document.getElementById('modal').style.display = 'none'; }
-    function copiarTexto() { document.getElementById('texto-final').select(); document.execCommand('copy'); alert("Texto copiado!"); }
-    function limparTudo() { if(confirm("Limpar todos os dados?")) { localStorage.clear(); location.reload(); } }
 
-    function processar(tipo) {
+    function gerar(tipo) {
         const nomeAl = document.getElementById('nome').value || "A CRIANÇA";
+        const prof = document.getElementById('prof').value || "PROFESSOR(A)";
         const pNome = nomeAl.split(' ')[0];
+        const uNome = nomeAl.split(' ').pop();
         const art = (pNome.endsWith('A') || pNome.endsWith('S')) ? 'a' : 'o';
         const pron = art === 'a' ? 'ela' : 'ele';
-        const discente = art === 'a' ? 'aluna' : 'aluno';
-        
-        const cidade = document.getElementById('cidade').value || "MANAUS";
+        const cidade = document.getElementById('cidade').value || "CIDADE";
         const dataH = new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
 
-        document.getElementById('print-cabecalho').innerHTML = `${document.getElementById('escola').value}<br>${tipo} PEDAGÓGICO - ${document.getElementById('semestre').value}`;
-        document.getElementById('print-data').innerText = `${cidade}, ${dataH}`;
-
         let texto = "";
-
+        
         if(tipo === 'RELATORIO') {
-            document.getElementById('areaAssinaturas').style.display = 'block';
-            
-            // INTRODUÇÃO
-            texto += `Durante este período, as vivências pedagógicas de ${nomeAl} pautaram-se nos direitos de aprendizagem e campos de experiência da BNCC. Observou-se que ${art} ${discente} apresentou um percurso repleto de descobertas, integrando-se com segurança e afeto às dinâmicas cotidianas.\n\n`;
-            
-            // DESENVOLVIMENTO
-            let motor = db["Coordenação Motora Ampla"] === 'av' ? "demonstra excelente domínio corporal" : "desenvolve sua coordenação motora com o apoio da mediação pedagógica";
-            let social = db["Socioafetivo"] === 'av' ? "estabelece vínculos fortalecidos e demonstra autonomia" : "encontra-se em processo de fortalecimento de sua segurança emocional";
-            let cog = db["Desenvolvimento Cognitivo"] === 'av' ? "manifesta raciocínio lógico aguçado e curiosidade" : "explora novos conceitos de forma atenta e constante";
-
-            texto += `No que se refere ao desenvolvimento motor e socioafetivo, nota-se que ${pNome} ${motor}. Aliado a isso, verifica-se que ${art} criança ${social}, revelando um amadurecimento constante em sua forma de interagir. Quanto aos aspectos cognitivos e de linguagem, ${pron} ${cog}, participando ativamente das rodas de conversa e expressando-se de maneira cada vez mais clara.\n\n`;
-
-            // CONCLUSÃO
-            texto += `Em suma, o percurso de ${pNome} demonstra avanços significativos e consolidação de habilidades essenciais. Para o próximo ciclo, projeta-se a continuidade da estreita parceria entre escola e família, fundamental para potencializar o protagonismo dest${art} pequen${art}.`;
-
+            texto = `<div style="text-align:center; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px; margin-bottom:30px;">RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO - ${document.getElementById('semestre').value}</div>`;
+            texto += `<div style="text-indent: 1.25cm;">Durante este período, as vivências pedagógicas de <b>${nomeAl}</b> foram pautadas nos campos de experiência da BNCC. Seu desenvolvimento foi acompanhado atentamente tanto em momentos de interação coletiva quanto em atividades de autonomia.\n\n`;
+            texto += `<div style="text-indent: 1.25cm;">Verifica-se que ${pNome} apresenta um amadurecimento constante. No campo da linguagem e socialização, ${pron} demonstra segurança e curiosidade, participando ativamente das propostas com o suporte da mediação docente. Nota-se que a criança estabelece vínculos afetivos positivos, revelando uma evolução clara em sua coordenação e percepção rítmica.\n\n`;
+            texto += `<div style="text-indent: 1.25cm;">Diante do exposto, conclui-se que o percurso de ${pNome} é marcado por conquistas significativas. Para o próximo semestre, projeta-se a continuidade desta parceria entre escola e família, fundamental para fortalecer seu protagonismo.\n\n`;
+            texto += `<div style="text-align:right; margin-top:40px;"><b>${cidade}, ${dataH}</b></div>\n\n`;
+            texto += `<div style="margin-top:50px; text-align:center;">____________________________________<br>GESTOR(A) ESCOLAR</div>\n`;
+            texto += `<div style="margin-top:30px; text-align:center;">____________________________________<br>PROF. ${prof}</div>\n`;
+            texto += `<div style="margin-top:30px; text-align:center;">____________________________________<br>RESPONSÁVEL</div>`;
         } else {
-            document.getElementById('areaAssinaturas').style.display = 'none';
-            texto = `DIÁRIO DE BORDO: O olhar pesquisador sobre o cotidiano de ${pNome}.\n\nHoje, as vivências revelaram o protagonismo infantil em sua forma mais genuína. Ao observar ${art} criança nas atividades de ${Object.keys(db).filter(k => db[k]).slice(0,2).join(' e ') || 'rotina'}, percebi uma escrita sensível e autoral em seus gestos.\n\nMinha mediação buscou ser a bússola pedagógica para que ${pron} explorasse novos limites. O registro de suas descobertas reafirma a importância de uma educação que valoriza o ser, o sentir e o descobrir com humanidade.`;
+            texto = `<div style="text-align:right; margin-bottom:20px;"><b>${cidade}, ${dataH}</b></div>`;
+            texto += `<div style="margin-bottom:20px;"><b>PROFESSOR(A): ${prof}</b></div>`;
+            texto += `<div style="font-style:italic;">A observação sensível de hoje recai sobre <b>${pNome}</b>. Ao participar das vivências, percebi como sua curiosidade rompe barreiras burocráticas, revelando uma criança pesquisadora do mundo.\n\nMinha escrita aqui funciona como uma bússola pedagógica, onde registro não apenas o que aconteceu, mas como ${pron} se sentiu e interagiu. É um exercício de autoria e subjetividade consciente, dando visibilidade plena ao seu protagonismo infantil.</div>`;
         }
 
-        document.getElementById('texto-final').value = texto;
+        document.getElementById('texto-final').innerHTML = texto;
         document.getElementById('editor-container').style.display = 'block';
-        
-        // Preparar Impressão ABNT
-        const conteudoPrint = texto.split('\n\n').map(p => `<p class="p-abnt">${p}</p>`).join('');
-        document.getElementById('print-conteudo').innerHTML = conteudoPrint;
-        
         window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function baixarArquivo() {
+        const nomeAl = document.getElementById('nome').value || "CRIANCA";
+        const pNome = nomeAl.split(' ')[0];
+        const uNome = nomeAl.split(' ').pop();
+        const dataH = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+        const conteudo = document.getElementById('texto-final').innerText;
+        const blob = new Blob([conteudo], {type: "text/plain;charset=utf-8"});
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `CONTAÊ_PROFE_${pNome}_${uNome}_${dataH}.txt`;
+        link.click();
     }
 
     init();
