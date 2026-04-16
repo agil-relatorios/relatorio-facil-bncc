@@ -3,119 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducaNobre - Relatório Inteligente</title>
+    <title>EducaNobre - Padrão ABNT</title>
     <style>
-        @media print { .no-print { display: none; } body { background: white; padding: 0; } .container { box-shadow: none; border: none; width: 100%; max-width: 100%; } }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #fdfcf0; color: #444; padding: 20px; line-height: 1.6; }
-        .container { max-width: 700px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid #eef2f3; }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #ffcb05; padding-bottom: 10px; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #7f8c8d; font-size: 0.9em; margin-bottom: 20px; }
-        label { font-weight: bold; display: block; margin-top: 15px; color: #2c3e50; font-size: 14px; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 15px; outline: none; }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        button { padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-main { background-color: #27ae60; color: white; grid-column: span 2; font-size: 16px; margin-top: 10px; }
+        /* Estilos para a tela do computador/celular */
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; padding: 20px; color: #333; }
+        .no-print { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #1a5276; text-align: center; border-bottom: 2px solid #ffcb05; padding-bottom: 10px; }
+        label { font-weight: bold; display: block; margin-top: 15px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        button { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-add { background-color: #27ae60; color: white; flex: 1; }
+        .btn-clear { background-color: #e74c3c; color: white; }
+        .btn-manual { background-color: #f39c12; color: white; width: 100%; margin-bottom: 10px; }
         .btn-copy { background-color: #2980b9; color: white; }
-        .btn-save { background-color: #8e44ad; color: white; }
-        .btn-print { background-color: #34495e; color: white; grid-column: span 2; }
-        .btn-manual { background-color: #f39c12; color: white; width: 100%; margin-bottom: 15px; }
-        #saida { margin-top: 25px; padding: 25px; border: 2px dashed #ffcb05; background: #fffcf2; border-radius: 10px; display: none; }
+        .btn-print { background-color: #34495e; color: white; width: 100%; margin-top: 15px; font-size: 16px; }
+
+        /* Formatação ABNT para o Relatório Gerado e Impressão */
+        #relatorioFinal { 
+            display: none; 
+            background: white; 
+            padding: 3cm 2cm 2cm 3cm; /* Margens ABNT: Topo 3, Dir 2, Base 2, Esq 3 */
+            width: 210mm; /* Largura A4 */
+            min-height: 297mm; /* Altura A4 */
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: justify;
+            line-height: 1.5;
+            font-size: 12pt;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .no-print { display: none; }
+            #relatorioFinal { display: block !important; box-shadow: none; margin: 0; border: none; }
+            @page { size: A4; margin: 0; }
+        }
+
+        .header-relatorio { text-align: center; font-weight: bold; text-transform: uppercase; margin-bottom: 30px; border-bottom: 1px solid #000; padding-bottom: 10px; }
+        .campo-bloco { margin-bottom: 20px; }
+        .campo-titulo { font-weight: bold; text-decoration: underline; margin-bottom: 5px; display: block; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="no-print">
-        <button class="btn-manual" onclick="alert('Guia Rápido:\n1. Digite o nome.\n2. Escolha os campos.\n3. O App gera um texto único para cada clique!\n4. Copie ou salve.')">📖 Manual de Uso</button>
-        <h1>EducaNobre 🍎</h1>
-        <p class="subtitle">Relatórios Exclusivos por Aluno (BNCC)</p>
+<div class="no-print">
+    <button class="btn-manual" onclick="alert('Manual: 1. Digite o nome. 2. Selecione o campo e nível. 3. Clique em Adicionar Campo (repita para quantos campos quiser). 4. Imprima seu ABNT.')">📖 Manual de Uso</button>
+    <h1>EducaNobre 🍎</h1>
+    
+    <label>Nome do Aluno:</label>
+    <input type="text" id="nomeAluno" placeholder="Nome completo">
 
-        <label>Nome do Pequeno(a):</label>
-        <input type="text" id="nomeAluno" placeholder="Nome completo do aluno">
+    <label>Selecione o Campo da BNCC:</label>
+    <select id="campo">
+        <option value="O eu, o outro e o nós">O eu, o outro e o nós</option>
+        <option value="Corpo, gestos e movimentos">Corpo, gestos e movimentos</option>
+        <option value="Traços, sons, cores e formas">Traços, sons, cores e formas</option>
+        <option value="Escuta, fala, pensamento e imaginação">Escuta, fala, pensamento e imaginação</option>
+        <option value="Espaços, tempos, quantidades, relações e transformações">Espaços, tempos, quantidades</option>
+    </select>
 
-        <label>Campo de Experiência:</label>
-        <select id="campo">
-            <option value="Corpo, gestos e movimentos">Corpo, gestos e movimentos</option>
-            <option value="O eu, o outro e o nós">O eu, o outro e o nós</option>
-            <option value="Traços, sons, cores e formas">Traços, sons, cores e formas</option>
-            <option value="Escuta, fala, pensamento e imaginação">Escuta, fala, pensamento e imaginação</option>
-            <option value="Espaços, tempos, quantidades, relações e transformações">Espaços, tempos, quantidades</option>
-        </select>
+    <label>Nível:</label>
+    <select id="nivel">
+        <option value="avancado">Desenvolvimento Pleno</option>
+        <option value="intermediario">Em Evolução</option>
+        <option value="inicial">Início de Trajetória</option>
+    </select>
 
-        <label>Momento do Desenvolvimento:</label>
-        <select id="nivel">
-            <option value="avancado">Desenvolve-se com autonomia</option>
-            <option value="intermediario">Em fase de conquistas</option>
-            <option value="inicial">Iniciando com apoio</option>
-        </select>
+    <label>Observações Adicionais:</label>
+    <textarea id="obs" rows="3" placeholder="Anotações espontâneas do professor..."></textarea>
 
-        <button class="btn-main" onclick="gerarRelatorio()">Gerar Texto Exclusivo</button>
+    <div class="btn-group">
+        <button class="btn-add" onclick="adicionarCampo()">➕ Adicionar ao Relatório</button>
+        <button class="btn-clear" onclick="limparTudo()">Limpar</button>
     </div>
 
-    <div id="saida">
-        <div id="corpoTexto" style="white-space: pre-wrap; font-size: 16px;"></div>
-        <div class="btn-group no-print">
-            <button class="btn-copy" onclick="copiarTexto()">Copiar</button>
-            <button class="btn-save" onclick="baixarArquivo()">Salvar .txt</button>
-            <button class="btn-print" onclick="window.print()">Imprimir/PDF</button>
-        </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Gerar PDF / Imprimir (Padrão ABNT)</button>
+    <button class="btn-copy" onclick="copiarTudo()" style="width:100%; margin-top:10px;">📋 Copiar Texto Completo</button>
+</div>
+
+<div id="relatorioFinal">
+    <div class="header-relatorio">
+        Relatório Individual de Acompanhamento do Desenvolvimento Infantil<br>
+        <span id="displayNome" style="font-size: 14pt;"></span>
+    </div>
+    <div id="conteudoRelatorio"></div>
+    <div id="dataFinal" style="margin-top: 50px; text-align: right;"></div>
+    <div style="margin-top: 80px; text-align: center;">
+        ________________________________________________<br>
+        Assinatura do Professor(a)
     </div>
 </div>
 
 <script>
-    function gerarRelatorio() {
+    let blocosRelatorio = [];
+
+    function gerarFraseSorteada(campo, nivel) {
+        // Banco de dados dinâmico para gerar centenas de combinações
+        const inicios = ["Observamos que ", "Neste período, ", "É visível que ", "No cotidiano escolar, ", "Com entusiasmo, "];
+        const meios = {
+            "avancado": ["demonstra grande autonomia ", "apresenta segurança e protagonismo ", "manifesta facilidade em expressar ", "lidera com naturalidade "],
+            "intermediario": ["está em fase de consolidação de ", "demonstra progressos significativos em ", "busca apoio para aprimorar ", "explora com curiosidade "],
+            "inicial": ["inicia suas primeiras interações com ", "necessita de mediação carinhosa para ", "está sendo estimulado a descobrir ", "demonstra as primeiras tentativas de "]
+        };
+        const fins = [" durante as vivências propostas.", " respeitando o tempo de maturação.", " em harmonia com os colegas.", " com foco no desenvolvimento integral."];
+
+        const r1 = inicios[Math.floor(Math.random() * inicios.length)];
+        const r2 = meios[nivel][Math.floor(Math.random() * meios[nivel].length)];
+        const r3 = fins[Math.floor(Math.random() * fins.length)];
+
+        return r1 + r2 + r3;
+    }
+
+    function adicionarCampo() {
         const nome = document.getElementById('nomeAluno').value || "A criança";
         const campo = document.getElementById('campo').value;
         const nivel = document.getElementById('nivel').value;
+        const obsAdicional = document.getElementById('obs').value;
 
-        // BANCO DE FRASES VARIADAS (O "Cérebro" do sorteio)
-        const frases = {
-            "Corpo, gestos e movimentos": {
-                "avancado": [
-                    `${nome} demonstra um excelente domínio motor, participando com entusiasmo de desafios físicos e brincadeiras que exigem equilíbrio.`,
-                    `${nome} revela grande segurança em seus movimentos, explorando o espaço escolar com agilidade e harmonia corporal.`,
-                    `${nome} manifesta consciência corporal plena, coordenando seus movimentos com precisão em atividades lúdicas e circuitos.`
-                ],
-                "intermediario": [
-                    `${nome} está em uma fase produtiva de conquistas motoras, demonstrando interesse em superar novos desafios físicos diariamente.`,
-                    `Observamos que ${nome} busca participar ativamente de propostas de movimento, ganhando gradualmente maior firmeza e equilíbrio.`,
-                    `${nome} demonstra curiosidade ao explorar circuitos físicos, aprimorando sua coordenação motora com persistência.`
-                ],
-                "inicial": [
-                    `${nome} está iniciando a exploração de suas possibilidades motoras, recebendo estímulos carinhosos para ganhar confiança em seus movimentos.`,
-                    `Com apoio e mediação, ${nome} tem descoberto novas formas de se equilibrar e interagir com o espaço ao seu redor.`,
-                    `Estamos acompanhando as primeiras grandes conquistas motoras de ${nome}, que demonstra interesse em tentar novos desafios físicos com auxílio.`
-                ]
-            }
+        const fraseGerada = gerarFraseSorteada(campo, nivel);
+        const bloco = {
+            titulo: campo,
+            texto: `${fraseGerada} ${obsAdicional ? "Observamos ainda que " + obsAdicional : ""}`
         };
 
-        // Função para sortear uma frase do banco
-        const selecionarFrase = (campo, nivel) => {
-            if (frases[campo]) {
-                const opcoes = frases[campo][nivel];
-                return opcoes[Math.floor(Math.random() * opcoes.length)];
-            }
-            return `${nome} demonstra evolução nas propostas de ${campo}, participando das vivências propostas com interesse.`;
-        };
-
-        const textoFinal = `RELATÓRIO DE DESENVOLVIMENTO\n\nALUNO(A): ${nome}\nCAMPO: ${campo}\n\nDESCRIÇÃO: ${selecionarFrase(campo, nivel)}\n\nGerado em: ${new Date().toLocaleDateString('pt-BR')}`;
-
-        document.getElementById('corpoTexto').innerText = textoFinal;
-        document.getElementById('saida').style.display = 'block';
+        blocosRelatorio.push(bloco);
+        renderizarRelatorio();
+        document.getElementById('obs').value = ""; // Limpa campo de texto para o próximo
     }
 
-    function copiarTexto() {
-        navigator.clipboard.writeText(document.getElementById('corpoTexto').innerText);
-        alert("Texto copiado!");
+    function renderizarRelatorio() {
+        const nome = document.getElementById('nomeAluno').value || "ALUNO NÃO IDENTIFICADO";
+        document.getElementById('displayNome').innerText = nome;
+        
+        let htmlHtml = "";
+        blocosRelatorio.forEach(b => {
+            htmlHtml += `<div class="campo-bloco"><span class="campo-titulo">${b.titulo}</span><p>${b.texto}</p></div>`;
+        });
+
+        document.getElementById('conteudoRelatorio').innerHTML = htmlHtml;
+        document.getElementById('relatorioFinal').style.display = 'block';
+        document.getElementById('dataFinal').innerText = "Gerado em: " + new Date().toLocaleDateString('pt-BR');
     }
 
-    function baixarArquivo() {
-        const blob = new Blob([document.getElementById('corpoTexto').innerText], { type: "text/plain" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `Relatorio_${document.getElementById('nomeAluno').value || 'aluno'}.txt`;
-        link.click();
+    function limparTudo() {
+        blocosRelatorio = [];
+        document.getElementById('conteudoRelatorio').innerHTML = "";
+        document.getElementById('relatorioFinal').style.display = 'none';
+        document.getElementById('nomeAluno').value = "";
+    }
+
+    function copiarTudo() {
+        const texto = document.getElementById('relatorioFinal').innerText;
+        navigator.clipboard.writeText(texto).then(() => alert("Relatório ABNT copiado!"));
     }
 </script>
+
 </body>
 </html>
