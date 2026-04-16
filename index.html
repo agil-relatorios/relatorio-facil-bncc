@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão PRO 2.0</title>
+    <title>CONTAÊ PROFE - Inteligência Pedagógica v3.0</title>
     <style>
         :root {
             --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
             --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff;
         }
 
-        /* Estrutura Geral */
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); margin-bottom: 20px; }
         
@@ -18,18 +17,15 @@
         .header h1 { margin: 0; color: var(--primaria); font-size: 2.3rem; text-transform: uppercase; }
         .slogan { font-style: italic; color: #747d8c; font-size: 0.9rem; }
 
-        /* Botões Superiores */
         .nav-top { display: flex; gap: 10px; margin-bottom: 25px; }
         .btn-top { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: #dfe4ea; transition: 0.3s; }
         .btn-limpar { background: #ff7675; color: white; }
 
-        /* Formulário */
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         .campo label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; outline: none; font-size: 0.9rem; }
 
-        /* Painéis de Seleção */
         .secao-titulo { background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 25px 0 15px; font-weight: bold; border-left: 5px solid var(--primaria); display: flex; justify-content: space-between; }
         .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
         .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; transition: 0.2s; }
@@ -42,32 +38,27 @@
         .active-int { background: var(--secundaria) !important; color: white; }
         .active-ini { background: var(--alerta) !important; color: white; }
 
-        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 10px; transition: 0.3s; }
+        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 10px; }
         .btn-relatorio { background: var(--primaria); }
         .btn-diario { background: var(--texto); }
 
-        /* Editor e Impressão ABNT */
-        #resultado-secao { display: none; }
         #editor { 
-            width: 100%; min-height: 700px; padding: 20px; border: 1px solid #ccc; 
+            width: 100%; min-height: 800px; padding: 20px; border: 1px solid #ccc; 
             font-family: 'Arial', sans-serif; font-size: 12pt; line-height: 1.5; 
-            text-align: justify; background: white; outline: none;
+            text-align: justify; background: white; outline: none; box-sizing: border-box;
         }
-
-        /* Modais */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 500px; width: 90%; }
 
         @media print {
             @page { size: A4; margin: 0; }
-            body { margin: 0; padding: 0; background: white; }
+            body { margin: 0; padding: 0; background: white !important; }
             .no-print { display: none !important; }
-            .container { box-shadow: none; border: none; width: 100%; padding: 0; margin: 0; }
-            #resultado-secao { display: block !important; }
+            .container { box-shadow: none !important; border: none !important; width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            #resultado-secao { display: block !important; margin: 0 !important; }
             #editor { 
                 border: none !important; 
                 padding: 3cm 2cm 2cm 3cm !important; /* Margens ABNT */
                 width: 21cm; min-height: 29.7cm; display: block !important;
+                visibility: visible !important;
             }
         }
     </style>
@@ -77,120 +68,130 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“Narrativas de afeto e rigor pedagógico.”</p>
+        <p class="slogan">“Relatórios que narram histórias e garantem direitos.”</p>
     </div>
 
     <div class="nav-top">
-        <button class="btn-top" onclick="abrirModal()">📖 MANUAL & TERMOS</button>
+        <button class="btn-top" onclick="alert('MANUAL: Selecione o nível de cada habilidade e clique em Gerar. O sistema usa IA para criar textos únicos.')">📖 MANUAL & TERMOS</button>
         <button class="btn-top btn-limpar" onclick="location.reload()">🧹 NOVO ALUNO</button>
     </div>
 
     <div class="grid-inputs">
         <div class="campo"><label>Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
-        <div class="campo">
-            <label>Faixa Etária</label>
-            <select id="faixa">
-                <option value="bebes">Bebês (0 a 1a 6m)</option>
-                <option value="bem-pequenas">Crianças Bem Pequenas (1a 7m a 3a 11m)</option>
-                <option value="pequenas" selected>Crianças Pequenas (4a a 5a 11m)</option>
-            </select>
-        </div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="nome_prof"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="nome_escola"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Manaus"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="nome_prof"></div>
     </div>
 
-    <div class="secao-titulo">HABILIDADES BNCC <span>(CLIQUE PARA SELECIONAR)</span></div>
+    <div class="secao-titulo">HABILIDADES E CAMPOS DE EXPERIÊNCIA (BNCC)</div>
     <div id="cards-habilidades" class="grid-cards"></div>
 
-    <div class="secao-titulo">ROTINA E VIVÊNCIAS</div>
-    <div id="cards-rotina" class="grid-cards"></div>
-
-    <button class="btn-gerar btn-relatorio" onclick="gerar('relatorio')">📝 GERAR RELATÓRIO ABNT</button>
+    <button class="btn-gerar btn-relatorio" onclick="gerar('relatorio')">📝 GERAR RELATÓRIO TÉCNICO ABNT</button>
     <button class="btn-gerar btn-diario" onclick="gerar('diario')">📔 DIÁRIO DE BORDO REFLEXIVO</button>
 </div>
 
 <div id="resultado-secao" class="container">
-    <div class="secao-titulo no-print">PRÉ-VISUALIZAÇÃO DO DOCUMENTO</div>
     <div id="editor" contenteditable="true"></div>
     <div class="nav-top no-print" style="margin-top: 20px; justify-content: center;">
         <button class="btn-top" style="background: var(--secundaria); color: white; max-width: 300px;" onclick="window.print()">🖨️ IMPRIMIR / SALVAR PDF</button>
     </div>
 </div>
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <h2>Manual & Termos 📖</h2>
-        <p><b>Como usar:</b> Preencha os dados e selecione o nível de cada habilidade. O sistema sorteia frases técnicas para evitar repetição.</p>
-        <p><b>Termos:</b> Esta é uma ferramenta de apoio. A revisão final é de responsabilidade do professor.</p>
-        <button class="btn-gerar btn-relatorio" onclick="fecharModal()">ENTENDI</button>
-    </div>
-</div>
-
 <script>
-    const habilidades = ["Coordenação Motora", "Linguagem Oral", "Socioafetivo", "Autonomia", "Participação", "Identidade"];
-    const rotinas = ["Acolhimento", "Livre Escolha", "Parque", "Higiene", "Alimentação"];
+    const habilidades = ["Coordenação Motora Ampla", "Coordenação Fina", "Linguagem Oral", "Socioafetivo", "Autonomia", "Participação", "Cognição", "Identidade", "Exploração de Mundo"];
     const selecoes = {};
 
-    function montar(lista, id) {
-        const container = document.getElementById(id);
-        lista.forEach(item => {
+    // BANCO DE DADOS TÉCNICO (Inspirado em BNCC, DCNEI e Dicas de Relatórios)
+    const database = {
+        "av": [
+            "demonstra protagonismo e autonomia plena em todas as vivências propostas.",
+            "apresenta uma assimilação rápida e criativa, extrapolando os objetivos da BNCC.",
+            "possui uma fala clara, fluida e com vocabulário rico para sua faixa etária.",
+            "relaciona-se com seus pares de forma harmoniosa, exercendo liderança positiva.",
+            "expressa suas ideias com segurança, mostrando-se independente nas resoluções de problemas.",
+            "executa movimentos de coordenação com precisão, revelando domínio do esquema corporal."
+        ],
+        "int": [
+            "apresenta avanços significativos, consolidando habilidades através da mediação constante.",
+            "encontra-se em pleno processo de desenvolvimento, necessitando de estímulos pontuais.",
+            "participa ativamente das atividades, embora ainda busque a validação do professor.",
+            "o processo de assimilação ocorre em ritmo próprio, demonstrando progresso diário.",
+            "identifica conceitos e regras básicas, estando em fase de maturação social.",
+            "demonstra interesse pelas propostas, necessitando de tempo para concluir os desafios."
+        ],
+        "ini": [
+            "encontra-se em fase inicial de descoberta, exigindo mediação afetiva e constante.",
+            "está desenvolvendo o vínculo com o ambiente escolar e necessita de suporte para interagir.",
+            "demonstra necessidade de auxílio dirigido para realizar tarefas de coordenação e fala.",
+            "apresenta-se em processo de adaptação, sendo encorajado a participar das vivências coletivas.",
+            "necessita de mediação para a compreensão de limites e convivência com os pares.",
+            "está sendo estimulado a expressar seus desejos, recebendo acolhimento e escuta atenta."
+        ]
+    };
+
+    const conectores = ["Além disso, ", "No que tange ao aspecto de, ", "Observa-se também que ", "Somado a isso, ", "Vale ressaltar que ", "Quanto às vivências de "];
+    const substitutosNome = ["a criança", "o aluno(a)", "o pequeno(a)", "o discente"];
+
+    function montar() {
+        const container = document.getElementById('cards-habilidades');
+        habilidades.forEach(h => {
             const card = document.createElement('div');
             card.className = 'card';
-            card.innerHTML = `<strong>${item}</strong><div class="btn-group">
-                <button class="btn-opt" onclick="marcar(this,'${item}','av')">AVANÇADO</button>
-                <button class="btn-opt" onclick="marcar(this,'${item}','int')">EM PROCESSO</button>
-                <button class="btn-opt" onclick="marcar(this,'${item}','ini')">INICIAL</button>
+            card.innerHTML = `<strong>${h}</strong><div class="btn-group">
+                <button class="btn-opt" onclick="marcar(this,'${h}','av')">AVANÇADO</button>
+                <button class="btn-opt" onclick="marcar(this,'${h}','int')">EM PROCESSO</button>
+                <button class="btn-opt" onclick="marcar(this,'${h}','ini')">INICIAL</button>
             </div>`;
             container.appendChild(card);
         });
     }
 
-    function marcar(btn, item, nivel) {
-        const botoes = btn.parentElement.querySelectorAll('.btn-opt');
-        botoes.forEach(b => b.classList.remove('active-av', 'active-int', 'active-ini'));
-        btn.classList.add(nivel === 'av' ? 'active-av' : nivel === 'int' ? 'active-int' : 'active-ini');
-        selecoes[item] = nivel;
+    function marcar(btn, hab, niv) {
+        const btns = btn.parentElement.querySelectorAll('.btn-opt');
+        btns.forEach(b => b.classList.remove('active-av', 'active-int', 'active-ini'));
+        btn.classList.add(niv === 'av' ? 'active-av' : niv === 'int' ? 'active-int' : 'active-ini');
+        selecoes[hab] = niv;
     }
 
-    // BANCO DE DADOS DE ALTA QUALIDADE
-    const frasesDB = {
-        "av": ["apresenta protagonismo e autonomia plena.", "demonstra segurança e criatividade nas vivências.", "expressa-se com clareza e vocabulário enriquecido.", "interage de forma harmônica e colaborativa com os pares."],
-        "int": ["encontra-se em pleno desenvolvimento desta habilidade.", "necessita de mediação pontual para consolidar o aprendizado.", "demonstra avanços significativos com o apoio docente.", "participa ativamente quando estimulado através do lúdico."],
-        "ini": ["requer mediação afetiva e constante para o vínculo.", "encontra-se em fase inicial de descoberta do ambiente.", "está sendo incentivado a desenvolver sua autonomia.", "necessita de suporte dirigido nas interações coletivas."]
-    };
-
-    const conectores = ["Além disso, ", "No que tange ao aspecto de, ", "Observa-se também que ", "Somado a isso, ", "Vale ressaltar que ", "Quanto às vivências de "];
-
     function gerar(modo) {
-        const nome = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
-        const pNome = nome.split(' ')[0];
-        const escola = document.getElementById('nome_escola').value.toUpperCase();
+        const nomeCompleto = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
+        const pNome = nomeCompleto.split(' ')[0];
+        const escola = document.getElementById('nome_escola').value.toUpperCase() || "INSTITUIÇÃO";
         const cidade = document.getElementById('cidade').value.toUpperCase();
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
         let corpo = "";
         let i = 0;
-        for (let key in selecoes) {
-            const lista = frasesDB[selecoes[key]];
-            const frase = lista[Math.floor(Math.random() * lista.length)];
-            const conector = i > 0 ? conectores[i % conectores.length] : "";
-            // Alterna entre o nome da criança e pronomes para não repetir
-            const sujeito = i % 2 === 0 ? pNome : "a criança";
+        let frasesUsadas = [];
+
+        for (let hab in selecoes) {
+            let nivel = selecoes[hab];
+            let opcoes = database[nivel];
+            let disponiveis = opcoes.filter(f => !frasesUsadas.includes(f));
+            if(disponiveis.length === 0) disponiveis = opcoes;
+
+            let frase = disponiveis[Math.floor(Math.random() * disponiveis.length)];
+            frasesUsadas.push(frase);
+
+            let conector = i > 0 ? conectores[i % conectores.length] : "";
+            let sujeito = i === 0 ? pNome : (i % 2 === 0 ? pNome : substitutosNome[i % substitutosNome.length]);
+            
             corpo += `${conector}${sujeito} ${frase} `;
             i++;
         }
 
+        if(corpo === "") { alert("Selecione os níveis primeiro!"); return; }
+
         let template = "";
         if(modo === 'relatorio') {
             template = `<div style="text-align:center; font-weight:bold; margin-bottom:30px;">PARECER DESCRITIVO DO DESENVOLVIMENTO INFANTIL</div>
-            <p style="text-indent:1.25cm;">Em conformidade com a BNCC e as DCNEI, este documento registra o percurso de <b>${nome}</b> na unidade <b>${escola}</b>.</p>
+            <p style="text-indent:1.25cm;">Com fundamento nas Diretrizes Curriculares Nacionais (DCNEI) e na BNCC, este documento relata o percurso de <b>${nomeCompleto}</b> na unidade <b>${escola}</b>, focando nos direitos de conviver, brincar e participar.</p>
             <p style="text-indent:1.25cm;">${corpo}</p>
-            <p style="text-indent:1.25cm;">Concluímos que o aluno segue em constante evolução, reafirmando o compromisso entre escola e família.</p>
+            <p style="text-indent:1.25cm;">Concluímos que a criança segue em evolução constante, reafirmando o compromisso entre escola e família.</p>
             <br><div style="text-align:right;">${cidade}, ${dataH}.</div><br><br>
             <table style="width:100%; text-align:center;"><tr><td style="border-top:1px solid #000; width:30%">GESTOR(A)</td><td style="width:5%"></td><td style="border-top:1px solid #000; width:30%">PROFESSOR(A)</td><td style="width:5%"></td><td style="border-top:1px solid #000; width:30%">RESPONSÁVEL</td></tr></table>`;
         } else {
-            template = `<div style="text-align:right;">${cidade}, ${dataH}</div><h2>DIÁRIO DE BORDO REFLEXIVO</h2><p><b>Sobre: ${pNome}</b></p><p>${corpo}</p>`;
+            template = `<div style="text-align:right;">${cidade}, ${dataH}</div><h2>DIÁRIO DE BORDO</h2><p><b>Sobre: ${pNome}</b></p><p style="text-align:justify;">${corpo}</p>`;
         }
 
         document.getElementById('editor').innerHTML = template;
@@ -198,10 +199,7 @@
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    function abrirModal() { document.getElementById('modal').style.display = 'flex'; }
-    function fecharModal() { document.getElementById('modal').style.display = 'none'; }
-
-    window.onload = () => { montar(habilidades, 'cards-habilidades'); montar(rotinas, 'cards-rotina'); };
+    window.onload = montar;
 </script>
 </body>
 </html>
