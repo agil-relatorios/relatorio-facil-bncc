@@ -1,38 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducaNobre - Gestão Pedagógica</title>
-    <style>
-        @media print { .no-print { display: none; } body { background: white; } .container { box-shadow: none; border: none; width: 100%; } }
-        body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
-        .container { max-width: 700px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: auto; }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
-        label { font-weight: bold; display: block; margin-top: 15px; color: #2c3e50; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+.container { max-width: 700px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: auto; border: 1px solid #eef2f3; }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 3px solid #ffcb05; padding-bottom: 10px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #7f8c8d; font-size: 0.9em; margin-bottom: 20px; }
+        label { font-weight: bold; display: block; margin-top: 15px; color: #2c3e50; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 15px; outline: none; transition: 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: #ffcb05; }
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        button { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 14px; }
-        .btn-main { background-color: #27ae60; color: white; grid-column: span 2; font-size: 18px; }
+        button { padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-main { background-color: #27ae60; color: white; grid-column: span 2; font-size: 16px; margin-top: 10px; }
+        .btn-main:hover { background-color: #219150; }
         .btn-copy { background-color: #2980b9; color: white; }
         .btn-save { background-color: #8e44ad; color: white; }
         .btn-print { background-color: #34495e; color: white; grid-column: span 2; }
-        #saida { margin-top: 25px; padding: 20px; border: 1px solid #ddd; background: #fff; line-height: 1.6; min-height: 100px; }
-        .footer-info { margin-top: 40px; font-size: 12px; color: #7f8c8d; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
-        .data-hora { font-style: italic; font-size: 0.9em; margin-bottom: 10px; display: block; }
+        .btn-manual { background-color: #f39c12; color: white; width: 100%; margin-bottom: 15px; }
+        
+        #saida { margin-top: 25px; padding: 25px; border: 2px dashed #ffcb05; background: #fffcf2; border-radius: 10px; display: none; }
+        .data-hora { font-size: 11px; color: #999; margin-bottom: 10px; display: block; text-align: right; }
+        
+        /* Modal Manual */
+        .modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+        .modal-content { background: white; margin: 10% auto; padding: 25px; border-radius: 15px; width: 85%; max-width: 500px; position: relative; }
+        .close { position: absolute; right: 20px; top: 10px; font-size: 28px; cursor: pointer; }
+        
+        .footer-info { margin-top: 40px; font-size: 11px; color: #95a5a6; text-align: center; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="no-print">
+        <button class="btn-manual" onclick="abrirManual()">📖 Manual de Uso e Dicas</button>
         <h1>EducaNobre 🍎</h1>
-        <p style="text-align:center; font-size: 14px;">Relatório Individual de Acompanhamento</p>
+        <p class="subtitle">Relatórios com Afeto e Clareza (BNCC)</p>
 
-        <label>Nome do Aluno:</label>
-        <input type="text" id="nomeAluno" placeholder="Nome completo da criança">
+        <label>Nome do Pequeno(a):</label>
+        <input type="text" id="nomeAluno" placeholder="Nome completo do aluno">
 
-        <label>Campo de Experiência (BNCC):</label>
+        <label>Campo de Experiência:</label>
         <select id="campo">
             <option value="O eu, o outro e o nós">O eu, o outro e o nós</option>
             <option value="Corpo, gestos e movimentos">Corpo, gestos e movimentos</option>
@@ -41,34 +44,44 @@
             <option value="Espaços, tempos, quantidades, relações e transformações">Espaços, tempos, quantidades</option>
         </select>
 
-        <label>Nível de Desenvolvimento:</label>
+        <label>Momento do Desenvolvimento:</label>
         <select id="nivel">
-            <option value="avancado">Seguro(a) e Autônomo(a)</option>
-            <option value="intermediario">Em fase de Descobertas</option>
-            <option value="inicial">Iniciando com Apoio</option>
+            <option value="avancado">Desenvolve-se com autonomia e alegria</option>
+            <option value="intermediario">Em fase de conquistas e novas descobertas</option>
+            <option value="inicial">Iniciando explorações com apoio e carinho</option>
         </select>
 
-        <label>Observações Adicionais (Espaço do Professor):</label>
-        <textarea id="obsProfessor" rows="3" placeholder="Escreva aqui detalhes específicos da rotina..."></textarea>
+        <label>Observações do Dia a Dia (Suas anotações):</label>
+        <textarea id="obsProfessor" rows="4" placeholder="Ex: ele brincou muito de blocos, mas ainda nao divide com os colegas..."></textarea>
+        <small style="color: #7f8c8d;">Dica: Não se preocupe com erros, o App ajustará o tom do texto!</small>
 
-        <button class="btn-main" onclick="gerarRelatorio()">Gerar Relatório Estruturado</button>
+        <button class="btn-main" onclick="gerarRelatorio()">Gerar Relatório Acolhedor</button>
     </div>
 
-    <div id="documentoFinal">
-        <div id="saida" style="display:none;">
-            <span class="data-hora" id="dtExibicao"></span>
-            <div id="corpoTexto"></div>
-        </div>
-
-        <div class="btn-group no-print" id="acoes" style="display:none;">
-            <button class="btn-copy" onclick="copiarTexto()">Copiar para o Sistema</button>
-            <button class="btn-save" onclick="baixarArquivo()">Salvar no Dispositivo</button>
-            <button class="btn-print" onclick="window.print()">Imprimir / Baixar PDF</button>
+    <div id="saida">
+        <span class="data-hora" id="dtExibicao"></span>
+        <div id="corpoTexto" style="white-space: pre-wrap;"></div>
+        
+        <div class="btn-group no-print">
+            <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
+            <button class="btn-save" onclick="baixarArquivo()">Salvar Arquivo</button>
+            <button class="btn-print" onclick="window.print()">Gerar PDF / Imprimir</button>
         </div>
     </div>
 
     <div class="footer-info no-print">
-        <p><b>Termos de Uso:</b> Este App é uma ferramenta de apoio pedagógico. Os dados digitados não são armazenados em servidores externos, garantindo a privacidade da criança conforme a LGPD. O conteúdo gerado é de responsabilidade do educador.</p>
+        <p><b>Termos de Uso:</b> Ferramenta de apoio pedagógico para educadores. Os dados são processados localmente e não ficam salvos em nuvem, respeitando a privacidade. Revise sempre o texto final antes de entregar.</p>
+    </div>
+</div>
+
+<div id="manualModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharManual()">&times;</span>
+        <h3>🌟 Como usar o EducaNobre</h3>
+        <p>1. <b>Preencha:</b> Coloque o nome e escolha o campo da BNCC.</p>
+        <p>2. <b>Anotações:</b> Escreva suas observações de forma simples. O App vai integrar essas ideias no texto final com uma linguagem clara e afetiva.</p>
+        <p>3. <b>Copiar e Salvar:</b> Use o botão "Copiar" para colar no sistema da sua escola (Word, Site da Secretaria, etc).</p>
+        <p>4. <b>PDF:</b> O botão Imprimir permite salvar como PDF para sua pasta pessoal.</p>
     </div>
 </div>
 
@@ -77,34 +90,41 @@
         const nome = document.getElementById('nomeAluno').value || "A criança";
         const campo = document.getElementById('campo').value;
         const nivel = document.getElementById('nivel').value;
-        const obs = document.getElementById('obsProfessor').value;
+        let obs = document.getElementById('obsProfessor').value.trim();
+
+        // Correção básica: Primeira letra maiúscula e ponto final
+        if(obs) {
+            obs = obs.charAt(0).toUpperCase() + obs.slice(1);
+            if (!obs.endsWith('.')) obs += '.';
+        }
+
         const agora = new Date();
         const dataFormatada = agora.toLocaleDateString('pt-BR') + " às " + agora.toLocaleTimeString('pt-BR');
 
         const frases = {
             "Corpo, gestos e movimentos": {
-                "avancado": `${nome} demonstra muita segurança ao se movimentar, participando com alegria de brincadeiras de correr e pular. Demonstra equilíbrio e consegue coordenar bem seus movimentos ao explorar o espaço escolar.`,
-                "intermediario": `${nome} tem se mostrado cada vez mais interessada em atividades que desafiam seu equilíbrio. Está ganhando confiança para realizar grandes movimentos e já participa de circuitos físicos com autonomia.`,
-                "inicial": `Estamos acompanhando de perto o desenvolvimento motor de ${nome}. No momento, está descobrindo como se equilibrar e se movimentar com mais firmeza, necessitando de estímulos carinhosos.`
+                "avancado": `${nome} demonstra muita segurança ao se movimentar, participando com alegria de brincadeiras de correr e pular. Demonstra equilíbrio e harmonia ao explorar o espaço escolar.`,
+                "intermediario": `${nome} tem se mostrado interessada em atividades que desafiam seu equilíbrio. Está ganhando confiança para realizar movimentos amplos e já participa de circuitos com autonomia.`,
+                "inicial": `Estamos acompanhando com carinho o desenvolvimento motor de ${nome}. No momento, está descobrindo como se equilibrar e se movimentar com firmeza, necessitando de estímulos para novas descobertas.`
             }
         };
 
-        let baseTexto = frases["Corpo, gestos e movimentos"][nivel]; // Exemplo base
-        if (campo !== "Corpo, gestos e movimentos") {
-            baseTexto = `${nome} demonstra interesse nas atividades de ${campo}, apresentando um desenvolvimento constante e harmonioso em suas interações.`;
-        }
+        let baseBNCC = frases[campo] ? frases[campo][nivel] : `${nome} apresenta uma evolução constante nas propostas de ${campo}, demonstrando curiosidade e interesse em suas vivências diárias.`;
+        
+        let textoFinal = `RELATÓRIO DE DESENVOLVIMENTO INFANTIL\n`;
+        textoFinal += `ALUNO(A): ${nome}\nCAMPO: ${campo}\n\n`;
+        textoFinal += `DESCRITIVO: ${baseBNCC}\n\n`;
+        if(obs) { textoFinal += `OBSERVAÇÕES COMPLEMENTARES: Observamos que ${obs}`; }
 
-        const textoFinal = `RELATÓRIO PEDAGÓGICO\nALUNO(A): ${nome}\nCAMPO: ${campo}\n\nDESCRITIVO: ${baseTexto}\n\nOBSERVAÇÕES DO PROFESSOR: ${obs}`;
-
-        document.getElementById('dtExibicao').innerText = "Gerado em: " + dataFormatada;
+        document.getElementById('dtExibicao').innerText = "Documento gerado em: " + dataFormatada;
         document.getElementById('corpoTexto').innerText = textoFinal;
         document.getElementById('saida').style.display = 'block';
-        document.getElementById('acoes').style.display = 'grid';
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     function copiarTexto() {
         const texto = document.getElementById('corpoTexto').innerText;
-        navigator.clipboard.writeText(texto).then(() => alert("Copiado!"));
+        navigator.clipboard.writeText(texto).then(() => alert("Texto copiado! Agora é só colar no seu sistema."));
     }
 
     function baixarArquivo() {
@@ -116,6 +136,11 @@
         link.download = `Relatorio_${nome}.txt`;
         link.click();
     }
+
+    function abrirManual() { document.getElementById('manualModal').style.display = 'block'; }
+    function fecharManual() { document.getElementById('manualModal').style.display = 'none'; }
+    window.onclick = function(event) { if (event.target == document.getElementById('manualModal')) fecharManual(); }
 </script>
+
 </body>
 </html>
