@@ -68,14 +68,19 @@
 
         /* Estilo ABNT Impressão */
         @media print {
+            /* Remove cabeçalhos e rodapés automáticos do navegador */
+            @page { margin: 0; }
+            body { margin: 0; padding: 0; }
+            
             .no-print { display: none !important; }
-            body { background: white; padding: 0; margin: 0; }
-            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; margin: 0; }
+            
             #editor { 
                 border: none !important; 
                 padding: 3cm 2cm 2cm 3cm !important; /* Margens ABNT: Sup 3, Esq 3, Inf 2, Dir 2 */
                 width: 21cm; min-height: 29.7cm; 
                 display: block !important;
+                background: white;
             }
         }
     </style>
@@ -185,16 +190,13 @@
     function gerarTexto(modo) {
         const crianca = document.getElementById('nome_crianca').value.toUpperCase();
         const pNome = crianca.split(' ')[0];
-        const prof = document.getElementById('nome_prof').value.toUpperCase();
         const escola = document.getElementById('nome_escola').value.toUpperCase();
         const cidade = document.getElementById('cidade').value.toUpperCase();
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
         
         const introRelatorio = `Durante este período, as vivências pedagógicas de <b>${crianca}</b> foram fundamentadas nos direitos de aprendizagem da BNCC. Seu desenvolvimento foi observado atentamente tanto em momentos de atividades de livre escolha quanto em dinâmicas de grande grupo.`;
 
-        let corpoTexto = "";
-        // Lógica simplificada de combinação (exemplo)
-        corpoTexto = `Nota-se que ${pNome} apresenta um processo de amadurecimento constante e afetivo. No que se refere à linguagem oral e coordenação, a criança demonstra segurança ao enfrentar novos desafios, participando ativamente das propostas com o suporte da mediação pedagógica.`;
+        let corpoTexto = `Nota-se que ${pNome} apresenta um processo de amadurecimento constante e afetivo. No que se refere à linguagem oral e coordenação, a criança demonstra segurança ao enfrentar novos desafios, participando ativamente das propostas com o suporte da mediação pedagógica.`;
 
         let final = "";
         if (modo === 'relatorio') {
@@ -208,18 +210,18 @@
                 <br><br><br>
                 <table style="width:100%; border:none; text-align:center;">
                     <tr>
-                        <td style="border-top: 1px solid black; width:30%;">Gestor(a)</td>
+                        <td style="border-top: 1px solid black; width:30%;">GESTOR(A)</td>
                         <td style="width:5%;"></td>
-                        <td style="border-top: 1px solid black; width:30%;">Professor(a): ${prof}</td>
+                        <td style="border-top: 1px solid black; width:30%;">PROFESSOR(A)</td>
                         <td style="width:5%;"></td>
-                        <td style="border-top: 1px solid black; width:30%;">Responsável</td>
+                        <td style="border-top: 1px solid black; width:30%;">RESPONSÁVEL</td>
                     </tr>
                 </table>`;
         } else {
             final = `
-                <div style="text-align:center; font-weight:bold; margin-bottom:20px;">DIÁRIO DE BORDO REFLEXIVO</div>
-                <p><b>Data:</b> ${dataH} | <b>Professor(a):</b> ${prof}</p>
-                <p>A escrita de hoje sobre ${pNome} rompe com modelos técnicos para dar lugar à descrição de gestos e reações. Observa-se que a criança atua como protagonista em suas descobertas, especialmente nos momentos de livre escolha.</p>
+                <div style="text-align:right; font-weight:bold;">${cidade}, ${dataH}</div>
+                <div style="margin-bottom:20px;"><b>DIÁRIO DE BORDO REFLEXIVO</b></div>
+                <p>A escrita de hoje sobre <b>${pNome}</b> rompe com modelos técnicos para dar lugar à descrição de gestos e reações. Observa-se que a criança atua como protagonista em suas descobertas, especialmente nos momentos de livre escolha.</p>
                 <p>${corpoTexto}</p>`;
         }
 
@@ -239,7 +241,7 @@
     function fecharModal() { document.getElementById('modal-ajuda').style.display = 'none'; }
 
     function previsualizar() {
-        alert("O documento abaixo já está formatado em padrão ABNT para impressão. Verifique as margens e clique em Imprimir.");
+        alert("O documento abaixo já está formatado em padrão ABNT. Ao imprimir, o navegador removerá as propagandas de cabeçalho automaticamente.");
     }
 
     function baixarTxt() {
