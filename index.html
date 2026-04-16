@@ -3,127 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducaNobre - Relatório Acolhedor</title>
+    <title>EducaNobre - Gestão Pedagógica</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 600px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: auto; }
-        h1 { color: #2c3e50; text-align: center; font-size: 24px; }
-        label { font-weight: bold; display: block; margin-top: 15px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        @media print { .no-print { display: none; } body { background: white; } .container { box-shadow: none; border: none; width: 100%; } }
+        body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; }
+        .container { max-width: 700px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: auto; }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
+        label { font-weight: bold; display: block; margin-top: 15px; color: #2c3e50; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        button { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-generate { background-color: #27ae60; color: white; grid-column: span 2; }
+        button { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 14px; }
+        .btn-main { background-color: #27ae60; color: white; grid-column: span 2; font-size: 18px; }
         .btn-copy { background-color: #2980b9; color: white; }
-        .btn-print { background-color: #7f8c8d; color: white; }
-        .btn-manual { background-color: #f39c12; color: white; grid-column: span 2; }
-        #relatorioSaida { margin-top: 25px; padding: 20px; background: #f9f9f9; border-left: 5px solid #27ae60; border-radius: 5px; white-space: pre-wrap; }
-        .foto-preview { max-width: 100%; margin-top: 10px; border-radius: 8px; display: none; }
-        
-        /* Modal Manual */
-        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .modal-content { background-color: white; margin: 15% auto; padding: 20px; border-radius: 10px; width: 80%; max-width: 500px; }
-        .close { float: right; font-size: 28px; cursor: pointer; }
+        .btn-save { background-color: #8e44ad; color: white; }
+        .btn-print { background-color: #34495e; color: white; grid-column: span 2; }
+        #saida { margin-top: 25px; padding: 20px; border: 1px solid #ddd; background: #fff; line-height: 1.6; min-height: 100px; }
+        .footer-info { margin-top: 40px; font-size: 12px; color: #7f8c8d; text-align: center; border-top: 1px solid #eee; padding-top: 10px; }
+        .data-hora { font-style: italic; font-size: 0.9em; margin-bottom: 10px; display: block; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>EducaNobre 🍎</h1>
-    
-    <button class="btn-manual" onclick="abrirManual()">📖 Manual de Uso</button>
+    <div class="no-print">
+        <h1>EducaNobre 🍎</h1>
+        <p style="text-align:center; font-size: 14px;">Relatório Individual de Acompanhamento</p>
 
-    <label>Nome do Aluno:</label>
-    <input type="text" id="nomeAluno" placeholder="Ex: Maria Silva">
+        <label>Nome do Aluno:</label>
+        <input type="text" id="nomeAluno" placeholder="Nome completo da criança">
 
-    <label>Campo de Experiência (BNCC):</label>
-    <select id="campo">
-        <option value="O eu, o outro e o nós">O eu, o outro e o nós</option>
-        <option value="Corpo, gestos e movimentos">Corpo, gestos e movimentos</option>
-        <option value="Traços, sons, cores e formas">Traços, sons, cores e formas</option>
-        <option value="Escuta, fala, pensamento e imaginação">Escuta, fala, pensamento e imaginação</option>
-        <option value="Espaços, tempos, quantidades, relações e transformações">Espaços, tempos, quantidades</option>
-    </select>
+        <label>Campo de Experiência (BNCC):</label>
+        <select id="campo">
+            <option value="O eu, o outro e o nós">O eu, o outro e o nós</option>
+            <option value="Corpo, gestos e movimentos">Corpo, gestos e movimentos</option>
+            <option value="Traços, sons, cores e formas">Traços, sons, cores e formas</option>
+            <option value="Escuta, fala, pensamento e imaginação">Escuta, fala, pensamento e imaginação</option>
+            <option value="Espaços, tempos, quantidades, relações e transformações">Espaços, tempos, quantidades</option>
+        </select>
 
-    <label>Nível de Desenvolvimento:</label>
-    <select id="nivel">
-        <option value="avancado">Desenvolve-se com autonomia e segurança</option>
-        <option value="intermediario">Em processo de conquista e evolução</option>
-        <option value="inicial">Iniciando explorações com apoio e estímulo</option>
-    </select>
+        <label>Nível de Desenvolvimento:</label>
+        <select id="nivel">
+            <option value="avancado">Seguro(a) e Autônomo(a)</option>
+            <option value="intermediario">Em fase de Descobertas</option>
+            <option value="inicial">Iniciando com Apoio</option>
+        </select>
 
-    <label>Anexar Foto da Atividade (Opcional):</label>
-    <input type="file" id="fotoInput" accept="image/*" onchange="previewImage(event)">
-    <img id="preview" class="foto-preview">
+        <label>Observações Adicionais (Espaço do Professor):</label>
+        <textarea id="obsProfessor" rows="3" placeholder="Escreva aqui detalhes específicos da rotina..."></textarea>
 
-    <div class="btn-group">
-        <button class="btn-generate" onclick="gerarRelatorio()">Gerar Relatório Acolhedor</button>
+        <button class="btn-main" onclick="gerarRelatorio()">Gerar Relatório Estruturado</button>
     </div>
 
-    <div id="relatorioSaida" style="display:none;"></div>
+    <div id="documentoFinal">
+        <div id="saida" style="display:none;">
+            <span class="data-hora" id="dtExibicao"></span>
+            <div id="corpoTexto"></div>
+        </div>
 
-    <div class="btn-group" id="acoesPosGerar" style="display:none;">
-        <button class="btn-copy" onclick="copiarTexto()">Copiar Texto</button>
-        <button class="btn-print" onclick="window.print()">Imprimir PDF</button>
+        <div class="btn-group no-print" id="acoes" style="display:none;">
+            <button class="btn-copy" onclick="copiarTexto()">Copiar para o Sistema</button>
+            <button class="btn-save" onclick="baixarArquivo()">Salvar no Dispositivo</button>
+            <button class="btn-print" onclick="window.print()">Imprimir / Baixar PDF</button>
+        </div>
     </div>
-</div>
 
-<div id="manualModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="fecharManual()">&times;</span>
-        <h2>Guia Rápido EducaNobre</h2>
-        <p>1. Digite o nome do pequeno(a).</p>
-        <p>2. Selecione o campo da BNCC que deseja relatar.</p>
-        <p>3. Escolha o nível que mais combina com o momento atual da criança.</p>
-        <p>4. Clique em "Gerar" para criar o texto acolhedor.</p>
-        <p>5. Use o botão <b>Copiar</b> para levar o texto para o Word ou sistema da escola.</p>
+    <div class="footer-info no-print">
+        <p><b>Termos de Uso:</b> Este App é uma ferramenta de apoio pedagógico. Os dados digitados não são armazenados em servidores externos, garantindo a privacidade da criança conforme a LGPD. O conteúdo gerado é de responsabilidade do educador.</p>
     </div>
 </div>
 
 <script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('preview');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
     function gerarRelatorio() {
         const nome = document.getElementById('nomeAluno').value || "A criança";
         const campo = document.getElementById('campo').value;
         const nivel = document.getElementById('nivel').value;
-        let texto = "";
+        const obs = document.getElementById('obsProfessor').value;
+        const agora = new Date();
+        const dataFormatada = agora.toLocaleDateString('pt-BR') + " às " + agora.toLocaleTimeString('pt-BR');
 
         const frases = {
             "Corpo, gestos e movimentos": {
                 "avancado": `${nome} demonstra muita segurança ao se movimentar, participando com alegria de brincadeiras de correr e pular. Demonstra equilíbrio e consegue coordenar bem seus movimentos ao explorar o espaço escolar.`,
                 "intermediario": `${nome} tem se mostrado cada vez mais interessada em atividades que desafiam seu equilíbrio. Está ganhando confiança para realizar grandes movimentos e já participa de circuitos físicos com autonomia.`,
-                "inicial": `Estamos acompanhando de perto o desenvolvimento motor de ${nome}. No momento, está descobrindo como se equilibrar e se movimentar com mais firmeza, necessitando de estímulos carinhosos para explorar novos desafios.`
-            },
-            // As outras frases seguem o mesmo padrão acolhedor
+                "inicial": `Estamos acompanhando de perto o desenvolvimento motor de ${nome}. No momento, está descobrindo como se equilibrar e se movimentar com mais firmeza, necessitando de estímulos carinhosos.`
+            }
         };
 
-        // Texto padrão para campos ainda não preenchidos com frases específicas
-        texto = frases[campo] ? frases[campo][nivel] : `${nome} está participando das atividades de ${campo} com interesse, demonstrando evolução constante em suas interações e descobertas diárias.`;
+        let baseTexto = frases["Corpo, gestos e movimentos"][nivel]; // Exemplo base
+        if (campo !== "Corpo, gestos e movimentos") {
+            baseTexto = `${nome} demonstra interesse nas atividades de ${campo}, apresentando um desenvolvimento constante e harmonioso em suas interações.`;
+        }
 
-        const saida = document.getElementById('relatorioSaida');
-        saida.innerText = texto;
-        saida.style.display = 'block';
-        document.getElementById('acoesPosGerar').style.display = 'grid';
+        const textoFinal = `RELATÓRIO PEDAGÓGICO\nALUNO(A): ${nome}\nCAMPO: ${campo}\n\nDESCRITIVO: ${baseTexto}\n\nOBSERVAÇÕES DO PROFESSOR: ${obs}`;
+
+        document.getElementById('dtExibicao').innerText = "Gerado em: " + dataFormatada;
+        document.getElementById('corpoTexto').innerText = textoFinal;
+        document.getElementById('saida').style.display = 'block';
+        document.getElementById('acoes').style.display = 'grid';
     }
 
     function copiarTexto() {
-        const texto = document.getElementById('relatorioSaida').innerText;
-        navigator.clipboard.writeText(texto).then(() => {
-            alert("Relatório copiado com sucesso! Agora é só colar no seu documento.");
-        });
+        const texto = document.getElementById('corpoTexto').innerText;
+        navigator.clipboard.writeText(texto).then(() => alert("Copiado!"));
     }
 
-    function abrirManual() { document.getElementById('manualModal').style.display = 'block'; }
-    function fecharManual() { document.getElementById('manualModal').style.display = 'none'; }
+    function baixarArquivo() {
+        const nome = document.getElementById('nomeAluno').value || "relatorio";
+        const texto = document.getElementById('corpoTexto').innerText;
+        const blob = new Blob([texto], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Relatorio_${nome}.txt`;
+        link.click();
+    }
 </script>
-
 </body>
 </html>
