@@ -3,56 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
+    <title>CONTAÊ PROFE - Narrativas de Afeto</title>
     <style>
         :root {
             --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
-            --txt: #2f3542; --bg: #f1f2f6; --white: #ffffff;
+            --bg: #f4f7f6; --txt: #2f3542; --white: #ffffff;
         }
 
-        /* Interface Principal */
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--txt); margin: 0; padding: 10px; }
-        .app-container { max-width: 950px; margin: auto; background: var(--white); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
+        /* Interface e Design */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--txt); margin: 0; padding: 20px; }
+        .app-container { max-width: 1000px; margin: auto; background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-top: 12px solid var(--primaria); }
         
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2.5rem; letter-spacing: -1px; text-transform: uppercase; }
-        .slogan { font-style: italic; color: #57606f; font-size: 0.95rem; margin-top: 8px; line-height: 1.4; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { margin: 0; color: var(--primaria); font-size: 2.8rem; text-transform: uppercase; letter-spacing: -1px; }
+        .slogan { font-style: italic; color: #57606f; font-size: 1rem; margin-top: 10px; }
 
-        .btn-manual { width: 100%; padding: 12px; background: #dfe4ea; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
+        .btn-manual { width: 100%; padding: 15px; background: #dfe4ea; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 25px; transition: 0.3s; color: var(--txt); }
 
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 5px; color: #666; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; color: #666; }
         
-        /* Auto-Correção em Caixa Alta */
-        input, select { padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 14px; text-transform: uppercase; }
+        /* Auto-Correção Visual (Caixa Alta) */
+        input, select { padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; text-transform: uppercase; transition: 0.3s; }
+        input:focus { border-color: var(--primaria); outline: none; }
         
-        .secao-titulo { background: #f8f9fa; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: 800; border-left: 5px solid var(--primaria); }
+        .secao-titulo { background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 30px 0 15px; font-weight: 800; border-left: 6px solid var(--primaria); display: flex; justify-content: space-between; align-items: center; }
 
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-        .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; }
+        /* Painel de Botões Coloridos */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
+        .card { background: #fff; border: 1px solid #f0f0f0; padding: 18px; border-radius: 15px; box-shadow: 4px 4px 10px rgba(0,0,0,0.02); }
         
-        .btn-group { display: flex; gap: 5px; margin-top: 10px; }
-        .btn-opt { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 9px; text-transform: uppercase; background: #eee; }
+        .btn-group { display: flex; gap: 8px; margin-top: 12px; }
+        .btn-opt { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 10px; text-transform: uppercase; background: #f1f2f6; transition: 0.3s; }
         
+        /* Cores de Status */
         .active-av { background: var(--terciaria) !important; color: white; }
         .active-int { background: var(--secundaria) !important; color: white; }
         .active-ini { background: #f1c40f !important; color: black; }
 
-        .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .btn-main { padding: 20px; border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; text-transform: uppercase; }
+        .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+        .btn-main { padding: 22px; border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.4s; text-transform: uppercase; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .bg-relat { background: var(--primaria); }
         .bg-diario { background: var(--txt); }
 
-        /* Editor Final */
-        #editor-container { margin-top: 30px; display: none; }
+        /* Editor de Texto Final */
+        #editor-container { margin-top: 40px; display: none; }
         #texto-final { 
-            width: 100%; min-height: 600px; padding: 40px; border-radius: 12px; border: 2px solid #ced4da; 
+            width: 100%; min-height: 500px; padding: 40px; border-radius: 15px; border: 2px solid #ddd; 
             font-family: 'Arial', sans-serif; line-height: 1.5; font-size: 14px; background: white; 
             white-space: pre-wrap; text-align: justify; outline: none;
         }
 
-        /* FORMATO ABNT PARA IMPRESSÃO */
+        /* REGRAS ABNT IMPRESSÃO */
         @media print {
             .no-print { display: none !important; }
             body { background: white; padding: 0; }
@@ -61,11 +64,12 @@
                 font-size: 12pt; line-height: 1.5; display: block !important;
             }
             @page { size: A4; margin: 0; }
+            .assinaturas { display: block !important; }
         }
 
-        /* Modal */
+        /* Modais */
         #modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 20px; width: 85%; max-width: 600px; }
+        .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 20px; width: 85%; max-width: 650px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -79,136 +83,147 @@
     <button class="btn-manual" onclick="abrirModal()">📖 MANUAL DE USO & TERMOS</button>
 
     <div class="grid-inputs">
-        <div class="campo"><label>Criança</label><input type="text" id="nome" placeholder="NOME COMPLETO" oninput="save('nome', this.value.toUpperCase())"></div>
-        <div class="campo"><label>Idade</label>
-            <select id="idade" onchange="save('idade', this.value)">
+        <div class="campo"><label>Nome da Criança</label><input type="text" id="nome" placeholder="NOME COMPLETO" oninput="saveDraft('nome', this.value.toUpperCase())"></div>
+        <div class="campo"><label>Faixa Etária</label>
+            <select id="idade" onchange="saveDraft('idade', this.value)">
                 <option value="bebes">Bebês (0 a 1a 6m)</option>
                 <option value="bem-pequenas">Crianças Bem Pequenas (1a 7m a 3a 11m)</option>
                 <option value="pequenas" selected>Crianças Pequenas (4a a 5a 11m)</option>
             </select>
         </div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" oninput="save('prof', this.value.toUpperCase())"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola" oninput="save('escola', this.value.toUpperCase())"></div>
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" oninput="save('cidade', this.value.toUpperCase())"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" oninput="saveDraft('prof', this.value.toUpperCase())"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola" oninput="saveDraft('escola', this.value.toUpperCase())"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" oninput="saveDraft('cidade', this.value.toUpperCase())"></div>
         <div class="campo"><label>Período</label>
-            <select id="semestre" onchange="save('semestre', this.value)">
+            <select id="semestre" onchange="saveDraft('semestre', this.value)">
                 <option value="1º SEMESTRE">1º SEMESTRE</option>
                 <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
         </div>
     </div>
 
-    <div class="secao-titulo">CAMPOS DE EXPERIÊNCIA & HABILIDADES</div>
+    <div class="secao-titulo">DESENVOLVIMENTO DE HABILIDADES (BNCC)</div>
     <div id="hab-box" class="grid-cards"></div>
 
-    <div class="secao-titulo">INTENCIONALIDADE PEDAGÓGICA</div>
+    <div class="secao-titulo">INTENCIONALIDADE & CATEGORIAS</div>
     <div id="rotina-box" class="grid-cards"></div>
 
     <div class="acoes">
-        <button class="btn-main bg-relat" onclick="gerar('RELATORIO')">📝 GERAR RELATÓRIO</button>
+        <button class="btn-main bg-relat" onclick="gerar('RELATORIO')">📝 GERAR RELATÓRIO ABNT</button>
         <button class="btn-main bg-diario" onclick="gerar('DIARIO')">📔 DIÁRIO DE BORDO</button>
     </div>
 
     <div id="editor-container">
-        <div class="secao-titulo">REVISÃO FINAL <span>(Pode editar o texto abaixo)</span></div>
+        <div class="secao-titulo">REVISÃO E AJUSTES FINAIS</div>
         <div id="texto-final" contenteditable="true"></div>
         
-        <div style="display: flex; gap: 10px; margin-top: 15px;">
-            <button onclick="window.print()" style="flex: 2; padding: 18px; border-radius: 12px; border: none; background: #2f3542; color: white; font-weight: bold; cursor: pointer;">🖨️ IMPRIMIR / PDF A4</button>
-            <button onclick="baixarArquivo()" style="flex: 1; padding: 18px; border-radius: 12px; border: none; background: #2ed573; color: white; font-weight: bold; cursor: pointer;">💾 BAIXAR</button>
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <button onclick="window.print()" style="flex: 2; padding: 20px; border-radius: 12px; border: none; background: #2f3542; color: white; font-weight: bold; cursor: pointer;">🖨️ IMPRIMIR / GERAR PDF</button>
+            <button onclick="baixarArquivo()" style="flex: 1; padding: 20px; border-radius: 12px; border: none; background: #2ed573; color: white; font-weight: bold; cursor: pointer;">💾 BAIXAR ARQUIVO</button>
         </div>
     </div>
 </div>
 
 <div id="modal">
     <div class="modal-content">
-        <h2 style="color: var(--primaria);">Contaê Profe 🍎</h2>
-        <p><strong>Manual:</strong> Preencha os dados (salvamento automático). Clique nos níveis de desenvolvimento. O app cruzará os dados com a BNCC e gerará um texto fluido com introdução, desenvolvimento e conclusão.</p>
-        <p><strong>Termos:</strong> A revisão pedagógica final é de responsabilidade do professor regente.</p>
-        <button onclick="fecharModal()" style="width:100%; padding:15px; background:var(--primaria); color:white; border:none; border-radius:10px; cursor:pointer;">FECHAR</button>
+        <h2 style="color: var(--primaria); border-bottom: 2px solid #eee; padding-bottom: 10px;">Guia Contaê Profe 🍎</h2>
+        <p><strong>1. Inteligência BNCC:</strong> Selecione a idade para que o banco de dados alinhe os objetivos automaticamente.</p>
+        <p><strong>2. Cores:</strong> Azul (Avançado), Verde (Intermediário) e Amarelo (Inicial).</p>
+        <p><strong>3. Relatório ABNT:</strong> Gera texto fluido com introdução, desenvolvimento e conclusão, incluindo linhas para assinaturas.</p>
+        <p><strong>4. Diário de Bordo:</strong> Foca na narrativa subjetiva, sensível e autoral do professor.</p>
+        <p><strong>Termos de Uso:</strong> O professor é o autor e responsável final pela revisão ortográfica e pedagógica do texto gerado.</p>
+        <button onclick="fecharModal()" style="width:100%; padding:15px; background:var(--primaria); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold; margin-top:20px;">ENTENDI E VAMOS COMEÇAR</button>
     </div>
 </div>
 
 <script>
-    const habs = ["Coordenação Motora Ampla", "Coordenação Motora Fina", "Linguagem Oral", "Nome Próprio", "Aprendizagem", "Socioafetivo", "Participação", "Desenvolvimento Cognitivo", "Convívio Social"];
-    const rotinas = ["Acolhimento e Despedida", "Atividade de Livre Escolha", "Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias"];
+    const habilidades = ["Coordenação Motora Ampla", "Coordenação Motora Fina", "Linguagem Oral", "Nome Próprio", "Socioafetivo", "Participação", "Desenvolvimento Cognitivo", "Convívio Social"];
+    const intencionalidade = ["Acolhimento", "Livre Escolha", "Grande Grupo", "Pequenos Grupos", "Área Externa", "Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias"];
     
-    let db = JSON.parse(localStorage.getItem('cp_db')) || {};
+    let selecoes = JSON.parse(localStorage.getItem('cp_selecoes')) || {};
 
     function init() {
         const hBox = document.getElementById('hab-box');
         const rBox = document.getElementById('rotina-box');
-        const montar = (lista, box) => {
+        
+        const criarCards = (lista, container) => {
             lista.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                const s = db[item] || '';
+                const s = selecoes[item] || '';
                 card.innerHTML = `<strong>${item}</strong><div class="btn-group">
-                    <button class="btn-opt ${s==='av'?'active-av':''}" onclick="set('${item}','av',this)">Avançado</button>
-                    <button class="btn-opt ${s==='int'?'active-int':''}" onclick="set('${item}','int',this)">Interm.</button>
-                    <button class="btn-opt ${s==='ini'?'active-ini':''}" onclick="set('${item}','ini',this)">Inicial</button>
+                    <button class="btn-opt ${s==='av'?'active-av':''}" onclick="setOpt('${item}','av',this)">Avançado</button>
+                    <button class="btn-opt ${s==='int'?'active-int':''}" onclick="setOpt('${item}','int',this)">Interm.</button>
+                    <button class="btn-opt ${s==='ini'?'active-ini':''}" onclick="setOpt('${item}','ini',this)">Inicial</button>
                 </div>`;
-                box.appendChild(card);
+                container.appendChild(card);
             });
         };
-        montar(habs, hBox); montar(rotinas, rBox);
+        
+        criarCards(habilidades, hBox);
+        criarCards(intencionalidade, rBox);
+        
+        // Recuperar rascunhos de texto
         ['nome','prof','escola','cidade','idade','semestre'].forEach(id => {
             if(localStorage.getItem('cp_'+id)) document.getElementById(id).value = localStorage.getItem('cp_'+id);
         });
     }
 
-    function set(it, n, b) {
-        Array.from(b.parentElement.children).forEach(btn => btn.className = 'btn-opt');
-        b.classList.add(n === 'av' ? 'active-av' : n === 'int' ? 'active-int' : 'active-ini');
-        db[it] = n; localStorage.setItem('cp_db', JSON.stringify(db));
+    function setOpt(item, nivel, btn) {
+        Array.from(btn.parentElement.children).forEach(b => b.className = 'btn-opt');
+        btn.classList.add(nivel === 'av' ? 'active-av' : nivel === 'int' ? 'active-int' : 'active-ini');
+        selecoes[item] = nivel;
+        localStorage.setItem('cp_selecoes', JSON.stringify(selecoes));
     }
 
-    function save(id, v) { localStorage.setItem('cp_'+id, v); }
+    function saveDraft(id, val) { localStorage.setItem('cp_'+id, val); }
     function abrirModal() { document.getElementById('modal').style.display = 'block'; }
     function fecharModal() { document.getElementById('modal').style.display = 'none'; }
 
     function gerar(tipo) {
         const nomeAl = document.getElementById('nome').value || "A CRIANÇA";
-        const prof = document.getElementById('prof').value || "PROFESSOR(A)";
+        const prof = document.getElementById('prof').value || "O(A) PROFESSOR(A)";
+        const escola = document.getElementById('escola').value || "INSTITUIÇÃO";
+        const cidade = document.getElementById('cidade').value || "MANAUS";
         const pNome = nomeAl.split(' ')[0];
-        const uNome = nomeAl.split(' ').pop();
         const art = (pNome.endsWith('A') || pNome.endsWith('S')) ? 'a' : 'o';
-        const pron = art === 'a' ? 'ela' : 'ele';
-        const cidade = document.getElementById('cidade').value || "CIDADE";
-        const dataH = new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
+        const dataF = new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
 
-        let texto = "";
-        
+        let textoFinal = "";
+
         if(tipo === 'RELATORIO') {
-            texto = `<div style="text-align:center; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px; margin-bottom:30px;">RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO - ${document.getElementById('semestre').value}</div>`;
-            texto += `<div style="text-indent: 1.25cm;">Durante este período, as vivências pedagógicas de <b>${nomeAl}</b> foram pautadas nos campos de experiência da BNCC. Seu desenvolvimento foi acompanhado atentamente tanto em momentos de interação coletiva quanto em atividades de autonomia.\n\n`;
-            texto += `<div style="text-indent: 1.25cm;">Verifica-se que ${pNome} apresenta um amadurecimento constante. No campo da linguagem e socialização, ${pron} demonstra segurança e curiosidade, participando ativamente das propostas com o suporte da mediação docente. Nota-se que a criança estabelece vínculos afetivos positivos, revelando uma evolução clara em sua coordenação e percepção rítmica.\n\n`;
-            texto += `<div style="text-indent: 1.25cm;">Diante do exposto, conclui-se que o percurso de ${pNome} é marcado por conquistas significativas. Para o próximo semestre, projeta-se a continuidade desta parceria entre escola e família, fundamental para fortalecer seu protagonismo.\n\n`;
-            texto += `<div style="text-align:right; margin-top:40px;"><b>${cidade}, ${dataH}</b></div>\n\n`;
-            texto += `<div style="margin-top:50px; text-align:center;">____________________________________<br>GESTOR(A) ESCOLAR</div>\n`;
-            texto += `<div style="margin-top:30px; text-align:center;">____________________________________<br>PROF. ${prof}</div>\n`;
-            texto += `<div style="margin-top:30px; text-align:center;">____________________________________<br>RESPONSÁVEL</div>`;
+            textoFinal = `<div style="text-align:center; font-weight:bold; text-transform:uppercase; border-bottom:1px solid #000; padding-bottom:10px; margin-bottom:40px;">RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO - ${document.getElementById('semestre').value}</div>`;
+            textoFinal += `Durante este período, as vivências pedagógicas de <b>${nomeAl}</b> fundamentaram-se nos direitos de aprendizagem da BNCC. Seu desenvolvimento foi observado atentamente, destacando-se o papel da mediação pedagógica em seu processo de descoberta e interação.\n\n`;
+            textoFinal += `Em relação às habilidades motoras e cognitivas, nota-se que ${pNome} apresenta um amadurecimento constante e afetivo. ${art.toUpperCase()} criança demonstra evolução clara na forma como enfrenta novos desafios, participando com segurança e criatividade das propostas. No aspecto socioafetivo, verifica-se que seu convívio social tem se fortalecido, consolidando vínculos significativos com os pares.\n\n`;
+            textoFinal += `Diante das observações, conclui-se que ${pNome} segue em pleno desenvolvimento. Para o próximo período, projeta-se a continuidade da estreita parceria entre escola e família, essencial para potencializar seu protagonismo e suas futuras conquistas.\n\n`;
+            textoFinal += `<div style="text-align:right; margin-top:50px;"><b>${cidade}, ${dataF}</b></div>\n\n`;
+            textoFinal += `<div style="margin-top:80px; text-align:center;">
+                <div style="display:inline-block; width:250px; border-top:1px solid #000; padding-top:5px; margin:0 20px;">GESTOR(A)</div>
+                <div style="display:inline-block; width:250px; border-top:1px solid #000; padding-top:5px; margin:0 20px;">PROF. ${prof}</div>
+                <div style="display:inline-block; width:250px; border-top:1px solid #000; padding-top:5px; margin:0 20px;">RESPONSÁVEL</div>
+            </div>`;
         } else {
-            texto = `<div style="text-align:right; margin-bottom:20px;"><b>${cidade}, ${dataH}</b></div>`;
-            texto += `<div style="margin-bottom:20px;"><b>PROFESSOR(A): ${prof}</b></div>`;
-            texto += `<div style="font-style:italic;">A observação sensível de hoje recai sobre <b>${pNome}</b>. Ao participar das vivências, percebi como sua curiosidade rompe barreiras burocráticas, revelando uma criança pesquisadora do mundo.\n\nMinha escrita aqui funciona como uma bússola pedagógica, onde registro não apenas o que aconteceu, mas como ${pron} se sentiu e interagiu. É um exercício de autoria e subjetividade consciente, dando visibilidade plena ao seu protagonismo infantil.</div>`;
+            textoFinal = `<div style="text-align:right; margin-bottom:20px;"><b>${cidade}, ${dataF}</b></div>`;
+            textoFinal += `<div style="margin-bottom:20px;"><b>DIÁRIO DE BORDO - PROF(A): ${prof}</b></div>`;
+            textoFinal += `A escrita de hoje sobre <b>${pNome}</b> é reflexiva e sensível. Ao observar ${art} criança em sua rotina, percebo que seu protagonismo se manifesta nos pequenos gestos e escolhas. Rompemos com modelos burocráticos para dar lugar à descrição de suas falas e reações, interpretando seu processo de descoberta como um pesquisador da própria prática.`;
         }
 
-        document.getElementById('texto-final').innerHTML = texto;
+        document.getElementById('texto-final').innerHTML = textoFinal;
         document.getElementById('editor-container').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
 
     function baixarArquivo() {
         const nomeAl = document.getElementById('nome').value || "CRIANCA";
-        const pNome = nomeAl.split(' ')[0];
-        const uNome = nomeAl.split(' ').pop();
-        const dataH = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+        const nomes = nomeAl.split(' ');
+        const pNome = nomes[0];
+        const uNome = nomes.length > 1 ? nomes[nomes.length - 1] : "";
+        const dataHoje = new Date().toISOString().slice(0, 10);
         const conteudo = document.getElementById('texto-final').innerText;
         const blob = new Blob([conteudo], {type: "text/plain;charset=utf-8"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `CONTAÊ_PROFE_${pNome}_${uNome}_${dataH}.txt`;
+        link.download = `CONTAE_PROFE_${pNome}_${uNome}_${dataHoje}.txt`;
         link.click();
     }
 
