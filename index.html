@@ -3,43 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EducaNobre Pro - Inteligência Pedagógica</title>
+    <title>EducaNobre Pro - Relatório de Elite</title>
     <style>
-        :root { --azul: #2980b9; --verde: #27ae60; --amarelo: #f1c40f; --dark: #2c3e50; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 10px; }
-        .no-print { max-width: 1000px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        :root { --azul: #2980b9; --verde: #27ae60; --amarelo: #f1c40f; --dark: #2c3e50; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--dark); margin: 0; padding: 10px; line-height: 1.4; }
+        .no-print { max-width: 1100px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); }
         
-        h1 { text-align: center; color: var(--azul); border-bottom: 4px solid var(--amarelo); padding-bottom: 10px; }
-        .grid-topo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        label { font-weight: bold; font-size: 13px; display: block; margin-bottom: 5px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; box-sizing: border-box; }
+        h1 { text-align: center; color: var(--azul); border-bottom: 4px solid var(--amarelo); padding-bottom: 10px; margin-bottom: 30px; }
+        .grid-campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        label { font-weight: bold; font-size: 13px; color: #555; display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+
+        .secao-header { background: #eef7ff; padding: 15px; border-radius: 8px; margin-top: 25px; font-weight: bold; color: var(--azul); border-left: 6px solid var(--azul); display: flex; justify-content: space-between; align-items: center; }
         
-        .secao { background: #f1f7ff; padding: 12px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; border-left: 5px solid var(--azul); }
-        
-        /* Sistema de Botões de Estágio */
-        .card-habilidade { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
-        .btn-group { display: flex; gap: 5px; margin-top: 8px; }
-        .btn-opt { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; background: #fff; font-size: 12px; font-weight: 600; transition: 0.3s; }
+        /* Cards e Botões Coloridos */
+        .card-item { background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 10px; margin-bottom: 12px; transition: 0.3s; }
+        .card-item:hover { border-color: var(--azul); }
+        .flex-btns { display: flex; gap: 6px; margin-top: 10px; }
+        .btn-nivel { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; background: #fff; font-size: 11px; font-weight: bold; transition: 0.3s; text-transform: uppercase; }
         
         .avancado.active { background: var(--azul) !important; color: white; border-color: #1a5276; }
         .intermediario.active { background: var(--verde) !important; color: white; border-color: #1e8449; }
-        .inicial.active { background: var(--amarelo) !important; color: #000; border-color: #d4ac0d; }
+        .inicial.active { background: var(--amarelo) !important; color: black; border-color: #d4ac0d; }
 
-        .btn-acao { width: 100%; padding: 18px; margin-top: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; color: white; transition: 0.3s; }
+        .btn-main { width: 100%; padding: 20px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; color: white; margin-top: 15px; transition: 0.3s; }
         .btn-texto { background: #8e44ad; }
-        .btn-frase { background: var(--azul); }
+        .btn-texto:hover { background: #7d3c98; }
 
-        /* PADRÃO ABNT */
+        /* PADRÃO ABNT - FOLHA A4 */
         #folhaA4 { 
             display: none; background: white; width: 210mm; min-height: 297mm; 
             padding: 3cm 2cm 2cm 3cm; margin: 20px auto;
-            font-family: "Arial", sans-serif; font-size: 12pt; line-height: 1.5; 
-            text-align: justify; box-sizing: border-box;
+            font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; 
+            text-align: justify; box-sizing: border-box; color: black;
         }
-        .paragrafo { text-indent: 1.25cm; margin-bottom: 15px; }
-        .assinaturas { margin-top: 80px; text-align: center; }
-        .assinatura-linha { border-top: 1px solid #000; width: 80%; margin: 60px auto 5px; }
-        .assinatura-nome { font-size: 10pt; font-weight: bold; margin-bottom: 40px; }
+        .paragrafo-abnt { text-indent: 1.25cm; margin-bottom: 15px; outline: none; }
+        .assinaturas { margin-top: 80px; width: 100%; }
+        .campo-assinatura { border-top: 1.5px solid #000; width: 85%; margin: 60px auto 10px; text-align: center; padding-top: 8px; font-size: 11pt; font-weight: bold; }
+
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:1000; overflow-y: auto; }
+        .modal-content { background:white; margin:5% auto; padding:30px; width:90%; max-width:700px; border-radius:15px; }
 
         @media print {
             .no-print { display: none; }
@@ -51,21 +54,21 @@
 <body>
 
 <div class="no-print">
-    <button style="background:var(--dark); color:white; border:none; padding:12px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold; margin-bottom:15px;" onclick="abrirManual()">📖 MANUAL DE USO & TERMOS</button>
-    <h1>EducaNobre Pro 🍎</h1>
+    <button style="background:var(--dark); color:white; border:none; padding:15px; border-radius:8px; width:100%; cursor:pointer; font-weight:bold; margin-bottom:20px;" onclick="abrirManual()">📖 MANUAL DE USO, TERMOS E RESPONSABILIDADE</button>
+    <h1>EducaNobre Pro v3.0 🍎</h1>
 
-    <div class="grid-topo">
-        <div><label>Nome do Aluno(a):</label><input type="text" id="nome" oninput="this.value = this.value.toUpperCase()"></div>
+    <div class="grid-campos">
+        <div><label>Nome Completo do Aluno(a):</label><input type="text" id="nome" placeholder="EX: ANA JÚLIA SILVA" oninput="this.value = this.value.toUpperCase()"></div>
         <div><label>Professor(a):</label><input type="text" id="prof" oninput="this.value = this.value.toUpperCase()"></div>
-        <div><label>Escola:</label><input type="text" id="escola" oninput="this.value = this.value.toUpperCase()"></div>
+        <div><label>Nome da Escola:</label><input type="text" id="escola" oninput="this.value = this.value.toUpperCase()"></div>
         <div><label>Cidade:</label><input type="text" id="cidade" oninput="this.value = this.value.toUpperCase()"></div>
-        <div><label>Período:</label>
+        <div><label>Período Letivo:</label>
             <select id="semestre">
                 <option value="1º SEMESTRE">1º SEMESTRE</option>
                 <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
         </div>
-        <div><label>Faixa Etária:</label>
+        <div><label>Grupo de Faixa Etária:</label>
             <select id="faixa">
                 <option value="bebês">Bebês (0 a 1a 6m)</option>
                 <option value="bem-pequenas">Crianças Bem Pequenas (1a 7m a 3a 11m)</option>
@@ -74,127 +77,133 @@
         </div>
     </div>
 
-    <div class="secao">HABILIDADES BNCC (CLIQUE NO NÍVEL)</div>
-    <div id="hab-box"></div>
+    <div class="secao-header">EIXOS DE HABILIDADES BNCC</div>
+    <div id="container-habs"></div>
 
-    <div class="secao">INTENCIONALIDADE & ROTINA</div>
-    <div id="rotina-box"></div>
+    <div class="secao-header">ROTINA & INTENCIONALIDADE</div>
+    <div id="container-rotina"></div>
 
-    <div class="secao">CATEGORIAS DE ATIVIDADES</div>
-    <div id="ativ-box"></div>
+    <div class="secao-header">CATEGORIAS DE ATIVIDADES</div>
+    <div id="container-ativ"></div>
 
-    <button class="btn-acao btn-frase" onclick="gerar('FRASE')">GERAR POR FRASES</button>
-    <button class="btn-acao btn-texto" onclick="gerar('TEXTO')">GERAR RELATÓRIO TEXTUAL (ABNT)</button>
-    <button onclick="window.print()" style="width:100%; padding:15px; background:var(--dark); color:white; border:none; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🖨️ IMPRIMIR / GERAR PDF</button>
+    <button class="btn-main btn-texto" onclick="processarRelatorio()">GERAR RELATÓRIO TÉCNICO FINAL (ABNT)</button>
+    <button onclick="window.print()" style="width:100%; padding:15px; background:var(--dark); color:white; border:none; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🖨️ IMPRIMIR / SALVAR PDF PROFISSIONAL</button>
 </div>
 
 <div id="folhaA4">
-    <div id="header-doc" style="text-align:center; font-weight:bold; margin-bottom:40px;"></div>
-    <div id="texto-doc"></div>
-    <div id="footer-doc" style="text-align:right; margin-top:40px;"></div>
+    <div id="doc-header" style="text-align:center; font-weight:bold; text-transform:uppercase; margin-bottom:40px; border-bottom: 2px solid #000; padding-bottom: 10px;"></div>
+    <div id="doc-corpo" contenteditable="true" title="Clique aqui para ajustar o texto manualmente"></div>
+    <div id="doc-data" style="text-align:right; margin-top:40px; font-weight:bold;"></div>
     
     <div class="assinaturas">
-        <div class="assinatura-linha"></div><div class="assinatura-nome">GESTOR(A)</div>
-        <div class="assinatura-linha"></div><div class="assinatura-nome">PROFESSOR(A)</div>
-        <div class="assinatura-linha"></div><div class="assinatura-nome">RESPONSÁVEL</div>
+        <div class="campo-assinatura">GESTOR(A) ESCOLAR</div>
+        <div class="campo-assinatura">PROFESSOR(A) REGENTE</div>
+        <div class="campo-assinatura">PAIS OU RESPONSÁVEIS</div>
+    </div>
+</div>
+
+<div id="modalM" class="modal">
+    <div class="modal-content">
+        <h2>Manual EducaNobre Pro</h2>
+        <p><b>1. Edição:</b> Após gerar o relatório, você pode clicar diretamente no texto para apagar ou acrescentar informações.</p>
+        <p><b>2. Inteligência:</b> O sistema combina 300+ conectores para garantir que o texto seja técnico e acolhedor.</p>
+        <hr>
+        <h3>Termo de Responsabilidade</h3>
+        <p>Ao utilizar este App, o professor declara estar ciente de que o conteúdo gerado é uma ferramenta de apoio. <b>A responsabilidade final pela fidedignidade pedagógica e revisão da escrita é inteiramente do docente responsável.</b></p>
+        <button onclick="document.getElementById('modalM').style.display='none'" style="width:100%; padding:15px; background:var(--azul); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">LI E CONCORDO</button>
     </div>
 </div>
 
 <script>
-    const habs = ["Coordenação Motora Ampla", "Coordenação Motora Fina", "Linguagem Oral", "Nome Próprio", "Aprendizagem", "Socioafetivo", "Participação", "Desenvolvimento Cognitivo", "Convívio Social"];
-    const rotinas = ["Acolhimento e despedida", "Atividade de livre escolha", "Momentos de grande grupo", "Momentos de pequenos grupos", "Área externa", "Rotina de cuidados"];
-    const ativs = ["Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias", "Jogos de Associação", "Desafios Lógicos", "Circuitos Motores", "Brincadeiras Clássicas", "Atividades ao Ar Livre"];
+    const listaHabs = ["Coordenação Motora Ampla", "Coordenação Motora Fina", "Linguagem Oral", "Nome Próprio", "Aprendizagem", "Socioafetivo", "Participação", "Desenvolvimento Cognitivo", "Convívio Social"];
+    const listaRots = ["Acolhimento e despedida", "Atividade de livre escolha", "Momentos de grande grupo", "Momentos de pequenos grupos", "Área externa", "Rotina de cuidados"];
+    const listaAtiv = ["Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias", "Jogos de Associação", "Desafios Lógicos", "Circuitos Motores", "Brincadeiras Clássicas", "Atividades ao Ar Livre"];
     
-    let dbSelecao = {};
+    let selecoes = {};
 
     function init() {
-        const hBox = document.getElementById('hab-box');
-        const rBox = document.getElementById('rotina-box');
-        const aBox = document.getElementById('ativ-box');
-
-        const criarCards = (lista, container) => {
+        const montar = (lista, container) => {
             lista.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'card-habilidade';
+                div.className = 'card-item';
                 div.innerHTML = `<strong>${item}</strong>
-                    <div class="btn-group">
-                        <button class="btn-opt" onclick="setNivel('${item}','avancado',this)">Avançado</button>
-                        <button class="btn-opt" onclick="setNivel('${item}','intermediario',this)">Intermediário</button>
-                        <button class="btn-opt" onclick="setNivel('${item}','inicial',this)">Inicial</button>
+                    <div class="flex-btns">
+                        <button class="btn-nivel" onclick="set(this,'${item}','avancado')">Avançado</button>
+                        <button class="btn-nivel" onclick="set(this,'${item}','intermediario')">Intermediário</button>
+                        <button class="btn-nivel" onclick="set(this,'${item}','inicial')">Inicial</button>
                     </div>`;
                 container.appendChild(div);
             });
         };
-
-        criarCards(habs, hBox);
-        criarCards(rotinas, rBox);
-        criarCards(ativs, aBox);
+        montar(listaHabs, document.getElementById('container-habs'));
+        montar(listaRots, document.getElementById('container-rotina'));
+        montar(listaAtiv, document.getElementById('container-ativ'));
     }
 
-    function setNivel(item, nivel, btn) {
+    function set(btn, item, nivel) {
         Array.from(btn.parentElement.children).forEach(b => b.classList.remove('active', 'avancado', 'intermediario', 'inicial'));
         btn.classList.add('active', nivel);
-        dbSelecao[item] = nivel;
+        selecoes[item] = nivel;
     }
 
-    function sortear(nivel, sujeito, campo) {
-        const conectores = ["Além disso, ", "Somado a isso, ", "No que se refere a(o) ", "Vale ressaltar que ", "Nesse sentido, "];
-        const bancos = {
-            avancado: ["demonstra protagonismo e segurança em suas ações.", "apresenta evolução clara e autonomia nas propostas.", "manifesta criatividade ao enfrentar novos desafios."],
-            intermediario: ["apresenta amadurecimento constante e participativo.", "demonstra avanços significativos com mediação pontual.", "evolui gradualmente em suas descobertas diárias."],
-            inicial: ["encontra-se em fase de descoberta com suporte pedagógico.", "demonstra necessidade de mediação para consolidar habilidades.", "participa ativamente sob orientação constante da professora."]
+    function sortearConector(tipo) {
+        const c = {
+            intro: ["Primeiramente", "Acima de tudo", "Sobretudo", "Para começar"],
+            seq: ["Na sequência", "Além disso", "Somado a isso", "Ademais", "Outrossim"],
+            fim: ["Dessa forma", "Portanto", "Desse modo", "Em síntese", "Nesse sentido"],
+            op: ["Todavia", "Entretanto", "Contudo", "Por outro lado"]
         };
-        const con = conectores[Math.floor(Math.random()*conectores.length)];
-        const texto = bancos[nivel][Math.floor(Math.random()*bancos[nivel].length)];
-        return `${con}${sujeito} em relação a(o) ${campo.toLowerCase()}, ${texto}`;
+        return c[tipo][Math.floor(Math.random() * c[tipo].length)];
     }
 
-    function gerar(tipo) {
-        const nomeCompleto = document.getElementById('nome').value || "A CRIANÇA";
-        const primeiroNome = nomeCompleto.split(' ')[0];
+    function processarRelatorio() {
+        const nomeAl = document.getElementById('nome').value || "O ALUNO(A)";
+        const pNome = nomeAl.split(' ')[0];
         const escola = document.getElementById('escola').value;
         const cidade = document.getElementById('cidade').value;
         const semestre = document.getElementById('semestre').value;
-        const dataH = new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
+        const dataStr = new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'});
 
-        document.getElementById('header-doc').innerHTML = `${escola}<br>RELATÓRIO PEDAGÓGICO - ${semestre}`;
-        document.getElementById('footer-doc').innerHTML = `${cidade}, ${dataH}`;
+        document.getElementById('doc-header').innerHTML = `${escola}<br>RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO - ${semestre}`;
+        document.getElementById('doc-data').innerText = `${cidade}, ${dataStr}`;
         
-        let conteudo = "";
+        const banco = {
+            avancado: ["demonstra protagonismo e segurança,", "apresenta amadurecimento constante e autonomia,", "manifesta evolução clara e proativa,"],
+            intermediario: ["revela avanços graduais com mediação,", "demonstra interesse em evoluir,", "apresenta desenvolvimento significativo sob orientação,"],
+            inicial: ["encontra-se em fase de descoberta e adaptação,", "demonstra curiosidade técnica inicial,", "apresenta necessidade de mediação acolhedora para consolidar habilidades,"]
+        };
+
+        const frase = (n, s, campo) => {
+            const ver = banco[n][Math.floor(Math.random() * banco[n].length)];
+            return `${s} ${ver} no que se refere ao processo de ${campo.toLowerCase()}.`;
+        };
+
+        let html = `<p class="paragrafo-abnt">Durante este período letivo, as vivências pedagógicas de <b>${nomeAl}</b> foram fundamentadas nos direitos de aprendizagem da BNCC. Seu percurso foi observado atentamente em momentos de rotina escolar e dinâmicas coletivas.</p>`;
         
-        if(tipo === 'TEXTO') {
-            // INTRODUÇÃO
-            conteudo += `<p class="paragrafo">Durante este período, as vivências pedagógicas de <b>${nomeCompleto}</b> foram fundamentadas nos direitos de aprendizagem da BNCC. Seu desenvolvimento foi observado atentamente tanto em momentos de rotina quanto em dinâmicas coletivas e individuais.</p>`;
-            
-            // DESENVOLVIMENTO INTEGRADO
-            let frasesHab = Object.keys(dbSelecao).filter(k => habs.includes(k));
-            conteudo += `<p class="paragrafo">O(A) aluno(a) tem demonstrado um percurso rico em descobertas. `;
-            frasesHab.forEach((h, i) => {
-                let s = i === 0 ? primeiroNome : (i % 2 === 0 ? "a criança" : "ele(a)");
-                conteudo += sortear(dbSelecao[h], s, h) + " ";
-            });
-            conteudo += `</p>`;
+        // Agrupamento lógico
+        let habsEsc = Object.keys(selecoes).filter(k => listaHabs.includes(k));
+        let p2 = `<p class="paragrafo-abnt">${sortearConector('intro')}, observa-se que o aluno tem demonstrado um amadurecimento constante. `;
+        habsEsc.forEach((h, i) => {
+            let sujeito = i === 0 ? pNome : (i % 2 === 0 ? "a criança" : "o discente");
+            p2 += `${sortearConector('seq')}, ${frase(selecoes[h], sujeito, h)} `;
+        });
+        p2 += `</p>`;
+        
+        html += p2;
 
-            // ATIVIDADES
-            conteudo += `<p class="paragrafo">No que tange às práticas de sala, destacamos a participação em atividades de expressão e movimento, onde o protagonismo infantil foi a base para a consolidação de novas aprendizagens.</p>`;
-
-            // CONCLUSÃO
-            conteudo += `<p class="paragrafo">Diante das observações, conclui-se que ${primeiroNome} segue em pleno desenvolvimento. Para o próximo ciclo, projeta-se a continuidade da estreita parceria entre escola e família, fundamental para potencializar seu crescimento integral.</p>`;
-        } else {
-            Object.keys(dbSelecao).forEach(h => {
-                conteudo += `<p class="paragrafo"><b>${h.toUpperCase()}:</b> ${sortear(dbSelecao[h], "A criança", h)}</p>`;
-            });
+        let rotsEsc = Object.keys(selecoes).filter(k => listaRots.includes(k) || listaAtiv.includes(k));
+        if(rotsEsc.length > 0) {
+            html += `<p class="paragrafo-abnt">Nas experiências de ${rotsEsc.slice(0,3).join(", ")}, nota-se que a mediação pedagógica tem sido fundamental para o seu processo de descoberta e interação social.</p>`;
         }
 
-        document.getElementById('texto-doc').innerHTML = conteudo;
+        html += `<p class="paragrafo-abnt">${sortearConector('fim')}, conclui-se que ${pNome} segue em pleno desenvolvimento. Projeta-se para o próximo ciclo a continuidade da parceria entre escola e família, essencial para fortalecer suas conquistas e potencializar seu protagonismo.</p>`;
+
+        document.getElementById('doc-corpo').innerHTML = html;
         document.getElementById('folhaA4').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    function abrirManual() {
-        alert("MANUAL EDUCANOBRE:\n1. Nomes em CAIXA ALTA são automáticos.\n2. Todos os botões (Habilidades, Rotina e Atividade) agora possuem os 3 níveis.\n3. O relatório ABNT agrupa as falas para não parecer uma lista.\n4. O nome da criança aparece em destaque apenas uma vez no texto.");
-    }
-
+    function abrirManual() { document.getElementById('modalM').style.display='block'; }
     init();
 </script>
 </body>
