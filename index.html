@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Narrativa Infinita</title>
+    <title>CONTAÊ PROFE - Excelência Pedagógica</title>
     <style>
         :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -40,12 +40,12 @@
         <div class="campo"><label>Semestre</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
-    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Sem limite)</div>
+    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL</div>
     <div id="grid-perfil" class="grid-palavras"></div>
 
     <div id="secoes-bncc"></div>
 
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA ÚNICA</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA DE EXCELÊNCIA</button>
 </div>
 
 <div id="resultado-secao">
@@ -64,29 +64,37 @@
             inicial: ['Reservada', 'Insegura', 'Impulsiva', 'Dependente', 'Resistente', 'Desatenta']
         },
         traducoes: {
-            'impulsiva': ['demonstra intensa energia e aprende a aguardar os tempos coletivos', 'manifesta vivacidade, em processo de regulação do tempo de espera'],
-            'desatenta': ['aprimora o foco mediante estímulos e mediação constante', 'em desenvolvimento da escuta atenta e concentração'],
-            'resistente': ['demonstra necessidade de acolhimento em novos desafios', 'requer tempo e mediação afetiva para aceitar propostas novas'],
-            'insegura': ['fortalece sua autoconfiança perante novas vivências', 'em fase de maturação da segurança individual'],
-            'dependente': ['requer suporte mediador para realizar escolhas', 'em processo de conquista de sua independência funcional']
+            'impulsiva': ['demonstrando vivacidade e aprendendo a aguardar os tempos coletivos', 'manifestando intensa energia, em processo de regulação do tempo de espera'],
+            'desatenta': ['aprimorando o foco mediante estímulos e mediação constante', 'em desenvolvimento da escuta atenta e concentração'],
+            'resistente': ['necessitando de acolhimento em novos desafios', 'requerendo tempo e mediação afetiva para aceitar propostas novas'],
+            'insegura': ['fortalecendo sua autoconfiança perante novas vivências', 'em fase de maturação da segurança individual'],
+            'dependente': ['requerendo suporte mediador para realizar escolhas', 'em processo de conquista de sua independência funcional'],
+            'reservada': ['preferindo a introspecção antes da interação plena', 'mantendo um perfil contido e analítico perante o grupo']
         },
         variacoes: {
             introducao: [
                 "Durante este período letivo, as vivências de [nome] na [escola] foram norteadas pela BNCC.",
                 "Ao longo deste semestre, o percurso de [nome] na instituição [escola] revelou-se rico em descobertas.",
                 "Neste período de convivência, as propostas vivenciadas por [nome] na [escola] pautaram-se na interação.",
-                "As observações realizadas sobre o desenvolvimento de [nome] na [escola] indicam um semestre de avanços.",
+                "As observações realizadas sobre o desenvolvimento de [nome] na [escola] indicam avanços significativos.",
                 "A jornada de [nome] na instituição [escola] tem sido marcada por momentos de intenso aprendizado."
             ],
             conectoresSocio: [
-                " No âmbito socioemocional, percebe-se uma criança que ",
-                " No convívio social, demonstra ser alguém que ",
-                " Em seu aspecto afetivo, revela-se como uma criança que "
+                " No âmbito socioemocional, percebe-se uma criança que se mostra ",
+                " No convívio social, demonstra ser alguém que se apresenta ",
+                " Em seu aspecto afetivo, revela-se como uma criança que se manifesta "
             ],
             conectoresBNCC: [
-                " Em relação aos campos de experiência, manifesta progresso ao ",
-                " No que concerne às habilidades pedagógicas, destaca-se ao ",
-                " Observa-se que a criança demonstra autonomia ao "
+                " Em relação aos campos de experiência, manifesta progresso ",
+                " No que concerne às habilidades pedagógicas, destaca-se ",
+                " Observa-se que a criança demonstra autonomia "
+            ],
+            conclusao: [
+                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e afetivo, integrando-se ao grupo.",
+                "Diante do exposto, percebe-se que [pNome] apresenta um desenvolvimento harmônico e constante.",
+                "Em suma, as conquistas de [pNome] refletem um percurso de sucesso e construção de vínculos.",
+                "Finalizamos este período com a certeza de que [pNome] amplia suas potencialidades a cada dia.",
+                "O desenvolvimento de [pNome] neste semestre foi pautado pela evolução de suas competências."
             ],
             inspiradoras: [
                 "É um privilégio acompanhar cada pequeno passo da sua grande jornada!",
@@ -97,11 +105,11 @@
             ]
         },
         campos: [
-            { titulo: "1. O Eu, o Outro e o Nós", av: ['Lidera', 'Colabora'], int: ['Interage', 'Participa'], ini: ['Isola-se', 'Reage'] },
-            { titulo: "2. Corpo, Gestos e Movimentos", av: ['Domina', 'Coordena'], int: ['Desenvolve', 'Segue'], ini: ['Tateia', 'Observa'] },
-            { titulo: "3. Traços, Sons, Cores e Formas", av: ['Cria', 'Inova'], int: ['Explora', 'Identifica'], ini: ['Rabisca', 'Toca'] },
-            { titulo: "4. Escuta, Fala, Pensamento e Imaginação", av: ['Argumenta', 'Narra'], int: ['Nomeia', 'Pergunta'], ini: ['Aponta', 'Ouve'] },
-            { titulo: "5. Espaço, Tempo, Quantidades e Relações", av: ['Compara', 'Classifica'], int: ['Agrupa', 'Ordena'], ini: ['Olha', 'Sente'] }
+            { t: "1. O Eu, o Outro e o Nós", av: ['Liderando', 'Colaborando'], int: ['Interagindo', 'Participando'], ini: ['Isolando-se', 'Reagindo'] },
+            { t: "2. Corpo, Gestos e Movimentos", av: ['Dominando', 'Coordenando'], int: ['Desenvolvendo', 'Seguindo'], ini: ['Tateando', 'Observando'] },
+            { t: "3. Traços, Sons, Cores e Formas", av: ['Criando', 'Inovando'], int: ['Explorando', 'Identificando'], ini: ['Rabiscando', 'Tocando'] },
+            { t: "4. Escuta, Fala, Pensamento e Imaginação", av: ['Argumentando', 'Narrando'], int: ['Nomeando', 'Perguntando'], ini: ['Apontando', 'Ouvindo'] },
+            { t: "5. Espaço, Tempo, Quantidades e Relações", av: ['Comparando', 'Classificando'], int: ['Agrupando', 'Ordenando'], ini: ['Olhando', 'Sentindo'] }
         ]
     };
 
@@ -127,7 +135,7 @@
         const containerBNCC = document.getElementById('secoes-bncc');
         db.campos.forEach((campo, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-titulo">${campo.titulo}</div><div class="grid-palavras" id="campo-${idx}"></div>`;
+            div.innerHTML = `<div class="secao-titulo">${campo.t}</div><div class="grid-palavras" id="campo-${idx}"></div>`;
             containerBNCC.appendChild(div);
             const grid = document.getElementById(`campo-${idx}`);
             selecoes.bncc[idx] = [];
@@ -168,13 +176,14 @@
         let habilidades = [];
         db.campos.forEach((c, i) => { if(selecoes.bncc[i].length > 0) habilidades.push(...selecoes.bncc[i].map(h => h.toLowerCase())); });
         if(habilidades.length > 0) {
-            bnccTexto = " " + sortear(db.variacoes.conectoresBNCC) + habilidades.join(', ') + ", revelando engajamento ativo nas vivências.";
+            bnccTexto = " " + sortear(db.variacoes.conectoresBNCC) + " ao " + habilidades.join(', ') + ", demonstrando engajamento nas propostas.";
         }
 
-        let fraseProf = ` <br><br><i>"${sortear(db.variacoes.inspiradoras)}"</i>`;
+        let conc = sortear(db.variacoes.conclusao).replace('[pNome]', pNome);
+        let fraseProf = ` <br><br><center><i>"${sortear(db.variacoes.inspiradoras)}"</i></center>`;
 
         let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
-        corpo += `<p style="text-indent:1.5cm;">Concluímos que ${pNome} segue em pleno desenvolvimento cognitivo e afetivo.${fraseProf}</p>`;
+        corpo += `<p style="text-indent:1.5cm;">${conc}${fraseProf}</p>`;
 
         document.getElementById('editor').innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:20px;">PARECER DESCRITIVO INDIVIDUAL</div>` + corpo + `<br><div style="text-align:right;">${document.getElementById('cidade').value}, ${dataH}.</div>`;
         document.getElementById('resultado-secao').style.display = 'block';
