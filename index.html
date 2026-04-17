@@ -3,46 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Narrativas de Afeto</title>
+    <title>CONTAÊ PROFE - Padrão A4</title>
     <style>
         :root {
             --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
             --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2.5rem; text-transform: uppercase; letter-spacing: -1px; }
-        .slogan { font-style: italic; color: #747d8c; margin-top: 5px; font-size: 0.95rem; }
-        .nav-top { display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn-top { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: #dfe4ea; transition: 0.3s; }
-        .btn-top:hover { background: #ced4da; }
-        .btn-limpar { background: #ff7675; color: white; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
+        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
+        
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
-        .campo label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; text-transform: uppercase; outline: none; }
-        input:focus { border-color: var(--primaria); }
-        .secao-titulo { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; margin: 30px 0 15px; font-weight: bold; border-left: 5px solid var(--primaria); }
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; }
-        .btn-group { display: flex; gap: 5px; margin-top: 10px; }
-        .btn-opt { flex: 1; padding: 10px 5px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; background: #f1f2f6; transition: 0.3s; }
-        .active-av { background: var(--terciaria) !important; color: white; }
-        .active-int { background: var(--secundaria) !important; color: white; }
-        .active-ini { background: var(--alerta) !important; color: white; }
-        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 15px; transition: 0.3s; background: var(--primaria); }
-        #resultado-secao { display: none; margin-top: 40px; }
-        #editor { width: 100%; min-height: 600px; padding: 40px; border: 1px solid #ccc; font-family: 'Arial', sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; background: white; outline: none; box-sizing: border-box; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
+        input { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; text-transform: uppercase; outline: none; }
+
+        .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; }
+        .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.2s; text-align: center; }
         
-        @media print {
-            @page { margin: 0; size: A4; }
-            body { margin: 0; padding: 0; }
-            .no-print { display: none !important; }
-            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; margin: 0; }
-            #editor { border: none !important; padding: 3cm 2cm 2cm 3cm !important; width: 21cm; min-height: 29.7cm; display: block !important; background: white; }
+        .btn-check.avancado.active { background: var(--terciaria); color: white; border-color: var(--terciaria); }
+        .btn-check.processo.active { background: var(--secundaria); color: white; border-color: var(--secundaria); }
+        .btn-check.inicial.active { background: var(--alerta); color: white; border-color: var(--alerta); }
+
+        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
+        
+        #resultado-secao { display: none; margin-top: 40px; }
+        
+        /* Ajuste para Folha A4 */
+        #editor { 
+            width: 210mm; 
+            min-height: 297mm; 
+            padding: 25mm 20mm; 
+            margin: auto;
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            line-height: 1.6; 
+            text-align: justify; 
+            background: white; 
+            outline: none; 
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+        }
+        
+        @media print { 
+            @page { size: A4; margin: 0; }
+            body { background: white; padding: 0; margin: 0; }
+            .no-print { display: none !important; } 
+            .container { box-shadow: none; border: none; width: 100%; max-width: none; padding: 0; margin: 0; }
+            #editor { border: none; padding: 20mm 15mm; width: 100%; min-height: auto; }
         }
     </style>
 </head>
@@ -51,141 +61,134 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“A voz do professor, a história da criança. Transformando observação pedagógica em narrativas de afeto.”</p>
-    </div>
-
-    <div class="nav-top">
-        <button class="btn-top" onclick="abrirModal()">📖 MANUAL & TERMOS</button>
-        <button class="btn-top btn-limpar" onclick="limparTudo()">🧹 LIMPAR TUDO</button>
+        <p>Parecer Pedagógico - Pré-Escola (A4)</p>
     </div>
 
     <div class="grid-inputs">
-        <div class="campo"><label>Criança</label><input type="text" id="nome_crianca" placeholder="Nome Completo"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="nome_escola"></div>
+        <div class="campo"><label>Nome da Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Manaus"></div>
-        <div class="campo"><label>Semestre</label>
-            <select id="semestre">
-                <option value="1º Semestre">1º Semestre</option>
-                <option value="2º Semestre">2º Semestre</option>
-            </select>
-        </div>
     </div>
 
-    <div class="secao-titulo">HABILIDADES BNCC (CLIQUE PARA SELECIONAR)</div>
-    <div id="cards-habilidades" class="grid-cards"></div>
+    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (1 a 7 opções)</div>
+    <div id="grid-perfil" class="grid-palavras"></div>
 
-    <div class="secao-titulo">ROTINA E INTENCIONALIDADE</div>
-    <div id="cards-rotina" class="grid-cards"></div>
+    <div id="secoes-bncc"></div>
 
-    <button class="btn-gerar" onclick="gerarTexto()">📝 GERAR RELATÓRIO ABNT</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO PADRÃO A4</button>
 </div>
 
-<div id="resultado-secao" class="container">
-    <div class="secao-titulo no-print">PRÉ-VISUALIZAÇÃO DO DOCUMENTO (PODE EDITAR ABAIXO)</div>
+<div id="resultado-secao">
     <div id="editor" contenteditable="true"></div>
-    <div class="nav-top no-print" style="margin-top: 20px;">
-        <button class="btn-top" style="background: var(--terciaria); color: white;" onclick="previsualizar()">👁️ VISUALIZAR ANTES DE IMPRIMIR</button>
-        <button class="btn-top" style="background: var(--secundaria); color: white;" onclick="window.print()">🖨️ IMPRIMIR / SALVAR PDF</button>
-        <button class="btn-top" style="background: var(--texto); color: white;" onclick="baixarTxt()">💾 BAIXAR ARQUIVO .TXT</button>
-    </div>
-</div>
-
-<div id="modal-ajuda" class="modal">
-    <div class="modal-content">
-        <h2>Manual de Uso 📖</h2>
-        <p><b>Como funciona:</b> Preencha os dados e clique nos botões de habilidade. O sistema montará o texto automaticamente.</p>
-        <p><b>Legenda de Cores:</b></p>
-        <ul>
-            <li><span style="color:var(--terciaria)">●</span> <b>Azul (Av):</b> Avançado / Pleno desenvolvimento.</li>
-            <li><span style="color:var(--secundaria)">●</span> <b>Verde (Int):</b> Intermediário / Em processo.</li>
-            <li><span style="color:var(--alerta)">●</span> <b>Amarelo (Ini):</b> Inicial / Necessita mediação constante.</li>
-        </ul>
-        <hr>
-        <h2>Termos de Uso ⚖️</h2>
-        <p>O <b>Contaê Profe</b> é uma ferramenta de apoio pedagógico. A responsabilidade técnica e ética sobre o conteúdo final é exclusiva do professor regente.</p>
-        <button class="btn-gerar" style="background: var(--texto);" onclick="fecharModal()">ENTENDI E ACEITO</button>
+    <div class="no-print" style="max-width:210mm; margin: 20px auto; display: flex; gap:10px;">
+        <button onclick="window.print()" style="flex:1; padding:15px; background:var(--terciaria); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
+        <button onclick="location.reload()" style="padding:15px; background:#666; color:white; border:none; border-radius:10px; cursor:pointer;">🧹 NOVO</button>
     </div>
 </div>
 
 <script>
-    const habilidades = ["Coordenação Motora ampla", "Coordenação Motora fina", "Linguagem oral", "Nome próprio", "Aprendizagem", "Socioafetivo", "Participação", "Desenvolvimento cognitivo", "Convívio social"];
-    const rotinas = ["Acolhimento e despedida", "Livre escolha", "Grande grupo", "Pequenos grupos", "Área externa", "Pintura e Colagem", "Modelagem", "Música e Ritmo", "Contação de Histórias"];
-    const selecoes = {};
+    const db = {
+        perfil: {
+            avancado: ['Calma', 'Prestativa', 'Estudiosa', 'Autônoma', 'Criativa', 'Comunicativa'],
+            processo: ['Observadora', 'Participativa', 'Curiosa', 'Cautelosa', 'Espontânea'],
+            inicial: ['Reservada', 'Insegura', 'Impulsiva', 'Dependente', 'Resistente']
+        },
+        campos: [
+            { titulo: "1. O Eu, o Outro e o Nós", av: ['Lidera', 'Colabora', 'Empatiza', 'Resolve'], int: ['Interage', 'Integra-se', 'Solicita', 'Participa'], ini: ['Isola-se', 'Necessita', 'Recusa', 'Reage'] },
+            { titulo: "2. Corpo, Gestos e Movimentos", av: ['Domina', 'Coordena', 'Equilibra', 'Orienta-se'], int: ['Desenvolve', 'Experimenta', 'Aprimora', 'Segue'], ini: ['Tateia', 'Limita-se', 'Requer estímulo', 'Observa'] },
+            { titulo: "3. Traços, Sons, Cores e Formas", av: ['Cria', 'Inova', 'Detalha', 'Interpreta'], int: ['Explora', 'Identifica', 'Manuseia', 'Reconhece'], ini: ['Rabisca', 'Amassa', 'Toca', 'Acompanha'] },
+            { titulo: "4. Escuta, Fala, Pensamento e Imaginação", av: ['Argumenta', 'Narra', 'Questiona', 'Relata'], int: ['Nomeia', 'Expressa', 'Repete', 'Pergunta'], ini: ['Aponta', 'Ouve', 'Imita', 'Silencia'] },
+            { titulo: "5. Espaço, Tempo, Quantidades e Relações", av: ['Compara', 'Classifica', 'Estima', 'Quantifica'], int: ['Agrupa', 'Ordena', 'Percebe', 'Manipula'], ini: ['Olha', 'Empilha', 'Derruba', 'Sente'] }
+        ]
+    };
 
-    function criarCards(lista, containerId) {
-        const container = document.getElementById(containerId);
-        lista.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `<strong>${item}</strong><div class="btn-group">
-                <button class="btn-opt" onclick="marcar(this, '${item}', 'av')">Av</button>
-                <button class="btn-opt" onclick="marcar(this, '${item}', 'int')">Int</button>
-                <button class="btn-opt" onclick="marcar(this, '${item}', 'ini')">Ini</button>
-            </div>`;
-            container.appendChild(card);
+    const selecoes = { perfil: [], bncc: {} };
+
+    function iniciar() {
+        const gridP = document.getElementById('grid-perfil');
+        Object.keys(db.perfil).forEach(nivel => {
+            db.perfil[nivel].forEach(palavra => {
+                const btn = document.createElement('button');
+                btn.className = `btn-check ${nivel}`;
+                btn.innerText = palavra;
+                btn.onclick = () => {
+                    if (btn.classList.contains('active')) { btn.classList.remove('active'); selecoes.perfil = selecoes.perfil.filter(p => p !== palavra); }
+                    else if (selecoes.perfil.length < 7) { btn.classList.add('active'); selecoes.perfil.push(palavra); }
+                };
+                gridP.appendChild(btn);
+            });
+        });
+
+        const containerBNCC = document.getElementById('secoes-bncc');
+        db.campos.forEach((campo, idx) => {
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="secao-titulo">${campo.titulo} (Clique até 4)</div><div class="grid-palavras" id="campo-${idx}"></div>`;
+            containerBNCC.appendChild(div);
+            const grid = document.getElementById(`campo-${idx}`);
+            selecoes.bncc[idx] = [];
+            ['av', 'int', 'ini'].forEach(n => {
+                campo[n].forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = `btn-check ${n === 'av' ? 'avancado' : n === 'int' ? 'processo' : 'inicial'}`;
+                    btn.innerText = p;
+                    btn.onclick = () => {
+                        if (btn.classList.contains('active')) { btn.classList.remove('active'); selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p); }
+                        else if (selecoes.bncc[idx].length < 4) { btn.classList.add('active'); selecoes.bncc[idx].push(p); }
+                    };
+                    grid.appendChild(btn);
+                });
+            });
         });
     }
 
-    function marcar(btn, item, nivel) {
-        const botoes = btn.parentElement.querySelectorAll('.btn-opt');
-        botoes.forEach(b => b.className = 'btn-opt');
-        btn.classList.add(nivel === 'av' ? 'active-av' : nivel === 'int' ? 'active-int' : 'active-ini');
-        selecoes[item] = nivel;
-    }
-
-    function gerarTexto() {
-        const crianca = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
-        const pNome = crianca.split(' ')[0];
-        const escola = document.getElementById('nome_escola').value.toUpperCase() || "ESCOLA";
+    function gerarRelatorio() {
+        const nome = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
+        const escola = document.getElementById('nome_escola').value.toUpperCase();
         const cidade = document.getElementById('cidade').value.toUpperCase();
+        const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        const introRelatorio = `Durante este período, as vivências pedagógicas de <b>${crianca}</b> na instituição <b>${escola}</b> foram fundamentadas nos direitos de aprendizagem da BNCC. Seu desenvolvimento foi observado atentamente tanto em momentos de atividades de livre escolha quanto em dinâmicas de grande grupo.`;
+        let texto = `<div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:25px; text-decoration: underline;">PARECER DESCRITIVO INDIVIDUAL</div>`;
         
-        let corpoTexto = `Nota-se que ${pNome} apresenta um processo de amadurecimento constante e afetivo. No que se refere à linguagem oral e coordenação, a criança demonstra segurança ao enfrentar novos desafios, participando ativamente das propostas com o suporte da mediação pedagógica.`;
+        texto += `<p style="text-indent: 1.5cm;">Durante este período letivo, as vivências de <b>${nome}</b> na instituição <b>${escola}</b> foram pautadas nos objetivos de aprendizagem da BNCC. A criança demonstrou um percurso de desenvolvimento singular, participando ativamente das propostas pedagógicas.</p>`;
 
-        const final = `
-            <div style="text-align:center; font-weight:bold; margin-bottom:20px;">RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO</div>
-            <p style="text-indent: 1.25cm;">${introRelatorio}</p>
-            <p style="text-indent: 1.25cm;">${corpoTexto}</p>
-            <p style="text-indent: 1.25cm;">Diante das observações, conclui-se que ${pNome} segue em pleno desenvolvimento, consolidando habilidades essenciais para o próximo período.</p>
-            <br><br>
-            <div style="text-align:right;">${cidade}, ${dataH}.</div>
-            <br><br><br>
-            <table style="width:100%; border:none; text-align:center;">
-                <tr>
-                    <td style="border-top: 1px solid black; width:30%;">GESTOR(A)</td>
-                    <td style="width:5%;"></td>
-                    <td style="border-top: 1px solid black; width:30%;">PROFESSOR(A)</td>
-                    <td style="width:5%;"></td>
-                    <td style="border-top: 1px solid black; width:30%;">RESPONSÁVEL</td>
-                </tr>
-            </table>`;
+        if(selecoes.perfil.length > 0) {
+            texto += `<p style="text-indent: 1.5cm;">Em seu aspecto socioemocional, ${pNome} revela-se uma criança <b>${selecoes.perfil.join(', ').toLowerCase()}</b>. No convívio social, interage com segurança, demonstrando empatia e prontidão em colaborar com os pares e professores.</p>`;
+        }
 
-        document.getElementById('editor').innerHTML = final;
+        const conectores = [
+            "No que tange às relações de identidade e autonomia, ",
+            "Quanto à consciência corporal e coordenação, ",
+            "Em relação à expressividade artística e sensorial, ",
+            "No campo da comunicação, escuta e fala, ",
+            "Sobre a exploração de noções matemáticas e espaciais, "
+        ];
+
+        db.campos.forEach((c, i) => {
+            if(selecoes.bncc[i].length > 0) {
+                texto += `<p style="text-indent: 1.5cm;">${conectores[i]} observa-se que a criança ${selecoes.bncc[i].join(', ').toLowerCase()} de forma protagonista, consolidando habilidades essenciais para sua faixa etária.</p>`;
+            }
+        });
+
+        texto += `<p style="text-indent: 1.5cm;">Concluímos que ${pNome} segue em um processo de aprendizagem contínuo e integrado, demonstrando prontidão para os novos desafios pedagógicos.</p>`;
+        
+        texto += `<br><div style="text-align:right; margin-bottom:30px;">${cidade}, ${dataH}.</div>`;
+
+        texto += `<table style="width:100%; border:none; text-align:center; font-size:10pt; margin-top:60px;">
+            <tr>
+                <td style="width:30%; border-top: 1px solid black; padding-top:5px;">GESTOR(A) / COORDENAÇÃO</td>
+                <td style="width:5%;"></td>
+                <td style="width:30%; border-top: 1px solid black; padding-top:5px;">PROFESSOR(A) REGENTE</td>
+                <td style="width:5%;"></td>
+                <td style="width:30%; border-top: 1px solid black; padding-top:5px;">PAIS / RESPONSÁVEL</td>
+            </tr>
+        </table>`;
+
+        document.getElementById('editor').innerHTML = texto;
         document.getElementById('resultado-secao').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
-
-    function limparTudo() { if(confirm("Deseja limpar todos os dados?")) location.reload(); }
-    function abrirModal() { document.getElementById('modal-ajuda').style.display = 'flex'; }
-    function fecharModal() { document.getElementById('modal-ajuda').style.display = 'none'; }
-    function previsualizar() { alert("O documento abaixo está em padrão ABNT. Use as margens padrão (3,3,2,2) na configuração da impressora."); }
-    
-    function baixarTxt() {
-        const nome = document.getElementById('nome_crianca').value || "relatorio";
-        const texto = document.getElementById('editor').innerText;
-        const blob = new Blob([texto], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `RELATORIO_${nome.toUpperCase()}.txt`;
-        link.click();
-    }
-
-    window.onload = () => {
-        criarCards(habilidades, 'cards-habilidades');
-        criarCards(rotinas, 'cards-rotina');
-    };
+    window.onload = iniciar;
 </script>
 </body>
 </html>
