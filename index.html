@@ -19,7 +19,7 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; text-transform: uppercase; outline: none; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; text-transform: uppercase; outline: none; background: white; }
 
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
@@ -69,6 +69,13 @@
         <div class="campo"><label>Nome da Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
         <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="EX: RIO DE JANEIRO"></div>
+        <div class="campo">
+            <label>Etapa / Semestre</label>
+            <select id="semestre_select">
+                <option value="PRÉ-ESCOLA - 1º SEMESTRE">PRÉ-ESCOLA - 1º SEMESTRE</option>
+                <option value="PRÉ-ESCOLA - 2º SEMESTRE">PRÉ-ESCOLA - 2º SEMESTRE</option>
+            </select>
+        </div>
     </div>
 
     <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (1 a 7 opções)</div>
@@ -105,14 +112,11 @@
 
     const selecoes = { perfil: [], bncc: {} };
 
-    // Função para formatar nomes respeitando as partículas minúsculas (de, da, do, etc)
     function formatarNomeProprio(texto) {
         const excecoes = ['de', 'da', 'do', 'dos', 'das', 'e'];
         return texto.toLowerCase().split(' ').map((palavra, index) => {
             if (palavra === "") return "";
-            if (excecoes.includes(palavra) && index !== 0) {
-                return palavra;
-            }
+            if (excecoes.includes(palavra) && index !== 0) return palavra;
             return palavra.charAt(0).toUpperCase() + palavra.slice(1);
         }).join(' ');
     }
@@ -158,8 +162,8 @@
         const nomeBruto = document.getElementById('nome_crianca').value || "A CRIANÇA";
         const escolaBruta = document.getElementById('nome_escola').value || "INSTITUIÇÃO DE ENSINO";
         const cidadeBruta = document.getElementById('cidade').value || "________________";
+        const semestre = document.getElementById('semestre_select').value;
 
-        // Formatação inteligente: Iniciais maiúsculas, mas "de/da/do" em minúsculas
         const nome = formatarNomeProprio(nomeBruto);
         const escola = formatarNomeProprio(escolaBruta);
         const cidade = formatarNomeProprio(cidadeBruta);
@@ -167,7 +171,8 @@
         const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        let texto = `<div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:25px; text-decoration: underline;">PARECER DESCRITIVO INDIVIDUAL</div>`;
+        let texto = `<div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:5px;">EDUCAÇÃO INFANTIL - PARECER INDIVIDUAL</div>`;
+        texto += `<div style="text-align:center; font-weight:bold; font-size:12pt; margin-bottom:25px; color:#555;">${semestre}</div>`;
         
         texto += `<p style="text-indent: 1.5cm;">Durante este período letivo, as vivências de <b>${nome}</b> na instituição <b>${escola}</b> foram fundamentadas nos objetivos de aprendizagem da BNCC. A criança demonstrou um percurso de desenvolvimento singular, participando ativamente das propostas pedagógicas.</p>`;
 
