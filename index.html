@@ -3,31 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Diversidade de Afeto</title>
+    <title>CONTAÊ PROFE - Narrativa Infinita</title>
     <style>
-        :root {
-            --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
-            --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff;
-        }
+        :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
         .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
         .header { text-align: center; margin-bottom: 30px; }
         .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
-        .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; line-height: 1.4; }
+        .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; }
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; text-transform: uppercase; }
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
-        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.2s; text-align: center; }
+        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.2s; }
         .btn-check.active.avancado { background: var(--terciaria); color: white; border-color: var(--terciaria); }
         .btn-check.active.processo { background: var(--secundaria); color: white; border-color: var(--secundaria); }
         .btn-check.active.inicial { background: var(--alerta); color: white; border-color: var(--alerta); }
-        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
+        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255,71,87,0.4); }
         #resultado-secao { display: none; margin-top: 40px; }
         #editor { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; text-align: justify; background: white; box-sizing: border-box; border: 1px solid #ddd; }
-        @media print { @page { size: A4; margin: 0; } body { background: white; padding: 0; } .no-print { display: none !important; } .container { box-shadow: none; border: none; width: 100%; padding: 0; } #editor { border: none; padding: 20mm 15mm; } }
+        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; } #editor { border: none; padding: 20mm 15mm; } }
     </style>
 </head>
 <body>
@@ -35,22 +30,22 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“A voz do professor, a história da criança. Transformando observação pedagógica em narrativas de afeto.”</p>
+        <p class="slogan">“Transformando observação pedagógica em narrativas de afeto.”</p>
     </div>
 
     <div class="grid-inputs">
         <div class="campo"><label>Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
         <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="INSTITUIÇÃO"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="MANAUS"></div>
-        <div class="campo"><label>Bimestre</label><select id="bimestre_select"><option>1º BIMESTRE</option><option>2º BIMESTRE</option></select></div>
+        <div class="campo"><label>Semestre</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
-    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL</div>
+    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Sem limite)</div>
     <div id="grid-perfil" class="grid-palavras"></div>
 
     <div id="secoes-bncc"></div>
 
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA DIVERSIFICADA</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA ÚNICA</button>
 </div>
 
 <div id="resultado-secao">
@@ -70,22 +65,35 @@
         },
         traducoes: {
             'impulsiva': ['demonstra intensa energia e aprende a aguardar os tempos coletivos', 'manifesta vivacidade, em processo de regulação do tempo de espera'],
-            'desatenta': ['aprimora o foco mediante estímulos e mediação constante', 'encontra-se em desenvolvimento da escuta atenta e concentração'],
+            'desatenta': ['aprimora o foco mediante estímulos e mediação constante', 'em desenvolvimento da escuta atenta e concentração'],
             'resistente': ['demonstra necessidade de acolhimento em novos desafios', 'requer tempo e mediação afetiva para aceitar propostas novas'],
-            'insegura': ['fortalece sua autoconfiança perante novas vivências', 'em fase de maturação da segurança individual nas interações'],
-            'dependente': ['requer suporte mediador para realizar escolhas e ganhar autonomia', 'em processo de conquista de sua independência funcional'],
-            'reservada': ['prefere a introspecção e observação atenta antes da interação', 'manifesta um perfil mais contido, priorizando a análise do ambiente']
+            'insegura': ['fortalece sua autoconfiança perante novas vivências', 'em fase de maturação da segurança individual'],
+            'dependente': ['requer suporte mediador para realizar escolhas', 'em processo de conquista de sua independência funcional']
         },
         variacoes: {
             introducao: [
-                "Durante este período letivo, as vivências de [nome] na instituição [escola] foram norteadas pelos campos de experiência da BNCC.",
-                "Ao longo deste semestre, observamos que o percurso de [nome] na [escola] revelou-se rico em descobertas e aprendizagens significativas.",
-                "Neste bimestre, as propostas pedagógicas vivenciadas por [nome] na instituição [escola] fundamentaram-se no protagonismo e na interação."
+                "Durante este período letivo, as vivências de [nome] na [escola] foram norteadas pela BNCC.",
+                "Ao longo deste semestre, o percurso de [nome] na instituição [escola] revelou-se rico em descobertas.",
+                "Neste período de convivência, as propostas vivenciadas por [nome] na [escola] pautaram-se na interação.",
+                "As observações realizadas sobre o desenvolvimento de [nome] na [escola] indicam um semestre de avanços.",
+                "A jornada de [nome] na instituição [escola] tem sido marcada por momentos de intenso aprendizado."
             ],
-            conclusao: [
-                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e afetivo, integrando-se plenamente ao grupo.",
-                "Diante do exposto, percebe-se que [pNome] apresenta um desenvolvimento harmônico, em constante evolução pedagógica.",
-                "Em suma, as conquistas de [pNome] refletem um percurso de sucesso, pautado na curiosidade e na construção de vínculos."
+            conectoresSocio: [
+                " No âmbito socioemocional, percebe-se uma criança que ",
+                " No convívio social, demonstra ser alguém que ",
+                " Em seu aspecto afetivo, revela-se como uma criança que "
+            ],
+            conectoresBNCC: [
+                " Em relação aos campos de experiência, manifesta progresso ao ",
+                " No que concerne às habilidades pedagógicas, destaca-se ao ",
+                " Observa-se que a criança demonstra autonomia ao "
+            ],
+            inspiradoras: [
+                "É um privilégio acompanhar cada pequeno passo da sua grande jornada!",
+                "Seu brilho único ilumina nossa sala todos os dias. Continue crescendo!",
+                "O mundo é pequeno para o tamanho da sua curiosidade. Voe alto!",
+                "Cada conquista sua é motivo de alegria e orgulho para todos nós.",
+                "Que sua sede de aprender continue sendo sua maior aventura!"
             ]
         },
         campos: [
@@ -98,13 +106,7 @@
     };
 
     const selecoes = { perfil: [], bncc: {} };
-
-    function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
-
-    function formatarNomeProprio(texto) {
-        const excecoes = ['de', 'da', 'do', 'dos', 'das', 'e'];
-        return texto.toLowerCase().split(' ').map((p, i) => (excecoes.includes(p) && i !== 0) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
-    }
+    const sortear = (l) => l[Math.floor(Math.random() * l.length)];
 
     function iniciar() {
         const gridP = document.getElementById('grid-perfil');
@@ -115,7 +117,7 @@
                 btn.innerText = palavra;
                 btn.onclick = () => {
                     btn.classList.toggle('active');
-                    if (btn.classList.contains('active')) selecoes.perfil.push(palavra);
+                    if(btn.classList.contains('active')) selecoes.perfil.push(palavra);
                     else selecoes.perfil = selecoes.perfil.filter(p => p !== palavra);
                 };
                 gridP.appendChild(btn);
@@ -136,7 +138,7 @@
                     btn.innerText = p;
                     btn.onclick = () => {
                         btn.classList.toggle('active');
-                        if (btn.classList.contains('active')) selecoes.bncc[idx].push(p);
+                        if(btn.classList.contains('active')) selecoes.bncc[idx].push(p);
                         else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p);
                     };
                     grid.appendChild(btn);
@@ -146,46 +148,36 @@
     }
 
     function gerarRelatorio() {
-        const nome = formatarNomeProprio(document.getElementById('nome_crianca').value || "A Criança");
-        const escola = formatarNomeProprio(document.getElementById('nome_escola').value || "Escola");
-        const cidade = formatarNomeProprio(document.getElementById('cidade').value || "Manaus");
+        const nome = document.getElementById('nome_crianca').value || "A Criança";
+        const escola = document.getElementById('nome_escola').value || "Escola";
         const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        let cabecalho = `<div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:25px; text-decoration:underline;">PARECER DESCRITIVO INDIVIDUAL</div>`;
-        
         let intro = sortear(db.variacoes.introducao).replace('[nome]', `<b>${nome}</b>`).replace('[escola]', `<b>${escola}</b>`);
         
         let socio = "";
         if(selecoes.perfil.length > 0) {
             const perfilTraduzido = selecoes.perfil.map(p => {
-                const trad = db.traducoes[p.toLowerCase()];
-                return trad ? sortear(trad) : p.toLowerCase();
+                const t = db.traducoes[p.toLowerCase()];
+                return t ? sortear(t) : p.toLowerCase();
             });
-            socio = ` No âmbito socioemocional, observa-se uma criança que ${perfilTraduzido.join(', ')}. Em suas interações, demonstra empatia e prontidão para colaborar com o grupo.`;
+            socio = sortear(db.variacoes.conectoresSocio) + perfilTraduzido.join(', ') + ".";
         }
 
-        let camposTexto = "";
+        let bnccTexto = "";
         let habilidades = [];
         db.campos.forEach((c, i) => { if(selecoes.bncc[i].length > 0) habilidades.push(...selecoes.bncc[i].map(h => h.toLowerCase())); });
         if(habilidades.length > 0) {
-            camposTexto = ` No que concerne aos campos de experiência, ${pNome} manifesta iniciativa ao ${habilidades.join(', ')}, revelando um engajamento ativo nas vivências cotidianas.`;
+            bnccTexto = " " + sortear(db.variacoes.conectoresBNCC) + habilidades.join(', ') + ", revelando engajamento ativo nas vivências.";
         }
 
-        let conc = sortear(db.variacoes.conclusao).replace('[pNome]', pNome);
+        let fraseProf = ` <br><br><i>"${sortear(db.variacoes.inspiradoras)}"</i>`;
 
-        let corpoFinal = `<p style="text-indent: 1.5cm;">${intro}${socio}</p>`;
-        corpoFinal += `<p style="text-indent: 1.5cm;">${camposTexto}</p>`;
-        corpoFinal += `<p style="text-indent: 1.5cm;">${conc}</p>`;
+        let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
+        corpo += `<p style="text-indent:1.5cm;">Concluímos que ${pNome} segue em pleno desenvolvimento cognitivo e afetivo.${fraseProf}</p>`;
 
-        let assinaturas = `<br><div style="text-align:right;">${cidade}, ${dataH}.</div><table style="width:100%; border:none; text-align:center; font-size:10pt; margin-top:80px;">
-            <tr><td style="width:30%; border-top: 1px solid black; padding-top:5px;">GESTOR(A) / COORDENAÇÃO</td><td style="width:5%;"></td>
-            <td style="width:30%; border-top: 1px solid black; padding-top:5px;">PROFESSOR(A) REGENTE</td><td style="width:5%;"></td>
-            <td style="width:30%; border-top: 1px solid black; padding-top:5px;">PAIS / RESPONSÁVEL</td></tr></table>`;
-
-        document.getElementById('editor').innerHTML = cabecalho + corpoFinal + assinaturas;
+        document.getElementById('editor').innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:20px;">PARECER DESCRITIVO INDIVIDUAL</div>` + corpo + `<br><div style="text-align:right;">${document.getElementById('cidade').value}, ${dataH}.</div>`;
         document.getElementById('resultado-secao').style.display = 'block';
-        window.scrollTo(0, document.body.scrollHeight);
     }
     window.onload = iniciar;
 </script>
