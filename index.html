@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Padrão A4</title>
+    <title>CONTAÊ PROFE - Narrativas de Afeto</title>
     <style>
         :root {
             --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
@@ -11,8 +11,11 @@
         }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
         .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
-        .header { text-align: center; margin-bottom: 25px; }
+        
+        /* Cabeçalho com Slogan */
+        .header { text-align: center; margin-bottom: 30px; }
         .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
+        .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; line-height: 1.4; }
         
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
@@ -31,7 +34,7 @@
         
         #resultado-secao { display: none; margin-top: 40px; }
         
-        /* Ajuste para Folha A4 */
+        /* Padrão A4 para Impressão */
         #editor { 
             width: 210mm; 
             min-height: 297mm; 
@@ -61,7 +64,7 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p>Parecer Pedagógico - Pré-Escola (A4)</p>
+        <p class="slogan">“A voz do professor, a história da criança. Transformando observação pedagógica em narrativas de afeto.”</p>
     </div>
 
     <div class="grid-inputs">
@@ -122,7 +125,7 @@
         const containerBNCC = document.getElementById('secoes-bncc');
         db.campos.forEach((campo, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-titulo">${campo.titulo} (Clique até 4)</div><div class="grid-palavras" id="campo-${idx}"></div>`;
+            div.innerHTML = `<div class="secao-titulo">${campo.titulo}</div><div class="grid-palavras" id="campo-${idx}"></div>`;
             containerBNCC.appendChild(div);
             const grid = document.getElementById(`campo-${idx}`);
             selecoes.bncc[idx] = [];
@@ -150,31 +153,31 @@
 
         let texto = `<div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:25px; text-decoration: underline;">PARECER DESCRITIVO INDIVIDUAL</div>`;
         
-        texto += `<p style="text-indent: 1.5cm;">Durante este período letivo, as vivências de <b>${nome}</b> na instituição <b>${escola}</b> foram pautadas nos objetivos de aprendizagem da BNCC. A criança demonstrou um percurso de desenvolvimento singular, participando ativamente das propostas pedagógicas.</p>`;
+        texto += `<p style="text-indent: 1.5cm;">Durante este período letivo, as vivências de <b>${nome}</b> na instituição <b>${escola}</b> foram fundamentadas nos objetivos de aprendizagem da BNCC. A criança demonstrou um percurso de desenvolvimento singular, participando ativamente das propostas pedagógicas.</p>`;
 
         if(selecoes.perfil.length > 0) {
             texto += `<p style="text-indent: 1.5cm;">Em seu aspecto socioemocional, ${pNome} revela-se uma criança <b>${selecoes.perfil.join(', ').toLowerCase()}</b>. No convívio social, interage com segurança, demonstrando empatia e prontidão em colaborar com os pares e professores.</p>`;
         }
 
         const conectores = [
-            "No que tange às relações de identidade e autonomia, ",
-            "Quanto à consciência corporal e coordenação, ",
-            "Em relação à expressividade artística e sensorial, ",
-            "No campo da comunicação, escuta e fala, ",
-            "Sobre a exploração de noções matemáticas e espaciais, "
+            "No campo das relações interpessoais, ",
+            "Quanto ao domínio do corpo e movimentos, ",
+            "Em relação à exploração de traços e formas, ",
+            "Sobre a comunicação e expressividade, ",
+            "No que tange às noções de tempo e espaço, "
         ];
 
         db.campos.forEach((c, i) => {
             if(selecoes.bncc[i].length > 0) {
-                texto += `<p style="text-indent: 1.5cm;">${conectores[i]} observa-se que a criança ${selecoes.bncc[i].join(', ').toLowerCase()} de forma protagonista, consolidando habilidades essenciais para sua faixa etária.</p>`;
+                texto += `<p style="text-indent: 1.5cm;">${conectores[i]} observa-se que a criança ${selecoes.bncc[i].join(', ').toLowerCase()} com autonomia e protagonismo.</p>`;
             }
         });
 
-        texto += `<p style="text-indent: 1.5cm;">Concluímos que ${pNome} segue em um processo de aprendizagem contínuo e integrado, demonstrando prontidão para os novos desafios pedagógicos.</p>`;
+        texto += `<p style="text-indent: 1.5cm;">Concluímos que ${pNome} segue em pleno desenvolvimento cognitivo e afetivo, integrando-se plenamente ao grupo.</p>`;
         
-        texto += `<br><div style="text-align:right; margin-bottom:30px;">${cidade}, ${dataH}.</div>`;
+        texto += `<br><div style="text-align:right;">${cidade}, ${dataH}.</div>`;
 
-        texto += `<table style="width:100%; border:none; text-align:center; font-size:10pt; margin-top:60px;">
+        texto += `<table style="width:100%; border:none; text-align:center; font-size:10pt; margin-top:80px;">
             <tr>
                 <td style="width:30%; border-top: 1px solid black; padding-top:5px;">GESTOR(A) / COORDENAÇÃO</td>
                 <td style="width:5%;"></td>
