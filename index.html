@@ -3,68 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
+    <title>CONTAÊ PROFE - Gerador de Parecer</title>
     <style>
         :root {
-            --primaria: #ff4757;
-            --secundaria: #2ed573;
-            --terciaria: #1e90ff;
-            --alerta: #ffa502;
-            --bg: #f1f2f6;
-            --texto: #2f3542;
-            --branco: #ffffff;
+            --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff;
+            --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff;
         }
-
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 20px; }
-        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2.5rem; text-transform: uppercase; letter-spacing: -1px; }
-        .slogan { font-style: italic; color: #747d8c; font-size: 0.95rem; }
-
-        .nav-top { display: flex; gap: 10px; margin-bottom: 25px; }
-        .btn-top { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: #dfe4ea; transition: 0.3s; }
-        .btn-limpar { background: #ff7675; color: white; }
-
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .campo { display: flex; flex-direction: column; }
-        .campo label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; text-transform: uppercase; outline: none; }
-
-        .secao-titulo { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; margin: 30px 0 15px; font-weight: bold; border-left: 5px solid var(--primaria); }
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .card { background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 15px; }
-        .btn-group { display: flex; gap: 5px; margin-top: 10px; }
-        .btn-opt { flex: 1; padding: 10px 5px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; background: #f1f2f6; transition: 0.3s; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 10px; }
+        .container { max-width: 900px; margin: auto; background: var(--branco); padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 8px solid var(--primaria); }
         
-        .active-av { background: var(--terciaria) !important; color: white; }
-        .active-int { background: var(--secundaria) !important; color: white; }
-        .active-ini { background: var(--alerta) !important; color: white; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { margin: 0; color: var(--primaria); font-size: 1.8rem; }
+        
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .campo { display: flex; flex-direction: column; }
+        .campo.full { grid-column: span 2; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 4px; color: #57606f; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; }
 
-        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 15px; background: var(--primaria); }
-
-        #resultado-secao { display: none; margin-top: 40px; }
-        #editor { 
-            width: 100%; min-height: 800px; padding: 20px; border: 1px solid #ccc; 
-            font-family: 'Arial', sans-serif; font-size: 12pt; line-height: 1.5; 
-            text-align: justify; background: white; outline: none;
+        .secao-titulo { background: #2f3542; color: white; padding: 8px 12px; border-radius: 6px; margin: 20px 0 10px; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; }
+        
+        .palavras-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
+        .btn-palavra { 
+            padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: white; 
+            cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: 0.2s;
         }
+        
+        /* Cores das Seleções */
+        .btn-palavra.avancado.selected { background: var(--terciaria) !important; color: white; border-color: var(--terciaria); }
+        .btn-palavra.processo.selected { background: var(--secundaria) !important; color: white; border-color: var(--secundaria); }
+        .btn-palavra.inicial.selected { background: var(--alerta) !important; color: white; border-color: var(--alerta); }
 
-        @media print {
-            @page { size: A4; margin: 0; }
-            body { margin: 0; padding: 0; background: white; }
-            .no-print { display: none !important; }
-            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; margin: 0; }
-            #resultado-secao { display: block !important; margin: 0 !important; }
-            #editor { 
-                border: none !important; 
-                padding: 3cm 2cm 2cm 3cm !important; /* ABNT Pura */
-                width: 21cm; 
-                min-height: 29.7cm; 
-                display: block !important;
-                overflow: visible !important;
-            }
-            html, body { height: auto; overflow: visible; }
-        }
+        .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 25px; background: var(--primaria); box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3); }
+        
+        #resultado-secao { display: none; margin-top: 30px; }
+        #editor { width: 100%; min-height: 400px; padding: 30px; border: 1px solid #ccc; font-family: Arial; font-size: 12pt; line-height: 1.5; text-align: justify; background: white; box-sizing: border-box; outline: none; }
+        
+        .acoes-finais { display: flex; gap: 8px; margin-top: 15px; }
+        .btn-acao { flex: 1; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+
+        @media print { .no-print { display: none !important; } .container { box-shadow: none; width: 100%; padding: 0; } #editor { border: none; padding: 0; } }
     </style>
 </head>
 <body>
@@ -72,149 +50,152 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“Transformando observação pedagógica em narrativas de afeto.”</p>
-    </div>
-
-    <div class="nav-top">
-        <button class="btn-top btn-limpar" onclick="limparTudo()">🧹 LIMPAR TUDO</button>
     </div>
 
     <div class="grid-inputs">
-        <div class="campo"><label>Criança</label><input type="text" id="nome_crianca" placeholder="Nome Completo"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="nome_prof"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="nome_escola"></div>
+        <div class="campo full"><label>Nome da Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
+        <div class="campo">
+            <label>Gênero</label>
+            <select id="genero">
+                <option value="a">Menina (A)</option>
+                <option value="o">Menino (O)</option>
+            </select>
+        </div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Manaus"></div>
+        <div class="campo full"><label>Escola</label><input type="text" id="escola"></div>
     </div>
 
-    <div class="secao-titulo">HABILIDADES E VIVÊNCIAS (BNCC/DCNEI)</div>
-    <div id="cards-habilidades" class="grid-cards"></div>
+    <div class="secao-titulo">Perfil e Atitudes Sociais</div>
+    <div id="grid-perfil" class="palavras-grid"></div>
 
-    <button class="btn-gerar" onclick="gerarTexto()">📝 GERAR RELATÓRIO TÉCNICO ABNT</button>
+    <div id="campos-bncc"></div>
+
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO FINAL</button>
 </div>
 
 <div id="resultado-secao" class="container">
     <div id="editor" contenteditable="true"></div>
-    <div class="nav-top no-print" style="margin-top: 20px; justify-content: center;">
-        <button class="btn-top" style="background: var(--secundaria); color: white; max-width: 300px;" onclick="window.print()">🖨️ IMPRIMIR / SALVAR PDF</button>
+    <div class="acoes-finais no-print">
+        <button class="btn-acao" style="background: var(--terciaria);" onclick="window.print()">🖨️ IMPRIMIR / PDF</button>
+        <button class="btn-acao" style="background: var(--texto);" onclick="location.reload()">🧹 NOVO</button>
     </div>
 </div>
 
 <script>
-    const habilidades = ["Coordenação Motora", "Linguagem Oral", "Socioafetivo", "Autonomia", "Participação", "Desenvolvimento Cognitivo", "Convívio Social", "Identidade", "Exploração de Mundo"];
-    const selecoes = {};
-
-    // BANCO DE DADOS DE ALTA QUALIDADE (Inspirado nos seus PDFs e BNCC)
-    const database = {
-        "av": [
-            "demonstra protagonismo e autonomia plena em todas as vivências propostas.",
-            "apresenta uma assimilação rápida e criativa, extrapolando os objetivos da BNCC.",
-            "possui uma fala clara, fluida e com vocabulário rico para sua faixa etária.",
-            "relaciona-se com seus pares de forma harmoniosa, exercendo liderança positiva.",
-            "expressa suas ideias com segurança, mostrando-se independente nas resoluções de problemas.",
-            "executa movimentos de coordenação com precisão, revelando domínio do esquema corporal."
-        ],
-        "int": [
-            "apresenta avanços significativos, consolidando habilidades através da mediação constante.",
-            "encontra-se em pleno processo de desenvolvimento, necessitando de estímulos pontuais.",
-            "participa ativamente das atividades, embora ainda busque o apoio e validação do professor.",
-            "o processo de assimilação ocorre em ritmo próprio, demonstrando progresso diário.",
-            "identifica conceitos e regras básicas, estando em fase de maturação social.",
-            "demonstra interesse pelas propostas, necessitando de tempo para concluir os desafios."
-        ],
-        "ini": [
-            "encontra-se em fase inicial de descoberta, exigindo mediação afetiva e constante.",
-            "está desenvolvendo o vínculo com o ambiente escolar e necessita de suporte para interagir.",
-            "demonstra necessidade de auxílio dirigido para realizar tarefas de coordenação e fala.",
-            "apresenta-se em processo de adaptação, sendo encorajado a participar das vivências coletivas.",
-            "necessita de mediação para a compreensão de limites e convivência com os pares.",
-            "está sendo estimulado a expressar seus desejos, recebendo acolhimento e escuta atenta."
-        ]
+    const selecoes = { perfil: {}, bncc: {} };
+    
+    const dados = {
+        perfil: {
+            avancado: ['Calma', 'Prestativa', 'Autônoma', 'Líder', 'Comunicativa', 'Criativa'],
+            processo: ['Observadora', 'Participativa', 'Reservada', 'Curiosa', 'Agitada'],
+            inicial: ['Introvertida', 'Insegura', 'Desatenta', 'Resistente', 'Impulsiva']
+        },
+        bncc: {
+            'O Eu, o Outro e o Nós': {
+                avancado: ['Lidera', 'Colabora', 'Empatiza'],
+                processo: ['Interage', 'Integra-se', 'Participa'],
+                inicial: ['Isola-se', 'Necessita apoio', 'Recusa']
+            },
+            'Corpo, Gestos e Movimentos': {
+                avancado: ['Domina movimentos', 'Coordena bem', 'Equilibrada'],
+                processo: ['Desenvolve motor', 'Experimenta', 'Tenta'],
+                inicial: ['Limita-se', 'Dificuldade motora', 'Repete']
+            },
+            'Traços, Sons, Cores e Formas': {
+                avancado: ['Cria arte', 'Inova', 'Distingue sons'],
+                processo: ['Explora cores', 'Pinta', 'Desenha'],
+                inicial: ['Rabisca', 'Sente texturas', 'Observa']
+            },
+            'Escuta, Fala, Pensamento e Imaginação': {
+                avancado: ['Argumenta', 'Narra histórias', 'Comunica'],
+                processo: ['Expressa fala', 'Escuta', 'Nomeia'],
+                inicial: ['Aponta', 'Emite sons', 'Imita']
+            },
+            'Espaço, Tempo, Quantidades': {
+                avancado: ['Compara', 'Classifica', 'Resolve'],
+                processo: ['Identifica', 'Conta', 'Percebe'],
+                inicial: ['Olha', 'Toca', 'Empilha']
+            }
+        }
     };
 
-    function criarCards() {
-        const container = document.getElementById('cards-habilidades');
-        habilidades.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <strong>${item}</strong>
-                <div class="btn-group">
-                    <button class="btn-opt" onclick="marcar(this, '${item}', 'av')">AVANÇADO</button>
-                    <button class="btn-opt" onclick="marcar(this, '${item}', 'int')">INTERMED.</button>
-                    <button class="btn-opt" onclick="marcar(this, '${item}', 'ini')">INICIAL</button>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+    function iniciar() {
+        const gridP = document.getElementById('grid-perfil');
+        for (let nivel in dados.perfil) {
+            dados.perfil[nivel].forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = `btn-palavra ${nivel}`;
+                btn.innerText = p;
+                btn.onclick = () => {
+                    btn.classList.toggle('selected');
+                    if(selecoes.perfil[p]) delete selecoes.perfil[p]; 
+                    else selecoes.perfil[p] = nivel;
+                };
+                gridP.appendChild(btn);
+            });
+        }
+
+        const containerB = document.getElementById('campos-bncc');
+        for (let campo in dados.bncc) {
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="secao-titulo">${campo}</div><div class="palavras-grid" id="bncc-${campo}"></div>`;
+            containerB.appendChild(div);
+            const grid = div.querySelector('.palavras-grid');
+            
+            for (let nivel in dados.bncc[campo]) {
+                dados.bncc[campo][nivel].forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = `btn-palavra ${nivel}`;
+                    btn.innerText = p;
+                    btn.onclick = () => {
+                        grid.querySelectorAll('.btn-palavra').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selecoes.bncc[campo] = { palavra: p, nivel: nivel };
+                    };
+                    grid.appendChild(btn);
+                });
+            }
+        }
     }
 
-    function marcar(btn, item, nivel) {
-        const botoes = btn.parentElement.querySelectorAll('.btn-opt');
-        botoes.forEach(b => b.classList.remove('active-av', 'active-int', 'active-ini'));
-        btn.classList.add(nivel === 'av' ? 'active-av' : nivel === 'int' ? 'active-int' : 'active-ini');
-        selecoes[item] = nivel;
-    }
-
-    function gerarTexto() {
-        const crianca = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
-        const pNome = crianca.split(' ')[0];
-        const escola = document.getElementById('nome_escola').value.toUpperCase() || "INSTITUIÇÃO";
+    function gerarRelatorio() {
+        const nome = document.getElementById('nome_crianca').value.toUpperCase() || "A CRIANÇA";
+        const escola = document.getElementById('escola').value.toUpperCase() || "ESCOLA";
+        const genero = document.getElementById('genero').value;
         const cidade = document.getElementById('cidade').value.toUpperCase();
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+        const art = genero === 'a' ? 'A aluna' : 'O aluno';
+        const pNome = nome.split(' ')[0];
 
-        // Introdução Técnica
-        let textoFinal = `<div style="text-align:center; font-weight:bold; margin-bottom:30px;">RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO</div>
-        <p style="text-indent: 1.25cm;">Com fundamento nas Diretrizes Curriculares Nacionais (DCNEI) e nos campos de experiência da BNCC, este parecer reflete a observação atenta das vivências de <b>${crianca}</b> na unidade <b>${escola}</b>. O foco do nosso trabalho pautou-se na garantia dos direitos de aprendizagem e desenvolvimento: conviver, brincar, participar, explorar, expressar e conhecer-se.</p>`;
+        let rel = `<div style="text-align:center; font-weight:bold; text-decoration:underline;">RELATÓRIO DESCRITIVO INDIVIDUAL</div><br>`;
+        rel += `<p>Durante este período, as vivências de <b>${nome}</b> na unidade <b>${escola}</b> focaram nos direitos de aprendizagem.</p>`;
+        
+        const perfis = Object.keys(selecoes.perfil);
+        if(perfis.length > 0) {
+            rel += `<p>${pNome} demonstra ser uma criança ${perfis.join(', ').toLowerCase()}, interagindo de forma afetiva com o grupo.</p>`;
+        }
 
-        // Desenvolvimento Dinâmico (Sorteio de frases para evitar repetição)
-        let corpoDesenvolvimento = "";
-        let frasesUsadas = []; // Controle para não repetir a mesma frase no mesmo relatório
-
-        for (let hab in selecoes) {
-            let nivel = selecoes[hab];
-            let opcoes = database[nivel];
+        for (let campo in selecoes.bncc) {
+            const s = selecoes.bncc[campo];
+            let frase = "";
+            if(s.nivel === 'avancado') frase = `destaca-se plenamente ao ${s.palavra.toLowerCase()}.`;
+            else if(s.nivel === 'processo') frase = `está em fase de desenvolvimento ao ${s.palavra.toLowerCase()}.`;
+            else frase = `necessita de mediação constante para ${s.palavra.toLowerCase()}.`;
             
-            // Filtra para não repetir frase já sorteada
-            let disponiveis = opcoes.filter(f => !frasesUsadas.includes(f));
-            if (disponiveis.length === 0) disponiveis = opcoes; // Reinicia se acabar
-
-            let fraseSorteada = disponiveis[Math.floor(Math.random() * disponiveis.length)];
-            frasesUsadas.push(fraseSorteada);
-
-            corpoDesenvolvimento += `${pNome} ${fraseSorteada} `;
+            rel += `<p><b>${campo}:</b> ${art} ${frase}</p>`;
         }
 
-        if (corpoDesenvolvimento === "") {
-            alert("Por favor, selecione ao menos uma habilidade!");
-            return;
-        }
+        rel += `<p>Concluímos que ${pNome} segue em pleno desenvolvimento cognitivo e social.</p>`;
+        rel += `<br><div style="text-align:right;">${cidade}, ${dataH}.</div><br><br>`;
+        rel += `<center>________________________________<br>Professor(a)</center>`;
 
-        textoFinal += `<p style="text-indent: 1.25cm;">${corpoDesenvolvimento}</p>`;
-
-        // Conclusão Afetiva
-        textoFinal += `<p style="text-indent: 1.25cm;">Diante das observações, reafirmamos o compromisso com uma educação que acolhe as singularidades. Acreditamos no potencial de ${pNome} e seguimos em parceria com a família para fortalecer cada nova conquista.</p>
-        <br><br><div style="text-align:right;">${cidade}, ${dataH}.</div>
-        <br><br><br>
-        <table style="width:100%; border:none; text-align:center;">
-            <tr>
-                <td style="border-top: 1px solid black; width:30%;">GESTOR(A)</td>
-                <td style="width:5%;"></td>
-                <td style="border-top: 1px solid black; width:30%;">PROFESSOR(A)</td>
-                <td style="width:5%;"></td>
-                <td style="border-top: 1px solid black; width:30%;">RESPONSÁVEL</td>
-            </tr>
-        </table>`;
-
-        document.getElementById('editor').innerHTML = textoFinal;
+        document.getElementById('editor').innerHTML = rel;
         document.getElementById('resultado-secao').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    function limparTudo() {
-        if(confirm("Deseja limpar todos os dados?")) location.reload();
-    }
-
-    window.onload = criarCards;
+    window.onload = iniciar;
 </script>
 </body>
 </html>
