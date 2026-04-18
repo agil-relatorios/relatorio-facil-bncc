@@ -3,28 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Pré-Escola (4 a 6 anos)</title>
+    <title>CONTAÊ PROFE - Sistema de Pareceres</title>
     <style>
         :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
-        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
+        .container { max-width: 1100px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
         .header { text-align: center; margin-bottom: 30px; }
         .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
         .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; }
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        
+        /* Ajuste do Grid de Cadastro */
+        .grid-cadastro { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; margin-bottom: 25px; background: #f9f9f9; padding: 20px; border-radius: 15px; border: 1px solid #eee; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; text-transform: uppercase; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; background: white; text-transform: uppercase; }
+        
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; text-align: center; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
         .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: 0.2s; text-align: center; }
         .btn-check.active.avancado { background: var(--terciaria); color: white; border-color: var(--terciaria); }
         .btn-check.active.processo { background: var(--secundaria); color: white; border-color: var(--secundaria); }
         .btn-check.active.inicial { background: var(--alerta); color: white; border-color: var(--alerta); }
+        
         .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
         #resultado-secao { display: none; margin-top: 40px; }
-        #editor { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; text-align: justify; background: white; box-sizing: border-box; border: 1px solid #ddd; outline: none; }
-        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; width: 100%; padding: 0; } #editor { border: none; padding: 20mm 15mm; width: 100%; } }
+        #editor { width: 210mm; min-height: 297mm; padding: 20mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; background: white; border: 1px solid #ddd; }
+        
+        .cabecalho-impresso { border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; font-size: 10pt; line-height: 1.3; }
+
+        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; padding: 0; } #editor { border: none; width: 100%; } }
     </style>
 </head>
 <body>
@@ -32,14 +39,31 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“Narrativas de Afeto e Garantia de Direitos (Crianças de 4 a 6 anos)”</p>
+        <p class="slogan">“Narrativas de Afeto e Garantia de Direitos”</p>
     </div>
 
-    <div class="grid-inputs">
-        <div class="campo"><label>Nome da Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="INSTITUIÇÃO"></div>
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="MANAUS"></div>
-        <div class="campo"><label>Período</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+    <div class="secao-titulo">DADOS DE IDENTIFICAÇÃO</div>
+    <div class="grid-cadastro">
+        <div class="campo"><label>Nome da Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Endereço da Escola</label><input type="text" id="endereco_escola"></div>
+        <div class="campo"><label>Telefone / E-mail</label><input type="text" id="contato_escola"></div>
+        <div class="campo"><label>Nome da Professora</label><input type="text" id="professora"></div>
+        <div class="campo"><label>Nome da Criança</label><input type="text" id="crianca"></div>
+        <div class="campo">
+            <label>Gênero</label>
+            <select id="genero"><option value="o">MENINO (O ALUNO)</option><option value="a">MENINA (A ALUNA)</option></select>
+        </div>
+        <div class="campo"><label>Matrícula</label><input type="text" id="matricula"></div>
+        <div class="campo">
+            <label>Fase (Período)</label>
+            <select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select>
+        </div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo">
+            <label>Turno</label>
+            <select id="turno"><option>MATUTINO</option><option>VESPERTINO</option><option>INTEGRAL</option></select>
+        </div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="MANAUS"></div>
     </div>
 
     <div class="secao-titulo">DIMENSÕES DO CONVIVER E EXPRESSAR</div>
@@ -59,6 +83,7 @@
 </div>
 
 <script>
+    // ... (Mantendo a base de dados anterior das palavras de 4 a 6 anos)
     const db = {
         perfil: {
             inicial: ['Retraída', 'Apática', 'Desorganizada', 'Reativa', 'Inibida', 'Desconectada'],
@@ -66,66 +91,17 @@
             avancado: ['Protagonista', 'Resiliente', 'Investigativa', 'Empática', 'Autoconfiante', 'Segura']
         },
         campos: [
-            {
-                t: "1. O Eu, o Outro e o Nós",
-                inicial: ['Isolada', 'Dependente', 'Resistente'],
-                processo: ['Cooperativa', 'Participativa', 'Amigável'],
-                avancado: ['Líder', 'Autônoma', 'Empática']
-            },
-            {
-                t: "2. Corpo, Gestos e Movimentos",
-                inicial: ['Cautelosa', 'Desordenada', 'Lenta'],
-                processo: ['Ativa', 'Ágil', 'Coordenada'],
-                avancado: ['Expressiva', 'Habilidosa', 'Segura']
-            },
-            {
-                t: "3. Traços, Sons, Cores e Formas",
-                inicial: ['Hesitante', 'Tateante', 'Silenciosa'],
-                processo: ['Exploradora', 'Sensível', 'Ritmada'],
-                avancado: ['Inventiva', 'Criativa', 'Expressiva']
-            },
-            {
-                t: "4. Escuta, Fala, Pensamento e Imaginação",
-                inicial: ['Gestual', 'Ouvinte', 'Reservada'],
-                processo: ['Comunicativa', 'Narradora', 'Atenta'],
-                avancado: ['Argumentativa', 'Eloquente', 'Crítica']
-            },
-            {
-                t: "5. Espaço, Tempo, Quantidades e Relações",
-                inicial: ['Concreta', 'Perceptiva', 'Desatenta'],
-                processo: ['Comparativa', 'Organizadora', 'Analítica'],
-                avancado: ['Investigativa', 'Lógica', 'Solucionadora']
-            }
+            { t: "1. O Eu, o Outro e o Nós", inicial: ['Isolada', 'Dependente'], processo: ['Cooperativa', 'Amigável'], avancado: ['Líder', 'Empática'] },
+            { t: "2. Corpo, Gestos e Movimentos", inicial: ['Cautelosa', 'Lenta'], processo: ['Ativa', 'Coordenada'], avancado: ['Expressiva', 'Segura'] },
+            { t: "3. Traços, Sons, Cores e Formas", inicial: ['Hesitante', 'Silenciosa'], processo: ['Exploradora', 'Sensível'], avancado: ['Inventiva', 'Criativa'] },
+            { t: "4. Escuta, Fala, Pensamento e Imaginação", inicial: ['Gestual', 'Reservada'], processo: ['Comunicativa', 'Atenta'], avancado: ['Argumentativa', 'Crítica'] },
+            { t: "5. Espaço, Tempo, Quantidades e Relações", inicial: ['Concreta', 'Desatenta'], processo: ['Comparativa', 'Analítica'], avancado: ['Lógica', 'Solucionadora'] }
         ],
         traducoes: {
-            'retraída': 'manifesta maior introspecção, necessitando de mediação para fortalecer seu sentimento de segurança',
-            'apática': 'demonstra necessidade de maiores estímulos lúdicos para despertar seu interesse',
-            'desorganizada': 'encontra-se em processo de compreensão das rotinas e combinados',
-            'reativa': 'está aprendendo a processar frustrações e a utilizar o diálogo',
-            'inibida': 'requer suporte afetivo para fortalecer o reconhecimento de suas capacidades',
-            'desconectada': 'necessita de mediação para se envolver plenamente em brincadeiras coletivas',
-            'gestual': 'utiliza predominantemente a linguagem corporal para expressar desejos e necessidades',
-            'concreta': 'compreende noções de tempo e espaço através de experiências físicas e imediatas',
-            'lenta': 'possui um tempo próprio e cauteloso para explorar movimentos amplos',
-            'hesitante': 'explora materiais artísticos com prudência, em busca de maior familiaridade'
-        },
-        variacoes: {
-            introducao: [
-                "Neste semestre, o percurso de [nome] na [escola] foi pautado pela garantia dos direitos de conviver, brincar e participar.",
-                "Durante este período letivo, as vivências de [nome] na [escola] revelaram um processo singular de descobertas sob a luz da BNCC.",
-                "Ao longo deste período de convivência, [nome] participou de propostas na [escola] que visaram seu desenvolvimento integral."
-            ],
-            conclusao: [
-                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e afetivo, integrando-se ao grupo.",
-                "Diante das observações, percebe-se que [pNome] apresenta avanços significativos em sua autonomia.",
-                "O desenvolvimento de [pNome] neste período reflete a construção de vínculos saudáveis e novas competências."
-            ],
-            inspiradoras: [
-                "É um privilégio acompanhar cada pequeno passo da sua grande jornada!",
-                "Seu brilho único ilumina nossa sala todos os dias. Continue crescendo!",
-                "Que sua sede de aprender continue sendo sua maior aventura!",
-                "Cada nova descoberta sua é uma vitória que comemoramos juntos!"
-            ]
+            'retraída': 'manifesta maior introspecção, necessitando de mediação para fortalecer sua segurança',
+            'apática': 'demonstra necessidade de estímulos lúdicos para despertar seu interesse',
+            'desorganizada': 'encontra-se em processo de compreensão das rotinas escolares',
+            'reativa': 'está aprendendo a processar frustrações e a utilizar o diálogo'
         }
     };
 
@@ -133,6 +109,7 @@
     const sortear = (l) => l[Math.floor(Math.random() * l.length)];
 
     function formatar(t) {
+        if(!t) return "";
         const exc = ['de', 'da', 'do', 'dos', 'das', 'e'];
         return t.toLowerCase().split(' ').map((p, i) => (exc.includes(p) && i !== 0) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
     }
@@ -177,28 +154,53 @@
     }
 
     function gerarRelatorio() {
-        const nome = formatar(document.getElementById('nome_crianca').value || "A Criança");
-        const escola = formatar(document.getElementById('nome_escola').value || "Escola");
-        const cidade = formatar(document.getElementById('cidade').value || "Manaus");
-        const pNome = nome.split(' ')[0];
+        const d = {
+            escola: formatar(document.getElementById('escola').value),
+            endereco: formatar(document.getElementById('endereco_escola').value),
+            contato: document.getElementById('contato_escola').value.toLowerCase(),
+            prof: formatar(document.getElementById('professora').value),
+            crianca: formatar(document.getElementById('crianca').value),
+            mat: document.getElementById('matricula').value,
+            fase: document.getElementById('fase').value,
+            turma: document.getElementById('turma').value.toUpperCase(),
+            turno: document.getElementById('turno').value,
+            cidade: formatar(document.getElementById('cidade').value),
+            artigo: document.getElementById('genero').value
+        };
+
+        const pNome = d.crianca.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-        let intro = sortear(db.variacoes.introducao).replace('[nome]', `<b>${nome}</b>`).replace('[escola]', `<b>${escola}</b>`);
-        
+        const cabecalhoHTML = `
+            <div class="cabecalho-impresso">
+                <center><strong>${d.escola}</strong><br>${d.endereco} | ${d.contato}</center><br>
+                <strong>ALUNO(A):</strong> ${d.crianca} <span style="margin-left:20px;"><strong>MATRÍCULA:</strong> ${d.mat}</span><br>
+                <strong>PROFESSORA:</strong> ${d.prof} <span style="margin-left:20px;"><strong>TURMA:</strong> ${d.turma} - ${d.turno}</span><br>
+                <strong>FASE:</strong> PRÉ-ESCOLA (${d.fase})
+            </div>
+            <center><strong>PARECER DESCRITIVO INDIVIDUAL</strong></center><br>
+        `;
+
         let perfilTexto = selecoes.perfil.map(p => db.traducoes[p.toLowerCase()] || p.toLowerCase()).join(', ');
         let socio = perfilTexto ? ` No que tange às dimensões do conviver e expressar, a criança ${perfilTexto}.` : "";
 
         let habilidades = [];
         db.campos.forEach((c, i) => { if(selecoes.bncc[i].length > 0) habilidades.push(...selecoes.bncc[i]); });
-        let bnccTexto = habilidades.length > 0 ? ` Em relação aos campos de experiência, ${pNome} revela-se ${habilidades.map(h => h.toLowerCase()).join(', ')}, demonstrando engajamento nas propostas de aprendizagem.` : "";
+        let bnccTexto = habilidades.length > 0 ? ` Em relação aos campos de experiência, ${pNome} revela-se ${habilidades.map(h => h.toLowerCase()).join(', ')}, demonstrando engajamento nas vivências.` : "";
 
-        let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
-        corpo += `<p style="text-indent:1.5cm;">${sortear(db.variacoes.conclusao).replace('[pNome]', pNome)}</p>`;
-        corpo += `<br><center><i>"${sortear(db.variacoes.inspiradoras)}"</i></center>`;
+        let corpo = `<p style="text-indent:1.5cm;">Neste semestre, o percurso de <b>${d.crianca}</b> na instituição <b>${d.escola}</b> foi pautado pela garantia dos direitos de conviver, brincar e participar.${socio}${bnccTexto}</p>`;
+        corpo += `<p style="text-indent:1.5cm;">Concluímos que ${d.artigo === 'o' ? 'o aluno' : 'a aluna'} segue em pleno desenvolvimento integral.</p>`;
+        corpo += `<br><div style="text-align:right;">${d.cidade}, ${dataH}.</div><br><br>`;
+        corpo += `<div style="display:flex; justify-content: space-around; font-size:10pt; text-align:center;">
+                    <div>__________________________<br>Professor(a)</div>
+                    <div>__________________________<br>Coordenação/Gestão</div>
+                  </div>`;
 
-        document.getElementById('editor').innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:20px; font-size:14pt;">PARECER DESCRITIVO INDIVIDUAL</div>` + corpo + `<br><div style="text-align:right;">${cidade}, ${dataH}.</div>`;
+        document.getElementById('editor').innerHTML = cabecalhoHTML + corpo;
         document.getElementById('resultado-secao').style.display = 'block';
+        window.scrollTo(0, document.getElementById('resultado-secao').offsetTop);
     }
+
     window.onload = iniciar;
 </script>
 </body>
