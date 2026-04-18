@@ -1,8 +1,4 @@
-<!DOCTYPE html><html lang="pt-br"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
-    <style>
+<style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -40,14 +36,30 @@
         .doc-secao { margin-bottom: 20px; }
         .doc-titulo { font-weight: bold; color: var(--texto); text-transform: uppercase; font-size: 0.9rem; margin-bottom: 8px; display: block; }
 
-        /* EDITOR DE IMPRESSÃO */
+        /* EDITOR DE IMPRESSÃO - RECUPERADO A4 ÚNICA FOLHA */
         #editor { 
             width: 210mm; height: 297mm; margin: 20px auto; background: white; 
-            box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; 
+            box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; /* Margem superior de 3 conforme solicitado */
             font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.5; color: #000; 
             display: none; overflow: hidden; border: 1px solid #eee;
         }
+        
+        /* ESTILOS DE IMPRESSÃO RECUPERADOS */
+        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; }
+        .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
+        .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; } /* Espaço 3 após mensagem */
+        .data-local { text-align: center; margin-bottom: 4em; } /* Espaço 4 após data */
 
+        /* ASSINATURAS EM LISTA OTIMIZADAS */
+        .assinaturas-lista { width: 100%; }
+        .item-assinatura { margin-bottom: 2.5em; text-align: center; }
+        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
+
+        @page { size: A4; margin: 0; }
         @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
     </style></head><body>
 
@@ -59,13 +71,12 @@
 <div class="container no-print">
     <div class="grid-inputs">
         <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="Digite o nome da escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu nome completo"></div>
-        <div class="campo"><label>Nome da Criança</label><input type="text" id="crianca" placeholder="Nome do aluno(a)"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do aluno(a)"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: 2º Período A"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero"><option value="a criança">A Criança</option><option value="o aluno">O Aluno</option><option value="a aluna">A Aluna</option></select>
         </div>
-        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: A, B, Manhã"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu nome completo"></div>
         <div class="campo"><label>Período de Avaliação</label>
             <select id="periodo">
                 <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
@@ -104,7 +115,7 @@
     const nomesCampos = ["1. O Eu, o Outro e o Nós","2. Corpo, Gestos e Movimentos","3. Traços, Sons, Cores e Formas","4. Escuta, Fala, Pensamento e Imaginação","5. Espaço, Tempo, Quantidades e Relações"];
     const selecoes = { campos: {} };
 
-    // BANCO DE DADOS INICIAL
+    // BANCO DE DADOS INICIAL - MANTIDO
     const db = {
         acoesDocentes: [
             "Através da organização de contextos de aprendizagem significativos, a docente buscou ",
@@ -140,8 +151,9 @@
     function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
 
     function novoAluno() {
-        if(confirm("Deseja limpar todos os campos para iniciar um novo aluno?")) {
+        if(confirm("Deseja limpar os campos para iniciar um novo aluno? Os dados da escola e professor serão mantidos.")) {
             document.getElementById('crianca').value = "";
+            document.getElementById('turma').value = "";
             selecoes.campos = {};
             iniciar();
             document.getElementById('editor').style.display = 'none';
@@ -152,31 +164,47 @@
     function gerarRelatorio() {
         const p = { 
             escola: document.getElementById('escola').value.toUpperCase() || "NOME DA INSTITUIÇÃO", 
-            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)",
             nome: document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA", 
-            fase: document.getElementById('fase').value,
             turma: document.getElementById('turma').value.toUpperCase() || "---",
+            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)",
             periodo: document.getElementById('periodo').value,
             gen: document.getElementById('genero').value
         };
 
+        // MOTOR DE CONSTRUÇÃO DE PARÁGRAFOS - MANTIDO
         const par1 = sortear(db.acoesDocentes) + sortear(db.vivencias) + p.gen + " vivenciou os direitos de <b>" + db.direitos[0] + ", " + db.direitos[1] + " e " + db.direitos[2] + "</b> de forma integrada.";
         const par2 = "Ao <b>" + db.direitos[3] + "</b> novos contextos e <b>" + db.direitos[4] + "</b> suas descobertas, demonstrou um desenvolvimento pautado na curiosidade e no <b>" + db.direitos[5] + "</b>, fortalecendo sua identidade.";
         const par3 = "Concluímos este período com a certeza de que as experiências ofertadas ampliaram as potencialidades de " + p.nome + ", consolidando aprendizagens fundamentais para sua trajetória escolar.";
 
+        // IMPRESSÃO ESTRUTURADA RECUPERADA (Ordem e Espaçamentos)
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            <div class="bloco-dados"><b>DOCENTE:</b> ${p.prof}<br><b>CRIANÇA:</b> ${p.nome}<br><b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}</div>
-            <div class="dec-mat" style="text-align:center; font-size:10pt; margin-bottom:20px;">Relatório de Desempenho Escolar Individualizado</div>
-            <div class="tit-parecer" style="border-bottom: 1px solid #000; padding-bottom:5px;">${p.periodo}</div>
+            <div class="tit-parecer" style="font-size:12pt; font-weight:normal; margin-bottom:1em;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
+            
+            <div class="bloco-dados">
+                <b>CRIANÇA:</b> ${p.nome}<br>
+                <b>TURMA:</b> ${p.turma}<br>
+                <b>DOCENTE:</b> ${p.prof}<br>
+                <b>DATA:</b> 18/04/2026
+            </div>
+
+            <div class="dec-mat">
+                Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:
+            </div>
+
+            <div class="tit-parecer">PARECER DESCRITIVO INDIVIDUAL</div>
+
             <div class="corpo-texto">${par1}</div>
             <div class="corpo-texto">${par2}</div>
             <div class="corpo-texto">${par3}</div>
-            <div class="msg-final" style="margin-top:40px;">"Seu brilho único ilumina nossa sala todos os dias."</div>
-            <div class="data-local" style="text-align:center;">Manaus, 18 de abril de 2026.</div>
-            <div style="margin-top:50px; display:flex; flex-direction:column; gap:40px;">
-                <div style="text-align:center;"><div style="border-top:1px solid #000; width:60%; margin:0 auto;"></div><b>Professor(a)</b></div>
-                <div style="text-align:center;"><div style="border-top:1px solid #000; width:60%; margin:0 auto;"></div><b>Coordenação Pedagógica</b></div>
+
+            <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
+            <div class="data-local">Manaus, 18 de abril de 2026.</div>
+
+            <div class="assinaturas-lista">
+                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Professor(a)</div></div>
+                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Coordenação</div></div>
+                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Responsável</div></div>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
