@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Estrutura Narrativa</title>
+    <title>CONTAÊ PROFE - Estrutura Narrativa Final</title>
     <style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -23,17 +23,22 @@
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
         /* EDITOR DE IMPRESSÃO A4 */
-        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.6; color: #000; display: none; overflow: hidden; }
+        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; margin-bottom: 2em; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; }
-        .data-local { text-align: center; margin-bottom: 4em; }
+        
+        /* Ajuste de Espaçamento 1.5 em todo texto */
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; } /* Espaço 1.5 entre parágrafos via margin */
+        
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; } /* Espaço 2 após mensagem */
+        .data-local { text-align: center; margin-bottom: 3.5em; } /* Espaço 3.5 após data */
+        
         .item-assinatura { margin-bottom: 2.5em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
+        
         @page { size: A4; margin: 0; }
         @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
     </style></head><body>
@@ -45,7 +50,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="EX: DENIVAL LEITE COELHO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME COMPLETO"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME DO ALUNO(A)"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -66,7 +71,7 @@
 </div>
 
 <script>
-    const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMASS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+    const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMAS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
     const selecoes = { campos: {} };
 
     const db = {
@@ -78,7 +83,7 @@
         ],
         vivencias: [
             " vivenciasse os direitos de conviver, brincar e participar de forma plena e integrada aos Campos de Experiência. Durante as rodas de conversa e os momentos de acolhimento, percebeu-se um avanço significativo na capacidade de expressão e na construção de vínculos afetivos com seus pares. Além disso, nas explorações realizadas em áreas externas e no contato direto com elementos da natureza, demonstrou autonomia para explorar novos desafios motores, revelando segurança em suas ações e respeito ao espaço coletivo. A criança mostrou-se protagonista ao selecionar materiais em atividades de livre escolha, evidenciando um pensamento criativo e uma percepção aguçada sobre as relações de causa e efeito no ambiente ao seu redor, consolidando assim as bases para um desenvolvimento integral harmonioso.",
-            " pudesse exercer seus direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos sensoriais e cognitivos. Nas atividades dirigidas e nos momentos de grandes grupos, observou-se uma participação ativa, onde a criança demonstrou interesse por narrativas literárias e pela manipulação de diferentes suportes artísticos. Sua evolução na motricidade fina e ampla foi notória, especialmente durante as vivências de corpo e movimento, onde o controle progressivo do próprio corpo permitiu conquistas em sua independência física. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal, permitindo que a criança compreendesse sua posição no grupo e suas responsabilidades individuais dentro do convívio social escolar."
+            " pudesse exercer seus direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos sensoriais e cognitivos. Nas atividades dirigidas e nos momentos de grandes grupos, observou-se uma participação ativa, onde a criança demonstrou interesse por narrativas literárias e pela manipulação de diferentes suportes artísticos. Sua evolução na motricidade fina e ampla foi notória, especialmente durante as vivências de corpo e movimento, onde o controle progressivo do próprio corpo permitiu conquistas em sua independência física. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal, permitindo que a criança compreendesse sua posição no grupo e suas responsabilidades individuais dentro do convivio social escolar."
         ]
     };
 
@@ -112,8 +117,14 @@
     }
 
     function gerarRelatorio() {
+        let escolaInput = document.getElementById('escola').value.toUpperCase().trim();
+        // Lógica automática para incluir a palavra ESCOLA
+        if (escolaInput !== "" && !escolaInput.startsWith("ESCOLA")) {
+            escolaInput = "ESCOLA " + escolaInput;
+        }
+
         const p = { 
-            escola: document.getElementById('escola').value.toUpperCase() || "NOME DA INSTITUIÇÃO", 
+            escola: escolaInput || "ESCOLA NÃO INFORMADA", 
             nome: document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA", 
             fase: document.getElementById('fase').value,
             turma: document.getElementById('turma').value.toUpperCase() || "---",
