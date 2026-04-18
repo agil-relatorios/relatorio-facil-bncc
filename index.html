@@ -14,7 +14,8 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; text-transform: uppercase; }
+        input, select, textarea { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; }
+        input, select { text-transform: uppercase; }
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
         .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.2s; text-align: center; }
@@ -22,13 +23,21 @@
         .btn-check.active.processo { background: var(--secundaria); color: white; border-color: var(--secundaria); }
         .btn-check.active.inicial { background: var(--alerta); color: white; border-color: var(--alerta); }
         .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
+        
+        /* Ajuste para entrada manual */
+        .manual-box { width: 100%; min-height: 80px; resize: vertical; font-family: inherit; margin-top: 10px; }
+
         #resultado-secao { display: none; margin-top: 40px; }
         #editor { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; text-align: justify; background: white; box-sizing: border-box; border: 1px solid #ddd; outline: none; }
+        
+        /* Termos de Uso Elegante */
+        .termos-footer { margin-top: 50px; padding: 20px; border-top: 1px solid #ddd; text-align: center; font-size: 0.75rem; color: #95a5a6; line-height: 1.4; }
+        .termos-footer strong { color: #7f8c8d; }
+
         @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; width: 100%; padding: 0; } #editor { border: none; padding: 20mm 15mm; width: 100%; } }
     </style>
 </head>
 <body>
-
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
@@ -42,12 +51,21 @@
         <div class="campo"><label>Período</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
-    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Sem limites)</div>
+    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Clique para selecionar)</div>
     <div id="grid-perfil" class="grid-palavras"></div>
 
     <div id="secoes-bncc"></div>
 
+    <div class="secao-titulo">OBSERVAÇÕES MANUAIS (Complemento Personalizado)</div>
+    <textarea id="texto_manual" class="manual-box" placeholder="Escreva aqui fatos específicos, projetos ou recados personalizados para esta criança..."></textarea>
+
     <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA DE AFETO</button>
+
+    <div class="termos-footer">
+        <strong>TERMOS DE USO & PRIVACIDADE</strong><br>
+        Este sistema é uma ferramenta de apoio pedagógico. Os dados inseridos são de processamento local e responsabilidade do usuário.<br>
+        É vedada a reprodução comercial deste layout sem autorização. Conteúdo gerado sob diretrizes da BNCC.
+    </div>
 </div>
 
 <div id="resultado-secao">
@@ -154,6 +172,7 @@
         const nome = formatar(document.getElementById('nome_crianca').value || "A Criança");
         const escola = formatar(document.getElementById('nome_escola').value || "Escola");
         const cidade = formatar(document.getElementById('cidade').value || "Manaus");
+        const manual = document.getElementById('texto_manual').value.trim();
         const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -177,10 +196,14 @@
             bnccTexto = ` Em relação aos campos de experiência, ${pNome} manifesta progresso ao ${listaH}, revelando engajamento ativo nas vivências cotidianas.`;
         }
 
+        // Incorporação do Texto Manual
+        let obsManual = manual ? `<p style="text-indent:1.5cm;">${manual}</p>` : "";
+
         let conc = sortear(db.variacoes.conclusao).replace('[pNome]', pNome);
         let fraseProf = ` <br><br><center><i>"${sortear(db.variacoes.inspiradoras)}"</i></center>`;
 
         let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
+        corpo += obsManual;
         corpo += `<p style="text-indent:1.5cm;">${conc}${fraseProf}</p>`;
 
         document.getElementById('editor').innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:20px; font-size:14pt;">PARECER DESCRITIVO INDIVIDUAL</div>` + corpo + `<br><div style="text-align:right;">${cidade}, ${dataH}.</div>`;
