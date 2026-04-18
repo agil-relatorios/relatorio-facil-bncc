@@ -1,37 +1,77 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Final</title>
+    <title>CONTAÊ PROFE - Versão Pedagógica Master</title>
     <style>
-        :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
+        :root { 
+            --primaria: #ff4757; 
+            --primaria-dark: #e84118; 
+            --azul: #1e90ff; 
+            --bg: #f8f9fa; 
+            --texto: #2f3542; 
+            --branco: #ffffff;
+            --cor-inicial: #f1c40f; /* Amarelo */
+            --cor-processo: #3498db; /* Azul */
+            --cor-avancado: #2ecc71; /* Verde */
+        }
+        
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         header { background: var(--primaria); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
+
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
-        input:focus { border-color: var(--primaria); }
-        .secao-titulo { background: #2f3542; color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .btn-v { padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
-        .btn-v.active { background: var(--azul); color: white; border-color: var(--azul); }
+        
+        /* Faixa de Título com Pergunta */
+        .secao-pergunta { 
+            background: var(--azul); 
+            color: white; 
+            padding: 12px 15px; 
+            border-radius: 8px; 
+            margin: 25px 0 10px; 
+            display: flex; 
+            flex-direction: column;
+        }
+        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
+        .pergunta-texto { font-size: 1rem; font-weight: 600; }
+
+        /* Botões Coloridos (Semáforo) */
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .btn-v { 
+            padding: 12px; 
+            border: 2px solid #edeff2; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            text-align: center; 
+            background: white; 
+            color: #747d8c; 
+            transition: 0.3s;
+        }
+        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
+        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
+        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
+
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
+        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* DOCUMENTAÇÃO E ÉTICA */
-        .manual-footer { max-width: 900px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 15px; font-size: 0.85rem; line-height: 1.6; border: 1px solid #eee; }
-        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .etica-box { border-left: 4px solid var(--azul); padding-left: 15px; margin: 15px 0; font-style: italic; }
+        /* Manual e Ética */
+        .manual-footer { max-width: 900px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 15px; font-size: 0.9rem; line-height: 1.6; border: 1px solid #eee; }
+        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        .semaforo-info { display: flex; gap: 15px; margin: 15px 0; align-items: flex-start; }
+        .cor-box { min-width: 15px; height: 15px; border-radius: 50%; margin-top: 5px; }
 
-        /* EDITOR DE IMPRESSÃO */
+        /* Impressão A4 */
         #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
-        .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
@@ -58,7 +98,9 @@
         <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
+
     <div id="campos-container"></div>
+
     <div class="acoes-container">
         <button class="btn-limpar" onclick="novoAluno()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
@@ -71,75 +113,80 @@
 </div>
 
 <div class="manual-footer no-print">
-    <span class="manual-titulo">📖 Manual de Uso & Ética Profissional</span>
-    O <b>CONTAÊ PROFE</b> é uma ferramenta de apoio à redação pedagógica. Ao utilizar este sistema, o docente assume o compromisso ético de validar as frases sorteadas com a realidade observada em sala de aula. 
-    <div class="etica-box">
-        "A tecnologia agiliza o processo, mas o olhar sensível do professor sobre a singularidade da criança é insubstituível."
+    <span class="manual-titulo">🚦 Manual do Semáforo Pedagógico</span>
+    <div class="semaforo-info">
+        <div class="cor-box" style="background:var(--cor-inicial)"></div>
+        <span><b>AMARELO (Inicial):</b> A criança está tendo os primeiros contatos com a habilidade. Requer mediação constante e novos estímulos para despertar o interesse.</span>
     </div>
-    <b>Termos de Uso:</b> Os dados aqui inseridos são processados apenas localmente. Não armazenamos informações de menores em bancos de dados externos, garantindo conformidade com a LGPD e o sigilo escolar.
+    <div class="semaforo-info">
+        <div class="cor-box" style="background:var(--cor-processo)"></div>
+        <span><b>AZUL (Em Processo):</b> A criança já participa ativamente, mas ainda está consolidando a aprendizagem. A autonomia está florescendo.</span>
+    </div>
+    <div class="semaforo-info">
+        <div class="cor-box" style="background:var(--cor-avancado)"></div>
+        <span><b>VERDE (Avançado):</b> A criança demonstra segurança, protagonismo e aplica o conhecimento de forma autônoma em diferentes contextos.</span>
+    </div>
 </div>
 
 <script>
-    const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMAS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
-    const selecoes = { campos: {} };
+    const camposBNCC = [
+        {nome: "1. O EU, O OUTRO E O NÓS", pergunta: "Em que fase a criança está na construção de vínculos e identidade?"},
+        {nome: "2. CORPO, GESTOS E MOVIMENTOS", pergunta: "Como está o desenvolvimento da autonomia motora e espacial?"},
+        {nome: "3. TRAÇOS, SONS, CORES E FORMAS", pergunta: "De que maneira ela se expressa e explora materiais artísticos?"},
+        {nome: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", pergunta: "Como está a comunicação e o envolvimento com a leitura/fala?"},
+        {nome: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", pergunta: "Como a criança organiza seu raciocínio lógico e investigativo?"}
+    ];
+    
+    let selecoes = {};
 
     const db = {
-        acoesDocentes: [
-            "Através da organização de contextos de aprendizagem significativos e intencionais, a docente buscou pautar sua prática na observação das necessidades individuais, permitindo que ",
-            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, propiciou-se ao longo deste período que ",
-            "Pautada na escuta ativa e no respeito às singularidades de cada vivência escolar, a mediação pedagógica focou em estratégias que garantiram que ",
-            "Ao planejar situações desafiadoras que integram o cuidar e o educar como eixos indissociáveis da rotina, a docente oportunizou momentos em que ",
-            "Com base em uma observação sensível e registros contínuos, a prática pedagógica foi direcionada para assegurar que ",
-            "Promovendo um ambiente acolhedor e rico em possibilidades de exploração, a ação docente permitiu que ",
-            "Ao estruturar a rotina de forma flexível e respeitosa ao tempo de cada um, focou-se em garantir que ",
-            "Através de intervenções mediadoras que estimulam a autonomia e o pensamento crítico, a docente propiciou que ",
-            "Ao diversificar os suportes e materiais oferecidos no cotidiano escolar, a mediação pedagógica buscou que ",
-            "Fomentando a interação constante e o respeito mútuo dentro do grupo, as estratégias docentes visaram que "
+        frasesFinais: [
+            "Seu brilho único ilumina nossa sala todos os dias.",
+            "Cada descoberta sua é um motivo de orgulho para todos nós.",
+            "A alegria em aprender é o seu maior tesouro.",
+            "Sua curiosidade é a semente de um futuro brilhante.",
+            "Voar alto é o seu destino, e nós somos seus companheiros de viagem.",
+            "Seu sorriso transforma o aprendizado em uma grande aventura.",
+            "O mundo fica mais colorido com as suas descobertas."
         ],
-        vivencias: [
-            " vivenciasse os direitos de conviver, brincar e participar de forma plena. Durante as rodas de conversa e os momentos de acolhimento, percebeu-se um avanço na capacidade de expressão e na construção de vínculos afetivos. Além disso, nas explorações em áreas externas, demonstrou autonomia para novos desafios motores, revelando segurança e respeito ao espaço coletivo. Protagonizou escolhas de materiais, evidenciando pensamento criativo e percepção aguçada sobre o ambiente.",
-            " pudesse exercer os direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos. Nas atividades de grandes grupos, observou-se uma participação ativa e interesse por narrativas literárias. Sua evolução na motricidade fina e ampla foi notória, especialmente nas vivências de corpo e movimento. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal.",
-            " desenvolvesse sua identidade e autonomia através de interações constantes. Demonstrou grande curiosidade ao manipular diferentes texturas e elementos da natureza, ampliando seu repertório sensorial. Nas brincadeiras simbólicas, expressou suas emoções e compreendeu regras sociais de convivência. A mediação constante permitiu que a criança se sentisse segura para testar hipóteses e comunicar suas descobertas com entusiasmo e clareza.",
-            " explorasse linguagens variadas, desde a musicalidade até as artes visuais. Demonstrou sensibilidade ao apreciar produções culturais e segurança ao criar suas próprias representações. No convívio com os colegas, praticou a empatia e a escuta, fortalecendo sua posição como sujeito social. Cada desafio proposto foi encarado como oportunidade de crescimento, resultando em um desenvolvimento harmonioso e potente.",
-            " ampliasse sua percepção espacial e temporal através de jogos e desafios matemáticos simples. Demonstrou facilidade em organizar objetos por atributos e reconhecer sequências na rotina escolar. Sua curiosidade sobre o mundo físico e social foi o motor para investigações profundas sobre os seres vivos e fenômenos naturais. Nas relações interpessoais, mostrou-se colaborativa, respeitando as diversidades e contribuindo para o bem-estar do grupo."
+        acoes: [
+            "Com intencionalidade pedagógica, a docente organizou contextos de aprendizagem onde ",
+            "Mediante a estruturação de ambientes que provocam a curiosidade natural, propiciou-se que ",
+            "Pautada na escuta sensível das necessidades individuais, a mediação focou em estratégias para que "
         ],
-        conclusoes: [
-            "As conquistas deste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado, garantindo que o desenvolvimento continue em expansão.",
-            "Concluímos este ciclo observando um desenvolvimento sólido e pautado no respeito à infância, assegurando que o aprendizado ocorra de forma lúdica e cheia de significados reais.",
-            "Os registros mostram um processo evolutivo contínuo, onde se consolidaram saberes fundamentais para enfrentar novos desafios com segurança, autonomia e curiosidade aguçada.",
-            "O progresso alcançado é fruto de uma parceria estreita entre escola e vivência, resultando em uma base sólida para a continuidade da trajetória escolar com alegria.",
-            "Finalizamos esta etapa celebrando a singularidade e as vitórias individuais, certos de que a base pedagógica oferecida serviu como trampolim para novas descobertas."
+        desenvolvimento: [
+            " vivenciasse os direitos de conviver e brincar, demonstrando avanços significativos na construção de sua identidade social. No cotidiano escolar, percebe-se um movimento de constante descoberta, onde a interação com os pares e o ambiente fortalece sua autonomia e seu protagonismo nas pequenas escolhas diárias.",
+            " pudesse explorar linguagens e sentidos, consolidando aprendizagens que integram o cuidar e o educar. Sua trajetória é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova conquista, revelando-se uma criança curiosa e engajada com os desafios propostos."
         ]
     };
 
     function iniciar() {
         const cCont = document.getElementById('campos-container');
         cCont.innerHTML = "";
-        nomesCampos.forEach((titulo, idx) => {
+        camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-titulo">${titulo}</div><div class="grid-botoes" id="c-${idx}"></div>`;
+            div.innerHTML = `
+                <div class="secao-pergunta">
+                    <span class="campo-nome">${item.nome}</span>
+                    <span class="pergunta-texto">${item.pergunta}</span>
+                </div>
+                <div class="grid-botoes" id="c-${idx}">
+                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
+                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AVANÇADO</div>
+                </div>`;
             cCont.appendChild(div);
-            const grid = document.getElementById(`c-${idx}`);
-            [{l:"INICIAL",n:"ini"},{l:"PROCESSO",n:"pro"},{l:"AVANÇADO",n:"ava"}].forEach(opt => {
-                const btn = document.createElement('div'); btn.className = 'btn-v'; btn.innerText = opt.l;
-                btn.onclick = () => { Array.from(grid.children).forEach(b => b.classList.remove('active')); btn.classList.add('active'); selecoes.campos[idx] = opt.n; };
-                grid.appendChild(btn);
-            });
         });
     }
 
-    function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
-
-    function novoAluno() {
-        if(confirm("LIMPAR CAMPOS?")) {
-            document.getElementById('crianca').value = "";
-            document.getElementById('turma').value = "";
-            selecoes.campos = {};
-            iniciar();
-            document.getElementById('editor').style.display = 'none';
-            document.getElementById('btn-print').style.display = 'none';
-        }
+    function marcar(idx, nivel, btn) {
+        const grid = document.getElementById(`c-${idx}`);
+        Array.from(grid.children).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selecoes[idx] = nivel;
     }
+
+    function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
 
     function gerarRelatorio() {
         let escolaInput = document.getElementById('escola').value.toUpperCase().trim();
@@ -155,8 +202,9 @@
             gen: document.getElementById('genero').value
         };
 
-        const corpoTexto = sortear(db.acoesDocentes) + p.gen + sortear(db.vivencias);
-        const conclusao = sortear(db.conclusoes);
+        const textoPrincipal = sortear(db.acoes) + p.gen + sortear(db.desenvolvimento);
+        const conclusao = "Acreditamos que o caminhar desta etapa serve como base sólida para novas e potentes descobertas, celebrando sempre a singularidade de cada conquista alcançada.";
+        const fraseEfeito = sortear(db.frasesFinais);
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
@@ -165,11 +213,10 @@
                 CRIANÇA: ${p.nome}<br>
                 <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
             </div>
-            <div class="dec-mat">Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:</div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
-            <div class="corpo-texto">${corpoTexto}</div>
+            <div class="corpo-texto">${textoPrincipal}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conclusao}</div>
-            <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
+            <div class="msg-final">"${fraseEfeito}"</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
             <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
             <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação</span>
@@ -179,5 +226,10 @@
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
+
+    function novoAluno() {
+        if(confirm("Deseja limpar todos os campos?")) location.reload();
+    }
+
     iniciar();
 </script></body></html>
