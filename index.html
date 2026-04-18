@@ -1,134 +1,174 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Relatório ABNT</title>
+    <title>CONTAÊ PROFE - Painel Pedagógico</title>
     <style>
-        :root { --primaria: #ff4757; --bg: #f1f2f6; --branco: #ffffff; }
+        :root { --primaria: #ff4757; --azul: #1e90ff; --verde: #2ed573; --amarelo: #ffa502; --bg: #f1f2f6; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
         .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .no-print { display: block; }
         
-        /* INTERFACE DO APP */
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 4px; }
         input, select { padding: 8px; border: 1px solid #ccc; border-radius: 5px; text-transform: uppercase; }
-        .btn-gerar { width: 100%; padding: 15px; background: var(--primaria); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; }
 
-        /* CONFIGURAÇÃO ESTRITA ABNT PARA IMPRESSÃO */
-        @page { 
-            size: A4; 
-            margin: 0; /* O navegador não deve colocar margens automáticas */
+        /* ESTILO DOS CAMPOS DE EXPERIÊNCIA COM CORES */
+        .secao-titulo { background: #2f3542; color: white; padding: 10px; border-radius: 6px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
+        .ajuda-cores { display: flex; gap: 8px; }
+        .ponto { width: 12px; height: 12px; border-radius: 50%; cursor: help; position: relative; border: 1px solid rgba(255,255,255,0.3); }
+        .ponto.az { background: var(--azul); }
+        .ponto.vd { background: var(--verde); }
+        .ponto.am { background: var(--amarelo); }
+
+        /* TEXTO EXPLICATIVO (TOOLTIP) */
+        .ponto:hover::after {
+            content: attr(data-info);
+            position: absolute; bottom: 20px; right: 0;
+            background: #333; color: white; padding: 10px; border-radius: 5px;
+            font-size: 11px; width: 220px; z-index: 100; text-transform: none; font-weight: normal; line-height: 1.3;
         }
 
+        .grid-botoes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .btn-nivel { padding: 10px; border: 2px solid #eee; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-align: center; background: white; transition: 0.2s; }
+        
+        /* CORES ATIVAS */
+        .btn-nivel.active[data-nivel="protagonizar"] { background: var(--azul); color: white; border-color: var(--azul); }
+        .btn-nivel.active[data-nivel="desenvolver"] { background: var(--verde); color: white; border-color: var(--verde); }
+        .btn-nivel.active[data-nivel="explorar"] { background: var(--amarelo); color: white; border-color: var(--amarelo); }
+
+        .btn-gerar { width: 100%; padding: 18px; background: var(--primaria); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 30px; font-size: 1.1rem; }
+
+        /* CONFIGURAÇÃO ABNT IMPRESSÃO */
+        @page { size: A4; margin: 0; }
         @media print {
             .no-print { display: none !important; }
             body { background: white; margin: 0; padding: 0; }
-            #editor { 
-                border: none !important; 
-                box-shadow: none !important;
-                width: 210mm;
-                height: 297mm;
-                overflow: hidden; /* Impede segunda página */
-                display: block;
-            }
+            #editor { border: none !important; width: 210mm; height: 297mm; overflow: hidden; display: block; }
         }
 
         #editor { 
-            width: 210mm; 
-            height: 297mm; 
-            background: white; 
-            margin: 20px auto; 
-            box-sizing: border-box; 
-            /* MARGENS ABNT: Sup 3cm, Esq 3cm, Inf 2cm, Dir 2cm */
-            padding: 30mm 20mm 20mm 30mm; 
-            font-family: Arial, sans-serif; /* ABNT */
-            font-size: 12pt; /* ABNT */
-            line-height: 1.5; /* ABNT Interlinear */
-            text-align: justify;
-            color: black;
-            border: 1px solid #ddd;
+            width: 210mm; height: 297mm; background: white; margin: 20px auto; box-sizing: border-box; 
+            padding: 30mm 20mm 20mm 30mm; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; border: 1px solid #ddd;
         }
 
-        .cabecalho-oficial { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 12pt; line-height: 1.2; }
-        .dados-aluno { margin-bottom: 20px; border-bottom: 1px solid black; padding-bottom: 10px; font-size: 11pt; line-height: 1.4; }
-        .titulo-parecer { text-align: center; font-weight: bold; margin: 20px 0; text-transform: uppercase; }
-        
-        /* ASSINATURAS EM FILA */
-        .secao-assinaturas { margin-top: 40px; }
-        .bloco-assinatura { 
-            width: 80%; 
-            margin: 30px auto 0 auto; 
-            text-align: center; 
-        }
-        .linha { border-top: 1px solid black; width: 100%; margin-bottom: 5px; }
-        .cargo { font-size: 10pt; text-transform: uppercase; }
-
+        .cabecalho-oficial { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; }
+        .dados-aluno { margin-bottom: 15px; border-bottom: 1px solid black; padding-bottom: 8px; font-size: 10pt; line-height: 1.4; }
+        .titulo-parecer { text-align: center; font-weight: bold; margin: 15px 0; text-transform: uppercase; }
+        .secao-assinaturas { margin-top: 30px; }
+        .bloco-assinatura { width: 80%; margin: 25px auto 0 auto; text-align: center; }
+        .linha { border-top: 1px solid black; width: 100%; margin-bottom: 3px; }
+        .cargo { font-size: 9pt; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="container no-print">
-    <h2 style="text-align:center; color:var(--primaria)">CONTAÊ PROFE - ABNT</h2>
+    <h2 style="text-align:center; color:var(--primaria)">CONTAÊ PROFE</h2>
+    
     <div class="grid-inputs">
-        <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="Nome da Escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Nome do Professor"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do Aluno"></div>
-        <div class="campo"><label>Fase/Turma</label><input type="text" id="turma" placeholder="Ex: 2º Período N"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Fase/Turma</label><input type="text" id="turma"></div>
     </div>
-    <button class="btn-gerar" onclick="gerar()">GERAR RELATÓRIO OFICIAL</button>
+
+    <div id="campos-experiencia"></div>
+
+    <button class="btn-gerar" onclick="gerar()">📝 GERAR RELATÓRIO PÁGINA ÚNICA</button>
 </div>
 
-<div id="resultado-secao">
-    <div id="editor" contenteditable="true">
-        </div>
-    
+<div id="resultado-secao" style="display:none">
+    <div id="editor" contenteditable="true"></div>
     <div class="no-print" style="text-align:center; margin: 20px;">
-        <button onclick="window.print()" style="padding:15px 40px; background:#1e90ff; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR PÁGINA ÚNICA</button>
-        <button onclick="location.reload()" style="padding:15px 20px; background:#666; color:white; border:none; border-radius:8px; cursor:pointer; margin-left:10px;">LIMPAR</button>
+        <button onclick="window.print()" style="padding:15px 40px; background:var(--azul); color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR AGORA</button>
     </div>
 </div>
 
 <script>
+    const camposBNCC = [
+        "1. O Eu, o Outro e o Nós",
+        "2. Corpo, Gestos e Movimentos",
+        "3. Traços, Sons, Cores e Formas",
+        "4. Escuta, Fala, Pensamento e Imaginação",
+        "5. Espaço, Tempo, Quantidades e Relações"
+    ];
+
+    const ajuda = {
+        protagonizar: "PROTAGONIZAR (AZUL): A criança demonstra autonomia plena. Propõe soluções e aplica o conhecimento de forma criativa e independente.",
+        desenvolver: "DESENVOLVER (VERDE): Fase de construção. Já compreende a lógica, mas ainda consolida o aprendizado com mediação do professor.",
+        explorar: "EXPLORAR (AMARELO): Fase inicial de descoberta. Interage com curiosidade e sensibilização, mas ainda não sistematizou a habilidade."
+    };
+
+    const selecoes = {};
+
+    function iniciar() {
+        const container = document.getElementById('campos-experiencia');
+        camposBNCC.forEach((campo, i) => {
+            selecoes[i] = null;
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <div class="secao-titulo">
+                    ${campo}
+                    <div class="ajuda-cores">
+                        <div class="ponto az" data-info="${ajuda.protagonizar}"></div>
+                        <div class="ponto vd" data-info="${ajuda.desenvolver}"></div>
+                        <div class="ponto am" data-info="${ajuda.explorar}"></div>
+                    </div>
+                </div>
+                <div class="grid-botoes">
+                    <div class="btn-nivel" onclick="selecionar(${i}, 'protagonizar', this)" data-nivel="protagonizar">PROTAGONIZAR</div>
+                    <div class="btn-nivel" onclick="selecionar(${i}, 'desenvolver', this)" data-nivel="desenvolver">DESENVOLVER</div>
+                    <div class="btn-nivel" onclick="selecionar(${i}, 'explorar', this)" data-nivel="explorar">EXPLORAR</div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function selecionar(id, nivel, el) {
+        const pai = el.parentElement;
+        pai.querySelectorAll('.btn-nivel').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        selecoes[id] = nivel;
+    }
+
     function gerar() {
-        const escola = document.getElementById('escola').value.toUpperCase() || "NOME DA INSTITUIÇÃO DE ENSINO";
-        const prof = document.getElementById('prof').value.toUpperCase() || "NOME DO PROFESSOR";
-        const crianca = document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA";
-        const turma = document.getElementById('turma').value.toUpperCase() || "FASE/TURMA";
-        const dataAtual = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+        const escola = document.getElementById('escola').value.toUpperCase() || "ESCOLA";
+        const prof = document.getElementById('prof').value.toUpperCase() || "PROFESSOR";
+        const crianca = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const turma = document.getElementById('turma').value.toUpperCase();
+        
+        let textoCampos = "";
+        Object.keys(selecoes).forEach(id => {
+            if(selecoes[id]) {
+                const acao = selecoes[id];
+                const nomeCampo = camposBNCC[id].split('. ')[1];
+                textoCampos += ` No campo <b>${nomeCampo}</b>, a criança demonstra avanços significativos ao ${acao} novas experiências pedagógicas.`;
+            }
+        });
 
-        const htmlFinal = `
-            <div class="cabecalho-oficial">
-                ${escola}<br>
-                SISTEMA DE AVALIAÇÃO DO DESENVOLVIMENTO INFANTIL
-            </div>
-
+        const html = `
+            <div class="cabecalho-oficial">${escola}<br>RELATÓRIO DE DESENVOLVIMENTO INFANTIL</div>
             <div class="dados-aluno">
                 <b>CRIANÇA:</b> ${crianca}<br>
-                <b>PROFESSOR(A):</b> ${prof}<br>
-                <b>TURMA:</b> ${turma} | <b>DATA:</b> ${dataAtual}
+                <b>PROFESSOR(A):</b> ${prof} | <b>TURMA:</b> ${turma}
             </div>
-
             <div class="titulo-parecer">PARECER DESCRITIVO INDIVIDUAL</div>
-
-            <p style="text-indent: 1.5cm;">Ao longo deste semestre, o percurso de <b>${crianca}</b> na instituição <b>${escola}</b> revelou-se rico em descobertas e experiências significativas. A acolhida priorizou a escuta ativa e o respeito ao ritmo individual.</p>
-            
-            <p style="text-indent: 1.5cm;">No âmbito socioemocional, demonstra ser uma criança calma e observadora, integrando-se bem às propostas coletivas. Suas conquistas refletem um percurso de sucesso e a construção de vínculos pautados no respeito mútuo.</p>
-            
-            <p style="text-indent: 1.5cm;">Em suma, a evolução demonstrada indica que a criança amplia suas potencialidades a cada dia. O desenvolvimento alcançado fundamenta as bases para sua futura caminhada acadêmica e pessoal.</p>
-
-            <p style="text-align:center; margin-top:20px;"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></p>
-
+            <p style="text-indent:1.5cm">Durante este período letivo, o percurso de <b>${crianca}</b> foi marcado por descobertas ricas e vivências norteadas pela BNCC. A acolhida priorizou o bem-estar e o respeito ao ritmo individual.</p>
+            <p style="text-indent:1.5cm">${textoCampos} Em suma, percebe-se um desenvolvimento harmônico e constante, absorvendo novos conhecimentos com facilidade.</p>
+            <p style="text-align:center; margin-top:20px"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></p>
             <div class="secao-assinaturas">
-                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Assinatura do Gestor</div></div>
-                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Assinatura do Professor(a)</div></div>
-                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Assinatura do Responsável</div></div>
+                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Gestor(a)</div></div>
+                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Professor(a)</div></div>
+                <div class="bloco-assinatura"><div class="linha"></div><div class="cargo">Responsável</div></div>
             </div>
         `;
 
-        document.getElementById('editor').innerHTML = htmlFinal;
+        document.getElementById('editor').innerHTML = html;
         document.getElementById('resultado-secao').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
     }
-</script>
 
+    iniciar();
+</script>
 </body></html>
