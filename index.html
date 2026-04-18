@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Master</title>
+    <title>CONTAÊ PROFE - Versão Final</title>
     <style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -104,11 +104,11 @@
             " ampliasse sua percepção espacial e temporal através de jogos e desafios matemáticos simples. Demonstrou facilidade em organizar objetos por atributos e reconhecer sequências na rotina escolar. Sua curiosidade sobre o mundo físico e social foi o motor para investigações profundas sobre os seres vivos e fenômenos naturais. Nas relações interpessoais, mostrou-se colaborativa, respeitando as diversidades e contribuindo para o bem-estar do grupo."
         ],
         conclusoes: [
-            "As conquistas deste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado, garantindo que a criança continue expandindo potencialidades.",
-            "Concluímos este ciclo observando um desenvolvimento sólido e pautado no respeito à infância, assegurando que o aprendizado ocorra de forma lúdica, prazerosa e cheia de significados reais.",
-            "Os registros mostram um processo evolutivo contínuo, onde a criança consolidou saberes fundamentais e se prepara para novos desafios com segurança, autonomia e curiosidade aguçada.",
-            "O progresso alcançado é fruto de uma parceria estreita entre escola e vivência, resultando em uma base sólida para a continuidade da trajetória escolar com alegria e protagonismo.",
-            "Finalizamos esta etapa celebrando a singularidade e as vitórias individuais, certos de que a base pedagógica oferecida serviu como trampolim para novas e brilhantes descobertas."
+            "As conquistas deste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado, garantindo que o desenvolvimento continue em expansão.",
+            "Concluímos este ciclo observando um desenvolvimento sólido e pautado no respeito à infância, assegurando que o aprendizado ocorra de forma lúdica e cheia de significados reais.",
+            "Os registros mostram um processo evolutivo contínuo, onde se consolidaram saberes fundamentais para enfrentar novos desafios com segurança, autonomia e curiosidade aguçada.",
+            "O progresso alcançado é fruto de uma parceria estreita entre escola e vivência, resultando em uma base sólida para a continuidade da trajetória escolar com alegria.",
+            "Finalizamos esta etapa celebrando a singularidade e as vitórias individuais, certos de que a base pedagógica oferecida serviu como trampolim para novas descobertas."
         ]
     };
 
@@ -160,7 +160,11 @@
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            <div class="bloco-dados"><b>DOCENTE:</b> ${p.prof}<br><b>CRIANÇA:</b> ${p.nome}<br><b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}</div>
+            <div class="bloco-dados">
+                <b>DOCENTE:</b> ${p.prof}<br>
+                CRIANÇA: ${p.nome}<br>
+                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
+            </div>
             <div class="dec-mat">Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:</div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
             <div class="corpo-texto">${corpoTexto}</div>
