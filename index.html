@@ -177,7 +177,6 @@
         const gen = document.getElementById('genero').value;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         
-        // Montagem do texto com o nome completo da criança sem negrito
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const conc = sortear(db.conclusao);
@@ -186,7 +185,7 @@
             <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                CRIANÇA: <b>${nomeAlu}</b><br>
+                <b>CRIANÇA:</b> ${nomeAlu}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
