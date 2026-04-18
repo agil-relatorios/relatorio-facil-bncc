@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Denival Leite Coelho</title>
+    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -16,7 +16,6 @@
         .btn-v.active { background: var(--azul); color: white; border-color: var(--azul); }
         .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 20px; background: var(--primaria); }
 
-        /* CONFIGURAÇÃO RÍGIDA A4 */
         #editor { 
             width: 210mm; height: 297mm; margin: 20px auto; background: white; 
             box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; 
@@ -27,47 +26,38 @@
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
-        
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; }
         .data-local { text-align: center; margin-bottom: 4em; }
-
         .item-assinatura { margin-bottom: 2.2em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         @page { size: A4; margin: 0; }
-        @media print { 
-            body { background: white; padding: 0; margin: 0; }
-            .no-print { display: none !important; } 
-            #editor { display: block !important; margin: 0 !important; border: none !important; } 
-        }
+        @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
     </style></head><body>
 
 <div class="container no-print">
     <div class="header-app" style="text-align:center;"><h1>CONTAÊ PROFE</h1></div>
     <div class="grid-inputs">
         <div class="campo"><label>Escola</label><input type="text" id="escola" value="ESCOLA DENIVAL LEITE COELHO"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+        <div class="campo"><label>Docente</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label>
-            <select id="fase">
-                <option>1º PERÍODO</option><option>2º PERÍODO</option>
-            </select>
+        <div class="campo"><label>Gênero</label>
+            <select id="genero"><option value="a criança">A Criança</option><option value="o aluno">O Aluno</option><option value="a aluna">A Aluna</option></select>
         </div>
+        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Período/Bimestre</label>
+        <div class="campo"><label>Período</label>
             <select id="periodo">
-                <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
-                <option>3º BIMESTRE</option><option>4º BIMESTRE</option>
+                <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
                 <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
             </select>
         </div>
     </div>
     <div id="campos-container"></div>
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO PÁGINA ÚNICA</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO INTELIGENTE</button>
 </div>
 
 <div id="editor" contenteditable="true"></div>
@@ -79,6 +69,23 @@
 <script>
     const nomesCampos = ["1. O Eu, o Outro e o Nós","2. Corpo, Gestos e Movimentos","3. Traços, Sons, Cores e Formas","4. Escuta, Fala, Pensamento e Imaginação","5. Espaço, Tempo, Quantidades e Relações"];
     const selecoes = { campos: {} };
+
+    // BANCO DE DADOS DE INTENCIONALIDADE (GAVETAS)
+    const db = {
+        acoesDocentes: [
+            "Através da organização de contextos de aprendizagem significativos, a docente buscou ",
+            "Mediante a observação atenta e o registro das interações diárias, propiciou-se que ",
+            "Ao estruturar ambientes que provocam o protagonismo infantil, a docente permitiu que ",
+            "Pautada na escuta ativa e no respeito ao tempo individual, a mediação pedagógica focou em "
+        ],
+        vivencias: [
+            "durante os momentos de acolhimento e rodas de conversa, onde ",
+            "nos contextos de brincadeiras de livre escolha e exploração de materiais, quando ",
+            "em atividades dirigidas na área externa e contato com elementos da natureza, observou-se que ",
+            "nos momentos de rotinas de cuidados e higiene, percebeu-se que "
+        ],
+        direitos: ["conviver", "brincar", "participar", "explorar", "expressar", "conhecer-se"]
+    };
 
     function iniciar() {
         const cCont = document.getElementById('campos-container');
@@ -95,48 +102,31 @@
         });
     }
 
+    function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
+
     function gerarRelatorio() {
         const p = { 
-            escola: document.getElementById('escola').value.toUpperCase(), 
-            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)",
-            nome: document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA", 
-            fase: document.getElementById('fase').value,
-            turma: document.getElementById('turma').value.toUpperCase() || "TURMA",
-            periodo: document.getElementById('periodo').value 
+            escola: document.getElementById('escola').value.toUpperCase(), prof: document.getElementById('prof').value.toUpperCase(),
+            nome: document.getElementById('crianca').value.toUpperCase(), fase: document.getElementById('fase').value,
+            turma: document.getElementById('turma').value.toUpperCase(), periodo: document.getElementById('periodo').value,
+            gen: document.getElementById('genero').value
         };
 
-        const tituloDinamico = `RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}`;
+        // MOTOR DE CONSTRUÇÃO DE PARÁGRAFOS
+        const par1 = sortear(db.acoesDocentes) + sortear(db.vivencias) + p.gen + " vivenciou os direitos de <b>" + db.direitos[0] + ", " + db.direitos[1] + " e " + db.direitos[2] + "</b> de forma integrada.";
+        const par2 = "Ao <b>" + db.direitos[3] + "</b> novos contextos e <b>" + db.direitos[4] + "</b> suas descobertas, demonstrou um desenvolvimento pautado na curiosidade e no <b>" + db.direitos[5] + "</b>, fortalecendo sua identidade.";
+        const par3 = "Concluímos este período com a certeza de que as experiências ofertadas ampliaram as potencialidades de " + p.nome + ", consolidando aprendizagens fundamentais para sua trajetória escolar.";
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            
-            <div class="bloco-dados">
-                <b>DOCENTE:</b> ${p.prof}<br>
-                <b>CRIANÇA:</b> ${p.nome}<br>
-                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
-            </div>
-
-            <div class="dec-mat">
-                Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:
-            </div>
-
-            <div class="tit-parecer">${tituloDinamico}</div>
-
-            <div class="corpo-texto">
-                O percurso pedagógico de ${p.nome} neste período foi marcado por vivências que asseguraram seus direitos de <b>conviver, brincar e participar</b>. A criança demonstrou curiosidade em <b>explorar</b> os espaços da escola, interagindo com seus pares e adultos de forma a fortalecer sua identidade e autonomia.
-            </div>
-
-            <div class="corpo-texto">
-                Ao <b>expressar</b> suas ideias e sentimentos através de diferentes linguagens, observou-se um progresso significativo na construção de saberes. O processo de <b>conhecer-se</b> foi estimulado em todas as atividades, permitindo que a criança ampliasse sua percepção sobre o mundo físico e social.
-            </div>
-
-            <div class="corpo-texto">
-                Concluímos que as conquistas alcançadas refletem um caminhar de sucesso, respeitando o ritmo individual e garantindo uma aprendizagem plena e afetiva. Reafirmamos nosso compromisso em continuar mediando experiências que potencializem todas as suas capacidades.
-            </div>
-
+            <div class="bloco-dados"><b>DOCENTE:</b> ${p.prof}<br><b>CRIANÇA:</b> ${p.nome}<br><b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}</div>
+            <div class="dec-mat">Declaramos que a criança acima identificada encontra-se matriculada nesta instituição, apresentando o desempenho detalhado abaixo:</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
+            <div class="corpo-texto">${par1}</div>
+            <div class="corpo-texto">${par2}</div>
+            <div class="corpo-texto">${par3}</div>
             <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
-
             <div class="assinaturas-lista">
                 <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Professor(a)</div></div>
                 <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Coordenação</div></div>
