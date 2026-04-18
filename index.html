@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Final Estruturada</title>
+    <title>CONTAÊ PROFE - Estrutura Final</title>
     <style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
         
@@ -16,8 +16,6 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        
-        /* Força caixa alta nos inputs */
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; transition: 0.3s; text-transform: uppercase; }
         input:focus { border-color: var(--primaria); }
 
@@ -33,27 +31,22 @@
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; transition: 0.3s; }
         .btn-limpar:hover { background: #f1f2f6; }
 
-        footer { max-width: 900px; margin: 40px auto; padding: 20px; border-top: 1px solid #dcdde1; font-size: 0.85rem; color: #747d8c; line-height: 1.6; }
-        .doc-secao { margin-bottom: 20px; }
-        .doc-titulo { font-weight: bold; color: var(--texto); text-transform: uppercase; font-size: 0.9rem; margin-bottom: 8px; display: block; }
-
         /* EDITOR DE IMPRESSÃO A4 */
         #editor { 
             width: 210mm; height: 297mm; margin: 20px auto; background: white; 
             box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; 
             font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.5; color: #000; 
-            display: none; overflow: hidden; border: 1px solid #eee;
+            display: none; overflow: hidden;
         }
         
-        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
+        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; }
         .data-local { text-align: center; margin-bottom: 4em; }
 
-        .assinaturas-lista { width: 100%; }
         .item-assinatura { margin-bottom: 2.5em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
@@ -70,6 +63,7 @@
 <div class="container no-print">
     <div class="grid-inputs">
         <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME COMPLETO"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME DO ALUNO(A)"></div>
         <div class="campo"><label>Fase</label>
             <select id="fase">
@@ -81,7 +75,6 @@
         <div class="campo"><label>Gênero</label>
             <select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select>
         </div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME COMPLETO"></div>
         <div class="campo"><label>Período de Avaliação</label>
             <select id="periodo">
                 <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
@@ -103,14 +96,6 @@
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
     <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);">🖨️ IMPRIMIR RELATÓRIO</button>
 </div>
-
-<footer class="no-print">
-    <div class="doc-secao">
-        <span class="doc-titulo">📖 Manual de Uso</span>
-        PREENCHA OS DADOS E SELECIONE OS NÍVEIS. O SISTEMA GERA O TEXTO AUTOMATICAMENTE COM BASE NA BNCC E INTENCIONALIDADE DOCENTE.
-    </div>
-    <p style="text-align:center; margin-top:30px;">© 2026 CONTAÊ PROFE - EXCELÊNCIA NA EDUCAÇÃO INFANTIL</p>
-</footer>
 
 <script>
     const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMAS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
@@ -178,19 +163,18 @@
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            <div class="tit-parecer" style="font-size:12pt; font-weight:normal; margin-bottom:1em;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
             
             <div class="bloco-dados">
+                <b>DOCENTE:</b> ${p.prof}<br>
                 <b>CRIANÇA:</b> ${p.nome}<br>
-                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}<br>
-                <b>DOCENTE:</b> ${p.prof}
+                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
             </div>
 
             <div class="dec-mat">
                 Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:
             </div>
 
-            <div class="tit-parecer">PARECER DESCRITIVO INDIVIDUAL</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
 
             <div class="corpo-texto">${par1}</div>
             <div class="corpo-texto">${par2}</div>
