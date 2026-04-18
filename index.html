@@ -42,18 +42,13 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        .manual-footer { max-width: 900px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 15px; font-size: 0.9rem; border: 1px solid #eee; }
-        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .semaforo-info { display: flex; gap: 10px; margin: 10px 0; align-items: center; }
-        .cor-box { width: 14px; height: 14px; border-radius: 50%; }
-
         #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
-        .data-local { text-align: center; margin-bottom: 3.5em; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; } /* Espaçamento 1.5 e entre parágrafos */
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; } /* Espaço 2 após mensagem */
+        .data-local { text-align: center; margin-bottom: 3.5em; } /* Espaço 3.5 após data */
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
@@ -63,12 +58,12 @@
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">"A voz do professor..."</div>
+    <div class="slogan">"A voz do professor, a história da criança."</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Instituição</label><input type="text" id="escola" placeholder="DENIVAL LEITE COELHO"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -88,14 +83,6 @@
 <div id="editor" contenteditable="true"></div>
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
     <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
-</div>
-
-<div class="manual-footer no-print">
-    <span class="manual-titulo">📜 Termo de Uso e Ética Pedagógica</span>
-    Este sistema é uma ferramenta de apoio. É dever ético do docente revisar e ajustar o texto para que ele reflita fielmente a realidade da criança. Os dados são processados apenas no seu navegador.
-    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-inicial)"></div><span><b>Vermelho (Inicial):</b> Primeiros contatos, exige mediação total.</span></div>
-    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-processo)"></div><span><b>Amarelo (Processo):</b> Participação ativa, aprendizado em fluxo.</span></div>
-    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-avancado)"></div><span><b>Verde (Avançado):</b> Protagonismo e autonomia consolidada.</span></div>
 </div>
 
 <script>
@@ -134,19 +121,17 @@
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         
-        const bloco1 = "Durante este período letivo, pautamos nossa prática pedagógica na observação sensível e intencional das interações estabelecidas no cotidiano escolar. " + document.getElementById('genero').value + " demonstrou um percurso de aprendizagem rico em descobertas, participando ativamente de propostas que visam o desenvolvimento da autonomia e do autoconhecimento. Nos contextos de brincadeiras e rodas de conversa, observou-se um esforço contínuo em expressar suas emoções e compreender as regras de convivência social, fundamentais para a formação de sua identidade dentro do grupo.";
+        // Blocos de texto robustos (ajustados para 12-16 linhas)
+        const bloco1 = "Ao longo deste período letivo, pautamos nossa prática pedagógica na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos de aprendizagem. " + document.getElementById('genero').value + " demonstrou um percurso rico em descobertas, participando ativamente de propostas que visam o desenvolvimento da autonomia e do protagonismo nas escolhas diárias. Nas vivências coletivas, observou-se um empenho em expressar desejos e necessidades, ao mesmo tempo em que iniciou a compreensão das normas sociais de convivência. A criança mostrou-se receptiva às novas experiências, explorando o ambiente escolar com segurança e construindo vínculos afetivos sólidos com seus pares e com a docente, fundamentando sua identidade.";
         
-        const bloco2 = "No que tange aos campos de experiência da BNCC, a criança explorou diferentes suportes e materiais, ampliando seu repertório artístico e sensorial. Nas vivências de corpo e movimento, demonstrou segurança ao enfrentar desafios motores, explorando o espaço com curiosidade e equilíbrio progressivo. A relação com a linguagem oral e escrita foi estimulada através da contação de histórias, onde a criança demonstrou atenção e interesse, relacionando fatos da ficção com suas vivências reais, consolidando assim as bases para o pensamento crítico e a imaginação criativa de forma plena.";
+        const bloco2 = "Dentro dos Campos de Experiência, a criança explorou variados suportes e materiais, ampliando significativamente seu repertório sensorial e imaginativo. Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo de sua motricidade, enfrentando desafios com equilíbrio e entusiasmo. A relação com a oralidade e com o mundo da escrita foi estimulada por meio de momentos literários, onde demonstrou atenção e curiosidade, relacionando narrativas com sua própria realidade. Concluímos que o desenvolvimento apresentado é fruto de um processo mediado com afeto, onde cada conquista foi valorizada como um passo essencial para sua formação integral, preparando-se com autonomia e alegria para as vivências que virão nas próximas etapas escolares.";
 
-        const conclusao = "Concluímos este ciclo celebrando as vitórias individuais e o compromisso da instituição em oferecer um ambiente seguro e estimulante. O progresso aqui registrado é fruto de uma mediação afetuosa, garantindo que as potencialidades da criança continuem florescendo com alegria e segurança nas próximas etapas.";
-        
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${esc || "ESCOLA NÃO INFORMADA"}</div>
             <div class="bloco-dados"><b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>CRIANÇA: ${nomeAlu}<br><b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}</div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${bloco1}</div>
-            <div class="corpo-texto">${bloco2}</div>
-            <div class="corpo-texto" style="margin-bottom:0;">${conclusao}</div>
+            <div class="corpo-texto" style="margin-bottom:0;">${bloco2}</div>
             <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
             <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
