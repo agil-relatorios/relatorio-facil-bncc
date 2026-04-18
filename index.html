@@ -1,10 +1,153 @@
-function gerarRelatorio() {
+<!DOCTYPE html><html lang="pt-br"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTAÊ PROFE - Versão Final Narrativa</title>
+    <style>
+        :root { --primaria: #ff4757; --azul: #1e90ff; --verde: #2ed573; --amarelo: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
+        .container { max-width: 900px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
+        .header-app { text-align: center; margin-bottom: 30px; }
+        .header-app h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
+        .slogan { font-style: italic; color: #747d8c; font-size: 0.9rem; margin-top: 5px; }
+        
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .campo { display: flex; flex-direction: column; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 4px; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
+
+        .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .btn-v { padding: 12px 5px; border: 2px solid #f0f0f0; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; transition: 0.2s; color: #666; }
+        
+        .btn-v.active[data-n="ini"] { background: var(--amarelo); color: white; border-color: var(--amarelo); }
+        .btn-v.active[data-n="pro"] { background: var(--verde); color: white; border-color: var(--verde); }
+        .btn-v.active[data-n="ava"] { background: var(--azul); color: white; border-color: var(--azul); }
+
+        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
+
+        #editor { width: 210mm; min-height: 297mm; margin: auto; background: white; box-sizing: border-box; padding: 30mm 20mm 20mm 30mm; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; border: 1px solid #eee; display: none; margin-top: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+        .cabecalho { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        .dados-doc { border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 20px; font-size: 10pt; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 50px; text-align: center; font-size: 9pt; }
+        .linha { border-top: 1px solid #000; padding-top: 5px; }
+
+        @media print { .no-print { display: none !important; } body { background: white; padding: 0; } #editor { display: block; border: none; box-shadow: none; width: 100%; } }
+    </style></head><body>
+
+<div class="container no-print">
+    <div class="header-app">
+        <h1>CONTAÊ PROFE</h1>
+        <p class="slogan">“A voz do Professor, a história da criança. Transformando observação pedagógica em narrativas de afeto.”</p>
+    </div>
+
+    <div class="grid-inputs">
+        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Período</label><select id="periodo"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+    </div>
+
+    <div class="secao-titulo">DIREITOS DE APRENDIZAGEM</div>
+    <div class="grid-botoes" id="direitos-container"></div>
+
+    <div id="campos-container"></div>
+
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO NARRATIVO</button>
+</div>
+
+<div id="editor" contenteditable="true"></div>
+
+<div class="no-print" id="btn-print" style="display:none; text-align:center; margin: 20px 0 100px;">
+    <button onclick="window.print()" style="padding:15px 50px; background:var(--azul); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
+</div>
+
+<script>
+    const dbDireitos = [
+        { l: "EXPLORAR", n: "ini" }, { l: "OBSERVAR", n: "ini" }, { l: "TATEAR", n: "ini" },
+        { l: "PARTICIPAR", n: "pro" }, { l: "EXPERIMENTAR", n: "pro" }, { l: "DESENVOLVER", n: "pro" },
+        { l: "PROTAGONIZAR", n: "ava" }, { l: "CONSOLIDAR", n: "ava" }, { l: "LIDERAR", n: "ava" }
+    ];
+
+    const frasesIA = {
+        campos: [
+            {
+                ini: ["encontra-se em fase de sensibilização quanto às normas de convivência, sendo estimulado a reconhecer o outro.", "observa as interações sociais com cautela, necessitando de mediação para integrar-se plenamente aos pares."],
+                pro: ["demonstra autonomia crescente em suas escolhas sociais, participando ativamente de brincadeiras em grupo.", "colabora com os colegas e expressa seus sentimentos, buscando resolver conflitos com o auxílio da professora."],
+                ava: ["protagoniza ações de liderança e empatia, auxiliando na organização do coletivo e respeitando a diversidade.", "demonstra segurança plena em sua identidade, agindo com autonomia e senso de colaboração constante."]
+            },
+            {
+                ini: ["explora suas possibilidades motoras e espaciais com cuidado, desenvolvendo paulatinamente o equilíbrio.", "tateia novos movimentos e desafios corporais, recebendo estímulos para fortalecer sua coordenação motora ampla."],
+                pro: ["coordena seus movimentos com harmonia em atividades de dança, circuitos e brincadeiras motoras.", "demonstra controle progressivo de sua motricidade fina e ampla, participando com vigor das propostas físicas."],
+                ava: ["domina com agilidade sua consciência corporal, realizando movimentos complexos com precisão e segurança.", "expressa-se corporalmente com criatividade, utilizando o gesto como linguagem e demonstrando excelente equilíbrio."]
+            },
+            {
+                ini: ["tateia diversas linguagens artísticas, demonstrando curiosidade sensorial pelos materiais e cores.", "explora sons e ritmos com o corpo e instrumentos, iniciando sua sensibilização estética."],
+                pro: ["expressa sua criatividade utilizando diversos suportes, combinando cores e texturas em suas produções.", "participa de momentos musicais e artísticos com entusiasmo, experimentando novas formas de criar."],
+                ava: ["manifesta uma identidade artística singular, utilizando materiais de forma intencional e harmoniosa.", "domina o uso de diferentes ferramentas artísticas, criando narrativas visuais e sonoras com protagonismo."]
+            },
+            {
+                ini: ["encontra-se em processo de ampliação do vocabulário, sendo incentivado a expressar seus desejos e ideias.", "demonstra interesse por narrativas literárias, observando atentamente as contações de histórias."],
+                pro: ["organiza seu pensamento para narrar vivências e fatos, utilizando a linguagem oral com clareza e fluidez.", "dialoga com os pares e adultos, expressando opiniões e demonstrando curiosidade sobre o mundo letrado."],
+                ava: ["argumenta com segurança sobre diversos temas, demonstrando um repertório linguístico rico e imaginativo.", "protagoniza momentos de contação, cria histórias coerentes e demonstra familiaridade com a escrita espontânea."]
+            },
+            {
+                ini: ["explora noções de tempo e espaço em sua rotina, recebendo auxílio para comparar quantidades simples.", "observa as relações de causa e efeito no ambiente, tateando conceitos matemáticos básicos."],
+                pro: ["classifica e ordena objetos segundo diferentes critérios, demonstrando compreensão de sequências temporais.", "realiza contagens e comparações com autonomia, resolvendo situações-problema do cotidiano escolar."],
+                ava: ["domina conceitos complexos de seriação e contagem, estabelecendo relações lógicas com rapidez e precisão.", "identifica com clareza a passagem do tempo e as transformações na natureza, protagonizando descobertas científicas."]
+            }
+        ]
+    };
+
+    const nomesCamposTradicionais = [
+        "1. O Eu, o Outro e o Nós", "2. Corpo, Gestos e Movimentos", 
+        "3. Traços, Sons, Cores e Formas", "4. Escuta, Fala, Pensamento e Imaginação",
+        "5. Espaço, Tempo, Quantidades e Relações"
+    ];
+
+    const selecoes = { direitos: [], campos: {} };
+    const sortear = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    function iniciar() {
+        const dCont = document.getElementById('direitos-container');
+        dbDireitos.forEach(d => {
+            const btn = document.createElement('div');
+            btn.className = 'btn-v'; btn.innerText = d.l; btn.dataset.n = d.n;
+            btn.onclick = () => {
+                btn.classList.toggle('active');
+                if(btn.classList.contains('active')) selecoes.direitos.push(d);
+                else selecoes.direitos = selecoes.direitos.filter(x => x.l !== d.l);
+            };
+            dCont.appendChild(btn);
+        });
+
+        const cCont = document.getElementById('campos-container');
+        nomesCamposTradicionais.forEach((titulo, idx) => {
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="secao-titulo">${titulo}</div><div class="grid-botoes" id="c-${idx}"></div>`;
+            cCont.appendChild(div);
+            const grid = document.getElementById(`c-${idx}`);
+            [{l:"EXPLORAR", n:"ini"}, {l:"PARTICIPAR", n:"pro"}, {l:"PROTAGONIZAR", n:"ava"}].forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'btn-v'; btn.innerText = opt.l; btn.dataset.n = opt.n;
+                btn.onclick = () => {
+                    Array.from(grid.children).forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selecoes.campos[idx] = opt.n;
+                };
+                grid.appendChild(btn);
+            });
+        });
+    }
+
+    function gerarRelatorio() {
         const p = {
             nome: document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA",
-            escola: document.getElementById('escola').value.toUpperCase(),
-            prof: document.getElementById('prof').value.toUpperCase(),
-            cidade: document.getElementById('cidade').value.toUpperCase(),
-            turma: document.getElementById('turma').value.toUpperCase(),
+            escola: document.getElementById('escola').value.toUpperCase() || "INSTITUIÇÃO DE ENSINO",
+            prof: document.getElementById('prof').value.toUpperCase() || "DOCENTE",
+            cidade: document.getElementById('cidade').value.toUpperCase() || "CIDADE",
+            turma: document.getElementById('turma').value.toUpperCase() || "TURMA",
             periodo: document.getElementById('periodo').value
         };
 
@@ -13,7 +156,6 @@ function gerarRelatorio() {
             `Durante este semestre, <b>${p.nome}</b> explorou o ambiente escolar por meio de experiências significativas que ampliaram suas potencialidades e formas de expressão.`
         ];
 
-        // Lógica de Direitos (Introdução)
         let textoDireitos = "";
         const conta = { ini: 0, pro: 0, ava: 0 };
         selecoes.direitos.forEach(d => conta[d.n]++);
@@ -26,22 +168,20 @@ function gerarRelatorio() {
             textoDireitos = " Apresenta um desenvolvimento equilibrado, participando ativamente das rotinas e demonstrando curiosidade e engajamento constante.";
         }
 
-        // CONECTORES PARA NARRATIVA FLUIDA
         const conectores = [
-            " No que diz respeito à convivência e interação social, ", // Campo 1
-            " No que se refere à sua expressão corporal e motricidade, ", // Campo 2
-            " Em relação à sua sensibilidade artística e criatividade, ", // Campo 3
-            " Já no campo da comunicação, fala e pensamento, ",          // Campo 4
-            " Por fim, quanto às suas noções de espaço, tempo e lógica, " // Campo 5
+            " No que diz respeito à convivência e interação social, ", 
+            " No que se refere à sua expressão corporal e motricidade, ", 
+            " Em relação à sua sensibilidade artística e criatividade, ", 
+            " Já no campo da comunicação, fala e pensamento, ", 
+            " Por fim, quanto às suas noções de espaço, tempo e lógica, "
         ];
 
         let textoCampos = "";
+        let camposPreenchidos = 0;
         frasesIA.campos.forEach((c, i) => {
             if(selecoes.campos[i]) {
-                const nivel = selecoes.campos[i];
-                const frase = sortear(frasesIA.campos[i][nivel]);
-                // Aqui usamos o conector no lugar do nome do campo
-                textoCampos += conectores[i] + "a criança " + frase;
+                textoCampos += conectores[i] + "a criança " + sortear(frasesIA.campos[i][selecoes.campos[i]]);
+                camposPreenchidos++;
             }
         });
 
@@ -50,7 +190,7 @@ function gerarRelatorio() {
             <div class="dados-doc"><b>CRIANÇA:</b> ${p.nome} | <b>TURMA:</b> ${p.turma}<br><b>DOCENTE:</b> ${p.prof} | <b>DATA:</b> ${new Date().toLocaleDateString()}</div>
             <p style="text-indent:1.5cm">${sortear(intros)}${textoDireitos}</p>
             <p style="text-indent:1.5cm">${textoCampos}</p>
-            <p style="text-indent:1.5cm">As conquistas demonstradas refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado.</p>
+            <p style="text-indent:1.5cm">As conquistas demonstradas refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado e o respeito à infância.</p>
             <center style="margin-top:30px"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></center>
             <div class="assinaturas">
                 <div class="linha">Professor(a)</div><div class="linha">Coordenação</div><div class="linha">Responsável</div>
@@ -61,3 +201,6 @@ function gerarRelatorio() {
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
+
+    iniciar();
+</script></body></html>
