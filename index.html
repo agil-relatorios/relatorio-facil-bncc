@@ -1,14 +1,14 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Final Otimizado</title>
+    <title>CONTAÊ PROFE - Denival Leite Coelho</title>
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
         .container { max-width: 900px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 15px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 3px; }
+        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 3px; }
         input, select { padding: 8px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.85rem; outline: none; text-transform: uppercase; }
         .secao-titulo { background: #2f3542; color: white; padding: 8px; border-radius: 8px; margin: 15px 0 5px; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -16,34 +16,24 @@
         .btn-v.active { background: var(--azul); color: white; border-color: var(--azul); }
         .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 20px; background: var(--primaria); }
 
-        /* CONFIGURAÇÃO RÍGIDA A4 - ÚNICA FOLHA */
+        /* CONFIGURAÇÃO RÍGIDA A4 */
         #editor { 
-            width: 210mm; 
-            height: 297mm; 
-            margin: 20px auto; 
-            background: white; 
-            box-sizing: border-box; 
-            padding: 30mm 20mm 10mm 25mm; 
-            font-family: Arial, sans-serif; 
-            font-size: 11.5pt; 
-            line-height: 1.5; 
-            color: #000; 
-            display: none; 
-            overflow: hidden; 
+            width: 210mm; height: 297mm; margin: 20px auto; background: white; 
+            box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; 
+            font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.5; color: #000; 
+            display: none; overflow: hidden;
         }
         
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bim-subtitulo { font-size: 12pt; font-weight: normal; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
         
         .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
         
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; } /* Espaço 3 após mensagem */
-        .data-local { text-align: center; margin-bottom: 4em; } /* Espaço 4 após data */
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; }
+        .data-local { text-align: center; margin-bottom: 4em; }
 
-        .assinaturas-lista { width: 100%; }
         .item-assinatura { margin-bottom: 2.2em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
@@ -59,10 +49,16 @@
 <div class="container no-print">
     <div class="header-app" style="text-align:center;"><h1>CONTAÊ PROFE</h1></div>
     <div class="grid-inputs">
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola" value="ESCOLA DENIVAL LEITE COELHO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Período</label>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Fase</label>
+            <select id="fase">
+                <option>1º PERÍODO</option><option>2º PERÍODO</option>
+            </select>
+        </div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Período/Bimestre</label>
             <select id="periodo">
                 <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
                 <option>3º BIMESTRE</option><option>4º BIMESTRE</option>
@@ -101,26 +97,30 @@
 
     function gerarRelatorio() {
         const p = { 
-            escola: document.getElementById('escola').value.toUpperCase() || "NOME DA ESCOLA", 
+            escola: document.getElementById('escola').value.toUpperCase(), 
+            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)",
             nome: document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA", 
-            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)", 
+            fase: document.getElementById('fase').value,
+            turma: document.getElementById('turma').value.toUpperCase() || "TURMA",
             periodo: document.getElementById('periodo').value 
         };
 
+        const tituloDinamico = `RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}`;
+
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            <div class="bim-subtitulo">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
             
             <div class="bloco-dados">
+                <b>DOCENTE:</b> ${p.prof}<br>
                 <b>CRIANÇA:</b> ${p.nome}<br>
-                <b>PROFESSOR(A):</b> ${p.prof}
+                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
             </div>
 
             <div class="dec-mat">
                 Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:
             </div>
 
-            <div class="tit-parecer">PARECER DESCRITIVO INDIVIDUAL</div>
+            <div class="tit-parecer">${tituloDinamico}</div>
 
             <div class="corpo-texto">
                 O percurso pedagógico de ${p.nome} neste período foi marcado por vivências que asseguraram seus direitos de <b>conviver, brincar e participar</b>. A criança demonstrou curiosidade em <b>explorar</b> os espaços da escola, interagindo com seus pares e adultos de forma a fortalecer sua identidade e autonomia.
