@@ -1,56 +1,39 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Estrutura Final</title>
+    <title>CONTAÊ PROFE - Estrutura Narrativa</title>
     <style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
-        
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        
         header { background: var(--primaria); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
-
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; transition: 0.3s; text-transform: uppercase; }
         input:focus { border-color: var(--primaria); }
-
-        .secao-titulo { background: #2f3542; color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; display: flex; justify-content: space-between; }
-        
+        .secao-titulo { background: #2f3542; color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .btn-v { padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
+        .btn-v { padding: 12px; border: 2px solid #f1f2f6; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
         .btn-v.active { background: var(--azul); color: white; border-color: var(--azul); }
-        
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); transition: 0.3s; box-shadow: 0 6px 15px rgba(255, 71, 87, 0.3); }
-        .btn-gerar:hover { background: var(--primaria-dark); transform: translateY(-2px); }
-        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; transition: 0.3s; }
-        .btn-limpar:hover { background: #f1f2f6; }
+        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
+        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
         /* EDITOR DE IMPRESSÃO A4 */
-        #editor { 
-            width: 210mm; height: 297mm; margin: 20px auto; background: white; 
-            box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; 
-            font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.5; color: #000; 
-            display: none; overflow: hidden;
-        }
-        
+        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.6; color: #000; display: none; overflow: hidden; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; margin-bottom: 2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 3em; }
         .data-local { text-align: center; margin-bottom: 4em; }
-
         .item-assinatura { margin-bottom: 2.5em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
-
         @page { size: A4; margin: 0; }
         @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
     </style></head><body>
@@ -65,26 +48,12 @@
         <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME COMPLETO"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME DO ALUNO(A)"></div>
-        <div class="campo"><label>Fase</label>
-            <select id="fase">
-                <option value="1º PERÍODO">1º PERÍODO</option>
-                <option value="2º PERÍODO">2º PERÍODO</option>
-            </select>
-        </div>
+        <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="EX: TURMA A"></div>
-        <div class="campo"><label>Gênero</label>
-            <select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select>
-        </div>
-        <div class="campo"><label>Período de Avaliação</label>
-            <select id="periodo">
-                <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
-                <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
-            </select>
-        </div>
+        <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
+        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
-
     <div id="campos-container"></div>
-
     <div class="acoes-container">
         <button class="btn-limpar" onclick="novoAluno()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
@@ -92,29 +61,25 @@
 </div>
 
 <div id="editor" contenteditable="true"></div>
-
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);">🖨️ IMPRIMIR RELATÓRIO</button>
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR RELATÓRIO</button>
 </div>
 
 <script>
-    const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMAS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+    const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMASS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
     const selecoes = { campos: {} };
 
     const db = {
         acoesDocentes: [
-            "Através da organização de contextos de aprendizagem significativos, a docente buscou ",
-            "Mediante a observação atenta e o registro das interações diárias, propiciou-se que ",
-            "Ao estruturar ambientes que provocam o protagonismo infantil, a docente permitiu que ",
-            "Pautada na escuta ativa e no respeito ao tempo individual, a mediação pedagógica focou em "
+            "Através da organização de contextos de aprendizagem significativos e intencionais, a docente buscou pautar sua prática na observação das necessidades individuais, permitindo que ",
+            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, propiciou-se ao longo deste período que ",
+            "Pautada na escuta ativa e no respeito às singularidades de cada vivência escolar, a mediação pedagógica focou em estratégias que garantiram que ",
+            "Ao planejar situações desafiadoras que integram o cuidar e o educar como eixos indissociáveis da rotina, a docente oportunizou momentos em que "
         ],
         vivencias: [
-            "durante os momentos de acolhimento e rodas de conversa, onde ",
-            "nos contextos de brincadeiras de livre escolha e exploração de materiais, quando ",
-            "em atividades dirigidas na área externa e contato com elementos da natureza, observou-se que ",
-            "nos momentos de rotinas de cuidados e higiene, percebeu-se que "
-        ],
-        direitos: ["conviver", "brincar", "participar", "explorar", "expressar", "conhecer-se"]
+            " vivenciasse os direitos de conviver, brincar e participar de forma plena e integrada aos Campos de Experiência. Durante as rodas de conversa e os momentos de acolhimento, percebeu-se um avanço significativo na capacidade de expressão e na construção de vínculos afetivos com seus pares. Além disso, nas explorações realizadas em áreas externas e no contato direto com elementos da natureza, demonstrou autonomia para explorar novos desafios motores, revelando segurança em suas ações e respeito ao espaço coletivo. A criança mostrou-se protagonista ao selecionar materiais em atividades de livre escolha, evidenciando um pensamento criativo e uma percepção aguçada sobre as relações de causa e efeito no ambiente ao seu redor, consolidando assim as bases para um desenvolvimento integral harmonioso.",
+            " pudesse exercer seus direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos sensoriais e cognitivos. Nas atividades dirigidas e nos momentos de grandes grupos, observou-se uma participação ativa, onde a criança demonstrou interesse por narrativas literárias e pela manipulação de diferentes suportes artísticos. Sua evolução na motricidade fina e ampla foi notória, especialmente durante as vivências de corpo e movimento, onde o controle progressivo do próprio corpo permitiu conquistas em sua independência física. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal, permitindo que a criança compreendesse sua posição no grupo e suas responsabilidades individuais dentro do convívio social escolar."
+        ]
     };
 
     function iniciar() {
@@ -136,7 +101,7 @@
     function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
 
     function novoAluno() {
-        if(confirm("Deseja limpar os campos para iniciar um novo aluno?")) {
+        if(confirm("LIMPAR CAMPOS PARA NOVO ALUNO?")) {
             document.getElementById('crianca').value = "";
             document.getElementById('turma').value = "";
             selecoes.campos = {};
@@ -157,32 +122,18 @@
             gen: document.getElementById('genero').value
         };
 
-        const par1 = sortear(db.acoesDocentes) + sortear(db.vivencias) + p.gen + " vivenciou os direitos de <b>" + db.direitos[0] + ", " + db.direitos[1] + " e " + db.direitos[2] + "</b> de forma integrada.";
-        const par2 = "Ao <b>" + db.direitos[3] + "</b> novos contextos e <b>" + db.direitos[4] + "</b> suas descobertas, demonstrou um desenvolvimento pautado na curiosidade e no <b>" + db.direitos[5] + "</b>, fortalecendo sua identidade.";
-        const par3 = "Concluímos este período com a certeza de que as experiências ofertadas ampliaram as potencialidades de " + p.nome + ", consolidando aprendizagens fundamentais para sua trajetória escolar.";
+        const corpoTexto = sortear(db.acoesDocentes) + p.gen + sortear(db.vivencias);
+        const conclusao = "As conquistas demonstradas neste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado e o respeito à infância, garantindo que " + p.nome + " continue expandindo suas potencialidades de forma segura e plena.";
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
-            
-            <div class="bloco-dados">
-                <b>DOCENTE:</b> ${p.prof}<br>
-                <b>CRIANÇA:</b> ${p.nome}<br>
-                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
-            </div>
-
-            <div class="dec-mat">
-                Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:
-            </div>
-
+            <div class="bloco-dados"><b>DOCENTE:</b> ${p.prof}<br><b>CRIANÇA:</b> ${p.nome}<br><b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}</div>
+            <div class="dec-mat">Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:</div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
-
-            <div class="corpo-texto">${par1}</div>
-            <div class="corpo-texto">${par2}</div>
-            <div class="corpo-texto">${par3}</div>
-
+            <div class="corpo-texto">${corpoTexto}</div>
+            <div class="corpo-texto" style="margin-bottom:0;">${conclusao}</div>
             <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
-
             <div class="assinaturas-lista">
                 <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Professor(a)</div></div>
                 <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Coordenação</div></div>
