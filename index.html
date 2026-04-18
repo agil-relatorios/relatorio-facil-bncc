@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Estrutura Narrativa Final</title>
+    <title>CONTAÊ PROFE - Versão Master</title>
     <style>
         :root { --primaria: #ff4757; --primaria-dark: #e84118; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -12,7 +12,7 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; transition: 0.3s; text-transform: uppercase; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         input:focus { border-color: var(--primaria); }
         .secao-titulo { background: #2f3542; color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -22,23 +22,23 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* EDITOR DE IMPRESSÃO A4 */
-        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; }
+        /* DOCUMENTAÇÃO E ÉTICA */
+        .manual-footer { max-width: 900px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 15px; font-size: 0.85rem; line-height: 1.6; border: 1px solid #eee; }
+        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .etica-box { border-left: 4px solid var(--azul); padding-left: 15px; margin: 15px 0; font-style: italic; }
+
+        /* EDITOR DE IMPRESSÃO */
+        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        
-        /* Ajuste de Espaçamento 1.5 em todo texto */
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; } /* Espaço 1.5 entre parágrafos via margin */
-        
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; } /* Espaço 2 após mensagem */
-        .data-local { text-align: center; margin-bottom: 3.5em; } /* Espaço 3.5 após data */
-        
-        .item-assinatura { margin-bottom: 2.5em; text-align: center; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; }
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
+        .data-local { text-align: center; margin-bottom: 3.5em; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
-        
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
+
         @page { size: A4; margin: 0; }
         @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
     </style></head><body>
@@ -70,6 +70,15 @@
     <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR RELATÓRIO</button>
 </div>
 
+<div class="manual-footer no-print">
+    <span class="manual-titulo">📖 Manual de Uso & Ética Profissional</span>
+    O <b>CONTAÊ PROFE</b> é uma ferramenta de apoio à redação pedagógica. Ao utilizar este sistema, o docente assume o compromisso ético de validar as frases sorteadas com a realidade observada em sala de aula. 
+    <div class="etica-box">
+        "A tecnologia agiliza o processo, mas o olhar sensível do professor sobre a singularidade da criança é insubstituível."
+    </div>
+    <b>Termos de Uso:</b> Os dados aqui inseridos são processados apenas localmente. Não armazenamos informações de menores em bancos de dados externos, garantindo conformidade com a LGPD e o sigilo escolar.
+</div>
+
 <script>
     const nomesCampos = ["1. O EU, O OUTRO E O NÓS","2. CORPO, GESTOS E MOVIMENTOS","3. TRAÇOS, SONS, CORES E FORMAS","4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO","5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
     const selecoes = { campos: {} };
@@ -79,11 +88,27 @@
             "Através da organização de contextos de aprendizagem significativos e intencionais, a docente buscou pautar sua prática na observação das necessidades individuais, permitindo que ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, propiciou-se ao longo deste período que ",
             "Pautada na escuta ativa e no respeito às singularidades de cada vivência escolar, a mediação pedagógica focou em estratégias que garantiram que ",
-            "Ao planejar situações desafiadoras que integram o cuidar e o educar como eixos indissociáveis da rotina, a docente oportunizou momentos em que "
+            "Ao planejar situações desafiadoras que integram o cuidar e o educar como eixos indissociáveis da rotina, a docente oportunizou momentos em que ",
+            "Com base em uma observação sensível e registros contínuos, a prática pedagógica foi direcionada para assegurar que ",
+            "Promovendo um ambiente acolhedor e rico em possibilidades de exploração, a ação docente permitiu que ",
+            "Ao estruturar a rotina de forma flexível e respeitosa ao tempo de cada um, focou-se em garantir que ",
+            "Através de intervenções mediadoras que estimulam a autonomia e o pensamento crítico, a docente propiciou que ",
+            "Ao diversificar os suportes e materiais oferecidos no cotidiano escolar, a mediação pedagógica buscou que ",
+            "Fomentando a interação constante e o respeito mútuo dentro do grupo, as estratégias docentes visaram que "
         ],
         vivencias: [
-            " vivenciasse os direitos de conviver, brincar e participar de forma plena e integrada aos Campos de Experiência. Durante as rodas de conversa e os momentos de acolhimento, percebeu-se um avanço significativo na capacidade de expressão e na construção de vínculos afetivos com seus pares. Além disso, nas explorações realizadas em áreas externas e no contato direto com elementos da natureza, demonstrou autonomia para explorar novos desafios motores, revelando segurança em suas ações e respeito ao espaço coletivo. A criança mostrou-se protagonista ao selecionar materiais em atividades de livre escolha, evidenciando um pensamento criativo e uma percepção aguçada sobre as relações de causa e efeito no ambiente ao seu redor, consolidando assim as bases para um desenvolvimento integral harmonioso.",
-            " pudesse exercer seus direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos sensoriais e cognitivos. Nas atividades dirigidas e nos momentos de grandes grupos, observou-se uma participação ativa, onde a criança demonstrou interesse por narrativas literárias e pela manipulação de diferentes suportes artísticos. Sua evolução na motricidade fina e ampla foi notória, especialmente durante as vivências de corpo e movimento, onde o controle progressivo do próprio corpo permitiu conquistas em sua independência física. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal, permitindo que a criança compreendesse sua posição no grupo e suas responsabilidades individuais dentro do convivio social escolar."
+            " vivenciasse os direitos de conviver, brincar e participar de forma plena. Durante as rodas de conversa e os momentos de acolhimento, percebeu-se um avanço na capacidade de expressão e na construção de vínculos afetivos. Além disso, nas explorações em áreas externas, demonstrou autonomia para novos desafios motores, revelando segurança e respeito ao espaço coletivo. Protagonizou escolhas de materiais, evidenciando pensamento criativo e percepção aguçada sobre o ambiente.",
+            " pudesse exercer os direitos de explorar, expressar e conhecer-se dentro de uma rotina rica em estímulos. Nas atividades de grandes grupos, observou-se uma participação ativa e interesse por narrativas literárias. Sua evolução na motricidade fina e ampla foi notória, especialmente nas vivências de corpo e movimento. A intencionalidade pedagógica garantiu que cada descoberta fosse valorizada, estimulando a curiosidade científica e a organização temporal.",
+            " desenvolvesse sua identidade e autonomia através de interações constantes. Demonstrou grande curiosidade ao manipular diferentes texturas e elementos da natureza, ampliando seu repertório sensorial. Nas brincadeiras simbólicas, expressou suas emoções e compreendeu regras sociais de convivência. A mediação constante permitiu que a criança se sentisse segura para testar hipóteses e comunicar suas descobertas com entusiasmo e clareza.",
+            " explorasse linguagens variadas, desde a musicalidade até as artes visuais. Demonstrou sensibilidade ao apreciar produções culturais e segurança ao criar suas próprias representações. No convívio com os colegas, praticou a empatia e a escuta, fortalecendo sua posição como sujeito social. Cada desafio proposto foi encarado como oportunidade de crescimento, resultando em um desenvolvimento harmonioso e potente.",
+            " ampliasse sua percepção espacial e temporal através de jogos e desafios matemáticos simples. Demonstrou facilidade em organizar objetos por atributos e reconhecer sequências na rotina escolar. Sua curiosidade sobre o mundo físico e social foi o motor para investigações profundas sobre os seres vivos e fenômenos naturais. Nas relações interpessoais, mostrou-se colaborativa, respeitando as diversidades e contribuindo para o bem-estar do grupo."
+        ],
+        conclusoes: [
+            "As conquistas deste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado, garantindo que a criança continue expandindo potencialidades.",
+            "Concluímos este ciclo observando um desenvolvimento sólido e pautado no respeito à infância, assegurando que o aprendizado ocorra de forma lúdica, prazerosa e cheia de significados reais.",
+            "Os registros mostram um processo evolutivo contínuo, onde a criança consolidou saberes fundamentais e se prepara para novos desafios com segurança, autonomia e curiosidade aguçada.",
+            "O progresso alcançado é fruto de uma parceria estreita entre escola e vivência, resultando em uma base sólida para a continuidade da trajetória escolar com alegria e protagonismo.",
+            "Finalizamos esta etapa celebrando a singularidade e as vitórias individuais, certos de que a base pedagógica oferecida serviu como trampolim para novas e brilhantes descobertas."
         ]
     };
 
@@ -106,7 +131,7 @@
     function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
 
     function novoAluno() {
-        if(confirm("LIMPAR CAMPOS PARA NOVO ALUNO?")) {
+        if(confirm("LIMPAR CAMPOS?")) {
             document.getElementById('crianca').value = "";
             document.getElementById('turma').value = "";
             selecoes.campos = {};
@@ -118,10 +143,7 @@
 
     function gerarRelatorio() {
         let escolaInput = document.getElementById('escola').value.toUpperCase().trim();
-        // Lógica automática para incluir a palavra ESCOLA
-        if (escolaInput !== "" && !escolaInput.startsWith("ESCOLA")) {
-            escolaInput = "ESCOLA " + escolaInput;
-        }
+        if (escolaInput !== "" && !escolaInput.startsWith("ESCOLA")) { escolaInput = "ESCOLA " + escolaInput; }
 
         const p = { 
             escola: escolaInput || "ESCOLA NÃO INFORMADA", 
@@ -134,7 +156,7 @@
         };
 
         const corpoTexto = sortear(db.acoesDocentes) + p.gen + sortear(db.vivencias);
-        const conclusao = "As conquistas demonstradas neste período refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado e o respeito à infância, garantindo que " + p.nome + " continue expandindo suas potencialidades de forma segura e plena.";
+        const conclusao = sortear(db.conclusoes);
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${p.escola}</div>
@@ -145,11 +167,9 @@
             <div class="corpo-texto" style="margin-bottom:0;">${conclusao}</div>
             <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
-            <div class="assinaturas-lista">
-                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Professor(a)</div></div>
-                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Coordenação</div></div>
-                <div class="item-assinatura"><div class="linha-assinatura"></div><div class="label-assinatura">Responsável</div></div>
-            </div>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
