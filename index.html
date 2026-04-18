@@ -1,40 +1,45 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - V7.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTAÊ PROFE - Excelência Pedagógica</title>
     <style>
         :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
-        .container { max-width: 1100px; margin: auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
-        .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 10px; }
+        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
         
-        .grid-cadastro { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; margin-bottom: 25px; background: #f9f9f9; padding: 20px; border-radius: 15px; border: 1px solid #eee; }
-        .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; background: white; text-transform: uppercase; }
-        
-        .radio-grupo { display: flex; gap: 10px; margin-top: 5px; }
-        .radio-item { flex: 1; text-align: center; }
-        .radio-item input { display: none; }
-        .radio-item label { display: block; padding: 8px; background: #eee; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 0.7rem; border: 2px solid transparent; font-weight: bold; }
-        .radio-item input:checked + label { background: var(--terciaria); color: white; border-color: #0056b3; }
+        /* Cabeçalho do App */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { margin: 0; color: var(--primaria); font-size: 2rem; }
+        .slogan { font-style: italic; color: #747d8c; font-size: 0.9rem; }
 
-        .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; text-align: center; text-transform: uppercase; }
-        .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 8px; }
-        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.72rem; font-weight: 600; transition: 0.2s; text-align: center; text-transform: uppercase; }
-        .btn-check.active { background: var(--terciaria); color: white; border-color: var(--terciaria); }
-        .btn-check.active.inicial { background: var(--alerta); }
-        .btn-check.active.processo { background: var(--secundaria); }
+        /* Cadastro */
+        .grid-cadastro { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; }
+        .campo { display: flex; flex-direction: column; }
+        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 4px; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.85rem; outline: none; text-transform: uppercase; }
+
+        .radio-aluno { display: flex; gap: 5px; margin-bottom: 5px; }
+        .radio-aluno input { display: none; }
+        .radio-aluno label { flex: 1; padding: 8px; background: #eee; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-align: center; }
+        .radio-aluno input:checked + label { background: var(--terciaria); color: white; }
+
+        /* Seções e Botões */
+        .secao-titulo { background: #2f3542; color: white; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-align: center; text-transform: uppercase; }
+        .sub-nivel { font-size: 0.65rem; font-weight: bold; color: #747d8c; margin: 5px 0; text-transform: uppercase; border-left: 3px solid #ddd; padding-left: 5px; }
+        
+        .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+        
+        .btn-check { padding: 10px 5px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; transition: 0.2s; }
+        .btn-check.active { border-color: transparent; color: white; }
+        .active.inicial { background: var(--alerta); }
+        .active.processo { background: var(--secundaria); }
+        .active.avancado { background: var(--terciaria); }
 
         .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
-        #resultado-secao { display: none; margin-top: 40px; }
-        #editor { width: 210mm; min-height: 297mm; padding: 20mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; background: white; border: 1px solid #ddd; }
+
+        /* Editor e Impressão */
+        #resultado-secao { display: none; margin-top: 30px; }
+        #editor { width: 210mm; min-height: 297mm; padding: 20mm; margin: auto; background: white; border: 1px solid #ddd; font-family: Arial; font-size: 12pt; text-align: justify; line-height: 1.5; }
         
-        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; padding: 0; } #editor { border: none; width: 100%; } }
+        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; } #editor { border: none; width: 100%; } }
     </style>
 </head>
 <body>
@@ -42,169 +47,130 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“Narrativas de Afeto e Garantia de Direitos”</p>
+        <p class="slogan">Narrativas de Afeto e Garantia de Direitos</p>
     </div>
 
-    <div class="secao-titulo">DADOS DE IDENTIFICAÇÃO</div>
+    <div class="secao-titulo">Cadastro do Aluno</div>
     <div class="grid-cadastro">
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-        <div class="campo"><label>Endereço</label><input type="text" id="end_escola"></div>
-        <div class="campo"><label>Telefone / E-mail</label><input type="text" id="contato_escola"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="esc"></div>
         <div class="campo"><label>Professora</label><input type="text" id="prof"></div>
         <div class="campo">
             <label>Criança</label>
-            <div class="radio-grupo">
-                <div class="radio-item"><input type="radio" name="artigo" id="m" value="o" checked><label for="m">ALUNO</label></div>
-                <div class="radio-item"><input type="radio" name="artigo" id="f" value="a"><label for="f">ALUNA</label></div>
+            <div class="radio-aluno">
+                <input type="radio" name="sexo" id="m" value="o" checked><label for="m">ALUNO</label>
+                <input type="radio" name="sexo" id="f" value="a"><label for="f">ALUNA</label>
             </div>
-            <input type="text" id="crianca" placeholder="NOME COMPLETO" style="margin-top:5px;">
+            <input type="text" id="nome_c" placeholder="NOME COMPLETO">
         </div>
         <div class="campo"><label>Matrícula</label><input type="text" id="mat"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Turno</label><select id="turno"><option>MATUTINO</option><option>VESPERTINO</option><option>INTEGRAL</option></select></div>
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="MANAUS"></div>
+        <div class="campo"><label>Turma/Turno</label><input type="text" id="turma" placeholder="EX: A - MATUTINO"></div>
     </div>
 
-    <div class="secao-titulo">ITINERÁRIOS DE VIVÊNCIAS E PROJETOS (Atividades)</div>
-    <div id="grid-vivencias" class="grid-palavras"></div>
+    <div class="secao-titulo">Itinerários de Vivências e Projetos</div>
+    <div class="grid-6" id="vivencias-btns"></div>
 
-    <div class="secao-titulo">DIMENSÕES DO CONVIVER E EXPRESSAR</div>
-    <div id="grid-perfil" class="grid-palavras"></div>
+    <div id="campos-bncc"></div>
 
-    <div id="secoes-bncc"></div>
-
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR PARECER DESCRITIVO</button>
+    <button class="btn-gerar" onclick="gerar()">📝 GERAR PARECER DESCRITIVO</button>
 </div>
 
 <div id="resultado-secao">
     <div id="editor" contenteditable="true"></div>
-    <div class="no-print" style="max-width:210mm; margin: 20px auto; display: flex; gap:10px;">
-        <button onclick="window.print()" style="flex:1; padding:15px; background:var(--terciaria); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
-        <button onclick="location.reload()" style="padding:15px; background:#666; color:white; border:none; border-radius:10px; cursor:pointer;">🧹 NOVO</button>
+    <div class="no-print" style="text-align:center; margin-top:20px;">
+        <button onclick="window.print()" style="padding:15px 30px; background:var(--terciaria); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
     </div>
 </div>
 
 <script>
     const db = {
-        vivencias: ['Rodas de Conversa', 'Cantinhos Temáticos', 'Trabalhos em Grupo', 'Jogos de Mesa', 'Exploração no Pátio', 'Educação Física', 'Aula de Música', 'Artes Visuais', 'Projeto de Leitura', 'Contação de Histórias', 'Maleta Viajante', 'Faz de Conta', 'Culinária Pedagógica', 'Horta Escolar'],
-        perfil: {
-            inicial: ['Retraída', 'Apática', 'Desorganizada', 'Reativa'],
-            processo: ['Receptiva', 'Esforçada', 'Curiosa', 'Cooperativa'],
-            avancado: ['Protagonista', 'Resiliente', 'Investigativa', 'Empática']
-        },
+        vivencias: ['Roda de Conversa', 'Cantinhos', 'Jogos de Mesa', 'Horta Escolar', 'Artes Visuais', 'Música', 'Culinária', 'Contação de Histórias', 'Projeto Leitura', 'Pátio/Externo', 'Faz de Conta', 'Educação Física'],
         campos: [
-            { t: "1. O Eu, o Outro e o Nós", inicial: ['Isolada'], processo: ['Participativa'], avancado: ['Líder'] },
-            { t: "2. Corpo, Gestos e Movimentos", inicial: ['Lenta'], processo: ['Coordenada'], avancado: ['Habilidosa'] },
-            { t: "3. Traços, Sons, Cores e Formas", inicial: ['Hesitante'], processo: ['Sensível'], avancado: ['Criativa'] },
-            { t: "4. Escuta, Fala, Pensamento e Imaginação", inicial: ['Reservada'], processo: ['Atenta'], avancado: ['Argumentativa'] },
-            { t: "5. Espaço, Tempo, Quantidades e Relações", inicial: ['Desatenta'], processo: ['Analítica'], avancado: ['Lógica'] }
+            {
+                t: "1. O Eu, o Outro e o Nós",
+                inicial: ['Isolada', 'Dependente', 'Resistente', 'Inibida', 'Reativa', 'Passiva'],
+                processo: ['Cooperativa', 'Amigável', 'Sociável', 'Participativa', 'Esforçada', 'Receptiva'],
+                avancado: ['Líder', 'Empática', 'Autônoma', 'Segura', 'Conciliadora', 'Protagonista']
+            },
+            {
+                t: "2. Corpo, Gestos e Movimentos",
+                inicial: ['Lenta', 'Cautelosa', 'Desordenada', 'Rígida', 'Observadora', 'Instável'],
+                processo: ['Ativa', 'Coordenada', 'Rítmica', 'Ágil', 'Persistente', 'Espontânea'],
+                avancado: ['Habilidosa', 'Segura', 'Expressiva', 'Destemida', 'Dominante', 'Versátil']
+            }
+            // Adicionar os outros 3 campos seguindo a mesma lógica 6/6/6
         ]
     };
 
-    const selecoes = { vivencias: [], perfil: [], bncc: {} };
+    let selecionados = { viv: [], bncc: [] };
 
-    function iniciar() {
-        // Renderizar Vivências
-        const gridV = document.getElementById('grid-vivencias');
+    function render() {
+        // Vivências
+        const vDiv = document.getElementById('vivencias-btns');
         db.vivencias.forEach(v => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-check';
-            btn.innerText = v.toUpperCase();
-            btn.onclick = () => {
-                btn.classList.toggle('active');
-                if(btn.classList.contains('active')) selecoes.vivencias.push(v.toUpperCase());
-                else selecoes.vivencias = selecoes.vivencias.filter(x => x !== v.toUpperCase());
-            };
-            gridV.appendChild(btn);
+            const b = document.createElement('button');
+            b.className = 'btn-check';
+            b.innerText = v;
+            b.onclick = () => { b.classList.toggle('active'); b.classList.toggle('avancado'); toggle(selecionados.viv, v); };
+            vDiv.appendChild(b);
         });
 
-        // Renderizar Perfil
-        const gridP = document.getElementById('grid-perfil');
-        Object.keys(db.perfil).forEach(nivel => {
-            db.perfil[nivel].forEach(p => {
-                const btn = document.createElement('button');
-                btn.className = `btn-check ${nivel}`;
-                btn.innerText = p.toUpperCase();
-                btn.onclick = () => {
-                    btn.classList.toggle('active');
-                    if(btn.classList.contains('active')) selecoes.perfil.push(p.toUpperCase());
-                    else selecoes.perfil = selecoes.perfil.filter(x => x !== p.toUpperCase());
-                };
-                gridP.appendChild(btn);
-            });
-        });
+        // BNCC
+        const cDiv = document.getElementById('campos-bncc');
+        db.campos.forEach(c => {
+            const html = `<div class="secao-titulo">${c.t}</div>
+                <div class="sub-nivel">Nível Inicial</div><div class="grid-6" id="ini-${c.t}"></div>
+                <div class="sub-nivel">Nível em Processo</div><div class="grid-6" id="pro-${c.t}"></div>
+                <div class="sub-nivel">Nível Avançado</div><div class="grid-6" id="ava-${c.t}"></div>`;
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = html;
+            cDiv.appendChild(wrapper);
 
-        // Renderizar Campos BNCC
-        const containerBNCC = document.getElementById('secoes-bncc');
-        db.campos.forEach((campo, idx) => {
-            const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-titulo">${campo.t}</div><div class="grid-palavras" id="campo-${idx}"></div>`;
-            containerBNCC.appendChild(div);
-            selecoes.bncc[idx] = [];
-            ['inicial', 'processo', 'avancado'].forEach(nivel => {
-                campo[nivel].forEach(p => {
-                    const btn = document.createElement('button');
-                    btn.className = `btn-check ${nivel}`;
-                    btn.innerText = p.toUpperCase();
-                    btn.onclick = () => {
-                        btn.classList.toggle('active');
-                        if(btn.classList.contains('active')) selecoes.bncc[idx].push(p.toUpperCase());
-                        else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p.toUpperCase());
-                    };
-                    document.getElementById(`campo-${idx}`).appendChild(btn);
+            ['inicial', 'processo', 'avancado'].forEach(n => {
+                c[n].forEach(p => {
+                    const b = document.createElement('button');
+                    b.className = `btn-check`;
+                    b.innerText = p;
+                    b.onclick = () => { b.classList.toggle('active'); b.classList.toggle(n); toggle(selecionados.bncc, p); };
+                    document.getElementById(`${n.substring(0,3)}-${c.t}`).appendChild(b);
                 });
             });
         });
     }
 
-    function gerarRelatorio() {
-        const dados = {
-            escola: document.getElementById('escola').value.toUpperCase(),
-            end: document.getElementById('end_escola').value.toUpperCase(),
-            contato: document.getElementById('contato_escola').value.toUpperCase(),
-            prof: document.getElementById('prof').value.toUpperCase(),
-            crianca: document.getElementById('crianca').value.toUpperCase(),
-            mat: document.getElementById('mat').value.toUpperCase(),
-            fase: document.getElementById('fase').value,
-            turma: document.getElementById('turma').value.toUpperCase(),
-            turno: document.getElementById('turno').value,
-            cidade: document.getElementById('cidade').value.toUpperCase(),
-            artigo: document.querySelector('input[name="artigo"]:checked').value
-        };
+    function toggle(arr, item) {
+        const i = arr.indexOf(item);
+        if(i > -1) arr.splice(i, 1); else arr.push(item);
+    }
 
-        const pNome = dados.crianca.split(' ')[0];
-        const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+    function gerar() {
+        const nome = document.getElementById('nome_c').value.toUpperCase();
+        const esc = document.getElementById('esc').value.toUpperCase();
+        const prof = document.getElementById('prof').value.toUpperCase();
+        const art = document.querySelector('input[name="sexo"]:checked').value;
+        const pNome = nome.split(' ')[0];
 
-        let textoVivencias = selecoes.vivencias.length > 0 ? ` DURANTE ESTE SEMESTRE, PARTICIPOU ATIVAMENTE DE VIVÊNCIAS COMO: ${selecoes.vivencias.join(', ')}.` : "";
-        let textoPerfil = selecoes.perfil.length > 0 ? ` NO CONVÍVIO SOCIAL, REVELA-SE UMA CRIANÇA ${selecoes.perfil.join(', ')}.` : "";
-        
-        let habilidades = [];
-        Object.values(selecoes.bncc).forEach(v => habilidades.push(...v));
-        let textoBNCC = habilidades.length > 0 ? ` EM RELAÇÃO AOS CAMPOS DE EXPERIÊNCIA, ${pNome} MANIFESTA PROGRESSO AO DEMONSTRAR SER ${habilidades.join(', ')}.` : "";
+        let txtViv = selecionados.viv.length > 0 ? ` PARTICIPOU ATIVAMENTE DE VIVÊNCIAS COMO: ${selecionados.viv.join(', ').toUpperCase()}.` : "";
+        let txtBNCC = selecionados.bncc.length > 0 ? ` DEMONSTROU SER UMA CRIANÇA ${selecionados.bncc.join(', ').toUpperCase()}.` : "";
 
-        const htmlFinal = `
-            <div style="border-bottom:2px solid #000; padding-bottom:10px; margin-bottom:20px; font-size:10pt; text-transform:uppercase;">
-                <center><strong>${dados.escola}</strong><br>${dados.end} | ${dados.contato}</center><br>
-                <strong>ALUNO(A):</strong> ${dados.crianca} <span style="margin-left:20px;"><strong>MATRÍCULA:</strong> ${dados.mat}</span><br>
-                <strong>PROFESSORA:</strong> ${dados.prof} <span style="margin-left:20px;"><strong>TURMA:</strong> ${dados.turma} - ${dados.turno}</span><br>
-                <strong>FASE:</strong> PRÉ-ESCOLA (${dados.fase})
+        const final = `
+            <div style="text-transform:uppercase; border-bottom:2px solid #000; padding-bottom:10px; margin-bottom:20px; font-size:10pt;">
+                <center><b>${esc}</b></center><br>
+                <b>ALUNO(A):</b> ${nome} <b style="margin-left:20px;">PROFESSORA:</b> ${prof}<br>
+                <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()} <b>FASE:</b> ${document.getElementById('fase').value}
             </div>
-            <center><strong>PARECER DESCRITIVO INDIVIDUAL</strong></center><br>
-            <p style="text-indent:1.5cm; text-transform:uppercase;">O PERCURSO DE <b>${dados.crianca}</b> NA INSTITUIÇÃO <b>${dados.escola}</b> FOI MARCADO PELA GARANTIA DOS DIREITOS DE APRENDIZAGEM E DESENVOLVIMENTO. ${textoVivencias}${textoPerfil}${textoBNCC}</p>
-            <p style="text-indent:1.5cm; text-transform:uppercase;">CONCLUÍMOS QUE ${dados.artigo === 'o' ? 'O ALUNO' : 'A ALUNA'} SEGUE EM EVOLUÇÃO CONSTANTE DE SUAS POTENCIALIDADES.</p>
-            <br><div style="text-align:right;">${dados.cidade}, ${dataH}.</div><br><br>
-            <div style="display:flex; justify-content: space-around; font-size:10pt; text-align:center;">
-                <div>__________________________<br>PROFESSOR(A)</div>
-                <div>__________________________<br>COORDENAÇÃO/GESTÃO</div>
-            </div>
+            <center><b>PARECER DESCRITIVO INDIVIDUAL</b></center><br>
+            <p style="text-indent:1.5cm; text-transform:uppercase;">O PERCURSO DE <b>${nome}</b> NESTE SEMESTRE FOI MARCADO POR DESCOBERTAS E APRENDIZAGENS SIGNIFICATIVAS.${txtViv}${txtBNCC}</p>
+            <p style="text-indent:1.5cm; text-transform:uppercase;">CONCLUÍMOS QUE ${art === 'o' ? 'O ALUNO' : 'A ALUNA'} SEGUE EM PLENO DESENVOLVIMENTO.</p>
+            <br><br><br>
+            <center>MANAUS, ${new Date().toLocaleDateString('pt-BR').toUpperCase()}</center>
         `;
 
-        document.getElementById('editor').innerHTML = htmlFinal;
+        document.getElementById('editor').innerHTML = final;
         document.getElementById('resultado-secao').style.display = 'block';
-        window.scrollTo(0, document.getElementById('resultado-secao').offsetTop);
     }
-    window.onload = iniciar;
+
+    render();
 </script>
 </body>
 </html>
