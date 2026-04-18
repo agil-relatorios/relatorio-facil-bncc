@@ -14,8 +14,7 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select, textarea { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; }
-        input, select { text-transform: uppercase; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; background: white; text-transform: uppercase; }
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
         .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.2s; text-align: center; }
@@ -24,15 +23,10 @@
         .btn-check.active.inicial { background: var(--alerta); color: white; border-color: var(--alerta); }
         .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
         
-        /* Ajuste para entrada manual */
-        .manual-box { width: 100%; min-height: 80px; resize: vertical; font-family: inherit; margin-top: 10px; }
-
         #resultado-secao { display: none; margin-top: 40px; }
-        #editor { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.6; text-align: justify; background: white; box-sizing: border-box; border: 1px solid #ddd; outline: none; }
+        #editor { width: 210mm; min-height: 297mm; padding: 25mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.8; text-align: justify; background: white; box-sizing: border-box; border: 1px solid #ddd; outline: none; }
         
-        /* Termos de Uso Elegante */
         .termos-footer { margin-top: 50px; padding: 20px; border-top: 1px solid #ddd; text-align: center; font-size: 0.75rem; color: #95a5a6; line-height: 1.4; }
-        .termos-footer strong { color: #7f8c8d; }
 
         @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; width: 100%; padding: 0; } #editor { border: none; padding: 20mm 15mm; width: 100%; } }
     </style>
@@ -51,20 +45,17 @@
         <div class="campo"><label>Período</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
-    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Clique para selecionar)</div>
+    <div class="secao-titulo">PERFIL SOCIOEMOCIONAL (Sem limites)</div>
     <div id="grid-perfil" class="grid-palavras"></div>
 
     <div id="secoes-bncc"></div>
-
-    <div class="secao-titulo">OBSERVAÇÕES MANUAIS (Complemento Personalizado)</div>
-    <textarea id="texto_manual" class="manual-box" placeholder="Escreva aqui fatos específicos, projetos ou recados personalizados para esta criança..."></textarea>
 
     <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA DE AFETO</button>
 
     <div class="termos-footer">
         <strong>TERMOS DE USO & PRIVACIDADE</strong><br>
-        Este sistema é uma ferramenta de apoio pedagógico. Os dados inseridos são de processamento local e responsabilidade do usuário.<br>
-        É vedada a reprodução comercial deste layout sem autorização. Conteúdo gerado sob diretrizes da BNCC.
+        Este sistema é uma ferramenta de apoio pedagógico baseada na BNCC. Os dados inseridos são de processamento local.<br>
+        É vedada a reprodução comercial deste layout sem autorização.
     </div>
 </div>
 
@@ -84,34 +75,26 @@
             inicial: ['Reservada', 'Insegura', 'Impulsiva', 'Dependente', 'Resistente', 'Desatenta']
         },
         traducoes: {
-            'impulsiva': ['demonstra intensa energia e aprende a aguardar os tempos coletivos', 'manifesta vivacidade, em processo de regulação do tempo de espera'],
-            'desatenta': ['aprimora o foco mediante estímulos e mediação constante', 'encontra-se em desenvolvimento da escuta atenta'],
-            'resistente': ['demonstra necessidade de acolhimento em novos desafios', 'requer mediação afetiva para aceitar propostas novas'],
-            'insegura': ['fortalece sua autoconfiança perante novas vivências', 'em fase de maturação da segurança individual'],
-            'dependente': ['requer suporte mediador para realizar escolhas', 'conquista sua independência funcional'],
-            'reservada': ['prefere a introspecção antes da interação plena', 'mantém um perfil analítico perante o grupo']
+            'impulsiva': 'demonstra intensa energia vital e encontra-se em processo de maturação para aguardar os tempos coletivos',
+            'desatenta': 'aprimora paulatinamente seu foco e concentração mediante estímulos direcionados e mediação constante',
+            'resistente': 'demonstra necessidade de acolhimento em novos desafios, requerendo mediação afetiva para aceitar propostas',
+            'insegura': 'fortalece sua autoconfiança perante novas vivências, revelando um perfil que busca segurança no suporte adulto',
+            'dependente': 'requer suporte mediador para realizar escolhas, avançando gradualmente na conquista de sua independência',
+            'reservada': 'prefere a introspecção antes da interação plena, mantendo um perfil analítico e cauteloso perante o grupo'
         },
         variacoes: {
             introducao: [
-                "Durante este período letivo, as vivências de [nome] na [escola] foram norteadas pela BNCC.",
-                "Ao longo deste semestre, o percurso de [nome] na instituição [escola] revelou-se rico em descobertas.",
-                "Neste período de convivência, as propostas vivenciadas por [nome] na [escola] pautaram-se na interação.",
-                "As observações realizadas sobre o desenvolvimento de [nome] na [escola] indicam avanços significativos.",
-                "A jornada de [nome] na instituição [escola] tem sido marcada por momentos de intenso aprendizado."
+                "Durante este período letivo, as vivências de [nome] na instituição [escola] foram norteadas pelos direitos de aprendizagem da BNCC. O processo educativo priorizou o bem-estar e o acolhimento afetivo, garantindo que a criança explorasse o ambiente escolar com segurança. Sob a mediação docente, a prática pedagógica promoveu vivências lúdicas fundamentais para o fortalecimento da autonomia e do desenvolvimento socioafetivo.",
+                "Ao longo deste semestre, o percurso de [nome] na instituição [escola] revelou-se rico em descobertas e experiências significativas. A acolhida priorizou a escuta ativa e o respeito ao ritmo individual, permitindo que a integração ocorresse de forma harmônica. Alinhada aos campos de experiência, a rotina escolar estimulou a curiosidade natural e a construção de vínculos sólidos com seus pares e com os adultos."
             ],
             conclusao: [
-                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e afetivo.",
-                "Diante do exposto, percebe-se que [pNome] apresenta um desenvolvimento harmônico e constante.",
-                "Em suma, as conquistas de [pNome] refletem um percurso de sucesso e construção de vínculos.",
-                "Finalizamos este período com a certeza de que [pNome] amplia suas potencialidades a cada dia.",
-                "O desenvolvimento de [pNome] neste semestre foi pautado pela evolução de suas competências."
+                "Diante do exposto, percebe-se que [pNome] apresenta um desenvolvimento harmônico e constante, absorvendo novos conhecimentos com facilidade e respeitando o coletivo. Concluímos que a criança segue em pleno desenvolvimento cognitivo e afetivo, pronta para os novos desafios que o próximo ciclo reserva. Parabéns pelo excelente desempenho e pela jornada de brilho construída neste período.",
+                "Em suma, as conquistas de [pNome] refletem um percurso de sucesso e a construção de vínculos pautados no respeito mútuo. A evolução demonstrada nas diversas dimensões do aprender indica que a criança amplia suas potencialidades a cada dia, integrando-se com alegria às dinâmicas escolares. O desenvolvimento alcançado neste semestre fundamenta as bases para sua futura caminhada pedagógica."
             ],
             inspiradoras: [
                 "É um privilégio acompanhar cada pequeno passo da sua grande jornada!",
                 "Seu brilho único ilumina nossa sala todos os dias. Continue crescendo!",
-                "O mundo é pequeno para o tamanho da sua curiosidade. Voe alto!",
-                "Cada conquista sua é motivo de alegria e orgulho para todos nós.",
-                "Que sua sede de aprender continue sendo sua maior aventura!"
+                "O mundo é pequeno para o tamanho da sua curiosidade. Voe alto!"
             ]
         },
         campos: [
@@ -172,7 +155,6 @@
         const nome = formatar(document.getElementById('nome_crianca').value || "A Criança");
         const escola = formatar(document.getElementById('nome_escola').value || "Escola");
         const cidade = formatar(document.getElementById('cidade').value || "Manaus");
-        const manual = document.getElementById('texto_manual').value.trim();
         const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -182,9 +164,11 @@
         if(selecoes.perfil.length > 0) {
             const perfilTraduzido = selecoes.perfil.map(p => {
                 const t = db.traducoes[p.toLowerCase()];
-                return t ? sortear(t) : p.toLowerCase();
+                return t ? t : p.toLowerCase();
             });
-            socio = " No âmbito socioemocional, observa-se uma criança que se apresenta " + perfilTraduzido.join(', ') + ".";
+            socio = " No que se refere às dimensões socioemocionais, " + pNome + " revela ser uma criança " + perfilTraduzido.join(', ') + ". Demonstra excelente socialização, respeitando combinados e rotinas.";
+        } else {
+            socio = " No âmbito socioemocional, a criança apresenta perfil atento e participativo, interagindo com harmonia e respeito ao coletivo nas diversas situações cotidianas.";
         }
 
         let habilidades = [];
@@ -192,18 +176,17 @@
         
         let bnccTexto = "";
         if(habilidades.length > 0) {
-            const listaH = habilidades.length > 5 ? habilidades.slice(0, 5).join(', ') + " e demais atividades" : habilidades.join(', ');
-            bnccTexto = ` Em relação aos campos de experiência, ${pNome} manifesta progresso ao ${listaH}, revelando engajamento ativo nas vivências cotidianas.`;
+            bnccTexto = ` Em relação aos campos de experiência, progrediu significativamente ao ${habilidades.join(', ')}, dominando cores, formas e lateralidade. Sua linguagem evoluiu na fala e escrita, demonstrando facilidade em nomear objetos e narrar fatos vividos.`;
+        } else {
+            bnccTexto = ` Nos campos de experiência, domina conceitos de lateralidade, cores e formas, progredindo visivelmente na linguagem oral e na identificação de vogais, além de escrever o nome próprio com auxílio.`;
         }
-
-        // Incorporação do Texto Manual
-        let obsManual = manual ? `<p style="text-indent:1.5cm;">${manual}</p>` : "";
 
         let conc = sortear(db.variacoes.conclusao).replace('[pNome]', pNome);
         let fraseProf = ` <br><br><center><i>"${sortear(db.variacoes.inspiradoras)}"</i></center>`;
 
-        let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
-        corpo += obsManual;
+        // Construção para garantir entre 12 e 16 linhas (Ajuste de line-height no CSS ajuda)
+        let corpo = `<p style="text-indent:1.5cm; margin-bottom:15px;">${intro}</p>`;
+        corpo += `<p style="text-indent:1.5cm; margin-bottom:15px;">${socio}${bnccTexto}</p>`;
         corpo += `<p style="text-indent:1.5cm;">${conc}${fraseProf}</p>`;
 
         document.getElementById('editor').innerHTML = `<div style="text-align:center; font-weight:bold; margin-bottom:20px; font-size:14pt;">PARECER DESCRITIVO INDIVIDUAL</div>` + corpo + `<br><div style="text-align:right;">${cidade}, ${dataH}.</div>`;
