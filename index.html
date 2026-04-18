@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Pedagógica Master</title>
+    <title>CONTAÊ PROFE - A Voz do Professor</title>
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -10,15 +10,16 @@
             --bg: #f8f9fa; 
             --texto: #2f3542; 
             --branco: #ffffff;
-            --cor-inicial: #f1c40f; /* Amarelo */
-            --cor-processo: #3498db; /* Azul */
+            --cor-inicial: #e74c3c; /* Vermelho */
+            --cor-processo: #f1c40f; /* Amarelo */
             --cor-avancado: #2ecc71; /* Verde */
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
+        .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
@@ -27,33 +28,12 @@
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
-        /* Faixa de Título com Pergunta */
-        .secao-pergunta { 
-            background: var(--azul); 
-            color: white; 
-            padding: 12px 15px; 
-            border-radius: 8px; 
-            margin: 25px 0 10px; 
-            display: flex; 
-            flex-direction: column;
-        }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
         .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
         .pergunta-texto { font-size: 1rem; font-weight: 600; }
 
-        /* Botões Coloridos (Semáforo) */
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { 
-            padding: 12px; 
-            border: 2px solid #edeff2; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-size: 0.75rem; 
-            font-weight: bold; 
-            text-align: center; 
-            background: white; 
-            color: #747d8c; 
-            transition: 0.3s;
-        }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
         .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
         .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
         .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
@@ -62,13 +42,11 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* Manual e Ética */
-        .manual-footer { max-width: 900px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 15px; font-size: 0.9rem; line-height: 1.6; border: 1px solid #eee; }
-        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-        .semaforo-info { display: flex; gap: 15px; margin: 15px 0; align-items: flex-start; }
-        .cor-box { min-width: 15px; height: 15px; border-radius: 50%; margin-top: 5px; }
+        .manual-footer { max-width: 900px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 15px; font-size: 0.9rem; border: 1px solid #eee; }
+        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .semaforo-info { display: flex; gap: 10px; margin: 10px 0; align-items: center; }
+        .cor-box { width: 14px; height: 14px; border-radius: 50%; }
 
-        /* Impressão A4 */
         #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
@@ -85,91 +63,57 @@
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <p style="margin:5px 0 0; font-size:0.9rem; opacity:0.9;">Relatórios com Intencionalidade Pedagógica</p>
+    <div class="slogan">"A voz do professor..."</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="EX: DENIVAL LEITE COELHO"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME COMPLETO"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME DO ALUNO(A)"></div>
+        <div class="campo"><label>Instituição</label><input type="text" id="escola" placeholder="DENIVAL LEITE COELHO"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="EX: TURMA A"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
-        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
     <div id="campos-container"></div>
 
     <div class="acoes-container">
-        <button class="btn-limpar" onclick="novoAluno()">+ NOVO ALUNO</button>
+        <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
     </div>
 </div>
 
 <div id="editor" contenteditable="true"></div>
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR RELATÓRIO</button>
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
 </div>
 
 <div class="manual-footer no-print">
-    <span class="manual-titulo">🚦 Manual do Semáforo Pedagógico</span>
-    <div class="semaforo-info">
-        <div class="cor-box" style="background:var(--cor-inicial)"></div>
-        <span><b>AMARELO (Inicial):</b> A criança está tendo os primeiros contatos com a habilidade. Requer mediação constante e novos estímulos para despertar o interesse.</span>
-    </div>
-    <div class="semaforo-info">
-        <div class="cor-box" style="background:var(--cor-processo)"></div>
-        <span><b>AZUL (Em Processo):</b> A criança já participa ativamente, mas ainda está consolidando a aprendizagem. A autonomia está florescendo.</span>
-    </div>
-    <div class="semaforo-info">
-        <div class="cor-box" style="background:var(--cor-avancado)"></div>
-        <span><b>VERDE (Avançado):</b> A criança demonstra segurança, protagonismo e aplica o conhecimento de forma autônoma em diferentes contextos.</span>
-    </div>
+    <span class="manual-titulo">📜 Termo de Uso e Ética Pedagógica</span>
+    Este sistema é uma ferramenta de apoio. É dever ético do docente revisar e ajustar o texto para que ele reflita fielmente a realidade da criança. Os dados são processados apenas no seu navegador.
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-inicial)"></div><span><b>Vermelho (Inicial):</b> Primeiros contatos, exige mediação total.</span></div>
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-processo)"></div><span><b>Amarelo (Processo):</b> Participação ativa, aprendizado em fluxo.</span></div>
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-avancado)"></div><span><b>Verde (Avançado):</b> Protagonismo e autonomia consolidada.</span></div>
 </div>
 
 <script>
     const camposBNCC = [
-        {nome: "1. O EU, O OUTRO E O NÓS", pergunta: "Em que fase a criança está na construção de vínculos e identidade?"},
-        {nome: "2. CORPO, GESTOS E MOVIMENTOS", pergunta: "Como está o desenvolvimento da autonomia motora e espacial?"},
-        {nome: "3. TRAÇOS, SONS, CORES E FORMAS", pergunta: "De que maneira ela se expressa e explora materiais artísticos?"},
-        {nome: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", pergunta: "Como está a comunicação e o envolvimento com a leitura/fala?"},
-        {nome: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", pergunta: "Como a criança organiza seu raciocínio lógico e investigativo?"}
+        {n: "1. O EU, O OUTRO E O NÓS", p: "Em que fase a criança está na construção de vínculos e identidade?"},
+        {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Como está o desenvolvimento da autonomia motora e espacial?"},
+        {n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "De que maneira ela se expressa e explora materiais artísticos?"},
+        {n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Como está a comunicação e o envolvimento com a leitura/fala?"},
+        {n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Como a criança organiza seu raciocínio lógico e investigativo?"}
     ];
     
     let selecoes = {};
 
-    const db = {
-        frasesFinais: [
-            "Seu brilho único ilumina nossa sala todos os dias.",
-            "Cada descoberta sua é um motivo de orgulho para todos nós.",
-            "A alegria em aprender é o seu maior tesouro.",
-            "Sua curiosidade é a semente de um futuro brilhante.",
-            "Voar alto é o seu destino, e nós somos seus companheiros de viagem.",
-            "Seu sorriso transforma o aprendizado em uma grande aventura.",
-            "O mundo fica mais colorido com as suas descobertas."
-        ],
-        acoes: [
-            "Com intencionalidade pedagógica, a docente organizou contextos de aprendizagem onde ",
-            "Mediante a estruturação de ambientes que provocam a curiosidade natural, propiciou-se que ",
-            "Pautada na escuta sensível das necessidades individuais, a mediação focou em estratégias para que "
-        ],
-        desenvolvimento: [
-            " vivenciasse os direitos de conviver e brincar, demonstrando avanços significativos na construção de sua identidade social. No cotidiano escolar, percebe-se um movimento de constante descoberta, onde a interação com os pares e o ambiente fortalece sua autonomia e seu protagonismo nas pequenas escolhas diárias.",
-            " pudesse explorar linguagens e sentidos, consolidando aprendizagens que integram o cuidar e o educar. Sua trajetória é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova conquista, revelando-se uma criança curiosa e engajada com os desafios propostos."
-        ]
-    };
-
     function iniciar() {
         const cCont = document.getElementById('campos-container');
-        cCont.innerHTML = "";
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `
-                <div class="secao-pergunta">
-                    <span class="campo-nome">${item.nome}</span>
-                    <span class="pergunta-texto">${item.pergunta}</span>
-                </div>
+            div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><span class="pergunta-texto">${item.p}</span></div>
                 <div class="grid-botoes" id="c-${idx}">
                     <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
                     <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
@@ -180,43 +124,30 @@
     }
 
     function marcar(idx, nivel, btn) {
-        const grid = document.getElementById(`c-${idx}`);
-        Array.from(grid.children).forEach(b => b.classList.remove('active'));
+        Array.from(document.getElementById(`c-${idx}`).children).forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         selecoes[idx] = nivel;
     }
 
-    function sortear(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
-
     function gerarRelatorio() {
-        let escolaInput = document.getElementById('escola').value.toUpperCase().trim();
-        if (escolaInput !== "" && !escolaInput.startsWith("ESCOLA")) { escolaInput = "ESCOLA " + escolaInput; }
+        let esc = document.getElementById('escola').value.toUpperCase().trim();
+        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        
+        const bloco1 = "Durante este período letivo, pautamos nossa prática pedagógica na observação sensível e intencional das interações estabelecidas no cotidiano escolar. " + document.getElementById('genero').value + " demonstrou um percurso de aprendizagem rico em descobertas, participando ativamente de propostas que visam o desenvolvimento da autonomia e do autoconhecimento. Nos contextos de brincadeiras e rodas de conversa, observou-se um esforço contínuo em expressar suas emoções e compreender as regras de convivência social, fundamentais para a formação de sua identidade dentro do grupo.";
+        
+        const bloco2 = "No que tange aos campos de experiência da BNCC, a criança explorou diferentes suportes e materiais, ampliando seu repertório artístico e sensorial. Nas vivências de corpo e movimento, demonstrou segurança ao enfrentar desafios motores, explorando o espaço com curiosidade e equilíbrio progressivo. A relação com a linguagem oral e escrita foi estimulada através da contação de histórias, onde a criança demonstrou atenção e interesse, relacionando fatos da ficção com suas vivências reais, consolidando assim as bases para o pensamento crítico e a imaginação criativa de forma plena.";
 
-        const p = { 
-            escola: escolaInput || "ESCOLA NÃO INFORMADA", 
-            nome: document.getElementById('crianca').value.toUpperCase() || "NOME DA CRIANÇA", 
-            fase: document.getElementById('fase').value,
-            turma: document.getElementById('turma').value.toUpperCase() || "---",
-            prof: document.getElementById('prof').value.toUpperCase() || "NOME DO(A) PROFESSOR(A)",
-            periodo: document.getElementById('periodo').value,
-            gen: document.getElementById('genero').value
-        };
-
-        const textoPrincipal = sortear(db.acoes) + p.gen + sortear(db.desenvolvimento);
-        const conclusao = "Acreditamos que o caminhar desta etapa serve como base sólida para novas e potentes descobertas, celebrando sempre a singularidade de cada conquista alcançada.";
-        const fraseEfeito = sortear(db.frasesFinais);
-
+        const conclusao = "Concluímos este ciclo celebrando as vitórias individuais e o compromisso da instituição em oferecer um ambiente seguro e estimulante. O progresso aqui registrado é fruto de uma mediação afetuosa, garantindo que as potencialidades da criança continuem florescendo com alegria e segurança nas próximas etapas.";
+        
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${p.escola}</div>
-            <div class="bloco-dados">
-                <b>DOCENTE:</b> ${p.prof}<br>
-                CRIANÇA: ${p.nome}<br>
-                <b>FASE:</b> ${p.fase} | <b>TURMA:</b> ${p.turma}
-            </div>
-            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
-            <div class="corpo-texto">${textoPrincipal}</div>
+            <div class="esc-nome">${esc || "ESCOLA NÃO INFORMADA"}</div>
+            <div class="bloco-dados"><b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>CRIANÇA: ${nomeAlu}<br><b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
+            <div class="corpo-texto">${bloco1}</div>
+            <div class="corpo-texto">${bloco2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conclusao}</div>
-            <div class="msg-final">"${fraseEfeito}"</div>
+            <div class="msg-final">"Seu brilho único ilumina nossa sala todos os dias."</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
             <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
             <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação</span>
@@ -226,10 +157,5 @@
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
-
-    function novoAluno() {
-        if(confirm("Deseja limpar todos os campos?")) location.reload();
-    }
-
     iniciar();
 </script></body></html>
