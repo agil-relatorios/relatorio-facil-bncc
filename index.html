@@ -42,13 +42,20 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
+        /* Manual e Ética */
+        .manual-footer { max-width: 900px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 15px; font-size: 0.9rem; border: 1px solid #eee; line-height: 1.6; }
+        .manual-titulo { font-weight: bold; color: var(--primaria); text-transform: uppercase; margin-bottom: 10px; display: block; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .semaforo-info { display: flex; gap: 10px; margin: 10px 0; align-items: center; }
+        .cor-box { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+
+        /* Impressão A4 */
         #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; } /* Espaçamento 1.5 e entre parágrafos */
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; } /* Espaço 2 após mensagem */
-        .data-local { text-align: center; margin-bottom: 3.5em; } /* Espaço 3.5 após data */
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.5em; }
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
+        .data-local { text-align: center; margin-bottom: 3.5em; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
@@ -69,7 +76,14 @@
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
-        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label><select id="periodo">
+            <option>1º BIMESTRE</option>
+            <option>2º BIMESTRE</option>
+            <option>3º BIMESTRE</option>
+            <option>4º BIMESTRE</option>
+            <option>1º SEMESTRE</option>
+            <option>2º SEMESTRE</option>
+        </select></div>
     </div>
 
     <div id="campos-container"></div>
@@ -83,6 +97,15 @@
 <div id="editor" contenteditable="true"></div>
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
     <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
+</div>
+
+<div class="manual-footer no-print">
+    <span class="manual-titulo">📜 Termo de Uso e Ética Pedagógica</span>
+    Este sistema é uma ferramenta de apoio à escrita. É dever ético do docente revisar e ajustar o texto para que ele reflita fielmente a realidade observada. Os dados são processados localmente para garantir o sigilo escolar.
+    
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-inicial)"></div><span><b>Vermelho (Nível Inicial):</b> Primeiros contatos com a habilidade. Exige mediação constante e novos estímulos para despertar interesse.</span></div>
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-processo)"></div><span><b>Amarelo (Em Processo):</b> Já participa ativamente, mas ainda está consolidando a aprendizagem. A autonomia está florescendo.</span></div>
+    <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-avancado)"></div><span><b>Verde (Avançado):</b> Demonstra segurança, protagonismo e aplica o conhecimento de forma autônoma.</span></div>
 </div>
 
 <script>
@@ -121,7 +144,6 @@
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         
-        // Blocos de texto robustos (ajustados para 12-16 linhas)
         const bloco1 = "Ao longo deste período letivo, pautamos nossa prática pedagógica na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos de aprendizagem. " + document.getElementById('genero').value + " demonstrou um percurso rico em descobertas, participando ativamente de propostas que visam o desenvolvimento da autonomia e do protagonismo nas escolhas diárias. Nas vivências coletivas, observou-se um empenho em expressar desejos e necessidades, ao mesmo tempo em que iniciou a compreensão das normas sociais de convivência. A criança mostrou-se receptiva às novas experiências, explorando o ambiente escolar com segurança e construindo vínculos afetivos sólidos com seus pares e com a docente, fundamentando sua identidade.";
         
         const bloco2 = "Dentro dos Campos de Experiência, a criança explorou variados suportes e materiais, ampliando significativamente seu repertório sensorial e imaginativo. Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo de sua motricidade, enfrentando desafios com equilíbrio e entusiasmo. A relação com a oralidade e com o mundo da escrita foi estimulada por meio de momentos literários, onde demonstrou atenção e curiosidade, relacionando narrativas com sua própria realidade. Concluímos que o desenvolvimento apresentado é fruto de um processo mediado com afeto, onde cada conquista foi valorizada como um passo essencial para sua formação integral, preparando-se com autonomia e alegria para as vivências que virão nas próximas etapas escolares.";
