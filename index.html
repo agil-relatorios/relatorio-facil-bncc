@@ -1,173 +1,147 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Excelência Pedagógica</title>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CONTAÊ PROFE - SISTEMA PROFISSIONAL</title>
     <style>
-        :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 10px; }
-        .container { max-width: 1000px; margin: auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primaria); }
+        :root { --p: #ff4757; --s: #2ed573; --t: #1e90ff; --txt: #2f3542; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f1f2f6; color: var(--txt); padding: 20px; text-transform: uppercase; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         
-        /* Cabeçalho do App */
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { margin: 0; color: var(--primaria); font-size: 2rem; }
-        .slogan { font-style: italic; color: #747d8c; font-size: 0.9rem; }
-
-        /* Cadastro */
-        .grid-cadastro { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; background: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #eee; }
+        /* Instruções */
+        .instrucao { font-size: 0.75rem; color: #747d8c; font-style: italic; margin-bottom: 10px; display: block; }
+        
+        /* Grid Cadastro */
+        .grid-cad { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 4px; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.85rem; outline: none; text-transform: uppercase; }
+        label { font-size: 0.7rem; font-weight: bold; margin-bottom: 5px; color: #57606f; }
+        input, select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 0.85rem; text-transform: uppercase; }
 
-        .radio-aluno { display: flex; gap: 5px; margin-bottom: 5px; }
-        .radio-aluno input { display: none; }
-        .radio-aluno label { flex: 1; padding: 8px; background: #eee; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-align: center; }
-        .radio-aluno input:checked + label { background: var(--terciaria); color: white; }
+        /* Botões */
+        .secao-titulo { background: #2f3542; color: white; padding: 10px; border-radius: 5px; margin-top: 25px; font-size: 0.85rem; text-align: center; }
+        .grid-btns { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 10px; }
+        .btn { padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: white; cursor: pointer; font-size: 0.7rem; font-weight: bold; transition: 0.3s; }
+        .btn.active { background: var(--t); color: white; border-color: var(--t); }
 
-        /* Seções e Botões */
-        .secao-titulo { background: #2f3542; color: white; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; font-size: 0.85rem; text-align: center; text-transform: uppercase; }
-        .sub-nivel { font-size: 0.65rem; font-weight: bold; color: #747d8c; margin: 5px 0; text-transform: uppercase; border-left: 3px solid #ddd; padding-left: 5px; }
+        /* Estilo ABNT Impressão */
+        #resultado { display: none; margin-top: 40px; }
+        #folha-a4 { 
+            width: 210mm; min-height: 297mm; padding: 30mm 20mm 20mm 30mm; /* Margens ABNT */
+            margin: auto; background: white; border: 1px solid #000;
+            font-family: Arial, sans-serif; font-size: 12pt; color: black;
+            line-height: 1.5; text-align: justify; box-sizing: border-box;
+        }
+        .btn-acao { width: 100%; padding: 20px; background: var(--p); color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 20px; }
         
-        .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
-        
-        .btn-check { padding: 10px 5px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; transition: 0.2s; }
-        .btn-check.active { border-color: transparent; color: white; }
-        .active.inicial { background: var(--alerta); }
-        .active.processo { background: var(--secundaria); }
-        .active.avancado { background: var(--terciaria); }
-
-        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
-
-        /* Editor e Impressão */
-        #resultado-secao { display: none; margin-top: 30px; }
-        #editor { width: 210mm; min-height: 297mm; padding: 20mm; margin: auto; background: white; border: 1px solid #ddd; font-family: Arial; font-size: 12pt; text-align: justify; line-height: 1.5; }
-        
-        @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; } #editor { border: none; width: 100%; } }
+        @media print { .no-print { display: none !important; } #folha-a4 { border: none; padding: 0; margin: 0; width: 100%; } }
     </style>
 </head>
 <body>
 
 <div class="container no-print">
-    <div class="header">
-        <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">Narrativas de Afeto e Garantia de Direitos</p>
-    </div>
-
-    <div class="secao-titulo">Cadastro do Aluno</div>
-    <div class="grid-cadastro">
-        <div class="campo"><label>Escola</label><input type="text" id="esc"></div>
+    <div class="secao-titulo">CADASTRO INSTITUCIONAL</div>
+    <div class="grid-cad">
+        <div class="campo"><label>Escola</label><input type="text" id="esc" placeholder="E.M. ARTHUR CÉZAR FERREIRA REIS"></div>
+        <div class="campo"><label>Endereço</label><input type="text" id="end" placeholder="RUA, Nº, BAIRRO"></div>
+        <div class="campo"><label>Telefone / E-mail</label><input type="text" id="cont" placeholder="(92) 0000-0000"></div>
         <div class="campo"><label>Professora</label><input type="text" id="prof"></div>
-        <div class="campo">
-            <label>Criança</label>
-            <div class="radio-aluno">
-                <input type="radio" name="sexo" id="m" value="o" checked><label for="m">ALUNO</label>
-                <input type="radio" name="sexo" id="f" value="a"><label for="f">ALUNA</label>
-            </div>
-            <input type="text" id="nome_c" placeholder="NOME COMPLETO">
-        </div>
+        <div class="campo"><label>Criança</label><input type="text" id="nome"></div>
         <div class="campo"><label>Matrícula</label><input type="text" id="mat"></div>
-        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
-        <div class="campo"><label>Turma/Turno</label><input type="text" id="turma" placeholder="EX: A - MATUTINO"></div>
+        <div class="campo"><label>Fase/Turma/Turno</label><input type="text" id="ftt" placeholder="2º PERÍODO - TURMA N - INTEGRAL"></div>
     </div>
 
-    <div class="secao-titulo">Itinerários de Vivências e Projetos</div>
-    <div class="grid-6" id="vivencias-btns"></div>
+    <div class="secao-titulo">ITINERÁRIOS DE VIVÊNCIAS E PROJETOS</div>
+    <span class="instrucao">(Marque de 3 a 5 opções em que a criança se destacou ou participou com maior interesse)</span>
+    <div class="grid-btns" id="v-btns"></div>
 
-    <div id="campos-bncc"></div>
+    <div class="secao-titulo">DIMENSÕES DO CONVIVER E EXPRESSAR</div>
+    <div class="grid-btns" id="p-btns"></div>
 
-    <button class="btn-gerar" onclick="gerar()">📝 GERAR PARECER DESCRITIVO</button>
+    <button class="btn-acao" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO ABNT</button>
 </div>
 
-<div id="resultado-secao">
-    <div id="editor" contenteditable="true"></div>
-    <div class="no-print" style="text-align:center; margin-top:20px;">
-        <button onclick="window.print()" style="padding:15px 30px; background:var(--terciaria); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR / PDF</button>
+<div id="resultado">
+    <div id="folha-a4" contenteditable="true"></div>
+    <div class="no-print" style="text-align: center; margin: 20px;">
+        <button onclick="window.print()" style="padding: 15px 40px; background: #2ed573; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">💾 SALVAR / IMPRIMIR PDF</button>
     </div>
 </div>
 
 <script>
     const db = {
-        vivencias: ['Roda de Conversa', 'Cantinhos', 'Jogos de Mesa', 'Horta Escolar', 'Artes Visuais', 'Música', 'Culinária', 'Contação de Histórias', 'Projeto Leitura', 'Pátio/Externo', 'Faz de Conta', 'Educação Física'],
-        campos: [
-            {
-                t: "1. O Eu, o Outro e o Nós",
-                inicial: ['Isolada', 'Dependente', 'Resistente', 'Inibida', 'Reativa', 'Passiva'],
-                processo: ['Cooperativa', 'Amigável', 'Sociável', 'Participativa', 'Esforçada', 'Receptiva'],
-                avancado: ['Líder', 'Empática', 'Autônoma', 'Segura', 'Conciliadora', 'Protagonista']
-            },
-            {
-                t: "2. Corpo, Gestos e Movimentos",
-                inicial: ['Lenta', 'Cautelosa', 'Desordenada', 'Rígida', 'Observadora', 'Instável'],
-                processo: ['Ativa', 'Coordenada', 'Rítmica', 'Ágil', 'Persistente', 'Espontânea'],
-                avancado: ['Habilidosa', 'Segura', 'Expressiva', 'Destemida', 'Dominante', 'Versátil']
-            }
-            // Adicionar os outros 3 campos seguindo a mesma lógica 6/6/6
-        ]
+        vivencias: ['Rodas de Conversa', 'Projetos de Leitura', 'Contação de Histórias', 'Atividades Lúdicas', 'Horta Escolar', 'Artes Visuais', 'Culinária Pedagógica', 'Jogos Cooperativos', 'Faz de Conta'],
+        perfil: ['Resistente', 'Participativa', 'Cooperativa', 'Líder', 'Lenta', 'Ativa', 'Persistente', 'Habilidosa', 'Dominante', 'Atenta', 'Curiosa'],
+        
+        // Dicionário de humanização para gerar milhares de combinações
+        frases: {
+            'RESISTENTE': ["demonstra certa reticência frente a novos desafios", "apresenta momentos de resistência em transições de rotina", "requer suporte afetivo para lidar com frustrações"],
+            'PARTICIPATIVA': ["envolve-se com entusiasmo nas propostas coletivas", "demonstra engajamento e prontidão nas atividades", "colabora de forma ativa nas vivências propostas"],
+            'LÍDER': ["assume postura de protagonismo perante o grupo", "demonstra liderança positiva em brincadeiras de faz de conta", "conduz as interações lúdicas com autonomia e segurança"]
+        }
     };
 
-    let selecionados = { viv: [], bncc: [] };
+    let selV = [], selP = [];
 
     function render() {
-        // Vivências
-        const vDiv = document.getElementById('vivencias-btns');
         db.vivencias.forEach(v => {
-            const b = document.createElement('button');
-            b.className = 'btn-check';
-            b.innerText = v;
-            b.onclick = () => { b.classList.toggle('active'); b.classList.toggle('avancado'); toggle(selecionados.viv, v); };
-            vDiv.appendChild(b);
+            let b = document.createElement('button'); b.className = 'btn'; b.innerText = v;
+            b.onclick = () => { b.classList.toggle('active'); toggle(selV, v); };
+            document.getElementById('v-btns').appendChild(b);
         });
-
-        // BNCC
-        const cDiv = document.getElementById('campos-bncc');
-        db.campos.forEach(c => {
-            const html = `<div class="secao-titulo">${c.t}</div>
-                <div class="sub-nivel">Nível Inicial</div><div class="grid-6" id="ini-${c.t}"></div>
-                <div class="sub-nivel">Nível em Processo</div><div class="grid-6" id="pro-${c.t}"></div>
-                <div class="sub-nivel">Nível Avançado</div><div class="grid-6" id="ava-${c.t}"></div>`;
-            const wrapper = document.createElement('div');
-            wrapper.innerHTML = html;
-            cDiv.appendChild(wrapper);
-
-            ['inicial', 'processo', 'avancado'].forEach(n => {
-                c[n].forEach(p => {
-                    const b = document.createElement('button');
-                    b.className = `btn-check`;
-                    b.innerText = p;
-                    b.onclick = () => { b.classList.toggle('active'); b.classList.toggle(n); toggle(selecionados.bncc, p); };
-                    document.getElementById(`${n.substring(0,3)}-${c.t}`).appendChild(b);
-                });
-            });
+        db.perfil.forEach(p => {
+            let b = document.createElement('button'); b.className = 'btn'; b.innerText = p;
+            b.onclick = () => { b.classList.toggle('active'); toggle(selP, p); };
+            document.getElementById('p-btns').appendChild(b);
         });
     }
 
-    function toggle(arr, item) {
-        const i = arr.indexOf(item);
-        if(i > -1) arr.splice(i, 1); else arr.push(item);
-    }
+    function toggle(a, i) { let idx = a.indexOf(i); if(idx > -1) a.splice(idx, 1); else a.push(i); }
 
-    function gerar() {
-        const nome = document.getElementById('nome_c').value.toUpperCase();
-        const esc = document.getElementById('esc').value.toUpperCase();
-        const prof = document.getElementById('prof').value.toUpperCase();
-        const art = document.querySelector('input[name="sexo"]:checked').value;
-        const pNome = nome.split(' ')[0];
+    function gerarRelatorio() {
+        const d = {
+            esc: document.getElementById('esc').value.toUpperCase(),
+            end: document.getElementById('end').value.toUpperCase(),
+            cont: document.getElementById('cont').value.toUpperCase(),
+            prof: document.getElementById('prof').value.toUpperCase(),
+            nome: document.getElementById('nome').value.toUpperCase(),
+            mat: document.getElementById('mat').value.toUpperCase(),
+            ftt: document.getElementById('ftt').value.toUpperCase()
+        };
 
-        let txtViv = selecionados.viv.length > 0 ? ` PARTICIPOU ATIVAMENTE DE VIVÊNCIAS COMO: ${selecionados.viv.join(', ').toUpperCase()}.` : "";
-        let txtBNCC = selecionados.bncc.length > 0 ? ` DEMONSTROU SER UMA CRIANÇA ${selecionados.bncc.join(', ').toUpperCase()}.` : "";
+        const data = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
 
-        const final = `
-            <div style="text-transform:uppercase; border-bottom:2px solid #000; padding-bottom:10px; margin-bottom:20px; font-size:10pt;">
-                <center><b>${esc}</b></center><br>
-                <b>ALUNO(A):</b> ${nome} <b style="margin-left:20px;">PROFESSORA:</b> ${prof}<br>
-                <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()} <b>FASE:</b> ${document.getElementById('fase').value}
+        // Lógica de construção do texto com conectores BNCC
+        let textoV = selV.length > 0 ? ` FOI POSSÍVEL OBSERVAR SEU INTERESSE EM VIVÊNCIAS DE ${selV.join(', ')}.` : "";
+        let textoP = selP.map(p => db.frases[p] ? db.frases[p][Math.floor(Math.random() * db.frases[p].length)] : p).join('. ALÉM DISSO, ');
+
+        const layout = `
+            <div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 10px; margin-bottom: 20px;">
+                <strong>${d.esc}</strong><br>${d.end}<br>${d.cont}
             </div>
-            <center><b>PARECER DESCRITIVO INDIVIDUAL</b></center><br>
-            <p style="text-indent:1.5cm; text-transform:uppercase;">O PERCURSO DE <b>${nome}</b> NESTE SEMESTRE FOI MARCADO POR DESCOBERTAS E APRENDIZAGENS SIGNIFICATIVAS.${txtViv}${txtBNCC}</p>
-            <p style="text-indent:1.5cm; text-transform:uppercase;">CONCLUÍMOS QUE ${art === 'o' ? 'O ALUNO' : 'A ALUNA'} SEGUE EM PLENO DESENVOLVIMENTO.</p>
-            <br><br><br>
-            <center>MANAUS, ${new Date().toLocaleDateString('pt-BR').toUpperCase()}</center>
+            <div style="margin-bottom: 20px;">
+                <strong>PROFESSOR(A):</strong> ${d.prof}<br>
+                <strong>CRIANÇA:</strong> ${d.nome}<br>
+                <strong>FASE:</strong> ${d.ftt} <strong style="margin-left: 30px;">MATRÍCULA:</strong> ${d.mat}
+            </div>
+            <p style="font-size: 10pt; font-style: italic; border: 1px solid #ddd; padding: 10px;">
+                DECLARAMOS QUE A ALUNA <strong>${d.nome}</strong> ENCONTRA-SE DEVIDAMENTE MATRICULADA E FREQUENTE NESTA INSTITUIÇÃO DE ENSINO.
+            </p>
+            <center><strong>RELATÓRIO DO DESENVOLVIMENTO INTEGRAL</strong></center><br>
+            <p style="text-indent: 1.5cm;">NO 1º SEMESTRE, O PERCURSO DE <strong>${d.nome}</strong> NA INSTITUIÇÃO <strong>${d.esc}</strong> FOI PAUTADO PELA GARANTIA DOS DIREITOS DE APRENDIZAGEM E DESENVOLVIMENTO[cite: 10]. ${textoV}</p>
+            <p style="text-indent: 1.5cm;">DENTRO DO CAMPO DO CONVIVER E EXPRESSAR, A DISCENTE ${textoP.toUpperCase()}. REVELA UM PERFIL ATENTO E PARTICIPATIVO, ABSORVENDO NOVOS CONHECIMENTOS COM FACILIDADE[cite: 15].</p>
+            <p style="text-indent: 1.5cm;">CONCLUÍMOS QUE SEGUE EM PLENO DESENVOLVIMENTO PEDAGÓGICO, INTEGRANDO-SE COM HARMONIA AO COLETIVO[cite: 8, 15].</p>
+            <br><br>
+            <div style="text-align: right;">MANAUS, ${data}</div>
+            <br><br>
+            <div style="display: flex; justify-content: space-around; text-align: center; font-size: 10pt;">
+                <div>__________________________<br>PROFESSOR(A)</div>
+                <div>__________________________<br>DIREÇÃO/PEDAGOGO(A)</div>
+            </div>
         `;
 
-        document.getElementById('editor').innerHTML = final;
-        document.getElementById('resultado-secao').style.display = 'block';
+        document.getElementById('folha-a4').innerHTML = layout;
+        document.getElementById('resultado').style.display = 'block';
+        window.scrollTo(0, document.getElementById('resultado').offsetTop);
     }
 
     render();
