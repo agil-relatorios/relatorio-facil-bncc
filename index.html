@@ -47,17 +47,23 @@
         .semaforo-info { display: flex; gap: 10px; margin: 10px 0; align-items: center; }
         .cor-box { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
 
-        #editor { width: 210mm; height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
-        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2em; text-transform: uppercase; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.2em; }
+        /* Estilos de Impressão e Editor */
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
+        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
-        @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0 !important; border: none !important; } }
+        @page { size: A4; margin: 0; }
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white; }
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
+        }
     </style></head><body>
 
 <header class="no-print">
@@ -94,7 +100,7 @@
 
 <div class="manual-footer no-print">
     <span class="manual-titulo">📜 Termo de Uso e Ética Pedagógica</span>
-    Este sistema é uma ferramenta de apoio. É dever ético do docente revisar o texto para que ele reflita fielmente a realidade observada.
+    Este sistema é uma ferramenta de apoio. É dever ético do docente revisar o conteúdo para que ele reflita fielmente a realidade observada, respeitando a singularidade de cada criança.
     <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-inicial)"></div><span><b>Vermelho (Inicial):</b> Primeiros contatos, exige mediação constante.</span></div>
     <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-processo)"></div><span><b>Amarelo (Processo):</b> Participação ativa, aprendizado em fluxo.</span></div>
     <div class="semaforo-info"><div class="cor-box" style="background:var(--cor-avancado)"></div><span><b>Verde (Avançado):</b> Protagonismo e autonomia consolidada.</span></div>
@@ -111,39 +117,39 @@
 
     const db = {
         inicio: [
-            "Pautamos nossa prática na observação sensível e intencional das interações estabelecidas, garantindo os direitos de aprendizagem. ",
-            "Através da organização de contextos significativos e desafiadores, a docente buscou pautar sua mediação na escuta ativa das necessidades. ",
-            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural, oportunizou-se ao longo deste período que ",
-            "Ao planejar situações que integram o cuidar e o educar como eixos indissociáveis, a prática pedagógica visou garantir que ",
-            "Com base em registros contínuos e um olhar atento às singularidades, focamos em estratégias que permitissem que "
+            "Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ",
+            "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
+            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
+            "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
+            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
         meio: [
-            "demonstrasse um percurso de aprendizagem rico em descobertas, participando ativamente de propostas de autonomia. Nas rodas de conversa, expressou emoções e compreendeu progressivamente as normas de convivência. ",
-            "explorasse linguagens e sentidos, consolidando saberes fundamentais. Sua trajetória é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova conquista, revelando-se engajado(a) com os desafios. ",
-            "vivenciasse os direitos de conviver e brincar de forma plena. Percebeu-se um avanço na capacidade de expressão e na construção de vínculos afetivos sólidos com os pares, fortalecendo sua posição como sujeito social. ",
-            "protagonizasse escolhas de materiais e temas de investigação, evidenciando pensamento criativo. Nas vivências coletivas, mostrou-se receptivo(a) e colaborativo(a), respeitando as diversidades do grupo. ",
-            "ampliasse sua percepção espacial e temporal através de jogos e vivências. Demonstrou segurança ao enfrentar desafios motores e curiosidade ao investigar os fenômenos naturais e sociais ao seu redor. "
+            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
+            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos. ",
+            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas, fortalecendo sua posição como sujeito social e crítico. ",
+            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente, respeitando as diversidades e contribuindo para o bem-estar. ",
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais ao seu redor no dia a dia. "
         ],
         detalhes: [
-            "Além disso, a criança mostrou-se segura ao explorar as áreas externas, revelando autonomia e respeito ao espaço coletivo. Sua relação com a oralidade foi estimulada por contos e narrativas literárias. ",
-            "Nas atividades de corpo e movimento, demonstrou controle progressivo de sua motricidade ampla e fina. A exploração de diferentes suportes artísticos permitiu a ampliação do repertório imaginativo. ",
-            "Observamos também um crescente interesse por jogos de regras e desafios matemáticos simples, onde a criança testou hipóteses e comunicou suas descobertas com clareza e entusiasmo pedagógico. ",
-            "A participação em projetos de sustentabilidade e cuidado com a natureza despertou um olhar investigativo, promovendo a compreensão de relações de causa e efeito no meio em que vive. ",
-            "A construção da identidade foi fortalecida por momentos de autoconhecimento, nos quais a criança reconheceu suas características e valorizou suas próprias conquistas diante dos desafios propostos. "
+            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos, como argila e tintas naturais, permitiu a ampliação de seu repertório imaginativo. ",
+            "Observamos também um crescente interesse por jogos de regras coletivas e desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
+            "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos e criar novos enredos, demonstrando um desenvolvimento cognitivo saudável.",
+            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia. Esse amadurecimento emocional é visível na forma como lida com frustrações e celebra conquistas."
         ],
         conclusao: [
-            "Concluímos este ciclo celebrando as vitórias individuais e o compromisso com a excelência. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e potentes descobertas.",
-            "Finalizamos esta etapa certos de que a base pedagógica oferecida serviu como trampolim para o crescimento integral, onde o aprendizado ocorreu de forma lúdica, prazerosa e cheia de significados reais.",
-            "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança, autonomia e uma curiosidade aguçada.",
-            "O progresso alcançado reflete a harmonia entre o brincar e o aprender. Estamos confiantes de que a trajetória escolar seguirá pautada pelo protagonismo e pela alegria em descobrir o mundo.",
-            "As conquistas deste período são alicerces para o futuro. Encerramos o bimestre com a certeza de que a criança desenvolveu as competências necessárias para continuar sua jornada de forma brilhante."
+            "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e potentes descobertas em seu caminhar.",
+            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral. O aprendizado ocorreu de forma lúdica, prazerosa e cheia de significados reais, garantindo que a trajetória escolar siga brilhante e autônoma.",
+            "Os registros mostram um processo evolutivo contínuo, sólido e coerente com as metas da BNCC. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional, autonomia intelectual e uma curiosidade aguçada.",
+            "O progresso alcançado reflete a harmonia entre o brincar e o aprender nesta instituição. Estamos confiantes de que a próxima etapa será encarada com o mesmo protagonismo e alegria que marcaram este período de tantas descobertas fascinantes.",
+            "As conquistas deste período são alicerces fundamentais para o desenvolvimento futuro. Encerramos o bimestre com a gratidão por acompanhar um processo de florescimento tão singular, certos de que a semente da curiosidade continuará a guiar seus passos."
         ],
         frasesFinais: [
             "Seu brilho único ilumina nossa sala todos os dias.",
-            "Cada descoberta sua é um novo motivo para sorrir.",
-            "Sua curiosidade é a semente de um futuro incrível.",
-            "O mundo é pequeno para o tamanho da sua imaginação.",
-            "Continue explorando, o saber é a sua maior aventura."
+            "Cada descoberta sua é um novo motivo para sorrir e aprender.",
+            "Sua curiosidade é a semente de um futuro extraordinário.",
+            "O mundo fica mais colorido com a sua imaginação e alegria.",
+            "Continue explorando o mundo com esse olhar cheio de luz."
         ]
     };
 
@@ -169,15 +175,19 @@
         let esc = document.getElementById('escola').value.toUpperCase().trim();
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const gen = document.getElementById('genero').value;
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         
-        const texto = sortear(db.inicio) + gen + " " + sortear(db.meio) + sortear(db.detalhes);
+        // Montagem do texto estendido (para garantir 12-16 linhas)
+        const p1 = sortear(db.inicio) + gen + " " + sortear(db.meio);
+        const p2 = sortear(db.detalhes);
         const conc = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
-            <div class="bloco-dados"><b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>CRIANÇA: ${document.getElementById('crianca').value.toUpperCase()}<br><b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}</div>
+            <div class="bloco-dados"><b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>CRIANÇA: ${nomeAlu}<br><b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}</div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
-            <div class="corpo-texto">${texto}</div>
+            <div class="corpo-texto">${p1}</div>
+            <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
             <div class="data-local">Manaus, 18 de abril de 2026.</div>
