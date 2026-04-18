@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Narrativas de Afeto</title>
+    <title>CONTAÊ PROFE - Pré-Escola (4 a 6 anos)</title>
     <style>
         :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -32,22 +32,22 @@
 <div class="container no-print">
     <div class="header">
         <h1>CONTAÊ PROFE</h1>
-        <p class="slogan">“Narrativas de Afeto e Garantia de Direitos”</p>
+        <p class="slogan">“Narrativas de Afeto e Garantia de Direitos (Crianças de 4 a 6 anos)”</p>
     </div>
 
     <div class="grid-inputs">
-        <div class="campo"><label>Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
+        <div class="campo"><label>Nome da Criança</label><input type="text" id="nome_crianca" placeholder="NOME COMPLETO"></div>
         <div class="campo"><label>Escola</label><input type="text" id="nome_escola" placeholder="INSTITUIÇÃO"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="MANAUS"></div>
-        <div class="campo"><label>Semestre</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label><select id="periodo_select"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
     </div>
 
-    <div class="secao-titulo">MATRIZ DE AFETO E COMPORTAMENTO (Direitos de Aprendizagem)</div>
+    <div class="secao-titulo">DIMENSÕES DO CONVIVER E EXPRESSAR</div>
     <div id="grid-perfil" class="grid-palavras"></div>
 
     <div id="secoes-bncc"></div>
 
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR NARRATIVA DE AFETO</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR PARECER DESCRITIVO</button>
 </div>
 
 <div id="resultado-secao">
@@ -63,46 +63,76 @@
         perfil: {
             inicial: ['Retraída', 'Apática', 'Desorganizada', 'Reativa', 'Inibida', 'Desconectada'],
             processo: ['Receptiva', 'Esforçada', 'Curiosa', 'Emotiva', 'Adaptável', 'Cooperativa'],
-            avancado: ['Protagonista', 'Resiliente', 'Investigativa', 'Empática', 'Autoconfiante', 'Articulada']
+            avancado: ['Protagonista', 'Resiliente', 'Investigativa', 'Empática', 'Autoconfiante', 'Segura']
         },
+        campos: [
+            {
+                t: "1. O Eu, o Outro e o Nós",
+                inicial: ['Isolada', 'Dependente', 'Resistente'],
+                processo: ['Cooperativa', 'Participativa', 'Amigável'],
+                avancado: ['Líder', 'Autônoma', 'Empática']
+            },
+            {
+                t: "2. Corpo, Gestos e Movimentos",
+                inicial: ['Cautelosa', 'Desordenada', 'Lenta'],
+                processo: ['Ativa', 'Ágil', 'Coordenada'],
+                avancado: ['Expressiva', 'Habilidosa', 'Segura']
+            },
+            {
+                t: "3. Traços, Sons, Cores e Formas",
+                inicial: ['Hesitante', 'Tateante', 'Silenciosa'],
+                processo: ['Exploradora', 'Sensível', 'Ritmada'],
+                avancado: ['Inventiva', 'Criativa', 'Expressiva']
+            },
+            {
+                t: "4. Escuta, Fala, Pensamento e Imaginação",
+                inicial: ['Gestual', 'Ouvinte', 'Reservada'],
+                processo: ['Comunicativa', 'Narradora', 'Atenta'],
+                avancado: ['Argumentativa', 'Eloquente', 'Crítica']
+            },
+            {
+                t: "5. Espaço, Tempo, Quantidades e Relações",
+                inicial: ['Concreta', 'Perceptiva', 'Desatenta'],
+                processo: ['Comparativa', 'Organizadora', 'Analítica'],
+                avancado: ['Investigativa', 'Lógica', 'Solucionadora']
+            }
+        ],
         traducoes: {
-            'retraída': ['manifesta uma postura de maior introspecção, requerendo mediação constante para fortalecer seu sentimento de segurança'],
-            'apática': ['demonstra necessidade de maiores estímulos lúdicos para despertar sua energia e interesse nas descobertas'],
-            'desorganizada': ['encontra-se em processo de compreensão das rotinas escolares e dos combinados coletivos'],
-            'reativa': ['está aprendendo a processar frustrações e a utilizar o diálogo como forma de expressão'],
-            'inibida': ['requer suporte afetivo para fortalecer o reconhecimento de suas próprias capacidades'],
-            'desconectada': ['demonstra necessidade de mediação para se envolver plenamente em brincadeiras coletivas e simbólicas']
+            'retraída': 'manifesta maior introspecção, necessitando de mediação para fortalecer seu sentimento de segurança',
+            'apática': 'demonstra necessidade de maiores estímulos lúdicos para despertar seu interesse',
+            'desorganizada': 'encontra-se em processo de compreensão das rotinas e combinados',
+            'reativa': 'está aprendendo a processar frustrações e a utilizar o diálogo',
+            'inibida': 'requer suporte afetivo para fortalecer o reconhecimento de suas capacidades',
+            'desconectada': 'necessita de mediação para se envolver plenamente em brincadeiras coletivas',
+            'gestual': 'utiliza predominantemente a linguagem corporal para expressar desejos e necessidades',
+            'concreta': 'compreende noções de tempo e espaço através de experiências físicas e imediatas',
+            'lenta': 'possui um tempo próprio e cauteloso para explorar movimentos amplos',
+            'hesitante': 'explora materiais artísticos com prudência, em busca de maior familiaridade'
         },
         variacoes: {
             introducao: [
-                "Durante este período letivo, as vivências de [nome] na [escola] foram norteadas pela garantia dos seis direitos de aprendizagem.",
-                "Ao longo deste semestre, o percurso de [nome] na [escola] revelou-se um tempo de descobertas e desenvolvimento integral.",
-                "Neste período de convivência, as propostas vivenciadas por [nome] na [escola] pautaram-se na interação e no afeto."
+                "Neste semestre, o percurso de [nome] na [escola] foi pautado pela garantia dos direitos de conviver, brincar e participar.",
+                "Durante este período letivo, as vivências de [nome] na [escola] revelaram um processo singular de descobertas sob a luz da BNCC.",
+                "Ao longo deste período de convivência, [nome] participou de propostas na [escola] que visaram seu desenvolvimento integral."
             ],
             conclusao: [
-                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e socioemocional.",
-                "Diante do exposto, percebe-se que [pNome] apresenta um desenvolvimento harmônico e constante.",
-                "Em suma, as conquistas de [pNome] refletem um percurso pautado na construção de vínculos significativos."
+                "Concluímos que [pNome] segue em pleno desenvolvimento cognitivo e afetivo, integrando-se ao grupo.",
+                "Diante das observações, percebe-se que [pNome] apresenta avanços significativos em sua autonomia.",
+                "O desenvolvimento de [pNome] neste período reflete a construção de vínculos saudáveis e novas competências."
             ],
             inspiradoras: [
                 "É um privilégio acompanhar cada pequeno passo da sua grande jornada!",
                 "Seu brilho único ilumina nossa sala todos os dias. Continue crescendo!",
-                "Cada conquista sua é motivo de alegria e orgulho para todos nós."
+                "Que sua sede de aprender continue sendo sua maior aventura!",
+                "Cada nova descoberta sua é uma vitória que comemoramos juntos!"
             ]
-        },
-        campos: [
-            { t: "1. O Eu, o Outro e o Nós", verbos: ['liderar', 'colaborar', 'interagir'] },
-            { t: "2. Corpo, Gestos e Movimentos", verbos: ['dominar', 'coordenar', 'desenvolver'] },
-            { t: "3. Traços, Sons, Cores e Formas", verbos: ['criar', 'explorar', 'identificar'] },
-            { t: "4. Escuta, Fala, Pensamento e Imaginação", verbos: ['argumentar', 'narrar', 'expressar'] },
-            { t: "5. Espaço, Tempo, Quantidades e Relações", verbos: ['comparar', 'classificar', 'ordenar'] }
-        ]
+        }
     };
 
     const selecoes = { perfil: [], bncc: {} };
     const sortear = (l) => l[Math.floor(Math.random() * l.length)];
 
-    function formatarTexto(t) {
+    function formatar(t) {
         const exc = ['de', 'da', 'do', 'dos', 'das', 'e'];
         return t.toLowerCase().split(' ').map((p, i) => (exc.includes(p) && i !== 0) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
     }
@@ -130,44 +160,37 @@
             containerBNCC.appendChild(div);
             const grid = document.getElementById(`campo-${idx}`);
             selecoes.bncc[idx] = [];
-            campo.verbos.forEach(p => {
-                const btn = document.createElement('button');
-                btn.className = `btn-check processo`;
-                btn.innerText = p.toUpperCase();
-                btn.onclick = () => {
-                    btn.classList.toggle('active');
-                    if(btn.classList.contains('active')) selecoes.bncc[idx].push(p);
-                    else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p);
-                };
-                grid.appendChild(btn);
+            ['inicial', 'processo', 'avancado'].forEach(nivel => {
+                campo[nivel].forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = `btn-check ${nivel}`;
+                    btn.innerText = p.toUpperCase();
+                    btn.onclick = () => {
+                        btn.classList.toggle('active');
+                        if(btn.classList.contains('active')) selecoes.bncc[idx].push(p);
+                        else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p);
+                    };
+                    grid.appendChild(btn);
+                });
             });
         });
     }
 
     function gerarRelatorio() {
-        const nome = formatarTexto(document.getElementById('nome_crianca').value || "A Criança");
-        const escola = formatarTexto(document.getElementById('nome_escola').value || "Escola");
-        const cidade = formatarTexto(document.getElementById('cidade').value || "Manaus");
+        const nome = formatar(document.getElementById('nome_crianca').value || "A Criança");
+        const escola = formatar(document.getElementById('nome_escola').value || "Escola");
+        const cidade = formatar(document.getElementById('cidade').value || "Manaus");
         const pNome = nome.split(' ')[0];
         const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
         let intro = sortear(db.variacoes.introducao).replace('[nome]', `<b>${nome}</b>`).replace('[escola]', `<b>${escola}</b>`);
         
-        let perfilFinal = [];
-        selecoes.perfil.forEach(p => {
-            const trad = db.traducoes[p.toLowerCase()];
-            perfilFinal.push(trad ? sortear(trad) : p.toLowerCase());
-        });
-        
-        let socio = perfilFinal.length > 0 ? ` No que tange ao desenvolvimento socioemocional, observa-se que a criança apresenta-se ${perfilFinal.join(', ')}.` : "";
+        let perfilTexto = selecoes.perfil.map(p => db.traducoes[p.toLowerCase()] || p.toLowerCase()).join(', ');
+        let socio = perfilTexto ? ` No que tange às dimensões do conviver e expressar, a criança ${perfilTexto}.` : "";
 
         let habilidades = [];
         db.campos.forEach((c, i) => { if(selecoes.bncc[i].length > 0) habilidades.push(...selecoes.bncc[i]); });
-        
-        let bnccTexto = "";
-        if(habilidades.length > 0) {
-            bnccTexto = ` Em relação aos campos de experiência, ${pNome} manifesta progresso ao ${habilidades.slice(0, 4).join(', ')}${habilidades.length > 4 ? ' e demais atividades' : ''}, revelando engajamento ativo nas vivências.`;
-        }
+        let bnccTexto = habilidades.length > 0 ? ` Em relação aos campos de experiência, ${pNome} revela-se ${habilidades.map(h => h.toLowerCase()).join(', ')}, demonstrando engajamento nas propostas de aprendizagem.` : "";
 
         let corpo = `<p style="text-indent:1.5cm;">${intro}${socio}${bnccTexto}</p>`;
         corpo += `<p style="text-indent:1.5cm;">${sortear(db.variacoes.conclusao).replace('[pNome]', pNome)}</p>`;
@@ -180,4 +203,3 @@
 </script>
 </body>
 </html>
-Agora o seu App está completo e com uma base pedagógica fortíssima! Se precisar de qualquer outro ajuste, estou aqui.
