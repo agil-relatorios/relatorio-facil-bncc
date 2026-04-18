@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Assinaturas em Lista</title>
+    <title>CONTAÊ PROFE - Edição Final Otimizada</title>
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --verde: #2ed573; --amarelo: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -25,7 +25,6 @@
 
         .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 20px; background: var(--primaria); }
 
-        /* CONFIGURAÇÃO RÍGIDA A4 */
         #editor { 
             width: 210mm; 
             height: 297mm; 
@@ -43,25 +42,23 @@
         }
         
         .cabecalho { text-align: center; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 12pt; }
+        .bimestre-titulo { text-align: center; font-weight: bold; text-transform: uppercase; font-size: 11pt; margin-bottom: 10px; }
         .dados-doc { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 5px; font-size: 10.5pt; line-height: 1.4; }
-        .titulo-relatorio { text-align: center; font-weight: bold; text-transform: uppercase; margin: 20px 0; font-size: 11.5pt; }
+        .declaracao-matricula { font-size: 10pt; text-align: center; margin: 10px 0; font-style: italic; }
+        .titulo-parecer { text-align: center; font-weight: bold; text-transform: uppercase; margin: 10px 0; font-size: 11.5pt; text-decoration: underline; }
 
-        /* AJUSTE: ASSINATURAS EM LISTA VERTICAL */
-        .assinaturas-lista { 
-            margin-top: 30px; 
-            width: 100%;
+        .assinaturas { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 20px; 
+            position: absolute; 
+            bottom: 25mm; 
+            width: 165mm; 
+            text-align: center; 
+            font-size: 9pt; 
         }
-        .item-assinatura {
-            margin-bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-        .linha-assinatura-vazia { 
-            border-top: 1.5px solid #000; 
-            width: 80%; /* Linha larga */
-            margin: 0 auto 5px auto;
-        }
-        .linha-assinatura-texto { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
+        .linha-assinatura-vazia { border-top: 1.5px solid #000; width: 100%; margin-bottom: 5px; padding-top: 5px; }
+        .linha-assinatura-texto { font-weight: bold; text-transform: uppercase; }
 
         @page { size: A4; margin: 0; }
         @media print { 
@@ -83,7 +80,7 @@
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Período</label><select id="periodo"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option></select></div>
     </div>
 
     <div class="secao-titulo">DIREITOS DE APRENDIZAGEM</div>
@@ -145,18 +142,18 @@
 
         document.getElementById('editor').innerHTML = `
             <div class="cabecalho">${p.escola}</div>
+            <div class="bimestre-titulo">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
             <div class="dados-doc"><b>CRIANÇA:</b> ${p.nome} | <b>TURMA:</b> ${p.turma}<br><b>DOCENTE:</b> ${p.prof} | <b>DATA:</b> ${new Date().toLocaleDateString()}</div>
-            <div class="titulo-relatorio">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
+            <div class="declaracao-matricula">Declaramos que a criança acima identificada encontra-se devidamente matriculada nesta instituição, apresentando o desempenho detalhado abaixo:</div>
+            <div class="titulo-parecer">PARECER DESCRITIVO INDIVIDUAL</div>
             <p style="text-indent:1.2cm;">${intros[Math.floor(Math.random()*2)]}${tDir}${tCam}</p>
             <p style="text-indent:1.2cm; margin-top: 15px;">Concluímos que as conquistas alcançadas refletem um caminhar de sucesso, pautado no respeito e na ampliação de suas potencialidades.</p>
-            <center style="margin-top:20px"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></center>
-            
-            <div class="assinaturas-lista">
-                <div class="item-assinatura"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Professor(a)</div></div>
-                <div class="item-assinatura"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Coordenação</div></div>
-                <div class="item-assinatura"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Responsável</div></div>
+            <center style="margin-top:30px"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></center>
+            <div class="assinaturas">
+                <div class="linha-assinatura-area"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Professor(a)</div></div>
+                <div class="linha-assinatura-area"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Coordenação</div></div>
+                <div class="linha-assinatura-area"><div class="linha-assinatura-vazia"></div><div class="linha-assinatura-texto">Responsável</div></div>
             </div>`;
-            
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
