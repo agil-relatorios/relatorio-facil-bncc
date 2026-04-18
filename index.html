@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
+    <title>CONTAÊ PROFE - Inteligência Narrativa</title>
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --verde: #2ed573; --amarelo: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -16,8 +16,6 @@
         input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
 
         .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
-        
-        /* GRID DE BOTÕES */
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
         .btn-v { padding: 12px 5px; border: 2px solid #f0f0f0; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; transition: 0.2s; }
         
@@ -27,14 +25,13 @@
 
         .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 30px; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
 
-        /* EDITOR ABNT */
-        #editor { width: 210mm; height: 297mm; margin: auto; background: white; box-sizing: border-box; padding: 30mm 20mm 20mm 30mm; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; overflow: hidden; border: 1px solid #eee; display: none; margin-top: 30px; }
+        #editor { width: 210mm; min-height: 297mm; margin: auto; background: white; box-sizing: border-box; padding: 30mm 20mm 20mm 30mm; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; border: 1px solid #eee; display: none; margin-top: 30px; }
         .cabecalho { text-align: center; font-weight: bold; margin-bottom: 20px; }
         .dados-doc { border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 20px; font-size: 10pt; }
         .assinaturas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 50px; text-align: center; font-size: 9pt; }
         .linha { border-top: 1px solid #000; padding-top: 5px; }
 
-        @media print { .no-print { display: none !important; } body { background: white; padding: 0; } #editor { display: block; border: none; } }
+        @media print { .no-print { display: none !important; } body { background: white; padding: 0; } #editor { display: block; border: none; box-shadow: none; width: 100%; } }
     </style></head><body>
 
 <div class="container no-print">
@@ -57,7 +54,7 @@
 
     <div id="campos-container"></div>
 
-    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO INTELIGENTE</button>
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO EXCLUSIVO</button>
 </div>
 
 <div id="editor" contenteditable="true"></div>
@@ -73,16 +70,45 @@
         { l: "PROTAGONIZAR", n: "ava" }, { l: "CONSOLIDAR", n: "ava" }, { l: "LIDERAR", n: "ava" }
     ];
 
-    const dbCampos = [
-        "1. O Eu, o Outro e o Nós", "2. Corpo, Gestos e Movimentos", 
-        "3. Traços, Sons, Cores e Formas", "4. Escuta, Fala, Pensamento e Imaginação",
-        "5. Espaço, Tempo, Quantidades e Relações"
-    ];
+    const frasesIA = {
+        campos: [
+            {
+                titulo: "1. O Eu, o Outro e o Nós",
+                ini: ["encontra-se em fase de sensibilização quanto às normas de convivência, sendo estimulado a reconhecer o outro.", "observa as interações sociais com cautela, necessitando de mediação para integrar-se plenamente aos pares."],
+                pro: ["demonstra autonomia crescente em suas escolhas sociais, participando ativamente de brincadeiras em grupo.", "colabora com os colegas e expressa seus sentimentos, buscando resolver conflitos com o auxílio da professora."],
+                ava: ["protagoniza ações de liderança e empatia, auxiliando na organização do coletivo e respeitando a diversidade.", "demonstra segurança plena em sua identidade, agindo com autonomia e senso de colaboração constante."]
+            },
+            {
+                titulo: "2. Corpo, Gestos e Movimentos",
+                ini: ["explora suas possibilidades motoras e espaciais com cuidado, desenvolvendo paulatinamente o equilíbrio.", "tateia novos movimentos e desafios corporais, recebendo estímulos para fortalecer sua coordenação motora ampla."],
+                pro: ["coordena seus movimentos com harmonia em atividades de dança, circuitos e brincadeiras motoras.", "demonstra controle progressivo de sua motricidade fina e ampla, participando com vigor das propostas físicas."],
+                ava: ["domina com agilidade sua consciência corporal, realizando movimentos complexos com precisão e segurança.", "expressa-se corporalmente com criatividade, utilizando o gesto como linguagem e demonstrando excelente equilíbrio."]
+            },
+            {
+                titulo: "3. Traços, Sons, Cores e Formas",
+                ini: ["tateia diversas linguagens artísticas, demonstrando curiosidade sensorial pelos materiais e cores.", "explora sons e ritmos com o corpo e instrumentos, iniciando sua sensibilização estética."],
+                pro: ["expressa sua criatividade utilizando diversos suportes, combinando cores e texturas em suas produções.", "participa de momentos musicais e artísticos com entusiasmo, experimentando novas formas de criar."],
+                ava: ["manifesta uma identidade artística singular, utilizando materiais de forma intencional e harmoniosa.", "domina o uso de diferentes ferramentas artísticas, criando narrativas visuais e sonoras com protagonismo."]
+            },
+            {
+                titulo: "4. Escuta, Fala, Pensamento e Imaginação",
+                ini: ["encontra-se em processo de ampliação do vocabulário, sendo incentivado a expressar seus desejos e ideias.", "demonstra interesse por narrativas literárias, observando atentamente as contações de histórias."],
+                pro: ["organiza seu pensamento para narrar vivências e fatos, utilizando a linguagem oral com clareza e fluidez.", "dialoga com os pares e adultos, expressando opiniões e demonstrando curiosidade sobre o mundo letrado."],
+                ava: ["argumenta com segurança sobre diversos temas, demonstrando um repertório linguístico rico e imaginativo.", "protagoniza momentos de contação, cria histórias coerentes e demonstra familiaridade com a escrita espontânea."]
+            },
+            {
+                titulo: "5. Espaço, Tempo, Quantidades e Relações",
+                ini: ["explora noções de tempo e espaço em sua rotina, recebendo auxílio para comparar quantidades simples.", "observa as relações de causa e efeito no ambiente, tateando conceitos matemáticos básicos."],
+                pro: ["classifica e ordena objetos segundo diferentes critérios, demonstrando compreensão de sequências temporais.", "realiza contagens e comparações com autonomia, resolvendo situações-problema do cotidiano escolar."],
+                ava: ["domina conceitos complexos de seriação e contagem, estabelecendo relações lógicas com rapidez e precisão.", "identifica com clareza a passagem do tempo e as transformações na natureza, protagonizando descobertas científicas."]
+            }
+        ]
+    };
 
     const selecoes = { direitos: [], campos: {} };
+    const sortear = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
     function iniciar() {
-        // Renderizar Direitos
         const dCont = document.getElementById('direitos-container');
         dbDireitos.forEach(d => {
             const btn = document.createElement('div');
@@ -95,20 +121,19 @@
             dCont.appendChild(btn);
         });
 
-        // Renderizar Campos
         const cCont = document.getElementById('campos-container');
-        dbCampos.forEach((c, idx) => {
+        frasesIA.campos.forEach((c, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-titulo">${c}</div><div class="grid-botoes" id="c-${idx}"></div>`;
+            div.innerHTML = `<div class="secao-titulo">${c.titulo}</div><div class="grid-botoes" id="c-${idx}"></div>`;
             cCont.appendChild(div);
             const grid = document.getElementById(`c-${idx}`);
-            [{l:"SENSIBILIZAR", n:"ini"}, {l:"INTEGRAR", n:"pro"}, {l:"DOMINAR", n:"ava"}].forEach(opt => {
+            [{l:"EXPLORAR", n:"ini"}, {l:"PARTICIPAR", n:"pro"}, {l:"PROTAGONIZAR", n:"ava"}].forEach(opt => {
                 const btn = document.createElement('div');
                 btn.className = 'btn-v'; btn.innerText = opt.l; btn.dataset.n = opt.n;
                 btn.onclick = () => {
                     Array.from(grid.children).forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    selecoes.campos[idx] = opt;
+                    selecoes.campos[idx] = opt.n;
                 };
                 grid.appendChild(btn);
             });
@@ -125,46 +150,41 @@
             periodo: document.getElementById('periodo').value
         };
 
-        // Lógica de IA para análise de perfil (Sorteio entre centenas de variações internas)
-        const frasesIntro = [
-            `O percurso pedagógico de <b>${p.nome}</b> neste semestre foi marcado por descobertas singulares. No contexto dos Direitos de Aprendizagem, observa-se um movimento de constante evolução.`,
-            `Durante este período letivo, <b>${p.nome}</b> vivenciou experiências que nortearam seu desenvolvimento integral, respeitando seu tempo de maturação e suas formas de expressão.`
+        const intros = [
+            `O percurso pedagógico de <b>${p.nome}</b> neste período foi marcado por vivências que nortearam seu desenvolvimento integral, respeitando seu tempo de maturação.`,
+            `Durante este semestre, <b>${p.nome}</b> explorou o ambiente escolar por meio de experiências significativas que ampliaram suas potencialidades e formas de expressão.`
         ];
 
         let textoDireitos = "";
-        const contaNivel = { ini: 0, pro: 0, ava: 0 };
-        selecoes.direitos.forEach(d => contaNivel[d.n]++);
+        const conta = { ini: 0, pro: 0, ava: 0 };
+        selecoes.direitos.forEach(d => conta[d.n]++);
 
-        if(contaNivel.ini > contaNivel.ava) {
-            textoDireitos = " Revela-se em uma fase de intensa exploração e sensibilização, onde a mediação constante e o acolhimento afetivo são as pontes para sua segurança nas interações coletivas.";
-        } else if(contaNivel.ava > contaNivel.ini) {
-            textoDireitos = " Demonstra protagonismo e liderança em suas ações, interagindo com segurança e autonomia plena nas propostas vivenciadas no ambiente escolar.";
+        if(conta.ini > conta.ava) {
+            textoDireitos = " Demonstra estar em uma fase de intensa sensibilização, onde a exploração e o acolhimento são bases para suas descobertas diárias.";
+        } else if(conta.ava > conta.ini) {
+            textoDireitos = " Revela protagonismo e segurança em suas ações, interagindo com autonomia plena e liderança nas propostas vivenciadas.";
         } else {
-            textoDireitos = " Apresenta um desenvolvimento equilibrado, participando ativamente das propostas e demonstrando curiosidade em aprender e conviver com os pares.";
+            textoDireitos = " Apresenta um desenvolvimento equilibrado, participando ativamente das rotinas e demonstrando curiosidade e engajamento constante.";
         }
 
         let textoCampos = "";
-        dbCampos.forEach((c, i) => {
+        frasesIA.campos.forEach((c, i) => {
             if(selecoes.campos[i]) {
-                const campoNome = c.split('. ')[1];
-                const nivel = selecoes.campos[i].n;
-                if(nivel === 'ini') textoCampos += ` No campo <b>${campoNome}</b>, a criança está em fase de sensibilização, tateando novas possibilidades motoras e cognitivas com apoio constante.`;
-                if(nivel === 'pro') textoCampos += ` Em <b>${campoNome}</b>, observa-se uma integração harmoniosa, onde a criança já experimenta e participa com autonomia crescente.`;
-                if(nivel === 'ava') textoCampos += ` Quanto ao campo <b>${campoNome}</b>, demonstra domínio absoluto e segurança, protagonizando suas escolhas e auxiliando os demais colegas.`;
+                const nivel = selecoes.campos[i];
+                const frase = sortear(frasesIA.campos[i][nivel]);
+                textoCampos += ` No que tange ao campo <b>${c.titulo.split('. ')[1]}</b>, a criança ${frase}`;
             }
         });
 
         document.getElementById('editor').innerHTML = `
             <div class="cabecalho">${p.escola}<br>RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${p.periodo}</div>
             <div class="dados-doc"><b>CRIANÇA:</b> ${p.nome} | <b>TURMA:</b> ${p.turma}<br><b>DOCENTE:</b> ${p.prof} | <b>DATA:</b> ${new Date().toLocaleDateString()}</div>
-            <p style="text-indent:1.5cm">${frasesIntro[Math.floor(Math.random()*frasesIntro.length)]}${textoDireitos}</p>
+            <p style="text-indent:1.5cm">${sortear(intros)}${textoDireitos}</p>
             <p style="text-indent:1.5cm">${textoCampos}</p>
-            <p style="text-indent:1.5cm">Concluímos que as conquistas alcançadas refletem um caminhar de sucesso, pautado no respeito e na ampliação de suas potencialidades.</p>
+            <p style="text-indent:1.5cm">As conquistas demonstradas refletem um caminhar de sucesso e o compromisso da instituição com a excelência do aprendizado.</p>
             <center style="margin-top:30px"><i>"Seu brilho único ilumina nossa sala todos os dias."</i></center>
             <div class="assinaturas">
-                <div class="linha">Professor(a)</div>
-                <div class="linha">Coordenação</div>
-                <div class="linha">Responsável</div>
+                <div class="linha">Professor(a)</div><div class="linha">Coordenação</div><div class="linha">Responsável</div>
             </div>
         `;
         
