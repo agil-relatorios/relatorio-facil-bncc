@@ -1,5 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Premium Única Folha</title>
+<title>CONTAÊ PROFE - Final Otimizado</title>
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -14,12 +13,20 @@
         .btn-v.active { background: var(--azul); color: white; border-color: var(--azul); }
         .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; margin-top: 20px; background: var(--primaria); }
 
-        /* CONFIGURAÇÃO RÍGIDA A4 */
+        /* CONFIGURAÇÃO RÍGIDA A4 - ÚNICA FOLHA */
         #editor { 
-            width: 210mm; height: 297mm; margin: 20px auto; background: white; 
-            box-sizing: border-box; padding: 15mm 20mm 10mm 25mm; 
-            font-family: Arial, sans-serif; font-size: 11.5pt; line-height: 1.5; color: #000; 
-            display: none; overflow: hidden;
+            width: 210mm; 
+            height: 297mm; 
+            margin: 20px auto; 
+            background: white; 
+            box-sizing: border-box; 
+            padding: 30mm 20mm 10mm 25mm; /* Topo 30mm conforme pedido */
+            font-family: Arial, sans-serif; 
+            font-size: 11.5pt; 
+            line-height: 1.5; 
+            color: #000; 
+            display: none; 
+            overflow: hidden; 
         }
         
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
@@ -28,14 +35,13 @@
         .dec-mat { line-height: 1.2; text-align: center; margin-bottom: 2em; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; }
         
-        /* CORPO DO TEXTO COM 1,5 */
         .corpo-texto { text-align: justify; line-height: 1.5; text-indent: 1.25cm; margin-bottom: 1.5em; }
         
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; }
-        .data-local { text-align: center; margin-top: 1em; margin-bottom: 2em; }
+        .data-local { text-align: center; margin-top: 1em; margin-bottom: 3em; } /* Espaço de 3 após a data */
 
-        .assinaturas-lista { margin-top: 10px; }
-        .item-assinatura { margin-bottom: 3em; text-align: center; }
+        .assinaturas-lista { width: 100%; }
+        .item-assinatura { margin-bottom: 2.5em; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
@@ -48,7 +54,7 @@
     </style></head><body>
 
 <div class="container no-print">
-    <div class="header-app"><h1>CONTAÊ PROFE</h1></div>
+    <div class="header-app" style="text-align:center;"><h1>CONTAÊ PROFE</h1></div>
     <div class="grid-inputs">
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
