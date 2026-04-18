@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Sistema de Pareceres</title>
+    <title>CONTAÊ PROFE - V6.0</title>
     <style>
         :root { --primaria: #ff4757; --secundaria: #2ed573; --terciaria: #1e90ff; --alerta: #ffa502; --bg: #f1f2f6; --texto: #2f3542; --branco: #ffffff; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 15px; }
@@ -12,15 +12,22 @@
         .header h1 { margin: 0; color: var(--primaria); font-size: 2.2rem; text-transform: uppercase; }
         .slogan { font-style: italic; color: #747d8c; margin-top: 8px; font-size: 1rem; }
         
-        /* Ajuste do Grid de Cadastro */
         .grid-cadastro { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; margin-bottom: 25px; background: #f9f9f9; padding: 20px; border-radius: 15px; border: 1px solid #eee; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
+        
+        /* Força todas as letras em caixa alta no input */
         input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; outline: none; background: white; text-transform: uppercase; }
         
-        .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; text-align: center; }
+        .radio-grupo { display: flex; gap: 10px; margin-top: 5px; }
+        .radio-item { flex: 1; text-align: center; }
+        .radio-item input { display: none; }
+        .radio-item label { display: block; padding: 8px; background: #eee; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 0.7rem; border: 2px solid transparent; }
+        .radio-item input:checked + label { background: var(--terciaria); color: white; border-color: #0056b3; }
+
+        .secao-titulo { background: #2f3542; color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; font-weight: bold; font-size: 0.9rem; text-align: center; text-transform: uppercase; }
         .grid-palavras { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
-        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: 0.2s; text-align: center; }
+        .btn-check { padding: 10px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: 0.2s; text-align: center; text-transform: uppercase; }
         .btn-check.active.avancado { background: var(--terciaria); color: white; border-color: var(--terciaria); }
         .btn-check.active.processo { background: var(--secundaria); color: white; border-color: var(--secundaria); }
         .btn-check.active.inicial { background: var(--alerta); color: white; border-color: var(--alerta); }
@@ -29,7 +36,7 @@
         #resultado-secao { display: none; margin-top: 40px; }
         #editor { width: 210mm; min-height: 297mm; padding: 20mm 20mm; margin: auto; font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; text-align: justify; background: white; border: 1px solid #ddd; }
         
-        .cabecalho-impresso { border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; font-size: 10pt; line-height: 1.3; }
+        .cabecalho-impresso { border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; font-size: 10pt; line-height: 1.3; text-transform: uppercase; }
 
         @media print { .no-print { display: none !important; } .container { box-shadow: none; border: none; padding: 0; } #editor { border: none; width: 100%; } }
     </style>
@@ -46,13 +53,24 @@
     <div class="grid-cadastro">
         <div class="campo"><label>Nome da Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Endereço da Escola</label><input type="text" id="endereco_escola"></div>
-        <div class="campo"><label>Telefone / E-mail</label><input type="text" id="contato_escola"></div>
+        <div class="campo"><label>Telefone / E-mail da Escola</label><input type="text" id="contato_escola"></div>
         <div class="campo"><label>Nome da Professora</label><input type="text" id="professora"></div>
-        <div class="campo"><label>Nome da Criança</label><input type="text" id="crianca"></div>
+        
         <div class="campo">
-            <label>Gênero</label>
-            <select id="genero"><option value="o">MENINO (O ALUNO)</option><option value="a">MENINA (A ALUNA)</option></select>
+            <label>Criança</label>
+            <div class="radio-grupo">
+                <div class="radio-item">
+                    <input type="radio" name="artigo" id="m" value="o" checked>
+                    <label for="m">ALUNO</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="artigo" id="f" value="a">
+                    <label for="f">ALUNA</label>
+                </div>
+            </div>
+            <input type="text" id="crianca" placeholder="NOME DA CRIANÇA" style="margin-top:5px;">
         </div>
+
         <div class="campo"><label>Matrícula</label><input type="text" id="matricula"></div>
         <div class="campo">
             <label>Fase (Período)</label>
@@ -83,7 +101,7 @@
 </div>
 
 <script>
-    // ... (Mantendo a base de dados anterior das palavras de 4 a 6 anos)
+    // Banco de Dados das Palavras (4 a 6 anos)
     const db = {
         perfil: {
             inicial: ['Retraída', 'Apática', 'Desorganizada', 'Reativa', 'Inibida', 'Desconectada'],
@@ -96,23 +114,10 @@
             { t: "3. Traços, Sons, Cores e Formas", inicial: ['Hesitante', 'Silenciosa'], processo: ['Exploradora', 'Sensível'], avancado: ['Inventiva', 'Criativa'] },
             { t: "4. Escuta, Fala, Pensamento e Imaginação", inicial: ['Gestual', 'Reservada'], processo: ['Comunicativa', 'Atenta'], avancado: ['Argumentativa', 'Crítica'] },
             { t: "5. Espaço, Tempo, Quantidades e Relações", inicial: ['Concreta', 'Desatenta'], processo: ['Comparativa', 'Analítica'], avancado: ['Lógica', 'Solucionadora'] }
-        ],
-        traducoes: {
-            'retraída': 'manifesta maior introspecção, necessitando de mediação para fortalecer sua segurança',
-            'apática': 'demonstra necessidade de estímulos lúdicos para despertar seu interesse',
-            'desorganizada': 'encontra-se em processo de compreensão das rotinas escolares',
-            'reativa': 'está aprendendo a processar frustrações e a utilizar o diálogo'
-        }
+        ]
     };
 
     const selecoes = { perfil: [], bncc: {} };
-    const sortear = (l) => l[Math.floor(Math.random() * l.length)];
-
-    function formatar(t) {
-        if(!t) return "";
-        const exc = ['de', 'da', 'do', 'dos', 'das', 'e'];
-        return t.toLowerCase().split(' ').map((p, i) => (exc.includes(p) && i !== 0) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
-    }
 
     function iniciar() {
         const gridP = document.getElementById('grid-perfil');
@@ -123,8 +128,8 @@
                 btn.innerText = palavra.toUpperCase();
                 btn.onclick = () => {
                     btn.classList.toggle('active');
-                    if(btn.classList.contains('active')) selecoes.perfil.push(palavra);
-                    else selecoes.perfil = selecoes.perfil.filter(p => p !== palavra);
+                    if(btn.classList.contains('active')) selecoes.perfil.push(palavra.toLowerCase());
+                    else selecoes.perfil = selecoes.perfil.filter(p => p !== palavra.toLowerCase());
                 };
                 gridP.appendChild(btn);
             });
@@ -144,8 +149,8 @@
                     btn.innerText = p.toUpperCase();
                     btn.onclick = () => {
                         btn.classList.toggle('active');
-                        if(btn.classList.contains('active')) selecoes.bncc[idx].push(p);
-                        else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p);
+                        if(btn.classList.contains('active')) selecoes.bncc[idx].push(p.toLowerCase());
+                        else selecoes.bncc[idx] = selecoes.bncc[idx].filter(x => x !== p.toLowerCase());
                     };
                     grid.appendChild(btn);
                 });
@@ -154,46 +159,44 @@
     }
 
     function gerarRelatorio() {
-        const d = {
-            escola: formatar(document.getElementById('escola').value),
-            endereco: formatar(document.getElementById('endereco_escola').value),
-            contato: document.getElementById('contato_escola').value.toLowerCase(),
-            prof: formatar(document.getElementById('professora').value),
-            crianca: formatar(document.getElementById('crianca').value),
-            mat: document.getElementById('matricula').value,
-            fase: document.getElementById('fase').value,
-            turma: document.getElementById('turma').value.toUpperCase(),
-            turno: document.getElementById('turno').value,
-            cidade: formatar(document.getElementById('cidade').value),
-            artigo: document.getElementById('genero').value
-        };
+        // Coleta de dados com forca para Caixa Alta
+        const escola = document.getElementById('escola').value.toUpperCase();
+        const endereco = document.getElementById('endereco_escola').value.toUpperCase();
+        const contato = document.getElementById('contato_escola').value.toUpperCase();
+        const prof = document.getElementById('professora').value.toUpperCase();
+        const crianca = document.getElementById('crianca').value.toUpperCase();
+        const matricula = document.getElementById('matricula').value.toUpperCase();
+        const fase = document.getElementById('fase').value;
+        const turma = document.getElementById('turma').value.toUpperCase();
+        const turno = document.getElementById('turno').value;
+        const cidade = document.getElementById('cidade').value.toUpperCase();
+        const artigo = document.querySelector('input[name="artigo"]:checked').value;
 
-        const pNome = d.crianca.split(' ')[0];
-        const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+        const dataH = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+        const pNome = crianca.split(' ')[0];
 
         const cabecalhoHTML = `
             <div class="cabecalho-impresso">
-                <center><strong>${d.escola}</strong><br>${d.endereco} | ${d.contato}</center><br>
-                <strong>ALUNO(A):</strong> ${d.crianca} <span style="margin-left:20px;"><strong>MATRÍCULA:</strong> ${d.mat}</span><br>
-                <strong>PROFESSORA:</strong> ${d.prof} <span style="margin-left:20px;"><strong>TURMA:</strong> ${d.turma} - ${d.turno}</span><br>
-                <strong>FASE:</strong> PRÉ-ESCOLA (${d.fase})
+                <center><strong>${escola}</strong><br>${endereco}<br>${contato}</center><br>
+                <strong>ALUNO(A):</strong> ${crianca} <span style="margin-left:20px;"><strong>MATRÍCULA:</strong> ${matricula}</span><br>
+                <strong>PROFESSORA:</strong> ${prof} <span style="margin-left:20px;"><strong>TURMA:</strong> ${turma} - ${turno}</span><br>
+                <strong>FASE:</strong> PRÉ-ESCOLA (${fase})
             </div>
             <center><strong>PARECER DESCRITIVO INDIVIDUAL</strong></center><br>
         `;
 
-        let perfilTexto = selecoes.perfil.map(p => db.traducoes[p.toLowerCase()] || p.toLowerCase()).join(', ');
-        let socio = perfilTexto ? ` No que tange às dimensões do conviver e expressar, a criança ${perfilTexto}.` : "";
-
+        let socio = selecoes.perfil.length > 0 ? ` NO QUE TANGE ÀS DIMENSÕES DO CONVIVER E EXPRESSAR, A CRIANÇA APRESENTA-SE ${selecoes.perfil.join(', ').toUpperCase()}.` : "";
+        
         let habilidades = [];
         db.campos.forEach((c, i) => { if(selecoes.bncc[i].length > 0) habilidades.push(...selecoes.bncc[i]); });
-        let bnccTexto = habilidades.length > 0 ? ` Em relação aos campos de experiência, ${pNome} revela-se ${habilidades.map(h => h.toLowerCase()).join(', ')}, demonstrando engajamento nas vivências.` : "";
+        let bnccTexto = habilidades.length > 0 ? ` EM RELAÇÃO AOS CAMPOS DE EXPERIÊNCIA, ${pNome} REVELA-SE ${habilidades.join(', ').toUpperCase()}, DEMONSTRANDO ENGAJAMENTO NAS VIVÊNCIAS.` : "";
 
-        let corpo = `<p style="text-indent:1.5cm;">Neste semestre, o percurso de <b>${d.crianca}</b> na instituição <b>${d.escola}</b> foi pautado pela garantia dos direitos de conviver, brincar e participar.${socio}${bnccTexto}</p>`;
-        corpo += `<p style="text-indent:1.5cm;">Concluímos que ${d.artigo === 'o' ? 'o aluno' : 'a aluna'} segue em pleno desenvolvimento integral.</p>`;
-        corpo += `<br><div style="text-align:right;">${d.cidade}, ${dataH}.</div><br><br>`;
+        let corpo = `<p style="text-indent:1.5cm;">NESTE SEMESTRE, O PERCURSO DE <b>${crianca}</b> NA INSTITUIÇÃO <b>${escola}</b> FOI PAUTADO PELA GARANTIA DOS DIREITOS DE CONVIVER, BRINCAR E PARTICIPAR.${socio}${bnccTexto}</p>`;
+        corpo += `<p style="text-indent:1.5cm;">CONCLUÍMOS QUE ${artigo === 'o' ? 'O ALUNO' : 'A ALUNA'} SEGUE EM PLENO DESENVOLVIMENTO INTEGRAL.</p>`;
+        corpo += `<br><div style="text-align:right;">${cidade}, ${dataH}.</div><br><br>`;
         corpo += `<div style="display:flex; justify-content: space-around; font-size:10pt; text-align:center;">
-                    <div>__________________________<br>Professor(a)</div>
-                    <div>__________________________<br>Coordenação/Gestão</div>
+                    <div>__________________________<br>PROFESSOR(A)</div>
+                    <div>__________________________<br>COORDENAÇÃO/GESTÃO</div>
                   </div>`;
 
         document.getElementById('editor').innerHTML = cabecalhoHTML + corpo;
