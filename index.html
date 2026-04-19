@@ -38,8 +38,10 @@
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; outline: none; }
         
+        /* Ajuste de tamanho dos textos nos campos de experiência */
         .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; }
-        .guia { display: block; font-size: 0.75rem; font-weight: normal; margin-top: 5px; opacity: 0.9; font-style: italic; }
+        .titulo-campo { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; opacity: 0.85; letter-spacing: 0.5px; }
+        .pergunta-maior { display: block; font-size: 1.1rem; font-weight: 600; margin-top: 4px; line-height: 1.3; }
         
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-weight: bold; text-align: center; background: white; color: #747d8c; font-size: 0.8rem; }
@@ -84,6 +86,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="MANAUS"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -92,7 +95,6 @@
                 <option value="A CRIANÇA">A CRIANÇA</option>
                 <option value="O ALUNO">O ALUNO</option>
                 <option value="A ALUNA">A ALUNA</option>
-                <option value="ALUNO(A)">ALUNO(A)</option>
             </select>
         </div>
         <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
@@ -134,11 +136,11 @@
     }
 
     const camposBNCC = [
-        {t: "1. O EU, O OUTRO E O NÓS", g: "Como interage com colegas e adultos? Respeita regras e expressa emoções?"},
-        {t: "2. CORPO, GESTOS E MOVIMENTOS", g: "Possui coordenação motora? Explora o espaço e conhece o próprio corpo?"},
-        {t: "3. TRAÇOS, SONS, CORES E FORMAS", g: "Como se expressa artisticamente? Reconhece sons e cores no ambiente?"},
-        {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", g: "Participa de rodas de conversa? Relata histórias e expressa ideias com clareza?"},
-        {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", g: "Identifica números e grandezas? Compreende a rotina e o meio natural?"}
+        {t: "1. O EU, O OUTRO E O NÓS", p: "Como a criança interage com colegas e adultos? Respeita regras e expressa emoções?"},
+        {t: "2. CORPO, GESTOS E MOVIMENTOS", p: "A criança possui coordenação motora? Explora o espaço e conhece o próprio corpo?"},
+        {t: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Como a criança se expressa artisticamente? Reconhece sons e cores no ambiente?"},
+        {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "A criança participa de rodas de conversa? Relata histórias e expressa ideias com clareza?"},
+        {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "A criança identifica números e grandezas? Compreende a rotina e o meio natural?"}
     ];
 
     const db = {
@@ -161,6 +163,8 @@
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA: " + esc;
         const nome = document.getElementById('crianca').value.toUpperCase();
         const prof = document.getElementById('prof').value.toUpperCase();
+        const cidade = document.getElementById('cidade').value.toUpperCase();
+        const dataAtual = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 
         document.getElementById('editor').innerHTML = `
             <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:0.8cm;">${esc || 'ESCOLA: INSTITUIÇÃO NÃO INFORMADA'}</div>
@@ -174,7 +178,7 @@
             <div class="corpo-texto">${sortear(db.detalhes)}</div>
             <div class="corpo-texto">${sortear(db.conclusao)}</div>
             <div style="text-align:center; font-style:italic; margin-top:1cm;">"${sortear(db.frasesFinais)}"</div>
-            <div style="text-align:center; margin:0.8cm 0;">Manaus, 19 de abril de 2026.</div>
+            <div style="text-align:center; margin:0.8cm 0;">${cidade}, ${dataAtual}.</div>
             <div style="margin-top:1.5cm; text-align:center;">
                 <div class="linha-assinatura"></div><small>PROFESSOR(A)</small><br><br>
                 <div class="linha-assinatura"></div><small>COORDENAÇÃO / DIREÇÃO</small>
@@ -187,7 +191,10 @@
 
     const cCont = document.getElementById('campos-container');
     camposBNCC.forEach((item, i) => {
-        cCont.innerHTML += `<div class="secao-pergunta">${item.t}<span class="guia">Pergunta Guia: ${item.g}</span></div>
+        cCont.innerHTML += `<div class="secao-pergunta">
+                <span class="titulo-campo">${item.t}</span>
+                <span class="pergunta-maior">${item.p}</span>
+            </div>
             <div class="grid-botoes" id="c-${i}">
                 <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
                 <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
