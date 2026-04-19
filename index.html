@@ -57,7 +57,7 @@
             width: 210mm; min-height: 280mm; margin: 20px auto; background: white; 
             padding: 25mm 20mm 15mm 25mm; box-sizing: border-box; font-family: Arial, sans-serif; font-size: 11.5pt; display: none; 
         }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1em; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.7; margin-bottom: 1.2em; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
 
         @media print { 
@@ -85,7 +85,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="MANAUS"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="EX: MANAUS"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -135,45 +135,33 @@
     }
 
     const camposBNCC = [
-        {t: "1. O EU, O OUTRO E O NÓS", p: "Como a criança interage com colegas e adultos? Respeita regras e expressa emoções?"},
-        {t: "2. CORPO, GESTOS E MOVIMENTOS", p: "A criança possui coordenação motora? Explora o espaço e conhece o próprio corpo?"},
-        {t: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Como a criança se expressa artisticamente? Reconhece sons e cores no ambiente?"},
-        {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "A criança participa de rodas de conversa? Relata histórias e expressa ideias com clareza?"},
-        {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "A criança identifica números e grandezas? Compreende a rotina e o meio natural?"}
+        {t: "1. O EU, O OUTRO E O NÓS", p: "A criança interage bem com os outros e respeita combinados?"},
+        {t: "2. CORPO, GESTOS E MOVIMENTOS", p: "A criança demonstra bom equilíbrio e coordenação motora?"},
+        {t: "3. TRAÇOS, SONS, CORES E FORMAS", p: "A criança gosta de artes e reconhece cores e sons?"},
+        {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "A criança fala com clareza e entende as histórias lidas?"},
+        {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "A criança identifica números e entende a rotina escolar?"}
     ];
 
     const db = {
         inicio: [
-            "Durante este período, pautamos nossa observação nas interações cotidianas, assegurando os direitos de aprendizagem. ",
-            "Através de contextos significativos que integram o cuidar e o educar, a mediação pedagógica focou na escuta ativa. ",
-            "Mediante a organização de ambientes que estimulam o protagonismo e a curiosidade natural, oportunizou-se que ",
-            "Respeitando as singularidades e os registros contínuos das vivências, a prática docente direcionou-se para que ",
-            "Ao planejar situações que colocam a infância no centro do processo, focamos em estratégias acolhedoras para que ",
-            "Com base nas diretrizes da BNCC e na observação sensível do desenvolvimento integral, notou-se que "
+            "Pautamos nossa prática docente na observação sensível das interações vividas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem e desenvolvimento. Através de contextos organizados de forma intencional para promover o cuidar e o educar, a mediação buscou ouvir as necessidades singulares. Notou-se que ",
+            "Ao longo deste período letivo, estruturamos ambientes que provocam o protagonismo e a curiosidade natural de cada criança. Respeitando as trajetórias individuais e os registros contínuos das vivências, as propostas pedagógicas foram direcionadas com foco na excelência e no acolhimento afetivo. Percebeu-se que ",
+            "Com base nas diretrizes da BNCC e em uma visão integral da infância, organizamos situações de aprendizagem que colocam o estudante como centro do processo educativo. Focamos em estratégias potentes que permitissem uma evolução segura e cheia de significados reais para a vida. Durante as atividades, "
         ],
         meio: [
-            "demonstrasse um percurso rico em descobertas e conquistas. Participou ativamente das propostas de autonomia e convivência social. ",
-            "explorasse linguagens e sentidos, consolidando saberes essenciais. Sua trajetória é marcada pela alegria e pelo respeito ao tempo de maturação. ",
-            "vivenciasse os direitos de brincar e participar de forma plena. Houve um avanço notório na construção de vínculos afetivos sólidos. ",
-            "protagonizasse escolhas de materiais e investigações, revelando um pensamento criativo apurado e colaborativo nas rodas de conversa. ",
-            "ampliasse sua percepção de mundo através de vivências lúdicas, demonstrando segurança ao enfrentar desafios e curiosidade científica. ",
-            "expressasse suas necessidades e desejos com clareza, integrando-se harmonicamente ao grupo e respeitando os ritmos coletivos. "
+            "demonstrou um percurso de aprendizagem rico em descobertas, participando ativamente de propostas que exigiam autonomia. Nas rodas de conversa e brincadeiras coletivas, expressou suas emoções com clareza e compreendeu as normas de convivência social que regem o grupo. Mostrou-se engajado(a) e receptivo(a) aos novos desafios apresentados. ",
+            "explorou diversas linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova experiência. Revelou-se uma criança curiosa, capaz de investigar o mundo ao seu redor com olhar atento e pensamento crítico apurado. ",
+            "vivenciou os direitos de conviver, brincar e participar de forma plena e protagonista. Houve um avanço notório na construção de vínculos afetivos sólidos com os colegas e docentes, fortalecendo sua posição como sujeito social. Nas vivências práticas, mostrou segurança para tomar decisões e colaborar com o bem-estar do coletivo escolar. "
         ],
         detalhes: [
-            "Demonstrou autonomia em atividades de higiene e alimentação, revelando cuidado consigo. Na oralidade, participou de saraus e contação de histórias.",
-            "Nas atividades de corpo e movimento, revelou controle motor harmonioso e explorou suportes artísticos com sensibilidade e técnica apurada.",
-            "Observamos interesse por desafios lógicos, testando hipóteses sobre quantidades e tempo aplicados de forma prática em sua rotina escolar.",
-            "A participação em projetos ambientais despertou um olhar atento para a preservação, promovendo a compreensão de relações no mundo físico.",
-            "A construção da identidade foi fortalecida por momentos de autoconhecimento, agindo com empatia e celebrando as conquistas dos colegas.",
-            "Revelou grande sensibilidade ao manipular materiais diversos, transformando elementos simples em produções cheias de significado e imaginação."
+            "Além disso, apresentou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando um cuidado admirável consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação frequente em saraus, contação de histórias e momentos de dramatização criativa. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle motor progressivo e harmonioso, explorando diversos suportes artísticos e materiais naturais com sensibilidade. A manipulação de texturas e cores permitiu a ampliação de seu repertório imaginativo, transformando cada vivência em uma produção única. ",
+            "Observamos também um crescente interesse por desafios de raciocínio lógico, onde testou hipóteses e comunicou suas descobertas sobre quantidades e espaço. Essa postura investigativa foi fundamental para a construção de conceitos matemáticos e geográficos, aplicados de forma prática e lúdica em sua rotina diária."
         ],
         conclusao: [
-            "Concluímos este ciclo celebrando as vitórias individuais e o compromisso com uma educação afetuosa e de excelência.",
-            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para um crescimento integral e lúdico.",
-            "Os registros mostram um processo evolutivo contínuo. A criança segue para as próximas vivências com segurança e curiosidade.",
-            "O progresso alcançado reflete a harmonia entre o brincar e o aprender, garantindo o protagonismo na trajetória escolar.",
-            "As conquistas deste período são alicerces fundamentais, onde a curiosidade continuará guiando seus passos em direção ao saber.",
-            "Encerramos este período com gratidão por acompanhar um florescimento tão singular e potente em todas as suas dimensões."
+            "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com uma educação de excelência. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e fascinantes descobertas em sua jornada acadêmica e pessoal. ",
+            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como alicerce sólido para o crescimento integral. O aprendizado ocorreu de forma lúdica, garantindo segurança emocional e autonomia. Estamos confiantes de que os próximos passos serão encarados com o mesmo protagonismo e alegria. ",
+            "Os registros revelam um processo evolutivo contínuo e consistente. A criança consolidou saberes essenciais e segue para as próximas vivências escolares com uma curiosidade aguçada e um olhar transformador. Celebramos cada conquista alcançada, certos de que o florescimento aqui iniciado será duradouro."
         ],
         frasesFinais: [
             "Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", 
@@ -197,11 +185,6 @@
         const cidade = document.getElementById('cidade').value.toUpperCase();
         const dataAtual = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 
-        // Geração Aleatória Combinatória para evitar repetição
-        const p1 = sortear(db.inicio) + nome + " " + sortear(db.meio);
-        const p2 = sortear(db.detalhes);
-        const p3 = sortear(db.conclusao);
-
         document.getElementById('editor').innerHTML = `
             <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:0.8cm;">${esc || 'ESCOLA: INSTITUIÇÃO NÃO INFORMADA'}</div>
             <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:0.8cm; text-transform:uppercase;">
@@ -210,11 +193,11 @@
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div style="text-align:center; font-weight:bold; margin-bottom:0.8cm; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
-            <div class="corpo-texto">${p1}</div>
-            <div class="corpo-texto">${p2}</div>
-            <div class="corpo-texto" style="margin-bottom:0;">${p3}</div>
-            <div style="text-align:center; font-style:italic; margin-top:1.2cm; margin-bottom:1.2cm;">"${sortear(db.frasesFinais)}"</div>
-            <div style="text-align:center; margin:0.8cm 0;">${cidade}, ${dataAtual}.</div>
+            <div class="corpo-texto">${sortear(db.inicio)} ${nome} ${sortear(db.meio)}</div>
+            <div class="corpo-texto">${sortear(db.detalhes)}</div>
+            <div class="corpo-texto" style="margin-bottom:0;">${sortear(db.conclusao)}</div>
+            <div style="text-align:center; font-style:italic; margin-top:1cm; margin-bottom:1cm;">"${sortear(db.frasesFinais)}"</div>
+            <div style="text-align:center; margin:0.8cm 0;">${cidade || '____________________'}, ${dataAtual}.</div>
             <div style="margin-top:1.5cm; text-align:center;">
                 <div class="linha-assinatura"></div><small>PROFESSOR(A)</small><br><br>
                 <div class="linha-assinatura"></div><small>COORDENAÇÃO / DIREÇÃO</small>
