@@ -3,71 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Premium</title>
+    <title>CONTAÊ PROFE - Versão Final ABNT</title>
     
     <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757','icons':[{'src':'https://cdn-icons-png.flaticon.com/512/3426/3426653.png','sizes':'512x512','type':'image/png'}]}">
     <meta name="theme-color" content="#ff4757">
 
     <style>
-        :root { 
-            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; 
-            --branco: #ffffff; --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
-        }
+        :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --branco: #ffffff; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; }
         
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        
-        /* BANNER INSTALAÇÃO */
+        /* BANNER PWA */
         #pwa-install-banner {
             display: none; background: #2f3542; color: white; padding: 15px;
-            position: sticky; top: 0; z-index: 9999; text-align: center; font-size: 0.9rem;
+            position: sticky; top: 0; z-index: 9999; text-align: center;
         }
         #pwa-install-banner button {
-            background: var(--cor-avancado); border: none; color: white; padding: 8px 15px;
+            background: #2ecc71; border: none; color: white; padding: 8px 15px;
             border-radius: 8px; font-weight: bold; margin-left: 10px; cursor: pointer;
         }
 
         header { background: var(--primaria); color: white; padding: 25px; text-align: center; }
         .logo { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0; }
-        .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
         .container { max-width: 900px; margin: 20px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .campo { display: flex; flex-direction: column; margin-bottom: 15px; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .campo { display: flex; flex-direction: column; margin-bottom: 10px; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 5px; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 8px; margin: 20px 0 10px; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; }
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-weight: bold; text-align: center; background: white; color: #747d8c; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-weight: bold; text-align: center; background: white; color: #747d8c; font-size: 0.8rem; }
         .btn-v.active { color: white; border-color: transparent; }
-        .btn-v.ini.active { background: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); }
+        .btn-v.ini.active { background: #e74c3c; }
+        .btn-v.pro.active { background: #f1c40f; }
+        .btn-v.ava.active { background: #2ecc71; }
 
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; color: white; background: var(--primaria); cursor: pointer; }
 
-        /* EDITOR ABNT */
+        /* --- CONFIGURAÇÃO DA PÁGINA ABNT (IMPRESSÃO) --- */
         #editor { 
-            width: 210mm; margin: 20px auto; background: white; padding: 3cm 2cm 2cm 3cm; 
-            box-sizing: border-box; font-family: Arial, sans-serif; font-size: 12pt; display: none;
+            width: 210mm; min-height: 297mm; margin: 20px auto; background: white; 
+            padding: 3cm 2cm 2cm 3cm; /* Margens ABNT: Sup 3, Dir 2, Inf 2, Esq 3 */
+            box-sizing: border-box; font-family: Arial, sans-serif !important; 
+            display: none; border: 1px dashed #ccc; color: #000;
         }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.2em; }
-        .assinatura-box { margin-top: 2.5cm; text-align: center; }
+        .corpo-texto { 
+            font-size: 12pt !important; 
+            line-height: 1.5 !important; 
+            text-align: justify !important; 
+            text-indent: 1.25cm; 
+            margin-top: 2cm; /* Espaçamento de 2.0 entre título e corpo */
+        }
+        .assinatura-box { margin-top: 2cm; text-align: center; font-size: 10pt; font-weight: bold; }
+        .linha { border-top: 1px solid #000; width: 250px; margin: 0 auto 5px auto; }
 
         @media print { 
             @page { size: A4; margin: 0; }
             .no-print { display: none !important; } 
-            #editor { display: block !important; margin: 0 !important; width: 100%; } 
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 210mm; height: 297mm; } 
         }
     </style>
 </head>
 <body>
 
 <div id="pwa-install-banner" class="no-print">
-    <input type="checkbox" id="aceito-termos"> Aceito os termos de uso.
-    <button id="btn-instalar-app" disabled>BAIXAR APP CONTAÊ</button>
+    <small><input type="checkbox" id="aceito-termos"> Aceito os termos para instalar o App.</small>
+    <button id="btn-instalar-app" disabled>INSTALAR CONTAÊ</button>
 </div>
 
 <header class="no-print">
@@ -84,7 +88,7 @@
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo">
-            <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
+            <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option>
         </select></div>
     </div>
     <div id="campos-container"></div>
@@ -96,37 +100,31 @@
 
 <div id="editor" contenteditable="true"></div>
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom:50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR</button>
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR AGORA</button>
 </div>
 
 <script>
-    /* BANCO DE DADOS DE EXCELÊNCIA */
     const db = {
         inicio: [
             "Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ",
-            "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
             "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que "
         ],
         meio: [
-            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social. ",
-            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência. ",
-            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos."
+            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. ",
+            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação. "
         ],
         detalhes: [
-            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em momentos de contação de histórias. ",
-            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando diversos suportes artísticos com sensibilidade. ",
-            "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas sobre quantidades, tempo e espaço."
+            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando diversos suportes artísticos. "
         ],
         conclusao: [
             "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica.",
-            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral.",
-            "Os registros mostram um processo evolutivo contínuo e sólido. A criança segue para as próximas vivências com segurança."
+            "Os registros mostram um processo evolutivo contínuo e sólido. A criança segue para as próximas vivências com segurança emocional."
         ],
-        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "O mundo fica colorido com sua alegria."]
+        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir."]
     };
 
-    /* LÓGICA DO APP */
     let bipEvent;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault(); bipEvent = e;
@@ -152,41 +150,35 @@
         const esc = document.getElementById('escola').value.toUpperCase();
         const nome = document.getElementById('crianca').value.toUpperCase();
         const prof = document.getElementById('prof').value.toUpperCase();
-        const fase = document.getElementById('fase').value;
         const per = document.getElementById('periodo').value;
 
         document.getElementById('editor').innerHTML = `
             <div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:1.5cm;">${esc || 'NOME DA ESCOLA'}</div>
-            <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:1.5cm;">
+            <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:1.5cm; font-size:12pt;">
                 <b>PROFESSOR(A):</b> ${prof}<br>
                 <b>CRIANÇA:</b> ${nome}<br>
-                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div style="text-align:center; font-weight:bold; margin-bottom:1.5cm;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${per}</div>
-            <div class="corpo-texto">${sortear(db.inicio)} ${nome} ${sortear(db.meio)}</div>
-            <div class="corpo-texto">${sortear(db.detalhes)}</div>
-            <div class="corpo-texto">${sortear(db.conclusao)}</div>
-            <div style="text-align:center; font-style:italic; margin-top:2cm;">"${sortear(db.frasesFinais)}"</div>
-            <div style="text-align:center; margin-top:1.5cm;">Manaus, 19 de abril de 2026.</div>
-            <div class="assinatura-box"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div><b>PROFESSOR(A)</b></div>
-            <div class="assinatura-box"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div><b>COORDENAÇÃO / DIREÇÃO</b></div>
-            <div class="assinatura-box"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div><b>RESPONSÁVEL</b></div>
+            <div style="text-align:center; font-weight:bold; font-size:12pt; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${per}</div>
+            <div class="corpo-texto">
+                ${sortear(db.inicio)} ${nome} ${sortear(db.meio)} ${sortear(db.detalhes)} ${sortear(db.conclusao)}
+            </div>
+            <div style="text-align:center; font-style:italic; margin-top:2cm; font-size:12pt;">"${sortear(db.frasesFinais)}"</div>
+            <div style="text-align:center; margin-top:1.5cm; font-size:12pt;">Manaus, 19 de abril de 2026.</div>
+            <div class="assinatura-box"><div class="linha"></div>PROFESSOR(A)</div>
+            <div class="assinatura-box"><div class="linha"></div>COORDENAÇÃO / DIREÇÃO</div>
+            <div class="assinatura-box"><div class="linha"></div>RESPONSÁVEL</div>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    /* INICIAR CAMPOS BNCC */
     const campos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
     campos.forEach((n, i) => {
-        document.getElementById('campos-container').innerHTML += `
-            <div class="secao-pergunta">${n}</div>
-            <div class="grid-botoes" id="c-${i}">
-                <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
-                <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
-                <div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
-            </div>`;
+        document.getElementById('campos-container').innerHTML += `<div class="secao-pergunta">${n}</div><div class="grid-botoes" id="c-${i}">
+            <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div><div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div><div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
+        </div>`;
     });
 </script>
 </body>
