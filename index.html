@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE</title>
+    <title>CONTAÊ PROFE - Versão Final</title>
     
-    <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757'}">
+    <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757','icons':[{'src':'https://cdn-icons-png.flaticon.com/512/3426/3426653.png','sizes':'512x512','type':'image/png'}]}">
     <meta name="theme-color" content="#ff4757">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <style>
         :root { 
@@ -23,27 +23,47 @@
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         
-        /* LOGO VISUAL E SLOGAN */
-        header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .logo-container { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .logo-icon { background: white; color: var(--primaria); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin-bottom: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .logo { font-size: 2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; line-height: 1; }
-        .logo span { color: #ffeaa7; }
-        .slogan { font-size: 0.85rem; font-weight: 400; font-style: italic; opacity: 0.9; margin-top: 10px; max-width: 300px; line-height: 1.4; }
+        /* BANNER DE INSTALAÇÃO */
+        #pwa-install-banner {
+            display: none;
+            background: #2f3542;
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        #pwa-install-banner button {
+            background: var(--cor-avancado);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        #pwa-install-banner button:disabled { background: #747d8c; opacity: 0.6; }
 
-        .container { max-width: 900px; margin: 20px auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
+        .logo span { color: #ffeaa7; }
+        .slogan { font-size: 0.9rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; max-width: 300px; margin-left: auto; margin-right: auto; }
+
+        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; }
-        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; display: block; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
+        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
         .pergunta-texto { font-size: 1rem; font-weight: 600; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; transition: 0.3s; color: #747d8c; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
         .btn-v.active { color: white; border-color: transparent; }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
@@ -53,43 +73,46 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* EDITOR E ABNT */
-        #editor { width: 210mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 3cm 2cm 2cm 3cm; font-family: Arial, sans-serif; font-size: 12pt; color: #000; display: none; border: 1px dashed #ccc; }
-        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 2cm; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 2cm; text-transform: uppercase; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2cm; text-transform: uppercase; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1.2em; font-size: 12pt; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 3cm; margin-bottom: 2cm; }
-        .data-local { text-align: center; margin-bottom: 3cm; }
-        .assinatura-box { margin-bottom: 2.5cm; text-align: center; }
-        .linha-assinatura { border-top: 1px solid #000; width: 300px; margin: 0 auto 5px auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 11pt; }
+        /* EDITOR ABNT */
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
+        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
+        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
+        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
+        .data-local { text-align: center; margin-bottom: 3.5em; }
+        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
-        @media print {
+        @media print { 
             @page { size: A4; margin: 0; }
-            .no-print { display: none !important; }
-            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; }
+            .no-print { display: none !important; } 
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
         }
     </style>
 </head>
 <body>
 
+<div id="pwa-install-banner" class="no-print">
+    <small>
+        <input type="checkbox" id="aceito-termos"> Aceito os termos de uso.
+    </small>
+    <button id="btn-instalar-app" disabled>BAIXAR APP CONTAÊ</button>
+</div>
+
 <header class="no-print">
-    <div class="logo-container">
-        <div class="logo-icon">C</div>
-        <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-        <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div>
-    </div>
+    <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
+    <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="Ex: Escola Municipal..."></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
+        <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
+        <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo">
             <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
             <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
@@ -103,17 +126,35 @@
 </div>
 
 <div id="editor" contenteditable="true"></div>
-
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR AGORA</button>
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
 </div>
 
 <script>
-    // PWA - Script para permitir instalação
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
+    /* LÓGICA DE INSTALAÇÃO DO APP */
+    let bipEvent;
+    const banner = document.getElementById('pwa-install-banner');
+    const btnInstalar = document.getElementById('btn-instalar-app');
+    const checkTermos = document.getElementById('aceito-termos');
 
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        bipEvent = e;
+        banner.style.display = 'block';
+    });
+
+    checkTermos.addEventListener('change', () => {
+        btnInstalar.disabled = !checkTermos.checked;
+    });
+
+    btnInstalar.addEventListener('click', () => {
+        if (bipEvent) {
+            bipEvent.prompt();
+            banner.style.display = 'none';
+        }
+    });
+
+    /* LÓGICA DO RELATÓRIO (MANTIDA) */
     const camposBNCC = [
         {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
         {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
@@ -123,9 +164,14 @@
     ];
 
     const db = {
-        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "Sua curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria."]
+        inicio: ["Ao longo deste período letivo, pautamos nossa prática na observação sensível... ", "Mediante a estruturação de ambientes que provocam o protagonismo... "],
+        meio: ["demonstrasse um percurso de aprendizagem rico em descobertas significativas... ", "explorasse linguagens e sentidos, consolidando saberes essenciais... "],
+        detalhes: ["Além disso, demonstrou grande autonomia ao realizar atividades de higiene... ", "Nas atividades voltadas ao corpo e movimento, revelou controle progressivo... "],
+        conclusao: ["Concluímos este ciclo celebrando as vitórias individuais... ", "Finalizamos esta etapa com a certeza de crescimento integral... "],
+        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir."]
     };
 
+    let selecoes = {};
     function iniciar() {
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
@@ -143,44 +189,37 @@
     function marcar(idx, n, b) { 
         Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
         b.classList.add('active'); 
+        selecoes[idx] = n; 
     }
-
+    
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function gerarRelatorio() {
         let esc = document.getElementById('escola').value.toUpperCase().trim();
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
-        const prof = document.getElementById('prof').value.toUpperCase();
-        const turma = document.getElementById('turma').value.toUpperCase();
-        const fase = document.getElementById('fase').value;
-        const per = document.getElementById('periodo').value;
-        const gen = document.getElementById('genero').value;
-
-        const p1 = `Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ${gen} <strong>${nomeAlu}</strong> ampliasse sua percepção espacial e temporal através de jogos, brincadeiras e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores e uma curiosidade científica ao investigar o mundo ao seu redor.`;
-        const p2 = `Além disso, demonstrou autonomia ao realizar atividades de rotina, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente, associando a ficção com suas próprias vivências de forma criativa.`;
-
+        
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${esc || "NOME DA INSTITUIÇÃO"}</div>
+            <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
-                <b>DOCENTE:</b> ${prof}<br>
-                <b>CRIANÇA:</b> ${nomeAlu}<br>
-                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${turma}
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
+                <b>CRIANÇA:</b> <b>${nomeAlu}</b><br>
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${per}</div>
-            <div class="corpo-texto">${p1}</div>
-            <div class="corpo-texto">${p2}</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
+            <div class="corpo-texto">${sortear(db.inicio)} ${nomeAlu} ${sortear(db.meio)}</div>
+            <div class="corpo-texto">${sortear(db.detalhes)}</div>
+            <div class="corpo-texto">${sortear(db.conclusao)}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
             <div class="data-local">Manaus, 19 de abril de 2026.</div>
-            <div class="assinatura-box"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
-            <div class="assinatura-box"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span></div>
-            <div class="assinatura-box"><div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span></div>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
-        window.scrollTo({ top: document.getElementById('editor').offsetTop, behavior: 'smooth' });
+        window.scrollTo(0, document.body.scrollHeight);
     }
-
     iniciar();
 </script>
 </body>
