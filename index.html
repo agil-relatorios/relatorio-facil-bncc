@@ -13,40 +13,39 @@
         .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 10px; }
         .container { max-width: 900px; margin: 20px auto; background: white; padding: 20px; border-radius: 20px; }
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 5px; }
+        .campo-input { display: flex; flex-direction: column; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; outline: none; text-transform: uppercase; }
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; }
+        
+        /* Ajuste nos Campos de Experiência */
+        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 8px; margin: 25px 0 10px; }
+        .titulo-campo { font-size: 1.3rem; font-weight: bold; display: block; }
+        .guia-professor { font-size: 0.9rem; font-weight: normal; opacity: 0.9; }
+        
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; text-align: center; font-weight: bold; background: white; font-size: 0.8rem; }
         .btn-v.active { color: white; }
         .btn-v.ini.active { background: #e74c3c; border-color: #e74c3c; }
         .btn-v.pro.active { background: #f1c40f; border-color: #f1c40f; }
         .btn-v.ava.active { background: #2ecc71; border-color: #2ecc71; }
+        
         .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
         .btn-limpar { padding: 20px; border: 2px solid #ccc; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; background: white; }
 
-        /* --- ESTILO DE IMPRESSÃO ABNT --- */
+        /* Ajuste da visualização na tela antes de imprimir */
+        #editor { 
+            width: 210mm; margin: 20px auto; background: white; display: none; 
+            padding: 3cm 2cm 2cm 3cm; box-sizing: border-box; border: 1px dashed #ccc; 
+            text-align: justify; line-height: 1.5; color: #000;
+        }
+
         @media print {
             @page { size: A4; margin: 3cm 2cm 2cm 3cm; }
             .no-print { display: none !important; }
             body { background: white !important; }
-            #editor { 
-                display: block !important; 
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                color: #000 !important;
-                font-family: Arial, sans-serif !important;
-                font-size: 12pt !important;
-            }
-            .paragrafo { text-indent: 1.25cm !important; text-align: justify !important; margin-bottom: 15px !important; line-height: 1.5 !important; }
-        }
-
-        #editor { 
-            width: 210mm; margin: 20px auto; background: white; display: none; 
-            padding: 3cm 2cm 2cm 3cm; box-sizing: border-box; border: 1px dashed #ccc; 
+            #editor { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; }
+            .paragrafo { text-indent: 1.25cm !important; margin-bottom: 15px !important; }
         }
     </style>
 </head>
@@ -58,11 +57,11 @@
 
     <div class="container no-print">
         <div class="grid-inputs">
-            <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-            <div class="campo"><label>Professor</label><input type="text" id="prof"></div>
-            <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-            <div class="campo"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option><option value="a criança">A CRIANÇA</option></select></div>
-            <div class="campo"><label>Período</label><select id="periodo">
+            <div class="campo-input"><label>Escola</label><input type="text" id="escola"></div>
+            <div class="campo-input"><label>Professor</label><input type="text" id="prof"></div>
+            <div class="campo-input"><label>Criança</label><input type="text" id="crianca"></div>
+            <div class="campo-input"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option><option value="a criança">A CRIANÇA</option></select></div>
+            <div class="campo-input"><label>Período</label><select id="periodo">
                 <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
                 <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
             </select></div>
@@ -77,18 +76,30 @@
     <div id="editor" contenteditable="true"></div>
 
     <div class="no-print" id="btn-print" style="display:none; text-align:center; padding: 40px;">
-        <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR</button>
+        <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR RELATÓRIO</button>
     </div>
 
     <script>
-        const campos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+        const camposBNCC = [
+            {t: "1. O EU, O OUTRO E O NÓS", g: "Vínculos, identidade e convivência."},
+            {t: "2. CORPO, GESTOS E MOVIMENTOS", g: "Autonomia motora e expressão corporal."},
+            {t: "3. TRAÇOS, SONS, CORES E FORMAS", g: "Expressão artística, cores e sons."},
+            {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", g: "Comunicação, leitura e criatividade."},
+            {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", g: "Raciocínio lógico e mundo físico/social."}
+        ];
+
         const cCont = document.getElementById('campos-container');
-        campos.forEach((n, i) => {
-            cCont.innerHTML += `<div class="secao-pergunta">${n}</div><div class="grid-botoes" id="c-${i}">
-                <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
-                <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
-                <div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
-            </div>`;
+        camposBNCC.forEach((campo, i) => {
+            cCont.innerHTML += `
+                <div class="secao-pergunta">
+                    <span class="titulo-campo">${campo.t}</span>
+                    <span class="guia-professor">${campo.g}</span>
+                </div>
+                <div class="grid-botoes" id="c-${i}">
+                    <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
+                    <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
+                </div>`;
         });
 
         function marcar(idx, tipo, btn) {
@@ -104,32 +115,33 @@
             const per = document.getElementById('periodo').value;
 
             document.getElementById('editor').innerHTML = `
-                <div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:20px;">${esc || 'NOME DA ESCOLA'}</div>
-                <div style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; font-size: 12pt;">
+                <div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:25px;">ESCOLA: ${esc || '________________________________'}</div>
+                <div style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; font-size: 12pt; line-height: 1.8;">
                     <b>PROFESSOR(A):</b> ${prof}<br>
                     <b>CRIANÇA:</b> ${nome}<br>
                     <b>PERÍODO:</b> ${per}
                 </div>
-                <div style="text-align:center; font-weight:bold; text-decoration:underline; margin-bottom:25px;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL</div>
+                <div style="text-align:center; font-weight:bold; text-decoration:underline; margin-bottom:30px;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL</div>
                 
-                <div class="paragrafo">
+                <div class="paragrafo" style="text-align:justify; text-indent:1.25cm; line-height:1.5; margin-bottom:15px;">
                     Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ${gen} <strong>${nome}</strong> ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais ao seu redor no dia a dia.
                 </div>
                 
-                <div class="paragrafo">
+                <div class="paragrafo" style="text-align:justify; text-indent:1.25cm; line-height:1.5; margin-bottom:15px;">
                     Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências.
                 </div>
                 
-                <div class="paragrafo">
+                <div class="paragrafo" style="text-align:justify; text-indent:1.25cm; line-height:1.5; margin-bottom:15px;">
                     Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e potentes descobertas em seu caminhar.
                 </div>
 
-                <p style="text-align:center; margin-top:40px;">Manaus, 19 de abril de 2026.</p>
+                <p style="text-align:center; margin-top:40px; font-style:italic;">"Seu brilho único ilumina nossa sala todos os dias."</p>
+                <p style="text-align:center; margin-top:30px;">Manaus, 19 de abril de 2026.</p>
                 
-                <div style="margin-top:50px; text-align:center;">
-                    <div style="margin-bottom:30px;"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div>PROFESSOR(A)</div>
-                    <div style="margin-bottom:30px;"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div>COORDENAÇÃO / DIREÇÃO</div>
-                    <div style="margin-bottom:30px;"><div style="border-top:1px solid #000; width:250px; margin:auto;"></div>RESPONSÁVEL</div>
+                <div style="margin-top:60px; text-align:center;">
+                    <div style="margin-bottom:45px;"><div style="border-top:1px solid #000; width:350px; margin:auto;"></div>PROFESSOR(A)</div>
+                    <div style="margin-bottom:45px;"><div style="border-top:1px solid #000; width:350px; margin:auto;"></div>COORDENAÇÃO / DIREÇÃO</div>
+                    <div style="margin-bottom:45px;"><div style="border-top:1px solid #000; width:350px; margin:auto;"></div>RESPONSÁVEL</div>
                 </div>
             `;
             document.getElementById('editor').style.display = 'block';
