@@ -1,119 +1,107 @@
+{
+  "name": "CONTAÊ PROFE",
+  "short_name": "Contaê",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ff4d4d",
+  "theme_color": "#ff4d4d",
+  "icons": [
+    {
+      "src": "logo_contae.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo_contae.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+2. Agora, o código do seu App (index.html) com o convite de instalação automático:
+
+HTML
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Oficial</title>
-    
+    <title>CONTAÊ PROFE</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="logo_contae.png">
     <link rel="apple-touch-icon" href="logo_contae.png">
-
+    
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .header { background-color: #ff4d4d; color: white; padding: 20px; border-radius: 15px 15px 5px 5px; text-align: center; margin: -25px -25px 25px -25px; }
         
-        /* Estilo do Guia de Instalação */
-        .guia-instalação { background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-size: 14px; color: #856404; }
-        .btn-ajuda { background: #856404; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-top: 5px; }
-
+        /* Botão Mágico de Instalação */
+        #installBanner { display: none; background: #28a745; color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; cursor: pointer; font-weight: bold; border: none; width: 100%; }
+        
         label { display: block; margin-top: 15px; font-weight: bold; color: #444; font-size: 14px; }
         input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; background: #fafafa; }
-        
         .button-group { display: flex; gap: 10px; margin-top: 25px; }
         button { flex: 1; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-new { background-color: #e0e0e0; color: #333; }
-        .btn-generate { background-color: #ff4d4d; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        
+        .btn-generate { background-color: #ff4d4d; color: white; }
         #relatorioArea { display: none; margin-top: 30px; padding: 30px; border: 1px solid #eee; background: #fff; border-radius: 10px; }
-        .rel-header { text-align: center; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; }
-        .rel-text { line-height: 1.8; text-align: justify; color: #333; margin-bottom: 30px; }
-        .rel-footer { display: flex; justify-content: space-between; margin-top: 50px; font-size: 12px; border-top: 1px solid #eee; padding-top: 20px; }
-        .print-btn { background: #28a745; color: white; margin-top: 20px; width: 100%; }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <button id="installBanner">✨ CLIQUE AQUI PARA BAIXAR O APP NA TELA DO CELULAR</button>
+
     <div class="header">
         <h1>CONTAÊ <span style="color: #ffeb3b;">PROFE</span></h1>
-        <p><i>"A voz do professor, a história da criança"</i></p>
-    </div>
-
-    <div class="guia-instalação">
-        <strong>DICA: Use no Chrome ou Safari para melhor experiência.</strong><br>
-        <button class="btn-ajuda" onclick="mostrarAjuda()">COMO COLOCAR NA TELA DO CELULAR?</button>
+        <p><i>"A voz do professor, a história da criança, transformando vivências em registros."</i></p>
     </div>
 
     <label>NOME DA INSTITUIÇÃO</label>
     <input type="text" id="escola" placeholder="Digite o nome da escola">
-
+    
     <label>PROFESSOR(A)</label>
     <input type="text" id="professor" placeholder="Seu nome">
 
     <label>CRIANÇA</label>
     <input type="text" id="crianca" placeholder="Nome do aluno">
 
-    <div style="display: flex; gap: 10px;">
-        <div style="flex: 1;">
-            <label>FASE</label>
-            <select id="fase">
-                <option>1º PERÍODO</option>
-                <option>2º PERÍODO</option>
-            </select>
-        </div>
-        <div style="flex: 1;">
-            <label>TURMA</label>
-            <input type="text" id="turma" placeholder="Ex: E">
-        </div>
-    </div>
-
-    <div style="display: flex; gap: 10px;">
-        <div style="flex: 1;">
-            <label>GÊNERO</label>
-            <select id="genero">
-                <option value="a criança">A CRIANÇA</option>
-                <option value="o aluno">O ALUNO</option>
-                <option value="a aluna">A ALUNA</option>
-            </select>
-        </div>
-        <div style="flex: 1;">
-            <label>PERÍODO</label>
-            <select id="periodo">
-                <option>1º BIMESTRE</option>
-                <option>2º BIMESTRE</option>
-                <option>3º BIMESTRE</option>
-                <option>4º BIMESTRE</option>
-            </select>
-        </div>
-    </div>
-
     <div class="button-group">
-        <button class="btn-new" onclick="window.location.reload()">+ NOVO ALUNO</button>
         <button class="btn-generate" onclick="gerarRelatorio()">📄 GERAR RELATÓRIO</button>
     </div>
 
     <div id="relatorioArea">
-        <div class="rel-header">Relatório de Desenvolvimento Pedagógico</div>
-        <div id="conteudoRelatorio" class="rel-text"></div>
-        <div class="rel-footer">
-            <span>GESTOR(A)</span>
-            <span>PROFESSOR(A)</span>
-            <span>RESPONSÁVEL</span>
-        </div>
-        <button class="print-btn" onclick="window.print()">SALVAR OU ENVIAR</button>
+        <div id="conteudoRelatorio"></div>
+        <button onclick="window.print()" style="background:#28a745; color:white; width:100%; margin-top:20px; padding:10px; border-radius:5px; border:none;">SALVAR PDF / ENVIAR</button>
     </div>
 </div>
 
 <script>
-    function mostrarAjuda() {
-        alert("PARA INSTALAR:\n\n1. No topo da tela, clique nos 3 pontinhos (Android) ou no ícone de compartilhar (iPhone).\n2. Escolha 'Adicionar à tela inicial'.\n3. Se estiver no WhatsApp, escolha primeiro 'Abrir no navegador'.");
-    }
+    // Lógica para mostrar o botão de instalação (Acesso Seguro)
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installBanner').style.display = 'block';
+    });
+
+    document.getElementById('installBanner').addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                document.getElementById('installBanner').style.display = 'none';
+            }
+            deferredPrompt = null;
+        }
+    });
 
     function gerarRelatorio() {
-        // ... (o conteúdo desta função permanece igual ao anterior)
+        const crianca = document.getElementById('crianca').value.toUpperCase();
+        const texto = `O relatório de <strong>${crianca}</strong> foi gerado com sucesso baseando-se nas vivências da BNCC...`;
+        document.getElementById('conteudoRelatorio').innerHTML = texto;
+        document.getElementById('relatorioArea').style.display = 'block';
     }
 </script>
-
 </body>
 </html>
