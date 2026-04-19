@@ -3,127 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Oficial</title>
+    <title>CONTAÊ PROFE - ABNT Oficial</title>
     <style>
-        :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; }
+        /* CONFIGURAÇÃO DA TELA (O QUE VOCÊ VÊ NO CELULAR) */
+        :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .logo { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0; }
-        .logo span { color: #ffeaa7; }
-        .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 10px; }
-        .container { max-width: 900px; margin: 20px auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        header { background: var(--primaria); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: 20px auto; background: white; padding: 20px; border-radius: 20px; }
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; outline: none; text-transform: uppercase; font-size: 0.9rem; }
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 5px; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; outline: none; text-transform: uppercase; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 10px; border-radius: 8px; margin: 20px 0 10px; font-weight: bold; }
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; transition: 0.3s; }
-        .btn-v.active { color: white; }
-        .btn-v.ini.active { background: var(--cor-inicial); border-color: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); border-color: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); border-color: var(--cor-avancado); }
-        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; text-align: center; font-weight: bold; background: white; font-size: 0.8rem; }
+        .btn-v.active { color: white; border-color: transparent; }
+        .btn-v.ini.active { background: #e74c3c; }
+        .btn-v.pro.active { background: #f1c40f; }
+        .btn-v.ava.active { background: #2ecc71; }
+        .acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
-        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; background: white; }
-        #editor { width: 95%; max-width: 210mm; margin: 20px auto; background: white; padding: 25px; display: none; border: 1px solid #eee; border-radius: 15px; }
-        
-        /* AJUSTE PARA LIMPAR A IMPRESSÃO */
-        @media print { 
-            @page { margin: 1.5cm; } 
-            body { background: white; }
-            .no-print { display: none !important; } 
-            #editor { display: block !important; margin: 0; width: 100%; padding: 0; border: none; box-shadow: none; } 
+        .btn-limpar { padding: 20px; border: 2px solid #ccc; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; background: white; }
+
+        /* --- CONFIGURAÇÃO DE IMPRESSÃO (ABNT REAL) --- */
+        @media print {
+            @page { 
+                size: A4; 
+                margin: 3cm 2cm 2cm 3cm; /* ABNT: Superior 3, Direita 2, Inferior 2, Esquerda 3 */
+            }
+            .no-print { display: none !important; }
+            body { background: white !important; }
+            
+            #editor { 
+                display: block !important; 
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                color: #000000 !important; /* PRETO PURO */
+                font-family: Arial, sans-serif !important; /* FONTE ABNT */
+                font-size: 12pt !important; /* TAMANHO ABNT */
+                line-height: 1.5 !important; /* ESPAÇAMENTO ABNT */
+            }
+            strong, b { color: #000000 !important; font-weight: bold !important; }
+        }
+
+        #editor { 
+            width: 210mm; min-height: 297mm; padding: 3cm 2cm 2cm 3cm; 
+            margin: 20px auto; background: white; display: none; 
+            box-sizing: border-box; border: 1px dashed #ccc; color: #000;
         }
     </style>
 </head>
 <body>
     <header class="no-print">
-        <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-        <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div>
+        <h1 style="margin:0">CONTAÊ PROFE</h1>
+        <p style="margin:5px 0 0 0">Padrão ABNT e Impressão em Preto Puro</p>
     </header>
+
     <div class="container no-print">
         <div class="grid-inputs">
-            <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA INSTITUIÇÃO"></div>
-            <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+            <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+            <div class="campo"><label>Professor</label><input type="text" id="prof"></div>
             <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-            <div class="campo"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option><option value="a criança">A CRIANÇA</option></select></div>
+            <div class="campo"><label>Gênero</label><select id="genero"><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
             <div class="campo"><label>Período</label><select id="periodo">
                 <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
                 <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
             </select></div>
         </div>
         <div id="campos-container"></div>
-        <div class="acoes-container">
-            <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
-            <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
+        <div class="acoes">
+            <button class="btn-limpar" onclick="location.reload()">NOVO</button>
+            <button class="btn-gerar" onclick="gerarRelatorio()">GERAR RELATÓRIO ABNT</button>
         </div>
     </div>
-    <div id="editor" contenteditable="true"></div>
-    <div class="no-print" id="btn-print" style="display:none; text-align:center; padding-bottom: 50px;">
-        <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR SEM LINK</button>
-    </div>
-    <script>
-        const camposBNCC = [
-            {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
-            {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
-            {n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Expressão artística."},
-            {n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Comunicação e leitura."},
-            {n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio lógico."}
-        ];
 
-        function iniciar() {
-            const cCont = document.getElementById('campos-container');
-            camposBNCC.forEach((item, idx) => {
-                const div = document.createElement('div');
-                div.innerHTML = `<div class="secao-pergunta"><strong>${item.n}</strong><br><small>${item.p}</small></div>
-                <div class="grid-botoes" id="c-${idx}">
-                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
-                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AVANÇADO</div>
-                </div>`;
-                cCont.appendChild(div);
-            });
+    <div id="editor" contenteditable="true"></div>
+
+    <div class="no-print" id="btn-print" style="display:none; text-align:center; padding: 40px;">
+        <button onclick="window.print()" style="padding:15px 50px; background:#000; color:#fff; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR AGORA (PRETO PURO)</button>
+    </div>
+
+    <script>
+        const campos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+        const cCont = document.getElementById('campos-container');
+        campos.forEach((n, i) => {
+            cCont.innerHTML += `<div class="secao-pergunta">${n}</div><div class="grid-botoes" id="c-${i}">
+                <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
+                <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
+            </div>`;
+        });
+
+        function marcar(idx, tipo, btn) {
+            Array.from(document.getElementById(`c-${idx}`).children).forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
-        function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); }
 
         function gerarRelatorio() {
             const esc = document.getElementById('escola').value.toUpperCase();
+            const prof = document.getElementById('prof').value.toUpperCase();
             const nome = document.getElementById('crianca').value.toUpperCase();
             const gen = document.getElementById('genero').value;
-            const prof = document.getElementById('prof').value.toUpperCase();
             const per = document.getElementById('periodo').value;
-            
-            if(!nome) { alert("Por favor, digite o nome da criança!"); return; }
 
             document.getElementById('editor').innerHTML = `
-                <div style="text-align:center; font-weight:bold; font-size:14pt; margin-bottom:10px;">${esc || 'NOME DA INSTITUIÇÃO'}</div>
-                <div style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; font-size: 11pt;">
+                <div style="text-align:center; font-family:Arial; font-size:14pt; font-weight:bold; margin-bottom:30px;">${esc}</div>
+                <div style="font-family:Arial; font-size:12pt; margin-bottom:30px; line-height:1.5;">
                     <b>DOCENTE:</b> ${prof}<br>
                     <b>CRIANÇA:</b> ${nome}<br>
                     <b>PERÍODO:</b> ${per}
                 </div>
-                <div style="text-align:center; font-weight:bold; text-decoration:underline; margin-bottom:20px;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL</div>
-                <div style="text-align:justify; line-height:1.6; text-indent:1.25cm; font-size:12pt;">
+                <div style="text-align:center; font-family:Arial; font-size:12pt; font-weight:bold; text-decoration:underline; margin-bottom:30px;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL</div>
+                <div style="text-align:justify; font-family:Arial; font-size:12pt; line-height:1.5; text-indent:1.25cm;">
                     Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ${gen} <strong>${nome}</strong> ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais ao seu redor no dia a dia.
                     <br><br>
                     Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências.
                     <br><br>
                     Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e potentes descobertas em seu caminhar.
                 </div>
-                <p style="text-align:center; margin-top:40px; font-style:italic;">"Seu brilho único ilumina nossa sala todos os dias."</p>
-                <p style="text-align:center; margin-top:30px;">Manaus, 19 de abril de 2026.</p>
-                <div style="margin-top:60px; display:flex; justify-content:space-around; text-align:center; font-size:10pt;">
-                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">PROFESSOR(A)</div>
-                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">COORDENAÇÃO</div>
-                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">RESPONSÁVEL</div>
+                <p style="text-align:center; margin-top:50px; font-family:Arial; font-size:12pt;">Manaus, 19 de abril de 2026.</p>
+                <div style="margin-top:80px; display:flex; justify-content:space-around; font-family:Arial; font-size:10pt;">
+                    <div style="border-top:1px solid #000; width:180px; text-align:center; padding-top:5px;">PROFESSOR(A)</div>
+                    <div style="border-top:1px solid #000; width:180px; text-align:center; padding-top:5px;">COORDENAÇÃO</div>
                 </div>
             `;
             document.getElementById('editor').style.display = 'block';
             document.getElementById('btn-print').style.display = 'block';
-            document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo(0, document.body.scrollHeight);
         }
-        iniciar();
     </script>
 </body>
 </html>
