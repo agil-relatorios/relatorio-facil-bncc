@@ -5,99 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONTAÊ PROFE</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="logo_contae.png">
-    <link rel="apple-touch-icon" href="logo_contae.png">
-    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .header { background-color: #ff4d4d; color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
-        .header h1 { margin: 0; font-size: 24px; }
-        .header p { margin: 10px 0 0; font-size: 14px; font-style: italic; line-height: 1.4; }
         
-        #installBtn { display: none; background: #28a745; color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; cursor: pointer; font-weight: bold; border: none; width: 100%; font-size: 14px; animation: pulse 2s infinite; }
+        /* Botão de Instalação Estilo Acesso Seguro */
+        #installBtn { display: none; background: #28a745; color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; cursor: pointer; font-weight: bold; border: none; width: 100%; animation: pulse 2s infinite; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.02);} 100% {transform: scale(1);} }
+
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        label { display: block; margin-top: 10px; font-weight: bold; font-size: 12px; color: #666; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+
+        /* Estilo BNCC (Os botões que você gosta) */
+        .bncc-section { background: #007bff; color: white; padding: 15px; border-radius: 10px; margin-top: 20px; font-weight: bold; }
+        .options-row { display: flex; gap: 5px; margin-top: 10px; }
+        .opt-btn { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: white; cursor: pointer; font-size: 12px; font-weight: bold; color: #666; }
+        .opt-btn.active { background: #ffc107; color: #000; border-color: #ffc107; }
+
+        .btn-generate { background-color: #ff4d4d; color: white; width: 100%; padding: 18px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 30px; font-size: 16px; }
         
-        label { display: block; margin-top: 15px; font-weight: bold; color: #444; font-size: 13px; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; background: #fafafa; font-size: 16px; }
-        
-        .btn-generate { background-color: #ff4d4d; color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 25px; font-size: 16px; }
-        
-        #relatorioArea { display: none; margin-top: 30px; padding: 20px; border: 2px solid #ff4d4d; background: #fff; border-radius: 10px; }
-        .rel-text { line-height: 1.8; text-align: justify; color: #333; margin-top: 20px; }
-        .print-btn { background: #28a745; color: white; margin-top: 20px; width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; }
+        #relatorioArea { display: none; margin-top: 30px; padding: 30px; border: 2px solid #ff4d4d; border-radius: 10px; background: #fff; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <button id="installBtn">📲 CLIQUE AQUI PARA BAIXAR O APP</button>
+    <button id="installBtn">📲 CLIQUE AQUI PARA INSTALAR O APP NA TELA</button>
 
     <div class="header">
         <h1>CONTAÊ <span style="color: #ffeb3b;">PROFE</span></h1>
         <p>"A voz do professor, a história da criança, transformando vivências em registros."</p>
     </div>
 
-    <label>NOME DA INSTITUIÇÃO</label>
-    <input type="text" id="escola" placeholder="Ex: CMEI Julia Barjona">
+    <div class="grid-inputs">
+        <div><label>INSTITUIÇÃO</label><input type="text" id="escola"></div>
+        <div><label>PROFESSOR(A)</label><input type="text" id="professor"></div>
+        <div><label>CRIANÇA</label><input type="text" id="crianca"></div>
+        <div><label>GÊNERO</label>
+            <select id="genero">
+                <option value="o aluno">O ALUNO</option>
+                <option value="a aluna">A ALUNA</option>
+            </select>
+        </div>
+    </div>
 
-    <label>PROFESSOR(A)</label>
-    <input type="text" id="professor" placeholder="Seu nome completo">
+    <div class="bncc-section">1. O EU, O OUTRO E O NÓS<br><small>Vínculos e identidade</small></div>
+    <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt(this, 'bncc1')">INICIAL</button>
+        <button class="opt-btn active" onclick="selectOpt(this, 'bncc1')">PROCESSO</button>
+        <button class="opt-btn" onclick="selectOpt(this, 'bncc1')">AVANÇADO</button>
+    </div>
 
-    <label>CRIANÇA</label>
-    <input type="text" id="crianca" placeholder="Nome do aluno">
+    <div class="bncc-section">2. CORPO, GESTOS E MOVIMENTOS<br><small>Autonomia motora</small></div>
+    <div class="options-row">
+        <button class="opt-btn" onclick="selectOpt(this, 'bncc2')">INICIAL</button>
+        <button class="opt-btn active" onclick="selectOpt(this, 'bncc2')">PROCESSO</button>
+        <button class="opt-btn" onclick="selectOpt(this, 'bncc2')">AVANÇADO</button>
+    </div>
 
-    <label>GÊNERO</label>
-    <select id="genero">
-        <option value="o aluno">O ALUNO</option>
-        <option value="a aluna">A ALUNA</option>
-        <option value="a criança">A CRIANÇA</option>
-    </select>
-
-    <button class="btn-generate" onclick="gerarRelatorio()">📄 GERAR RELATÓRIO</button>
+    <button class="btn-generate" onclick="gerarRelatorio()">📄 GERAR RELATÓRIO COMPLETO</button>
 
     <div id="relatorioArea">
-        <div id="conteudoRelatorio" class="rel-text"></div>
-        <button class="print-btn" onclick="window.print()">SALVAR OU ENVIAR</button>
+        <div id="conteudoRelatorio"></div>
+        <button onclick="window.print()" style="background:#28a745; color:white; width:100%; padding:15px; border-radius:10px; border:none; margin-top:20px; font-weight:bold;">SALVAR EM PDF / ENVIAR</button>
     </div>
 </div>
 
 <script>
-    // Lógica de Instalação
+    function selectOpt(btn, group) {
+        const row = btn.parentElement;
+        row.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function gerarRelatorio() {
+        const crianca = document.getElementById('crianca').value.toUpperCase();
+        const genero = document.getElementById('genero').value;
+        const escola = document.getElementById('escola').value;
+        
+        let texto = `<strong>RELATÓRIO PEDAGÓGICO - ${escola}</strong><br><br>`;
+        texto += `Observamos que ${genero} <strong>${crianca}</strong>, durante este período, desenvolveu suas competências baseadas na BNCC...`;
+        
+        document.getElementById('conteudoRelatorio').innerHTML = texto;
+        document.getElementById('relatorioArea').style.display = 'block';
+        document.getElementById('relatorioArea').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Lógica de instalação
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
         document.getElementById('installBtn').style.display = 'block';
     });
-
-    document.getElementById('installBtn').addEventListener('click', async () => {
+    document.getElementById('installBtn').addEventListener('click', () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') document.getElementById('installBtn').style.display = 'none';
             deferredPrompt = null;
         }
     });
-
-    function gerarRelatorio() {
-        const crianca = document.getElementById('crianca').value.toUpperCase();
-        const escola = document.getElementById('escola').value;
-        const prof = document.getElementById('professor').value;
-        const genero = document.getElementById('genero').value;
-        
-        const data = new Date().toLocaleDateString('pt-BR');
-
-        const texto = `<strong>RELATÓRIO DE DESENVOLVIMENTO PEDAGÓGICO</strong><br><br>
-        Durante este período, as vivências pedagógicas de <strong>${crianca}</strong> no ${escola} foram fundamentadas nos direitos de aprendizagem da BNCC. Seu desenvolvimento foi observado atentamente pelo(a) professor(a) ${prof}.<br><br>
-        Nota-se que ${crianca} apresenta um processo de amadurecimento constante. No que se refere à linguagem e socialização, ${genero} demonstra segurança ao enfrentar novos desafios e participar das propostas pedagógicas.<br><br>
-        Manaus, ${data}.`;
-
-        document.getElementById('conteudoRelatorio').innerHTML = texto;
-        document.getElementById('relatorioArea').style.display = 'block';
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
 </script>
-
 </body>
 </html>
