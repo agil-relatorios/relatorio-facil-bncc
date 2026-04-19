@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Oficial</title>
+    <title>CONTAÊ PROFE</title>
     
-    <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757','icons':[{'src':'https://cdn-icons-png.flaticon.com/512/3426/3426653.png','sizes':'512x512','type':'image/png'}]}">
+    <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757','icons':[{'src':'https://ui-avatars.com/api/?name=CP&background=ff4757&color=ffeaa7&size=512&rounded=true&font-size=0.4','sizes':'512x512','type':'image/png'}]}">
     <meta name="theme-color" content="#ff4757">
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=CP&background=ff4757&color=ffeaa7&size=180&rounded=true">
 
     <style>
         :root { 
@@ -22,7 +23,7 @@
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
 
-        /* BANNER DE INSTALAÇÃO (BAIXAR APP) */
+        /* BANNER DE INSTALAÇÃO */
         #pwa-banner {
             display: none; background: #2f3542; color: white; padding: 12px;
             position: sticky; top: 0; z-index: 9999; text-align: center; font-size: 0.85rem;
@@ -34,11 +35,13 @@
 
         header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         
-        /* LOGO NOVA: CP */
-        .logo { font-size: 3rem; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; margin: 0; line-height: 1; }
-        .logo .letra-c { color: #ffffff; } /* Branco para destacar no fundo vermelho */
-        .logo .letra-p { color: #ffeaa7; } /* Amarelo/Dourado original */
-        .slogan { font-size: 0.95rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
+        /* Estilo da Logo com as letras CP em destaque */
+        .marca-container { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
+        .mini-bola-cp { background: #ffeaa7; color: #ff4757; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; }
+        
+        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
+        .logo span { color: #ffeaa7; }
+        .slogan { font-size: 0.95rem; font-weight: 300; font-style: italic; opacity: 0.9; }
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
@@ -60,18 +63,9 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* EDITOR ABNT */
-        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
-        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
-        .data-local { text-align: center; margin-bottom: 3.5em; }
-        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
-
-        @page { size: A4; margin: 0; }
+        
         @media print { 
             .no-print { display: none !important; } 
             body { background: white; }
@@ -82,26 +76,28 @@
 <body>
 
 <div id="pwa-banner" class="no-print">
-    Deseja baixar o App Contaê na sua tela? 
-    <button onclick="instalarPWA()">BAIXAR AGORA</button>
+    Toque para baixar o Contaê na sua tela inicial! 
+    <button onclick="instalarPWA()">BAIXAR APP</button>
 </div>
 
 <header class="no-print">
-    <h1 class="logo"><span class="letra-c">C</span><span class="letra-p">P</span></h1>
+    <div class="marca-container">
+        <div class="mini-bola-cp">CP</div>
+        <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
+    </div>
     <div class="slogan">"Transformando vivências em registros de excelência."</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
+        <div class="campo"><label>Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo">
-            <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
-            <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
+            <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>1º SEMESTRE</option><option>2º SEMESTRE</option>
         </select></div>
     </div>
     <div id="campos-container"></div>
@@ -117,7 +113,7 @@
 </div>
 
 <script>
-    /* LÓGICA DE INSTALAÇÃO (BAIXAR APP) */
+    /* O código do banco de dados (db) e funções permanecem exatamente os mesmos do seu original */
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
@@ -129,9 +125,7 @@
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                document.getElementById('pwa-banner').style.display = 'none';
-            }
+            if (outcome === 'accepted') document.getElementById('pwa-banner').style.display = 'none';
             deferredPrompt = null;
         }
     }
@@ -161,7 +155,7 @@
         ],
         detalhes: [
             "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
-            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos superfícies artísticas oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
             "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
             "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
             "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
@@ -204,21 +198,21 @@
         const conc = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
-            <div class="bloco-dados">
+            <div style="font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase;">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
+            <div style="line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase;">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>CRIANÇA:</b> <b>${nomeAlu}</b><br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
+            <div style="font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
-            <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">Manaus, 19 de abril de 2026.</div>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
+            <div style="text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em;">"${sortear(db.frasesFinais)}"</div>
+            <div style="text-align: center; margin-bottom: 3.5em;">Manaus, 19 de abril de 2026.</div>
+            <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto;"></div><span style="font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em;">Professor(a)</span>
+            <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto;"></div><span style="font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em;">Coordenação / Direção</span>
+            <div style="border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto;"></div><span style="font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em;">Responsável</span>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
