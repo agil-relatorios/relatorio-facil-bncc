@@ -1,8 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONTAÊ PROFE - Oficial</title>
-    <link rel="manifest" href="manifest.json">
     <style>
         :root { --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff; --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -25,8 +26,15 @@
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; background: white; }
-        #editor { width: 95%; max-width: 210mm; margin: 20px auto; background: white; padding: 25px; display: none; border: 1px solid #eee; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        @media print { .no-print { display: none !important; } #editor { display: block !important; margin: 0; width: 100%; padding: 20mm; border: none; box-shadow: none; } }
+        #editor { width: 95%; max-width: 210mm; margin: 20px auto; background: white; padding: 25px; display: none; border: 1px solid #eee; border-radius: 15px; }
+        
+        /* AJUSTE PARA LIMPAR A IMPRESSÃO */
+        @media print { 
+            @page { margin: 1.5cm; } 
+            body { background: white; }
+            .no-print { display: none !important; } 
+            #editor { display: block !important; margin: 0; width: 100%; padding: 0; border: none; box-shadow: none; } 
+        }
     </style>
 </head>
 <body>
@@ -53,7 +61,7 @@
     </div>
     <div id="editor" contenteditable="true"></div>
     <div class="no-print" id="btn-print" style="display:none; text-align:center; padding-bottom: 50px;">
-        <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ SALVAR EM PDF / IMPRIMIR</button>
+        <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR SEM LINK</button>
     </div>
     <script>
         const camposBNCC = [
@@ -105,10 +113,10 @@
                 </div>
                 <p style="text-align:center; margin-top:40px; font-style:italic;">"Seu brilho único ilumina nossa sala todos os dias."</p>
                 <p style="text-align:center; margin-top:30px;">Manaus, 19 de abril de 2026.</p>
-                <div style="margin-top:50px; display:flex; justify-content:space-around; text-align:center; font-size:10pt;">
-                    <div style="border-top:1px solid #000; width:200px; padding-top:5px;">PROFESSOR(A)</div>
-                    <div style="border-top:1px solid #000; width:200px; padding-top:5px;">COORDENAÇÃO</div>
-                    <div style="border-top:1px solid #000; width:200px; padding-top:5px;">RESPONSÁVEL</div>
+                <div style="margin-top:60px; display:flex; justify-content:space-around; text-align:center; font-size:10pt;">
+                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">PROFESSOR(A)</div>
+                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">COORDENAÇÃO</div>
+                    <div style="border-top:1px solid #000; width:180px; padding-top:5px;">RESPONSÁVEL</div>
                 </div>
             `;
             document.getElementById('editor').style.display = 'block';
