@@ -16,7 +16,6 @@
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
 
-        /* BANNER DE BAIXAR APP (SÓ APARECE NA TELA) */
         #pwa-banner {
             display: none; background: #2f3542; color: white; padding: 12px;
             position: sticky; top: 0; z-index: 9999; text-align: center; font-size: 0.85rem;
@@ -37,11 +36,13 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; text-transform: uppercase; outline: none; }
         
         .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 8px; margin: 25px 0 10px; }
+        .guia { display: block; font-size: 0.75rem; font-weight: normal; margin-top: 5px; opacity: 0.9; font-style: italic; }
+        
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-weight: bold; text-align: center; background: white; color: #747d8c; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-weight: bold; text-align: center; background: white; color: #747d8c; font-size: 0.8rem; }
         .btn-v.active { color: white; border-color: transparent; }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
@@ -49,12 +50,11 @@
 
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; color: white; background: var(--primaria); cursor: pointer; }
+        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* --- CONFIGURAÇÃO DA FOLHA (PARA NÃO GERAR 2 PÁGINAS) --- */
         #editor { 
             width: 210mm; min-height: 280mm; margin: 20px auto; background: white; 
-            padding: 25mm 20mm 15mm 25mm; /* Ajuste leve para caber tudo */
-            box-sizing: border-box; font-family: Arial, sans-serif; font-size: 11.5pt; display: none; 
+            padding: 25mm 20mm 15mm 25mm; box-sizing: border-box; font-family: Arial, sans-serif; font-size: 11.5pt; display: none; 
         }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.5; margin-bottom: 1em; }
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
@@ -84,12 +84,26 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Gênero</label>
+            <select id="genero">
+                <option value="A CRIANÇA">A CRIANÇA</option>
+                <option value="O ALUNO">O ALUNO</option>
+                <option value="A ALUNA">A ALUNA</option>
+                <option value="ALUNO(A)">ALUNO(A)</option>
+            </select>
+        </div>
         <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Período</label><select id="periodo"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label>
+            <select id="periodo">
+                <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
+                <option>3º BIMESTRE</option><option>4º BIMESTRE</option>
+                <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
+            </select>
+        </div>
     </div>
     <div id="campos-container"></div>
     <div class="acoes-container">
@@ -119,6 +133,14 @@
         }
     }
 
+    const camposBNCC = [
+        {t: "1. O EU, O OUTRO E O NÓS", g: "Como interage com colegas e adultos? Respeita regras e expressa emoções?"},
+        {t: "2. CORPO, GESTOS E MOVIMENTOS", g: "Possui coordenação motora? Explora o espaço e conhece o próprio corpo?"},
+        {t: "3. TRAÇOS, SONS, CORES E FORMAS", g: "Como se expressa artisticamente? Reconhece sons e cores no ambiente?"},
+        {t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", g: "Participa de rodas de conversa? Relata histórias e expressa ideias com clareza?"},
+        {t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", g: "Identifica números e grandezas? Compreende a rotina e o meio natural?"}
+    ];
+
     const db = {
         inicio: ["Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ", "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que "],
         meio: ["demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social. ", "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação. "],
@@ -135,26 +157,27 @@
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function gerarRelatorio() {
-        let esc = document.getElementById('escola').value.toUpperCase();
+        let esc = document.getElementById('escola').value.toUpperCase().trim();
+        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA: " + esc;
         const nome = document.getElementById('crianca').value.toUpperCase();
         const prof = document.getElementById('prof').value.toUpperCase();
 
         document.getElementById('editor').innerHTML = `
-            <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:1cm;">${esc || 'INSTITUIÇÃO ESCOLAR'}</div>
-            <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:1cm; text-transform:uppercase;">
+            <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:0.8cm;">${esc || 'ESCOLA: INSTITUIÇÃO NÃO INFORMADA'}</div>
+            <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:0.8cm; text-transform:uppercase;">
                 <b>DOCENTE:</b> ${prof}<br>
                 <b>CRIANÇA:</b> <b>${nome}</b><br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div style="text-align:center; font-weight:bold; margin-bottom:1cm; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO - ${document.getElementById('periodo').value}</div>
+            <div style="text-align:center; font-weight:bold; margin-bottom:0.8cm; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${sortear(db.inicio)} ${nome} ${sortear(db.meio)}</div>
             <div class="corpo-texto">${sortear(db.detalhes)}</div>
             <div class="corpo-texto">${sortear(db.conclusao)}</div>
-            <div style="text-align:center; font-style:italic; margin-top:1.5cm;">"${sortear(db.frasesFinais)}"</div>
-            <div style="text-align:center; margin:1cm 0;">Manaus, 19 de abril de 2026.</div>
-            <div style="margin-top:2cm; text-align:center;">
+            <div style="text-align:center; font-style:italic; margin-top:1cm;">"${sortear(db.frasesFinais)}"</div>
+            <div style="text-align:center; margin:0.8cm 0;">Manaus, 19 de abril de 2026.</div>
+            <div style="margin-top:1.5cm; text-align:center;">
                 <div class="linha-assinatura"></div><small>PROFESSOR(A)</small><br><br>
-                <div class="linha-assinatura"></div><small>COORDENAÇÃO</small>
+                <div class="linha-assinatura"></div><small>COORDENAÇÃO / DIREÇÃO</small>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
@@ -162,11 +185,14 @@
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    const campos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
-    campos.forEach((n, i) => {
-        document.getElementById('campos-container').innerHTML += `<div class="secao-pergunta">${n}</div><div class="grid-botoes" id="c-${i}">
-            <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div><div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div><div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
-        </div>`;
+    const cCont = document.getElementById('campos-container');
+    camposBNCC.forEach((item, i) => {
+        cCont.innerHTML += `<div class="secao-pergunta">${item.t}<span class="guia">Pergunta Guia: ${item.g}</span></div>
+            <div class="grid-botoes" id="c-${i}">
+                <div class="btn-v ini" onclick="marcar(${i},'ini',this)">INICIAL</div>
+                <div class="btn-v pro" onclick="marcar(${i},'pro',this)">PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${i},'ava',this)">AVANÇADO</div>
+            </div>`;
     });
 </script>
 </body>
