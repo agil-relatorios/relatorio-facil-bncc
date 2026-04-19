@@ -1,7 +1,15 @@
-<!DOCTYPE html><html lang="pt-br"><head>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Final</title>
+    <title>CONTAÊ PROFE - Oficial</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="logo_contae.png">
+    <link rel="apple-touch-icon" href="logo_contae.png">
+    <meta name="theme-color" content="#ff4757">
+
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -15,12 +23,16 @@
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
+        
+        /* Botão de Instalar (Acesso Seguro) */
+        #installBanner { display: none; background: #28a745; color: white; padding: 15px; border-radius: 0; text-align: center; cursor: pointer; font-weight: bold; border: none; width: 100%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
         header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
-        .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
+        .slogan { font-size: 0.9rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 8px; line-height: 1.4; max-width: 80%; margin-left: auto; margin-right: auto; }
 
-        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .container { max-width: 900px; margin: 20px auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
@@ -41,7 +53,8 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
+        /* Estilo do Relatório (Aparece na tela antes de imprimir) */
+        #editor { width: 95%; max-width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 20px; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #ddd; border-radius: 10px; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
@@ -51,17 +64,20 @@
         .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
-        @page { size: A4; margin: 0; }
         @media print { 
             .no-print { display: none !important; } 
             body { background: white; }
-            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; padding: 30mm 20mm 10mm 25mm; } 
         }
-    </style></head><body>
+    </style>
+</head>
+<body>
+
+<button id="installBanner" class="no-print">📲 CLIQUE AQUI PARA INSTALAR O APP NO SEU CELULAR</button>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">"A voz do professor, a história da criança."</div>
+    <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div>
 </header>
 
 <div class="container no-print">
@@ -86,10 +102,31 @@
 
 <div id="editor" contenteditable="true"></div>
 <div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem; width: 90%;">🖨️ SALVAR EM PDF / IMPRIMIR</button>
 </div>
 
 <script>
+    // Lógica de Instalação facilitada (Acesso Seguro)
+    let deferredPrompt;
+    const installBanner = document.getElementById('installBanner');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBanner.style.display = 'block';
+    });
+
+    installBanner.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBanner.style.display = 'none';
+            }
+            deferredPrompt = null;
+        }
+    });
+
     const camposBNCC = [
         {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
         {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
@@ -152,6 +189,7 @@
         let esc = document.getElementById('escola').value.toUpperCase().trim();
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        const genero = document.getElementById('genero').value;
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
@@ -176,7 +214,11 @@
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
-        window.scrollTo(0, document.body.scrollHeight);
+        
+        // Faz a página descer até o relatório para a Shirley conseguir ver!
+        document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
     }
     iniciar();
-</script></body></html>
+</script>
+</body>
+</html>
