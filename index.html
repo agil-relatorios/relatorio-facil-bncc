@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONTAÊ PROFE - Versão Final</title>
-    
+
     <link rel="manifest" href="data:application/manifest+json,{'name':'Contaê Profe','short_name':'Contaê','start_url':'.','display':'standalone','background_color':'#ffffff','theme_color':'#ff4757','icons':[{'src':'https://ui-avatars.com/api/?name=CP&background=ff4757&color=ffeaa7&size=512&rounded=true','sizes':'512x512','type':'image/png'}]}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Contaê Profe">
 
     <style>
         :root { 
@@ -23,37 +20,33 @@
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        
-        /* Banner de Instalação App */
-        #pwa-install { display: none; background: #2f3542; color: white; padding: 12px; text-align: center; font-size: 0.9rem; position: sticky; top: 0; z-index: 9999; }
-        #pwa-install button { background: var(--cor-avancado); border: none; color: white; padding: 8px 15px; border-radius: 8px; font-weight: bold; margin-left: 10px; cursor: pointer; }
-
         header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        .container { max-width: 900px; margin: 20px auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; width: 100%; box-sizing: border-box; }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
         .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
         .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
         .pergunta-texto { font-size: 1rem; font-weight: 600; }
 
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .btn-v { padding: 12px 5px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
-        .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
+        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
+        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
+        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
 
-        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px; }
-        .btn-gerar { padding: 18px; border: none; border-radius: 15px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
-        .btn-limpar { padding: 18px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
+        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
+        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
+        /* ESTÉTICA DO RELATÓRIO PARA IMPRESSÃO */
         #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
@@ -69,21 +62,15 @@
             body { background: white; }
             #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
         }
-        
-        /* Ajuste para celulares pequenos */
+
+        /* Ajuste de Botão para Celular */
         @media (max-width: 600px) {
+            .acoes-container { grid-template-columns: 1fr; }
             .container { margin: 10px; padding: 15px; }
-            .logo { font-size: 1.6rem; }
-            #editor { width: 100%; padding: 10mm; font-size: 10pt; }
         }
     </style>
 </head>
 <body>
-
-<div id="pwa-install" class="no-print">
-    Instalar App na tela do celular? 
-    <button onclick="installApp()">BAIXAR AGORA</button>
-</div>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
@@ -92,7 +79,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="ESCOLA..."></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -105,41 +92,17 @@
     </div>
     <div id="campos-container"></div>
     <div class="acoes-container">
-        <button class="btn-limpar" onclick="location.reload()">+ NOVO</button>
-        <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR</button>
+        <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
+        <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
     </div>
 </div>
 
 <div id="editor" contenteditable="true"></div>
-<div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px; padding: 0 20px;">
-    <button onclick="window.print()" style="width:100%; max-width:400px; padding:18px; background:var(--azul); color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR / SALVAR PDF</button>
+<div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR / SALVAR PDF</button>
 </div>
 
 <script>
-    // Lógica para Instalação do App
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        document.getElementById('pwa-install').style.display = 'block';
-    });
-
-    async function installApp() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                document.getElementById('pwa-install').style.display = 'none';
-            }
-            deferredPrompt = null;
-        }
-    }
-
-    // Registro Simples de Service Worker (Necessário para PWA)
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi.hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGZ1bmN0aW9uKGV2ZW50KSB7IH0pOw==');
-    }
-
     const camposBNCC = [
         {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
         {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
@@ -195,12 +158,7 @@
         });
     }
 
-    function marcar(idx, n, b) { 
-        Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
-        b.classList.add('active'); 
-        selecoes[idx] = n; 
-    }
-    
+    function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function gerarRelatorio() {
@@ -224,7 +182,7 @@
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">Manaus, 18 de abril de 2026.</div>
+            <div class="data-local">Manaus, 19 de abril de 2026.</div>
             <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
             <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
             <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
@@ -234,6 +192,11 @@
         window.scrollTo(0, document.body.scrollHeight);
     }
     iniciar();
+
+    // Registro de Service Worker para funcionar como App
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGZ1bmN0aW9uKGV2ZW50KSB7IH0pOw==');
+    }
 </script>
 </body>
 </html>
