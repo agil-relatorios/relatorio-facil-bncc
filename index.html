@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Interface Limpa</title>
+    <title>CONTAÊ PROFE - Versão Limpa</title>
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -25,14 +25,14 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; background: white; }
-        input:focus, select:focus { border-color: var(--azul); }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
         .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; position: relative; }
         .header-pergunta { display: flex; justify-content: space-between; align-items: flex-start; }
         .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; display: block; }
         .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 0; line-height: 1.4; }
         
+        /* Estilo da caixa oculta com Interrogação */
         .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .btn-ajuda:hover { background: white; color: var(--azul); }
         
@@ -73,24 +73,14 @@
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
     <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div></header><div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><select id="fase">
-            <option value="" selected disabled></option>
-            <option value="1º PERÍODO">1º PERÍODO</option>
-            <option value="2º PERÍODO">2º PERÍODO</option>
-        </select></div>
+        <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Gênero</label><select id="genero">
-            <option value="" selected disabled></option>
-            <option value="a criança">A CRIANÇA</option>
-            <option value="o aluno">O ALUNO</option>
-            <option value="a aluna">A ALUNA</option>
-        </select></div>
+        <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo">
-            <option value="" selected disabled></option>
             <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
             <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
         </select></div>
@@ -194,7 +184,6 @@
 
     function formatarCidade(cidade) {
         const excessoes = ["de", "do", "da", "dos", "das", "e"];
-        if(!cidade) return "";
         return cidade.toLowerCase().split(' ').map((palavra, index) => {
             if (index > 0 && excessoes.includes(palavra)) return palavra;
             return palavra.charAt(0).toUpperCase() + palavra.slice(1);
@@ -206,8 +195,8 @@
         let esc = escRaw.toUpperCase();
         if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
 
-        const nomeAlu = document.getElementById('crianca').value.toUpperCase() || "________________";
-        const cidadeRaw = document.getElementById('cidade').value.trim() || "________________";
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
         const cidadeFormatada = formatarCidade(cidadeRaw);
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
@@ -215,13 +204,13 @@
         const conc = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${esc || "NOME DA ESCOLA NÃO INFORMADO"}</div>
+            <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
-                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase() || "________________"}<br>
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>CRIANÇA:</b> ${nomeAlu}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value || "________________"} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase() || "________________"}
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value || "________________"}</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
