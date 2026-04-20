@@ -1,59 +1,72 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Ultra</title>
+    <title>CONTAÊ PROFE - Interface Clean</title>
     <style>
         :root { 
             --primaria: #ff4757; 
             --azul: #1e90ff; 
-            --bg: #f8f9fa; 
+            --bg: #f1f2f6; 
             --texto: #2f3542; 
             --branco: #ffffff;
             --cor-inicial: #e74c3c; 
             --cor-processo: #f1c40f; 
             --cor-avancado: #2ecc71; 
+            --sombra: 0 4px 15px rgba(0,0,0,0.08);
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        header { background: var(--primaria); color: white; padding: 30px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
-        .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
+        .slogan { font-size: 0.95rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .container { max-width: 850px; margin: 30px auto; background: var(--branco); padding: 40px; border-radius: 24px; box-shadow: var(--sombra); }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
+        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #747d8c; margin-bottom: 8px; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 12px; font-size: 0.95rem; outline: none; transition: 0.3s; }
+        input:focus, select:focus { border-color: var(--azul); }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; flex-direction: column; line-height: 1.4; }
-        .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
-        .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-        .info-pedagogica { font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 5px; }
-        .info-pedagogica strong { color: #ffeaa7; }
+        /* Estilização das Seções BNCC */
+        .card-bncc { background: #fff; border: 1px solid #f1f2f6; border-radius: 16px; padding: 20px; margin-bottom: 25px; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .card-bncc:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
 
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
-        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
-        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
+        .header-bncc { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .bncc-info { flex: 1; }
+        .campo-nome { font-size: 0.7rem; font-weight: 800; color: var(--azul); text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .pergunta-texto { font-size: 1.15rem; font-weight: 700; color: var(--texto); display: block; }
+        
+        /* Dica flutuante */
+        .tooltip { position: relative; cursor: help; background: #dfe4ea; color: #57606f; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; margin-left: 10px; }
+        .tooltip:hover::after { content: attr(data-label); position: absolute; bottom: 130%; right: 0; background: #2f3542; color: white; padding: 12px; border-radius: 8px; font-size: 0.8rem; width: 250px; z-index: 10; font-weight: normal; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
-        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
+        .instrucao-clique { font-size: 0.85rem; color: #a4b0be; margin-bottom: 12px; font-style: italic; }
 
-        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .btn-v { padding: 15px 10px; border: 2px solid #f1f2f6; border-radius: 12px; cursor: pointer; font-size: 0.75rem; font-weight: 800; text-align: center; background: #f9f9f9; color: #a4b0be; transition: 0.3s ease; text-transform: uppercase; }
+        
+        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); }
+        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3); }
+        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3); }
+
+        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
+        .btn-gerar { padding: 20px; border: none; border-radius: 16px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); transition: 0.3s; box-shadow: 0 6px 20px rgba(255, 71, 87, 0.3); }
+        .btn-gerar:hover { background: #ff3547; transform: scale(1.02); }
+        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 16px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; transition: 0.3s; }
+        .btn-limpar:hover { background: #f1f2f6; }
+
+        /* Estilo do Papel Impresso */
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
-        
         .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
         .bloco-assinatura { width: 45%; text-align: center; }
-        .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
@@ -89,27 +102,27 @@
         {
             n: "1. O EU, O OUTRO E O NÓS", 
             p: "Vínculos, Identidade e Alteridade",
-            info: "<strong>O que observar:</strong> A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
+            info: "A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
         },
         {
             n: "2. CORPO, GESTOS E MOVIMENTOS", 
             p: "Expressividade e Coordenação",
-            info: "<strong>O que observar:</strong> Explora o espaço com segurança? Domina a coordenação motora fina (desenho/recorte) e ampla (correr/pular)? Reconhece sensações e limites do corpo?"
+            info: "Explora o espaço com segurança? Domina a coordenação motora fina e ampla? Reconhece sensações e limites do corpo?"
         },
         {
             n: "3. TRAÇOS, SONS, CORES E FORMAS", 
             p: "Sensorialidade e Criação Artística",
-            info: "<strong>O que observar:</strong> Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta, colagem)? Reconhece cores e formas no ambiente?"
+            info: "Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta)? Reconhece cores e formas?"
         },
         {
             n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
             p: "Linguagem e Oralidade",
-            info: "<strong>O que observar:</strong> Expressa ideias e sentimentos com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias? Conhece gêneros textuais?"
+            info: "Expressa ideias com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias?"
         },
         {
             n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
             p: "Mundo Físico e Raciocínio Lógico",
-            info: "<strong>O que observar:</strong> Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Demonstra curiosidade sobre fenômenos naturais e sociais?"
+            info: "Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Curiosidade sobre fenômenos?"
         }
     ];
 
@@ -119,61 +132,30 @@
             "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
             "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
-            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que ",
-            "Com base nos Campos de Experiência propostos pela BNCC, desenvolvemos projetos que estimularam a investigação e a descoberta, permitindo que ",
-            "Norteados pelo compromisso de uma educação humanizada e pautada no brincar como eixo estruturante, observamos atentamente como ",
-            "Considerando que a criança aprende através da experiência e do afeto, estruturamos este semestre de modo que ",
-            "Em um ambiente rico em estímulos e interações sociais, buscamos oferecer as ferramentas necessárias para que ",
-            "Respeitando o tempo de maturação e as formas singulares de expressão de cada pequeno, notamos que "
+            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
         meio: [
             "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
             "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
             "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
             "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado e autonomia. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente. ",
-            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. ",
-            "se mostrasse cada vez mais seguro(a) em suas ações cotidianas, demonstrando autonomia na realização de pequenas tarefas e clareza ao comunicar suas percepções sobre o mundo ao seu redor. ",
-            "desenvolvesse habilidades socioemocionais fundamentais, como a empatia e o compartilhamento de espaços e brinquedos, fortalecendo seu senso de pertencimento ao coletivo. ",
-            "participasse ativamente de projetos de investigação, levantando hipóteses e testando possibilidades com um olhar atento e questionador, típico de quem descobre o mundo. ",
-            "revelasse uma expressividade singular através de múltiplas linguagens, integrando gestos, falas e produções artísticas de maneira harmoniosa e cheia de significado. ",
-            "se envolvesse em brincadeiras de faz-de-conta com profundidade, utilizando a imaginação para ressignificar objetos e situações do cotidiano com extrema criatividade. "
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. "
         ],
         detalhes: [
             "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
-            "Nas atividades voltadas ao corpo e movemento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
             "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
             "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
-            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas.",
-            "Vale destacar seu engajamento em atividades musicais e rítmicas, onde explorou diferentes sons e instrumentos, demonstrando percepção auditiva aguçada e prazer na expressão corporal sincronizada. ",
-            "No que tange à cultura escrita, demonstrou curiosidade pelos sinais gráficos e letras, participando de momentos de leitura compartilhada com foco e fazendo tentativas espontâneas de escrita e desenho simbólico. ",
-            "A criança também mostrou-se resiliente diante de pequenos conflitos interpessoais, utilizando o diálogo mediado para resolver divergências e construir acordos coletivos pautados no respeito mútuo. ",
-            "Sua capacidade de observação dos fenômenos naturais foi evidenciada em experimentos simples de horta e jardim, onde relacionou o cuidado com o crescimento das plantas e a vida dos pequenos animais. ",
-            "Demonstrou, ainda, uma facilidade em organizar o pensamento para relatar fatos vividos anteriormente, demonstrando memória afetiva e estruturação temporal de início, meio e fim em suas narrativas. "
+            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
         ],
         conclusao: [
             "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas descobertas.",
             "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral. O aprendizado ocorreu de forma lúdica e cheia de significados reais, garantindo autonomia na trajetória escolar.",
             "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional e uma curiosidade aguçada.",
             "O progresso alcançado reflete a harmonia entre o brincar e o aprender. Estamos confiantes de que a próxima etapa será encarada com o mesmo protagonismo e alegria que marcaram este período fascinante.",
-            "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos.",
-            "O olhar atento e sensível da família, em parceria com a escola, foi essencial para que este percurso fosse trilhado com leveza e sucesso. Seguimos juntos para o próximo desafio.",
-            "Com o coração cheio de alegria, entregamos este parecer cientes de que cada degrau subido foi importante para a construção de uma identidade segura e confiante. ",
-            "A criança encerra este período demonstrando estar pronta para voos mais altos, levando consigo as sementes de uma curiosidade que nunca se apaga. ",
-            "Ressaltamos que o desenvolvimento infantil é um processo contínuo e que cada criança floresce a seu tempo, sendo as conquistas aqui listadas apenas o início de um grande caminho. ",
-            "Que as vivências compartilhadas em nossa instituição continuem ecoando como memórias felizes e aprendizados duradouros na vida desta pequena grande pessoa. "
+            "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos."
         ],
-        frasesFinais: [
-            "Seu brilho único ilumina nossa sala.", 
-            "Cada descoberta sua é um motivo para sorrir.", 
-            "Sua curiosidade é a semente do futuro.", 
-            "O mundo fica colorido com sua alegria.", 
-            "Continue explorando com esse olhar.",
-            "Você é um pequeno grande explorador!",
-            "Sua jornada de aprendizado é encantadora.",
-            "Brilhe sempre, pequeno(a) aprendiz!",
-            "O amanhã espera por suas grandes ideias.",
-            "Orgulho de ver seu crescimento diário!"
-        ]
+        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "Sua curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria.", "Continue explorando com esse olhar."]
     };
 
     let selecoes = {};
@@ -181,21 +163,30 @@
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-pergunta">
-                <span class="campo-nome">${item.n}</span>
-                <span class="pergunta-texto">${item.p}</span>
-                <div class="info-pedagogica">${item.info}</div>
+            div.className = "card-bncc";
+            div.innerHTML = `
+            <div class="header-bncc">
+                <div class="bncc-info">
+                    <span class="campo-nome">${item.n}</span>
+                    <span class="pergunta-texto">${item.p}</span>
+                </div>
+                <div class="tooltip" data-label="${item.info}">?</div>
             </div>
+            <div class="instrucao-clique">Selecione o nível de desenvolvimento alcançado neste campo:</div>
             <div class="grid-botoes" id="c-${idx}">
-                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
-                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
-                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
+                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">MÉDIAÇÃO</div>
+                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AUTONOMIA</div>
             </div>`;
             cCont.appendChild(div);
         });
     }
 
-    function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
+    function marcar(idx, n, b) { 
+        Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
+        b.classList.add('active'); 
+        selecoes[idx] = n; 
+    }
     
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
@@ -216,7 +207,6 @@
         const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
         const cidadeFormatada = formatarCidade(cidadeRaw);
         
-        // Sorteio inteligente para garantir variedade
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const conc = sortear(db.conclusao);
@@ -233,7 +223,7 @@
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">${cidadeFormatada}, 19 de abril de 2026.</div>
+            <div class="data-local">${cidadeFormatada}, 20 de abril de 2026.</div>
             
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura">
