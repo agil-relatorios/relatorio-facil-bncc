@@ -27,11 +27,18 @@
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; flex-direction: column; line-height: 1.4; }
-        .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
-        .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-        .info-pedagogica { font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 5px; }
-        .info-pedagogica strong { color: #ffeaa7; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; position: relative; }
+        .header-pergunta { display: flex; justify-content: space-between; align-items: flex-start; }
+        .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; display: block; }
+        .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 0; line-height: 1.4; }
+        
+        /* Estilo da caixa oculta com Interrogação */
+        .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .btn-ajuda:hover { background: white; color: var(--azul); }
+        
+        .info-pedagogica { display: none; font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.5; animation: fadeIn 0.3s ease; }
+        .info-pedagogica.show { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
@@ -118,60 +125,49 @@
             "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
             "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
-            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que ",
-            "Com base nos Campos de Experiência propostos pela BNCC, desenvolvemos projetos que estimularam a investigação e a descoberta, permitindo que ",
-            "Norteados pelo compromisso de uma educação humanizada e pautada no brincar como eixo estruturante, observamos atentamente como ",
-            "Considerando que a criança aprende através da experiência e do afeto, estruturamos este semestre de modo que ",
-            "Em um ambiente rico em estímulos e interações sociais, buscamos oferecer as ferramentas necessárias para que ",
-            "Respeitando o tempo de maturação e as formas singulares de expressão de cada pequeno, notamos que "
+            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
         meio: [
             "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
             "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
             "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
             "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado e autonomia. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente. ",
-            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. ",
-            "se mostrasse cada vez mais seguro(a) em suas ações cotidianas, demonstrando autonomia na realização de pequenas tarefas e clareza ao comunicar suas percepções sobre o mundo ao seu redor. ",
-            "desenvolvesse habilidades socioemocionais fundamentais, como a empatia e o compartilhamento de espaços e brinquedos, fortalecendo seu senso de pertencimento ao coletivo. ",
-            "participasse ativamente de projetos de investigação, levantando hipóteses e testando possibilidades com um olhar atento e questionador, típico de quem descobre o mundo. ",
-            "revelasse uma expressividade singular através de múltiplas linguagens, integrando gestos, falas e produções artísticas de maneira harmoniosa e cheia de significado. ",
-            "se envolvesse em brincadeiras de faz-de-conta com profundidade, utilizando a imaginação para ressignificar objetos e situações do cotidiano com extrema criatividade. "
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. "
         ],
         detalhes: [
-            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
+            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas prõprias vivências. ",
             "Nas atividades voltadas ao corpo e movemento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
             "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
             "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
-            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas.",
-            "Vale destacar seu engajamento em atividades musicais e rítmicas, onde explorou diferentes sons e instrumentos, demonstrando percepção auditiva aguçada e prazer na expressão corporal sincronizada. ",
-            "No que tange à cultura escrita, demonstrou curiosidade pelos sinais gráficos e letras, participando de momentos de leitura compartilhada com foco e fazendo tentativas espontâneas de escrita e desenho simbólico. ",
-            "A criança também mostrou-se resiliente diante de pequenos conflitos interpessoais, utilizando o diálogo mediado para resolver divergências e construir acordos coletivos pautados no respeito mútuo. ",
-            "Sua capacidade de observação dos fenômenos naturais foi evidenciada em experimentos simples de horta e jardim, onde relacionou o cuidado com o crescimento das plantas e a vida dos pequenos animais. ",
-            "Demonstrou, ainda, uma facilidade em organizar o pensamento para relatar fatos vividos anteriormente, demonstrando memória afetiva e estruturação temporal de início, meio e fim em suas narrativas. "
+            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
         ],
         conclusao: [
             "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas descobertas.",
             "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral. O aprendizado ocorreu de forma lúdica e cheia de significados reais, garantindo autonomia na trajetória escolar.",
             "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional e uma curiosidade aguçada.",
             "O progresso alcançado reflete a harmonia entre o brincar e o aprender. Estamos confiantes de que a próxima etapa será encarada com o mesmo protagonismo e alegria que marcaram este período fascinante.",
-            "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos.",
-            "O olhar atento e sensível da família, em parceria com a escola, foi essencial para que este percurso fosse trilhado com leveza e sucesso. Seguimos juntos para o próximo desafio.",
-            "Com o coração cheio de alegria, entregamos este parecer cientes de que cada degrau subido foi importante para a construção de uma identidade segura e confiante. ",
-            "A criança encerra este período demonstrando estar pronta para voos mais altos, levando consigo as sementes de uma curiosidade que nunca se apaga. ",
-            "Ressaltamos que o desenvolvimento infantil é um processo contínuo e que cada criança floresce a seu tempo, sendo as conquistas aqui listadas apenas o início de um grande caminho. ",
-            "Que as vivências compartilhadas em nossa instituição continuem ecoando como memórias felizes e aprendizados duradouros na vida desta pequena grande pessoa. "
+            "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos."
         ]
     };
 
     let selecoes = {};
+    
+    function alternarAjuda(idx) {
+        const box = document.getElementById(`info-${idx}`);
+        box.classList.toggle('show');
+    }
+
     function iniciar() {
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
             div.innerHTML = `<div class="secao-pergunta">
                 <span class="campo-nome">${item.n}</span>
-                <span class="pergunta-texto">${item.p}</span>
-                <div class="info-pedagogica">${item.info}</div>
+                <div class="header-pergunta">
+                    <p class="pergunta-texto">${item.p}</p>
+                    <button class="btn-ajuda" onclick="alternarAjuda(${idx})" title="Dica pedagógica">?</button>
+                </div>
+                <div class="info-pedagogica" id="info-${idx}">${item.info}</div>
             </div>
             <div class="grid-botoes" id="c-${idx}">
                 <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
@@ -218,7 +214,7 @@
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
-            <div class="data-local" style="margin-top:2em;">${cidadeFormatada}, 19 de abril de 2026.</div>
+            <div class="data-local" style="margin-top:2em;">${cidadeFormatada}, 20 de abril de 2026.</div>
             
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura">
