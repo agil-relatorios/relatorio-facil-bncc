@@ -61,6 +61,7 @@
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
         .corpo-texto { text-align: justify; line-height: 1.6; margin-bottom: 0.8em; text-indent: 1.25cm; }
+        .frase-incentivo { text-align: center; font-style: italic; font-weight: bold; color: #2f3542; margin: 1.5em 0; border: 1px dashed #ccc; padding: 10px; border-radius: 10px; }
 
         .data-local { text-align: center; margin-top: 2em; margin-bottom: 2.5em; }
         
@@ -179,6 +180,16 @@
             "Ao finalizar este parecer, vemos um processo evolutivo sólido e maduro, transformando cada vivência escolar em conhecimento duradouro para a vida. ",
             "Fica o registro de um período extremamente produtivo, onde a criança mostrou-se aberta ao novo e resiliente em seu processo de aprendizagem individual. ",
             "Reiteramos a importância da parceria entre família e escola, que foi fundamental para o sucesso e o bem-estar da criança durante toda esta etapa. "
+        ],
+        incentivo: [
+            "Cada descoberta sua é um motivo para sorrir!",
+            "Continue brilhando e encantando o mundo com seu jeito especial.",
+            "O seu crescimento é a nossa maior alegria. Voa alto, pequena estrela!",
+            "Aprender é uma aventura e você é um excelente explorador!",
+            "Que sua curiosidade continue abrindo caminhos mágicos para o saber.",
+            "Você é capaz de coisas incríveis! Orgulhamo-nos da sua trajetória.",
+            "Seu esforço e dedicação transformam o aprendizado em arte.",
+            "Nunca perca esse brilho no olhar ao descobrir algo novo!"
         ]
     };
 
@@ -208,6 +219,7 @@
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const p3 = sortear(db.conclusao);
+        const incentivo = sortear(db.incentivo);
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase() || "NÃO INFORMADA"}</div>
@@ -220,6 +232,7 @@
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto">${p3}</div>
+            <div class="frase-incentivo">✨ ${incentivo} ✨</div>
             <div class="data-local">${formatarCidade(document.getElementById('cidade').value || "Cidade")}, 20 de Abril de 2026.</div>
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
@@ -235,7 +248,7 @@
     function salvarRelatorio() {
         const conteudo = document.getElementById('editor').innerHTML;
         const nomeAlu = document.getElementById('crianca').value || "Relatorio";
-        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:10px;line-height:1.4;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
+        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:10px;line-height:1.4;} .frase-incentivo{text-align:center;font-style:italic;font-weight:bold;margin:20px 0;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = `Relatorio_${nomeAlu}.html`;
