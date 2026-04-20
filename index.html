@@ -1,74 +1,55 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Interface Clean</title>
+    <title>CONTAÊ PROFE - Versão Final</title>
     <style>
         :root { 
             --primaria: #ff4757; 
             --azul: #1e90ff; 
-            --bg: #f1f2f6; 
+            --bg: #f8f9fa; 
             --texto: #2f3542; 
             --branco: #ffffff;
             --cor-inicial: #e74c3c; 
             --cor-processo: #f1c40f; 
             --cor-avancado: #2ecc71; 
-            --sombra: 0 4px 15px rgba(0,0,0,0.08);
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 30px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
-        .slogan { font-size: 0.95rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
+        .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        .container { max-width: 850px; margin: 30px auto; background: var(--branco); padding: 40px; border-radius: 24px; box-shadow: var(--sombra); }
+        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #747d8c; margin-bottom: 8px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 12px; font-size: 0.95rem; outline: none; transition: 0.3s; }
-        input:focus, select:focus { border-color: var(--azul); }
+        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
-        /* Estilização das Seções BNCC */
-        .card-bncc { background: #fff; border: 1px solid #f1f2f6; border-radius: 16px; padding: 20px; margin-bottom: 25px; transition: 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .card-bncc:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
+        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
+        .pergunta-texto { font-size: 1rem; font-weight: 600; }
 
-        .header-bncc { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .bncc-info { flex: 1; }
-        .campo-nome { font-size: 0.7rem; font-weight: 800; color: var(--azul); text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .pergunta-texto { font-size: 1.15rem; font-weight: 700; color: var(--texto); display: block; }
-        
-        /* Dica flutuante */
-        .tooltip { position: relative; cursor: help; background: #dfe4ea; color: #57606f; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; margin-left: 10px; }
-        .tooltip:hover::after { content: attr(data-label); position: absolute; bottom: 130%; right: 0; background: #2f3542; color: white; padding: 12px; border-radius: 8px; font-size: 0.8rem; width: 250px; z-index: 10; font-weight: normal; line-height: 1.4; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
+        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
+        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
+        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
 
-        .instrucao-clique { font-size: 0.85rem; color: #a4b0be; margin-bottom: 12px; font-style: italic; }
+        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
+        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .btn-v { padding: 15px 10px; border: 2px solid #f1f2f6; border-radius: 12px; cursor: pointer; font-size: 0.75rem; font-weight: 800; text-align: center; background: #f9f9f9; color: #a4b0be; transition: 0.3s ease; text-transform: uppercase; }
-        
-        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3); }
-        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3); }
-        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3); }
-
-        .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 40px; }
-        .btn-gerar { padding: 20px; border: none; border-radius: 16px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); transition: 0.3s; box-shadow: 0 6px 20px rgba(255, 71, 87, 0.3); }
-        .btn-gerar:hover { background: #ff3547; transform: scale(1.02); }
-        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 16px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; transition: 0.3s; }
-        .btn-limpar:hover { background: #f1f2f6; }
-
-        /* Estilo do Papel Impresso */
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
-        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
-        .bloco-assinatura { width: 45%; text-align: center; }
-        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
+        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
 
         @page { size: A4; margin: 0; }
         @media print { 
@@ -76,12 +57,16 @@
             body { background: white; }
             #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
         }
-    </style></head><body><header class="no-print">
+    </style></head><body>
+
+<header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div></header><div class="container no-print">
+    <div class="slogan">"A voz do professor, a história da criança."</div>
+</header>
+
+<div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -96,34 +81,21 @@
     <div class="acoes-container">
         <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
-    </div></div><div id="editor" contenteditable="true"></div><div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button></div><script>
+    </div>
+</div>
+
+<div id="editor" contenteditable="true"></div>
+<div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
+</div>
+
+<script>
     const camposBNCC = [
-        {
-            n: "1. O EU, O OUTRO E O NÓS", 
-            p: "Vínculos, Identidade e Alteridade",
-            info: "A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
-        },
-        {
-            n: "2. CORPO, GESTOS E MOVIMENTOS", 
-            p: "Expressividade e Coordenação",
-            info: "Explora o espaço com segurança? Domina a coordenação motora fina e ampla? Reconhece sensações e limites do corpo?"
-        },
-        {
-            n: "3. TRAÇOS, SONS, CORES E FORMAS", 
-            p: "Sensorialidade e Criação Artística",
-            info: "Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta)? Reconhece cores e formas?"
-        },
-        {
-            n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-            p: "Linguagem e Oralidade",
-            info: "Expressa ideias com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias?"
-        },
-        {
-            n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-            p: "Mundo Físico e Raciocínio Lógico",
-            info: "Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Curiosidade sobre fenômenos?"
-        }
+        {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
+        {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
+        {n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Expressão artística."},
+        {n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Comunicação e leitura."},
+        {n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio lógico."}
     ];
 
     const db = {
@@ -135,11 +107,11 @@
             "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
         meio: [
-            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
-            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
-            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
-            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado e autonomia. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente. ",
-            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. "
+            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
+            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos. ",
+            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas, fortalecendo sua posição como sujeito social e crítico. ",
+            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente, respeitando as diversidades e contribuindo para o bem-estar. ",
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais ao seu redor no dia a dia. "
         ],
         detalhes: [
             "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
@@ -163,49 +135,23 @@
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.className = "card-bncc";
-            div.innerHTML = `
-            <div class="header-bncc">
-                <div class="bncc-info">
-                    <span class="campo-nome">${item.n}</span>
-                    <span class="pergunta-texto">${item.p}</span>
-                </div>
-                <div class="tooltip" data-label="${item.info}">?</div>
-            </div>
-            <div class="instrucao-clique">Selecione o nível de desenvolvimento alcançado neste campo:</div>
-            <div class="grid-botoes" id="c-${idx}">
-                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">MÉDIAÇÃO</div>
-                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
-                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AUTONOMIA</div>
-            </div>`;
+            div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><span class="pergunta-texto">${item.p}</span></div>
+                <div class="grid-botoes" id="c-${idx}">
+                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
+                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AVANÇADO</div>
+                </div>`;
             cCont.appendChild(div);
         });
     }
 
-    function marcar(idx, n, b) { 
-        Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
-        b.classList.add('active'); 
-        selecoes[idx] = n; 
-    }
-    
+    function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
-    function formatarCidade(cidade) {
-        const excessoes = ["de", "do", "da", "dos", "das", "e"];
-        return cidade.toLowerCase().split(' ').map((palavra, index) => {
-            if (index > 0 && excessoes.includes(palavra)) return palavra;
-            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
-        }).join(' ');
-    }
-
     function gerarRelatorio() {
-        let escRaw = document.getElementById('escola').value.trim();
-        let esc = escRaw.toUpperCase();
-        if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
-
+        let esc = document.getElementById('escola').value.toUpperCase().trim();
+        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
-        const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
-        const cidadeFormatada = formatarCidade(cidadeRaw);
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
@@ -215,7 +161,7 @@
             <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>CRIANÇA:</b> ${nomeAlu}<br>
+                <b>CRIANÇA:</b> <b>${nomeAlu}</b><br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
@@ -223,26 +169,14 @@
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">${cidadeFormatada}, 20 de abril de 2026.</div>
-            
-            <div class="assinaturas-duplas">
-                <div class="bloco-assinatura">
-                    <div class="linha-assinatura"></div>
-                    <span class="label-assinatura">Professor(a)</span>
-                </div>
-                <div class="bloco-assinatura">
-                    <div class="linha-assinatura"></div>
-                    <span class="label-assinatura">Coordenação / Direção</span>
-                </div>
-            </div>
-            
-            <div class="assinatura-unica">
-                <div class="linha-assinatura"></div>
-                <span class="label-assinatura">Responsável</span>
-            </div>
+            <div class="data-local">Manaus, 18 de abril de 2026.</div>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
+            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
-    iniciar();</script></body></html>
+    iniciar();
+</script></body></html>
