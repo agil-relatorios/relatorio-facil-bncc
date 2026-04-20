@@ -32,6 +32,7 @@
         .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
         .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
         .pergunta-texto { font-size: 1rem; font-weight: 600; }
+        .pergunta-auxiliar { font-size: 0.85rem; font-style: italic; opacity: 0.9; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 5px; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
@@ -100,11 +101,31 @@
 
 <script>
     const camposBNCC = [
-        {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
-        {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
-        {n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Expressão artística."},
-        {n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Comunicação e leitura."},
-        {n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio lógico."}
+        {
+            n: "1. O EU, O OUTRO E O NÓS", 
+            p: "Vínculos e identidade.",
+            q: "Como a criança interage com os pares e expressa suas emoções?"
+        },
+        {
+            n: "2. CORPO, GESTOS E MOVIMENTOS", 
+            p: "Autonomia motora.",
+            q: "A criança demonstra coordenação e cuidado com o próprio corpo?"
+        },
+        {
+            n: "3. TRAÇOS, SONS, CORES E FORMAS", 
+            p: "Expressão artística.",
+            q: "Como ela utiliza diferentes materiais para se expressar criativamente?"
+        },
+        {
+            n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+            p: "Comunicação e leitura.",
+            q: "Ela expressa ideias com clareza e demonstra interesse por histórias?"
+        },
+        {
+            n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+            p: "Raciocínio lógico.",
+            q: "A criança identifica sequências, espaços e resolve problemas lógicos?"
+        }
     ];
 
     const db = {
@@ -144,12 +165,16 @@
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><span class="pergunta-texto">${item.p}</span></div>
-                <div class="grid-botoes" id="c-${idx}">
-                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
-                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
-                </div>`;
+            div.innerHTML = `<div class="secao-pergunta">
+                <span class="campo-nome">${item.n}</span>
+                <span class="pergunta-texto">${item.p}</span>
+                <div class="pergunta-auxiliar"><strong>Reflexão:</strong> ${item.q}</div>
+            </div>
+            <div class="grid-botoes" id="c-${idx}">
+                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
+                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
+            </div>`;
             cCont.appendChild(div);
         });
     }
@@ -169,7 +194,6 @@
     function gerarRelatorio() {
         let escRaw = document.getElementById('escola').value.trim();
         let esc = escRaw.toUpperCase();
-        // Adicionado os dois pontos após a palavra ESCOLA
         if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
 
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
