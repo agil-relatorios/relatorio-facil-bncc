@@ -50,8 +50,13 @@
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
-        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
+        
+        /* Layout de Assinaturas */
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
+        .bloco-assinatura { width: 45%; text-align: center; }
+        .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
+        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         @page { size: A4; margin: 0; }
         @media print { 
@@ -70,8 +75,8 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Manaus"></div>
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -121,7 +126,7 @@
         detalhes: [
             "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
             "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
-            "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
+            "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para la construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
             "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
             "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
         ],
@@ -151,13 +156,25 @@
     }
 
     function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
+    
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
+    function formatarCidade(cidade) {
+        const excessoes = ["de", "do", "da", "dos", "das", "e"];
+        return cidade.toLowerCase().split(' ').map((palavra, index) => {
+            if (index > 0 && excessoes.includes(palavra)) return palavra;
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+        }).join(' ');
+    }
+
     function gerarRelatorio() {
-        let esc = document.getElementById('escola').value.toUpperCase().trim();
+        let escRaw = document.getElementById('escola').value.trim();
+        let esc = escRaw.toUpperCase();
         if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
+
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value.trim() || "Sua Cidade";
+        const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
+        const cidadeFormatada = formatarCidade(cidadeRaw);
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
@@ -175,10 +192,23 @@
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">${cidade}, 18 de abril de 2026.</div>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
+            <div class="data-local">${cidadeFormatada}, 19 de abril de 2026.</div>
+            
+            <div class="assinaturas-duplas">
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Professor(a)</span>
+                </div>
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Coordenação / Direção</span>
+                </div>
+            </div>
+            
+            <div class="assinatura-unica">
+                <div class="linha-assinatura"></div>
+                <span class="label-assinatura">Responsável</span>
+            </div>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
