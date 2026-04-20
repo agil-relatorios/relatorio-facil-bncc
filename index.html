@@ -54,8 +54,7 @@
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
-        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 0; }
-        .primeiro-paragrafo { text-indent: 1.25cm; }
+        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 1.2em; text-indent: 1.25cm; }
 
         .data-local { text-align: center; margin-top: 3em; margin-bottom: 3.5em; }
         
@@ -106,8 +105,7 @@
             "Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ",
             "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
-            "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
-            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em strategies que permitissem de forma potente e acolhedora que "
+            "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que "
         ],
         meio: [
             "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
@@ -151,15 +149,26 @@
     function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); }
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
+    function formatarCidade(str) {
+        const excessoes = ['de', 'do', 'da', 'dos', 'das', 'e'];
+        return str.toLowerCase().split(' ').map((p, i) => {
+            if (i > 0 && excessoes.includes(p)) return p;
+            return p.charAt(0).toUpperCase() + p.slice(1);
+        }).join(' ');
+    }
+
     function gerarRelatorio() {
         let escolaInput = document.getElementById('escola').value.toUpperCase();
-        // Adiciona "ESCOLA: " caso o usuário tenha digitado algo
         const nomeEscolaFinal = escolaInput ? "ESCOLA: " + escolaInput : "INSTITUIÇÃO NÃO INFORMADA";
         
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value || "Sua Cidade";
+        const cidadeRaw = document.getElementById('cidade').value || "Sua Cidade";
+        const cidadeFormatada = formatarCidade(cidadeRaw);
         
-        const textoCompleto = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio) + sortear(db.detalhes) + " " + sortear(db.conclusao);
+        // Estrutura em 3 parágrafos
+        const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
+        const p2 = sortear(db.detalhes);
+        const p3 = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${nomeEscolaFinal}</div>
@@ -169,8 +178,12 @@
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
-            <div class="corpo-texto primeiro-paragrafo">${textoCompleto}</div>
-            <div class="data-local">${cidade}, ${new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'})}.</div>
+            
+            <div class="corpo-texto">${p1}</div>
+            <div class="corpo-texto">${p2}</div>
+            <div class="corpo-texto">${p3}</div>
+
+            <div class="data-local">${cidadeFormatada}, 20 de Abril de 2026.</div>
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span></div>
