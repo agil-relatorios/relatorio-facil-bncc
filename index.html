@@ -25,7 +25,6 @@
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        /* Banner de Instalação */
         #pwa-install { display: none; background: #2f3542; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 9999; font-weight: bold; cursor: pointer; }
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -64,7 +63,7 @@
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
-        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 1.6em; text-indent: 1.25cm; }
+        .corpo-texto { text-align: justify; line-height: 1.6; margin-bottom: 1.2em; text-indent: 1.25cm; }
 
         .data-local { text-align: center; margin-top: 3em; margin-bottom: 3.5em; }
         
@@ -118,7 +117,6 @@
     </div>
 
 <script>
-    // Gerenciamento de Instalação (PWA)
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
@@ -139,161 +137,34 @@
     }
 
     const camposBNCC = [
-        { 
-            n: "1. O EU, O OUTRO E O NÓS", 
-            p: "Vínculos, Identidade e Alteridade", 
-            info: "<b>COM MEDIAÇÃO:</b> Necessita de auxílio constante para interagir ou seguir combinados.<br><b>EM PROCESSO:</b> Começa a demonstrar empatia e resolve conflitos com algumas orientações.<br><b>COM AUTONOMIA:</b> Interage com confiança, respeita regras e expressa sentimentos de forma clara." 
-        },
-        { 
-            n: "2. CORPO, GESTOS E MOVIMENTOS", 
-            p: "Expressividade e Coordenação", 
-            info: "<b>COM MEDIAÇÃO:</b> Apresenta dificuldades na coordenação motora ou limites espaciais.<br><b>EM PROCESSO:</b> Realiza movimentos amplos bem, mas ainda aprimora a motricidade fina.<br><b>COM AUTONOMIA:</b> Domina o corpo no espaço, possui pinça desenvolvida e cuida da higiene pessoal sozinho." 
-        },
-        { 
-            n: "3. TRAÇOS, SONS, CORES E FORMAS", 
-            p: "Sensorialidade e Criação Artística", 
-            info: "<b>COM MEDIAÇÃO:</b> Pouco interesse em artes ou necessita de estímulo direto para criar.<br><b>EM PROCESSO:</b> Explora materiais diversos, mas repete modelos prontos com frequência.<br><b>COM AUTONOMIA:</b> Cria produções originais, diferencia sons e cores, e expressa-se com criatividade." 
-        },
-        { 
-            n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-            p: "Linguagem e Oralidade", 
-            info: "<b>COM MEDIAÇÃO:</b> Usa frases curtas ou gestos para se comunicar. Resiste à leitura.<br><b>EM PROCESSO:</b> Relata fatos cotidianos, mas confunde a ordem temporal dos fatos.<br><b>COM AUTONOMIA:</b> Argumenta, reconta histórias com detalhes e demonstra hipóteses de escrita avançadas." 
-        },
-        { 
-            n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-            p: "Mundo Físico e Raciocínio Lógico", 
-            info: "<b>COM MEDIAÇÃO:</b> Não relaciona números/quantidades. Confunde ontem/hoje.<br><b>EM PROCESSO:</b> Identifica formas e números, mas precisa de apoio em contagens maiores.<br><b>COM AUTONOMIA:</b> Classifica objetos por critérios, resolve problemas lógicos e entende a rotina temporal." 
-        }
+        { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos, Identidade e Alteridade", info: "<b>COM MEDIAÇÃO:</b> Necessita de auxílio constante...<br><b>EM PROCESSO:</b> Começa a demonstrar empatia...<br><b>COM AUTONOMIA:</b> Interage com confiança..." },
+        { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Expressividade e Coordenação", info: "<b>COM MEDIAÇÃO:</b> Apresenta dificuldades...<br><b>EM PROCESSO:</b> Realiza movimentos amplos...<br><b>COM AUTONOMIA:</b> Domina o corpo no espaço..." },
+        { n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Sensorialidade e Criação Artística", info: "<b>COM MEDIAÇÃO:</b> Pouco interesse...<br><b>EM PROCESSO:</b> Explora materiais...<br><b>COM AUTONOMIA:</b> Cria produções originais..." },
+        { n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Linguagem e Oralidade", info: "<b>COM MEDIAÇÃO:</b> Usa frases curtas...<br><b>EM PROCESSO:</b> Relata fatos cotidianos...<br><b>COM AUTONOMIA:</b> Argumenta e reconta..." },
+        { n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Mundo Físico e Raciocínio Lógico", info: "<b>COM MEDIAÇÃO:</b> Não relaciona números...<br><b>EM PROCESSO:</b> Identifica formas...<br><b>COM AUTONOMIA:</b> Classifica objetos..." }
     ];
 
     const db = {
         inicio: [
-            "Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ",
-            "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
-            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
-            "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
-            "Considerando os direitos de conviver e brincar como eixos estruturantes do currículo da Educação Infantil, observou-se no decorrer deste semestre que ",
-            "A partir de uma escuta atenta e do acolhimento das múltiplas linguagens infantis, este registro documental busca evidenciar como ",
-            "Em consonância com a proposta pedagógica desta instituição, que valoriza a criança como sujeito histórico e de direitos, notamos que ",
-            "Por meio de vivências que privilegiam a investigação e o contato com a natureza, a mediação docente permitiu que ",
-            "Fundamentando o trabalho docente na pedagogia da escuta e no respeito aos tempos de cada criança, percebemos que ",
-            "Com foco na ampliação do repertório cultural e social dentro do ambiente escolar, as propostas oferecidas garantiram que ",
-            "Através do olhar sensível sobre os processos de aprendizagem e da organização de espaços provocadores, constatou-se que ",
-            "Buscando fortalecer os vínculos afetivos e a segurança emocional dentro do grupo, o percurso trilhado permitiu que ",
-            "Pela observação das interações espontâneas e das propostas direcionadas no cotidiano da sala, verificou-se que ",
-            "Dando continuidade ao processo de desenvolvimento integral e valorizando cada pequena conquista, notou-se que ",
-            "Ao estruturar contextos de aprendizagem que integram o conhecimento e a ludicidade, a prática pedagógica oportunizou que ",
-            "No contexto das relações estabelecidas entre pares e com os adultos na rotina escolar, evidenciou-se que ",
-            "Priorizando o bem-estar e o desenvolvimento de competências socioemocionais, as vivências propiciaram que ",
-            "Partindo do princípio de que a criança aprende através da experiência e do fazer cotidiano, acompanhamos o processo em que ",
-            "Valorizando a diversidade e as particularidades rítmicas de cada aluno, as atividades foram planejadas para assegurar que ",
-            "Em um ambiente rico em estímulos visuais, sonoros e táteis, o acompanhamento pedagógico revelou que ",
-            "Apoiados nas dez competências gerais da BNCC e no cotidiano das brincadeiras, identificamos que ",
-            "Como fruto de uma prática intencional voltada para o protagonismo da criança, percebemos no dia a dia que ",
-            "Pela imersão em projetos interdisciplinares que conectam a realidade ao saber escolar, acompanhamos como ",
-            "Ao longo das jornadas de exploração e das rodas de conversa diárias, tornou-se claro que ",
-            "Respeitando o direito de participar ativamente da gestão de sua própria aprendizagem, verificamos que ",
-            "Embasados na documentação pedagógica constante e no diálogo com as hipóteses infantis, registramos que ",
-            "Mediante a oferta de materiais não estruturados e as possibilidades de criação livre, notou-se que ",
-            "Fortalecendo a autonomia e o senso de pertencimento ao espaço coletivo da escola, as experiências permitiram que ",
-            "Através de uma rotina equilibrada entre o cuidar, o brincar e o educar, observamos atentamente como ",
-            "Com o objetivo de promover uma educação humanizada e sensível às demandas do grupo, notou-se que "
+            "No decorrer deste ciclo educacional, estruturamos nossa prática pedagógica fundamentada na observação cuidadosa e intencional de cada interação ocorrida no ambiente escolar, assegurando plenamente os direitos fundamentais de aprendizagem e desenvolvimento. Por meio da organização de contextos que são simultaneamente significativos e desafiadores, unindo as dimensões do cuidar e do educar de forma indissociável, a mediação docente concentrou-se na escuta ativa das necessidades singulares apresentadas por ",
+            "Considerando a criança como sujeito histórico e de direitos, pautamos nossas ações no respeito às individualidades e na documentação contínua de cada vivência, garantindo que o protagonismo infantil fosse o eixo central de nossas propostas diárias. Mediante a estruturação de ambientes que provocam a curiosidade e o desejo de descoberta inerentes à infância, oportunizou-se ao longo deste rico processo de aprendizagem que ",
+            "Fundamentando nosso olhar na pedagogia da escuta e na valorização das múltiplas linguagens, buscamos construir um percurso educativo onde o brincar e o conviver atuaram como pilares estruturantes do currículo. Através de propostas que incentivaram a investigação constante e o contato direto com diferentes materiais e texturas, foi possível observar de forma clara e sensível como ",
+            "Com base nas diretrizes da Base Nacional Comum Curricular e na proposta pedagógica desta instituição, desenvolvemos um trabalho focado na ampliação do repertório cultural e social das crianças dentro do coletivo escolar. Pela imersão em projetos interdisciplinares que conectam a realidade cotidiana ao saber científico e artístico, acompanhamos o desenvolvimento integral no qual "
         ],
         meio: [
-            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
-            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
-            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
-            "construísse sua identidade em relação ao coletivo, demonstrando empatia e resolvendo conflitos de maneira dialógica e colaborativa. ",
-            "manifestasse curiosidade diante do mundo físico e social, levantando hipóteses e testando possibilidades em suas investigações cotidianas. ",
-            "ampliasse sua percepção sobre as linguagens artísticas, utilizando cores, traços e sons para representar suas ideias de modo autêntico. ",
-            "desenvolvesse uma relação de cuidado consigo e com o outro, demonstrando independência em suas práticas de higiene e alimentação. ",
-            "avançasse na compreensão da oralidade, utilizando frases cada vez mais complexas para descrever sentimentos e narrar fatos da rotina. ",
-            "demonstrasse habilidade em coordenar gestos e movimentos, explorando o espaço escolar com equilíbrio, agilidade e segurança motora. ",
-            "participasse das propostas de leitura com entusiasmo, demonstrando foco e interpretando imagens e textos com criatividade singular. ",
-            "identificasse relações de quantidade e tempo, utilizando o raciocínio lógico para organizar objetos e compreender a sequência das atividades. ",
-            "interagisse com o meio ambiente de forma sustentável, reconhecendo a importância de zelar pela natureza e pelos seres vivos. ",
-            "revelasse um comportamento proativo na organização dos materiais, compreendendo as regras de convívio e a importância do bem comum. ",
-            "explorasse as tecnologias e ferramentas de pesquisa como aliadas no processo de busca por novas informações e conhecimentos. ",
-            "assimilasse noções de lateralidade e profundidade, aplicando esses conceitos em brincadeiras de percurso e representações gráficas. ",
-            "demonstrasse sensibilidade musical, acompanhando ritmos e experimentando sons com instrumentos de percussão e com o próprio corpo. ",
-            "integrasse-se plenamente ao grupo, sendo uma presença que agrega valor às brincadeiras e que respeita as diferenças individuais. ",
-            "fosse capaz de organizar seu pensamento para resolver problemas simples, demonstrando persistência e resiliência diante do novo. ",
-            "utilizasse o desenho como uma ferramenta poderosa de comunicação, evoluindo no esquema corporal e na riqueza de detalhes visuais. ",
-            "apresentasse uma escuta atenta durante as histórias, demonstrando capacidade de recontar enredos com sequência lógica e clareza. ",
-            "descobrisse o prazer de experimentar novas texturas e sabores, demonstrando abertura para o desenvolvimento de hábitos saudáveis. ",
-            "expressasse, por meio da dramatização e do faz-de-conta, situações da vida real que auxiliam na sua maturação emocional. ",
-            "estabelecesse conexões entre os saberes prévios e os novos desafios, demonstrando um aprendizado em constante espiral. ",
-            "atuasse como mediador(a) entre os pares, sugerindo soluções para as brincadeiras e organizando dinâmicas coletivas com liderança. ",
-            "reconhecesse e nomeasse suas emoções básicas, buscando estratégias para lidar com a frustração e o entusiasmo de forma equilibrada. ",
-            "demonstrasse interesse pela escrita funcional, identificando rótulos, nomes e mensagens presentes no ambiente letrado da sala. ",
-            "explorasse as propriedades dos objetos, como peso, volume e densidade, em atividades de laboratório e exploração sensorial. ",
-            "compreendesse a função social dos números e das letras, relacionando-os aos contextos práticos de vida e às vivências na escola. ",
-            "valorizasse as tradições culturais e as festas populares, participando com alegria e respeitando as manifestações da nossa identidade. ",
-            "demonstrasse um amadurecimento notável na forma de se colocar no mundo, agindo com segurança e expressando suas vontades com clareza. "
+            "apresentou um desempenho notável, demonstrando autonomia crescente ao participar das rotinas estabelecidas e das propostas de exploração. Nas rodas de conversa, revelou habilidade para expressar sentimentos e compreender as normas de convivência social que regem o grupo, agindo com empatia e cooperação. Além disso, a exploração de diversas linguagens permitiu a consolidação de saberes essenciais, refletindo uma trajetória marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência compartilhada com os pares. ",
+            "vivenciou os direitos de conviver, brincar e participar de forma plena, agindo com protagonismo em suas escolhas e interações. Notou-se um avanço significativo na capacidade de expressão oral e na construção de vínculos afetivos sólidos, fundamentais para a segurança emocional no ambiente escolar. Sua curiosidade natural foi o motor para investigações profundas sobre o mundo físico, revelando um pensamento lógico em constante evolução e uma sensibilidade artística que transparece em suas produções gráficas e plásticas, sempre carregadas de originalidade. ",
+            "demonstrou um percurso rico em descobertas e conquistas significativas, mantendo-se engajado(a) e curioso(a) diante dos desafios propostos. Através da interação constante com o meio e com os colegas, desenvolveu habilidades socioemocionais importantes, aprendendo a negociar espaços e a respeitar os limites do outro. Sua trajetória é evidenciada pela capacidade de relacionar conhecimentos prévios a novas experiências, demonstrando foco e persistência na resolução de problemas cotidianos, o que reforça sua autoconfiança e o senso de pertencimento ao grupo. "
         ],
         detalhes: [
-            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações. ",
-            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. ",
-            "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço.",
-            "Ressaltamos que a criança apresenta um vínculo afetivo muito forte com os colegas, sendo frequentemente buscada para parcerias em jogos e brincadeiras simbólicas. ",
-            "Vale destacar seu avanço na motricidade fina, visível na precisão dos recortes, na pressão do lápis e na modelagem minuciosa de massinhas e argila. ",
-            "Notamos uma evolução excelente na percepção auditiva, conseguindo distinguir timbres e ritmos com facilidade durante as aulas de música e expressão corporal. ",
-            "Quanto à organização temporal, já consegue antecipar os passos da rotina, demonstrando segurança e tranquilidade na transição entre as atividades. ",
-            "No campo da imaginação, cria narrativas complexas durante o brincar livre, atribuindo novos significados a objetos simples do cotidiano. ",
-            "Demonstra especial interesse pelo mundo natural, cuidando da horta escolar e observando pequenos insetos com uma postura de cientista mirim. ",
-            "Sua capacidade de argumentação em situações de escolha é notável, utilizando a linguagem para justificar suas preferências de modo respeitoso. ",
-            "Observamos que a criança tem se mostrado mais resiliente frente aos desafios lógicos, tentando novas estratégias até atingir o resultado esperado. ",
-            "A relação com os livros tornou-se um hábito prazeroso; folheia as páginas com zelo e demonstra curiosidade pelas letras iniciais das palavras. ",
-            "Em relação às noções espaciais, domina conceitos como 'perto/longe' e 'em cima/embaixo', aplicando-os em circuitos motores e montagens de blocos. ",
-            "Destaca-se sua generosidade em compartilhar materiais, sendo um exemplo de cooperação e solidariedade para todo o grupo. ",
-            "A criança apresenta uma expressão facial e corporal muito rica, transmitindo emoções e intenções comunicativas com clareza e doçura. ",
-            "Nas atividades de culinária pedagógica, demonstrou atenção aos processos de transformação dos alimentos e higiene rigorosa com as mãos. ",
-            "Percebeu-se que a criança já reconhece e escreve o próprio nome de forma espontânea, demonstrando orgulho pela sua conquista na alfabetização inicial. ",
-            "Seu interesse por jogos de tabuleiro aumentou, respeitando as regras e o tempo de espera de cada participante com maturidade. ",
-            "A criança demonstra grande facilidade em imitar gestos e coreografias, revelando uma consciência rítmica em plena expansão. ",
-            "Observamos que, ao ser incentivada, propõe soluções criativas para problemas de convivência, agindo como uma liderança positiva entre os pares. ",
-            "Identifica com precisão as cores primárias e secundárias, relacionando-as aos elementos da natureza e às produções artísticas do grupo. ",
-            "Demonstra cuidado com os pertences individuais e coletivos, zelando pela conservação dos brinquedos e livros da nossa instituição. ",
-            "Sua postura nas rodas de conversa é de escuta ativa, aguardando sua vez de falar e contribuindo com opiniões pertinentes ao tema. ",
-            "Notamos um progresso significativo na autonomia do vestir-se e calçar-se, o que reforça sua autoconfiança e independência diária. ",
-            "A criança utiliza vocabulário diversificado para descrever sentimentos como saudade, alegria e preocupação, revelando inteligência emocional. ",
-            "Nas propostas de artes plásticas, explora diferentes planos (vertical e horizontal) com desenvoltura e intenção estética. ",
-            "Demonstra facilidade em classificar objetos por critérios variados, como cor, tamanho e textura, em atividades de lógica matemática. ",
-            "A relação com a água e o brincar sensorial tem sido fundamental para o relaxamento e para a exploração de novas sensações táteis. ",
-            "Revela prontidão para auxiliar os funcionários da escola em pequenas tarefas, demonstrando educação e senso de comunidade. ",
-            "Por fim, ressaltamos sua alegria contagiante, que transforma cada momento de aprendizado em uma experiência leve e prazerosa para todos. "
+            "Somado a isso, observamos uma evolução excelente na coordenação motora ampla e fina, permitindo que a criança domine o espaço com segurança e utilize instrumentos de desenho e escrita com precisão técnica. A relação com a literatura também se fortaleceu, demonstrando prazer nas contações de histórias e autonomia ao manusear livros, identificando elementos da narrativa e formulando hipóteses sobre o sistema de escrita. Sua postura investigativa diante dos fenômenos da natureza e das relações matemáticas traduz um aprendizado sólido e cheio de significados práticos. ",
+            "Ressaltamos também que a criança demonstrou grande independência nas práticas de autocuidado, cuidando de sua higiene e organização pessoal com zelo e consciência. Nas atividades artísticas, explorou cores, formas e sons com sensibilidade, criando produções que refletem seu mundo interior e sua visão de mundo. O interesse por desafios que envolvem raciocínio lógico e contagem foi uma constante, testando hipóteses e comunicando descobertas com clareza, o que demonstra uma base firme para a construção de conceitos sobre tempo, espaço e quantidades. ",
+            "Vale destacar que sua participação em projetos coletivos evidenciou um espírito colaborativo e proativo, sendo capaz de liderar brincadeiras e sugerir soluções criativas para conflitos interpessoais. Na área das linguagens, ampliou consideravelmente seu vocabulário e sua capacidade argumentativa, utilizando a fala como ferramenta principal de interação e resolução de dúvidas. A consciência corporal e rítmica também foi ampliada por meio de vivências musicais e circuitos motores, onde demonstrou agilidade, equilíbrio e uma expressividade corporal harmoniosa e comunicativa. "
         ],
         conclusao: [
-            "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa.",
-            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral. O aprendizado ocorreu de forma lúdica e cheia de significados reais.",
-            "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional.",
-            "Encerramos este semestre com a satisfação do dever cumprido, observando uma criança mais confiante e preparada para os novos desafios que virão. ",
-            "Diante do exposto, reiteramos a importância da parceria família-escola para que o desenvolvimento continue florescendo com harmonia. ",
-            "Que as sementes plantadas neste período se transformem em grandes saberes, guiando a criança em sua jornada de descoberta constante. ",
-            "Parabenizamos a criança por sua dedicação e empenho, características que foram fundamentais para os excelentes resultados alcançados. ",
-            "Fica aqui registrado nosso carinho e admiração pelo percurso trilhado, certos de que o futuro reserva ainda mais brilho e aprendizado. ",
-            "Este parecer reflete uma caminhada feita de afetos e conquistas que orgulham a todos nós, educadores e familiares. ",
-            "Seguimos com o coração grato por participar da história desta criança, transformando vivências simples em memórias e saberes profundos. ",
-            "O desenvolvimento integral foi plenamente assistido, respeitando as singularidades e potencializando as virtudes individuais. ",
-            "Concluímos ressaltando que o aprendizado aconteceu na alegria e no brincar, conforme preconizam as diretrizes da educação infantil. ",
-            "É notório que a base construída até aqui é sólida, permitindo que a criança avance com curiosidade e autonomia em sua vida escolar. ",
-            "Finalizamos este ciclo com a renovação de nosso compromisso em educar para a liberdade, para a ética e para o respeito mútuo. ",
-            "Desejamos que o próximo período seja tão produtivo e feliz quanto este, mantendo o entusiasmo pela busca do conhecimento. ",
-            "Este documento é o registro de um florescer, onde cada detalhe foi observado com a devida importância e cuidado pedagógico. ",
-            "A criança encerra esta etapa demonstrando um amadurecimento que é fruto de estímulos adequados e muito amor envolvido. ",
-            "Celebramos o sucesso deste semestre, reafirmando que cada passo dado foi uma vitória na construção de um ser humano integral. ",
-            "Que o brilho no olhar e a vontade de descobrir permaneçam como guias constantes na trajetória desta criança tão especial. ",
-            "Reconhecemos os avanços em todos os campos de experiência, validando a eficácia da nossa proposta educacional humanística. ",
-            "O progresso aqui descrito é o resultado de uma tríade vitoriosa: a vontade da criança, o apoio da família e a mediação da escola. ",
-            "Seguimos entusiasmados para a próxima fase, com o olhar atento às novas hipóteses que a criança passará a formular. ",
-            "Encerramos este parecer com a certeza de que a educação infantil é o alicerce onde se constrói toda uma vida de cidadania. ",
-            "A evolução no campo socioemocional é o maior destaque deste período, revelando uma criança empática e resiliente. ",
-            "Parabéns pelo percurso brilhante; que a curiosidade continue sendo o motor das suas grandes descobertas pelo mundo. ",
-            "Este registro é um convite à reflexão sobre a potência da infância e sobre a beleza do processo de aprender e ensinar. ",
-            "Concluímos este período com a alegria de ver uma criança que se sente pertencente e valorizada em seu ambiente escolar. ",
-            "O aprendizado aqui registrado é autêntico e vivo, refletindo a essência de uma infância plena de direitos e possibilidades. ",
-            "Desejamos que a jornada continue repleta de descobertas, brincadeiras e muito afeto em cada novo passo dado. ",
-            "Finalizamos afirmando que é um privilégio acompanhar o crescimento desta criança e contribuir para sua formação humana. "
+            "Concluímos este período celebrando cada conquista individual e reafirmando nosso compromisso com uma educação humanizada e de excelência. O progresso aqui registrado é o reflexo direto de uma mediação afetuosa e intencional, que proporcionou as condições ideais para o florescimento de saberes fundamentais. Finalizamos esta etapa com a absoluta certeza de que a base oferecida serviu como alicerce seguro para o crescimento integral, garantindo que o aprendizado ocorresse de forma lúdica, respeitosa e repleta de sentidos reais para a vida. ",
+            "Encerramos este ciclo pedagógico com a satisfação de observar uma criança segura de suas capacidades e entusiasmada com o processo de aprender. Os registros contínuos comprovam um desenvolvimento contínuo e equilibrado, respeitando as singularidades e potencializando as virtudes. Reafirmamos a importância da parceria entre família e escola como suporte essencial para que este desenvolvimento continue a prosperar com harmonia. Que a curiosidade e o brilho no olhar permaneçam como guias constantes na trajetória educativa de sucesso que se desenha. ",
+            "Ao final desta etapa, percebemos que a criança consolidou competências essenciais para sua faixa etária, avançando com segurança emocional e autonomia. Os registros mostram um processo evolutivo sólido, onde cada vivência foi transformada em conhecimento duradouro. Celebramos as vitórias deste semestre e seguimos com o compromisso de oferecer contextos cada vez mais ricos e provocadores, garantindo que a jornada escolar continue sendo um espaço de felicidade, descobertas e pleno desenvolvimento humano para o futuro. "
         ]
     };
 
@@ -301,19 +172,7 @@
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-pergunta">
-                <span class="campo-nome">${item.n}</span>
-                <div class="header-pergunta">
-                    <p class="pergunta-texto">${item.p}</p>
-                    <button class="btn-ajuda" onclick="alternarAjuda(${idx})">?</button>
-                </div>
-                <div class="info-pedagogica" id="info-${idx}">${item.info}</div>
-            </div>
-            <div class="grid-botoes" id="c-${idx}">
-                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
-                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
-                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
-            </div>`;
+            div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><div class="header-pergunta"><p class="pergunta-texto">${item.p}</p><button class="btn-ajuda" onclick="alternarAjuda(${idx})">?</button></div><div class="info-pedagogica" id="info-${idx}">${item.info}</div></div><div class="grid-botoes" id="c-${idx}"><div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div><div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div><div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div></div>`;
             cCont.appendChild(div);
         });
     }
@@ -333,10 +192,8 @@
     function gerarRelatorio() {
         let escolaInput = document.getElementById('escola').value.toUpperCase();
         const nomeEscolaFinal = escolaInput ? "ESCOLA: " + escolaInput : "INSTITUIÇÃO NÃO INFORMADA";
-        
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
-        const cidadeRaw = document.getElementById('cidade').value || "Sua Cidade";
-        const cidadeFormatada = formatarCidade(cidadeRaw);
+        const cidadeFormatada = formatarCidade(document.getElementById('cidade').value || "Sua Cidade");
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
@@ -350,11 +207,9 @@
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
-            
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto">${p3}</div>
-
             <div class="data-local">${cidadeFormatada}, 20 de Abril de 2026.</div>
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
@@ -370,7 +225,7 @@
     function salvarRelatorio() {
         const conteudo = document.getElementById('editor').innerHTML;
         const nomeAlu = document.getElementById('crianca').value || "Relatorio";
-        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:20px;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
+        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:20px;line-height:1.6;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = `Relatorio_${nomeAlu}.html`;
