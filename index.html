@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Ultra</title>
+    <title>CONTAÊ PROFE - Versão Limpa</title>
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -48,7 +48,6 @@
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
         
         .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
@@ -161,18 +160,6 @@
             "A criança encerra este período demonstrando estar pronta para voos mais altos, levando consigo as sementes de uma curiosidade que nunca se apaga. ",
             "Ressaltamos que o desenvolvimento infantil é um processo contínuo e que cada criança floresce a seu tempo, sendo as conquistas aqui listadas apenas o início de um grande caminho. ",
             "Que as vivências compartilhadas em nossa instituição continuem ecoando como memórias felizes e aprendizados duradouros na vida desta pequena grande pessoa. "
-        ],
-        frasesFinais: [
-            "Seu brilho único ilumina nossa sala.", 
-            "Cada descoberta sua é um motivo para sorrir.", 
-            "Sua curiosidade é a semente do futuro.", 
-            "O mundo fica colorido com sua alegria.", 
-            "Continue explorando com esse olhar.",
-            "Você é um pequeno grande explorador!",
-            "Sua jornada de aprendizado é encantadora.",
-            "Brilhe sempre, pequeno(a) aprendiz!",
-            "O amanhã espera por suas grandes ideias.",
-            "Orgulho de ver seu crescimento diário!"
         ]
     };
 
@@ -216,7 +203,6 @@
         const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
         const cidadeFormatada = formatarCidade(cidadeRaw);
         
-        // Sorteio inteligente para garantir variedade
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const conc = sortear(db.conclusao);
@@ -232,8 +218,7 @@
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
-            <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">${cidadeFormatada}, 19 de abril de 2026.</div>
+            <div class="data-local" style="margin-top:2em;">${cidadeFormatada}, 19 de abril de 2026.</div>
             
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura">
