@@ -54,7 +54,8 @@
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
-        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 1.2em; text-indent: 1.25cm; }
+        /* Ajuste solicitado: Espaçamento 1.5 e REMOÇÃO do espaço entre parágrafos */
+        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 0; text-indent: 1.25cm; }
 
         .data-local { text-align: center; margin-top: 3em; margin-bottom: 3.5em; }
         
@@ -165,7 +166,6 @@
         const cidadeRaw = document.getElementById('cidade').value || "Sua Cidade";
         const cidadeFormatada = formatarCidade(cidadeRaw);
         
-        // Estrutura em 3 parágrafos
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const p3 = sortear(db.conclusao);
