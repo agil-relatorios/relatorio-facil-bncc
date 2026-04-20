@@ -4,7 +4,7 @@
     <meta name="theme-color" content="#ff4757">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CONTAÊ PROFE - App</title>
+    <title>CONTAÊ PROFE - ABNT</title>
     
     <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Contaê%20Profe%22,%22short_name%22:%22Contaê%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#ffffff%22,%22theme_color%22:%22#ff4757%22,%22icons%22:[{%22src%22:%22data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiNmZjQ3NTciIHJ4PSIxMDAiLz48dGV4dCB4PSI1MCUiIHk9IjU4JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0MCIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DUDwvdGV4dD48L3N2Zz4=%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]} ">
 
@@ -28,7 +28,6 @@
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        /* Botão Instalar App */
         #install-btn { 
             display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000;
             background: #2f3542; color: white; border: none; padding: 12px 20px;
@@ -63,30 +62,63 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* Estilo da Folha A4 no Desktop e Mobile */
+        /* CONFIGURAÇÃO ABNT ATUALIZADA (Papel Ofício/A4) */
         #editor { 
-            width: 210mm; min-height: 297mm; margin: 30px auto; background: white; 
-            box-sizing: border-box; padding: 25mm 20mm 20mm 25mm; font-family: Arial, sans-serif; 
-            font-size: 12pt; color: #000; display: none; border: 1px solid #eee; position: relative;
+            width: 210mm; 
+            min-height: 297mm; 
+            margin: 30px auto; 
+            background: white; 
+            box-sizing: border-box; 
+            /* Margens ABNT: Sup: 3cm, Esq: 3cm, Inf: 2cm, Dir: 2cm */
+            padding: 30mm 20mm 20mm 30mm; 
+            font-family: Arial, sans-serif; 
+            font-size: 12pt; 
+            line-height: 1.5;
+            color: #000; 
+            display: none; 
+            border: 1px solid #ccc; 
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        @media (max-width: 210mm) { #editor { width: 95%; padding: 15px; min-height: auto; font-size: 11pt; } }
 
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
-        .data-local { text-align: center; margin-bottom: 3.5em; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 1.5em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
         
-        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
-        .bloco-assinatura { width: 45%; text-align: center; }
+        .corpo-texto { 
+            text-align: justify; 
+            text-indent: 1.25cm; /* Recuo ABNT */
+            margin-bottom: 1em; 
+        }
+        
+        .data-local { text-align: center; margin-top: 3em; margin-bottom: 4em; }
+        
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-top: 5em; }
+        .bloco-assinatura { width: 40%; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 10pt; }
 
-        @page { size: A4; margin: 0; }
+        @page { 
+            size: A4; 
+            margin: 0; 
+        }
+        
         @media print { 
             .no-print, #install-btn { display: none !important; } 
-            body { background: white; }
-            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100% !important; box-shadow: none !important; } 
+            body { background: white; margin: 0; }
+            #editor { 
+                display: block !important; 
+                margin: 0 !important; 
+                border: none !important; 
+                width: 210mm !important; 
+                height: 297mm !important;
+                box-shadow: none !important; 
+                page-break-after: always;
+            } 
+        }
+
+        @media (max-width: 210mm) {
+            #editor { width: 98%; padding: 20px; font-size: 11pt; min-height: auto; }
         }
     </style></head><body>
 
@@ -133,7 +165,6 @@
 </div>
 
 <script>
-    // PWA: Lógica de Instalação
     let deferredPrompt;
     const installBtn = document.getElementById('install-btn');
 
@@ -216,13 +247,17 @@
         });
     }
 
-    function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
+    function marcar(idx, n, b) { 
+        Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
+        b.classList.add('active'); 
+        selecoes[idx] = n; 
+    }
     
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function formatarCidade(cidade) {
-        const excessoes = ["de", "do", "da", "dos", "das", "e"];
         if(!cidade) return "";
+        const excessoes = ["de", "do", "da", "dos", "das", "e"];
         return cidade.toLowerCase().split(' ').map((p, i) => (i > 0 && excessoes.includes(p)) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
     }
 
@@ -245,8 +280,8 @@
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value || "____"}</div>
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
-            <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
-            <div class="data-local" style="margin-top:2em;">${cidade}, 20 de abril de 2026.</div>
+            <div class="corpo-texto">${conc}</div>
+            <div class="data-local">${cidade}, ${new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'})}.</div>
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação</span></div>
