@@ -29,13 +29,14 @@
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
-        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
-        .pergunta-texto { font-size: 1rem; font-weight: 600; }
-        .pergunta-auxiliar { font-size: 0.85rem; font-style: italic; opacity: 0.9; margin-top: 5px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 5px; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; flex-direction: column; line-height: 1.4; }
+        .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
+        .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .info-pedagogica { font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 5px; }
+        .info-pedagogica strong { color: #ffeaa7; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
+        .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
         .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
         .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
         .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
@@ -44,7 +45,7 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
@@ -103,28 +104,28 @@
     const camposBNCC = [
         {
             n: "1. O EU, O OUTRO E O NÓS", 
-            p: "Vínculos e identidade.",
-            q: "Como a criança interage com os pares e expressa suas emoções?"
+            p: "Vínculos, Identidade e Alteridade",
+            info: "<strong>O que observar:</strong> A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
         },
         {
             n: "2. CORPO, GESTOS E MOVIMENTOS", 
-            p: "Autonomia motora.",
-            q: "A criança demonstra coordenação e cuidado com o próprio corpo?"
+            p: "Expressividade e Coordenação",
+            info: "<strong>O que observar:</strong> Explora o espaço com segurança? Domina a coordenação motora fina (desenho/recorte) e ampla (correr/pular)? Reconhece sensações e limites do corpo?"
         },
         {
             n: "3. TRAÇOS, SONS, CORES E FORMAS", 
-            p: "Expressão artística.",
-            q: "Como ela utiliza diferentes materiais para se expressar criativamente?"
+            p: "Sensorialidade e Criação Artística",
+            info: "<strong>O que observar:</strong> Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta, colagem)? Reconhece cores e formas no ambiente?"
         },
         {
             n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-            p: "Comunicação e leitura.",
-            q: "Ela expressa ideias com clareza e demonstra interesse por histórias?"
+            p: "Linguagem e Oralidade",
+            info: "<strong>O que observar:</strong> Expressa ideias e sentimentos com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias? Conhece gêneros textuais?"
         },
         {
             n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-            p: "Raciocínio lógico.",
-            q: "A criança identifica sequências, espaços e resolve problemas lógicos?"
+            p: "Mundo Físico e Raciocínio Lógico",
+            info: "<strong>O que observar:</strong> Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Demonstra curiosidade sobre fenômenos naturais e sociais?"
         }
     ];
 
@@ -168,7 +169,7 @@
             div.innerHTML = `<div class="secao-pergunta">
                 <span class="campo-nome">${item.n}</span>
                 <span class="pergunta-texto">${item.p}</span>
-                <div class="pergunta-auxiliar"><strong>Reflexão:</strong> ${item.q}</div>
+                <div class="info-pedagogica">${item.info}</div>
             </div>
             <div class="grid-botoes" id="c-${idx}">
                 <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
