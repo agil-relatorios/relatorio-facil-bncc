@@ -54,7 +54,6 @@
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
-        /* Ajuste solicitado: Espaçamento 1.5 e sem recuo entre blocos de texto */
         .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 0; }
         .primeiro-paragrafo { text-indent: 1.25cm; }
 
@@ -108,7 +107,7 @@
             "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
             "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
             "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
-            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
+            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em strategies que permitissem de forma potente e acolhedora que "
         ],
         meio: [
             "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
@@ -153,14 +152,17 @@
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function gerarRelatorio() {
-        const escola = document.getElementById('escola').value.toUpperCase();
+        let escolaInput = document.getElementById('escola').value.toUpperCase();
+        // Adiciona "ESCOLA: " caso o usuário tenha digitado algo
+        const nomeEscolaFinal = escolaInput ? "ESCOLA: " + escolaInput : "INSTITUIÇÃO NÃO INFORMADA";
+        
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         const cidade = document.getElementById('cidade').value || "Sua Cidade";
         
         const textoCompleto = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio) + sortear(db.detalhes) + " " + sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${escola || "INSTITUIÇÃO NÃO INFORMADA"}</div>
+            <div class="esc-nome">${nomeEscolaFinal}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>CRIANÇA:</b> ${nomeAlu}<br>
