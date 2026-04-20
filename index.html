@@ -2,12 +2,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ff4757">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>CONTAÊ PROFE - App Oficial</title>
     
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Contaê%20Profe%22,%22short_name%22:%22Contaê%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#ffffff%22,%22theme_color%22:%22#ff4757%22,%22icons%22:[{%22src%22:%22data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiNmZjQ3NTciIHJ4PSIxMDAiLz48dGV4dCB4PSI1MCUiIHk9IjU4JSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0MCIgZmlsbD0id2hpdGUiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DUDwvdGV4dD48L3N2Zz4=%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]} ">
-
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -20,7 +16,7 @@
             --cor-avancado: #2ecc71; 
         }
         
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
@@ -28,25 +24,23 @@
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        #install-btn { 
-            display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: #2f3542; color: white; border: none; padding: 12px 20px;
-            border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            cursor: pointer; align-items: center; gap: 8px; animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; text-transform: uppercase; background: white; width: 100%; box-sizing: border-box; }
         
+        /* Estilo dos Inputs em Branco */
+        input, select { 
+            padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; 
+            outline: none; text-transform: uppercase; background: #fff; width: 100%; box-sizing: border-box; 
+        }
+        input:focus { border-color: var(--azul); background: #fff; }
+
         .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; position: relative; }
         .header-pergunta { display: flex; justify-content: space-between; align-items: flex-start; }
         .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; display: block; }
         .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 0; line-height: 1.4; }
         
-        .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
         
         .info-pedagogica { display: none; font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.5; }
         .info-pedagogica.show { display: block; }
@@ -62,35 +56,34 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        /* CONFIGURAÇÃO ABNT ATUALIZADA */
+        /* CONFIGURAÇÃO ABNT (A4) - Margens: Sup 3, Esq 3, Dir 2, Inf 2 */
         #editor { 
             width: 210mm; min-height: 297mm; margin: 30px auto; background: white; 
-            box-sizing: border-box; padding: 30mm 20mm 20mm 30mm; 
+            box-sizing: border-box; 
+            padding: 30mm 20mm 20mm 30mm; /* ABNT: Topo 30, Direita 20, Fundo 20, Esquerda 30 */
             font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5;
             color: #000; display: none; border: 1px solid #ccc; position: relative;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 1.5em; text-transform: uppercase; }
+        .bloco-dados { line-height: 1.6; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 2em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; margin-bottom: 1em; }
-        .data-local { text-align: center; margin-top: 3em; margin-bottom: 4em; }
-        .assinaturas-duplas { display: flex; justify-content: space-between; margin-top: 5em; }
-        .bloco-assinatura { width: 40%; text-align: center; }
+        .data-local { text-align: center; margin-top: 2em; margin-bottom: 3em; }
+        
+        .assinaturas-container { margin-top: 4em; }
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 3em; }
+        .bloco-assinatura { width: 45%; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 10pt; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         @page { size: A4; margin: 0; }
         @media print { 
-            .no-print, #install-btn { display: none !important; } 
+            .no-print { display: none !important; } 
             body { background: white; margin: 0; }
-            #editor { display: block !important; margin: 0 !important; border: none !important; width: 210mm !important; box-shadow: none !important; } 
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 210mm !important; } 
         }
-        @media (max-width: 210mm) { #editor { width: 98%; padding: 20px; font-size: 11pt; } }
     </style></head><body>
-
-<button id="install-btn">📲 INSTALAR APP CP</button>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
@@ -98,15 +91,16 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
-        <div class="campo"><label>Instituição</label><input type="text" id="escola" placeholder="Nome da Escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="DIGITE A CIDADE"></div>
+        <div class="campo"><label>Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="SEU NOME"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME DO ALUNO"></div>
         <div class="campo"><label>Fase</label><select id="fase">
+            <option value="" disabled selected>SELECIONE A FASE</option>
             <option value="1º PERÍODO">1º PERÍODO</option>
             <option value="2º PERÍODO">2º PERÍODO</option>
         </select></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="TURMA"></div>
         <div class="campo"><label>Gênero</label><select id="genero">
             <option value="a criança">A CRIANÇA</option>
             <option value="o aluno">O ALUNO</option>
@@ -130,19 +124,6 @@
 </div>
 
 <script>
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault(); deferredPrompt = e;
-        document.getElementById('install-btn').style.display = 'flex';
-    });
-
-    document.getElementById('install-btn').addEventListener('click', () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((res) => { if(res.outcome === 'accepted') document.getElementById('install-btn').style.display = 'none'; });
-        }
-    });
-
     const camposBNCC = [
         { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos, Identidade e Alteridade", info: "Interações, empatia e regras sociais." },
         { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Expressividade e Coordenação", info: "Motricidade e limites do corpo." },
@@ -204,10 +185,13 @@
         ]
     };
 
+    let selecoes = {};
+
     function marcar(idx, n, b) { 
         Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
         b.classList.add('active'); selecoes[idx] = n; 
     }
+
     function alternarAjuda(idx) { document.getElementById(`info-${idx}`).classList.toggle('show'); }
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
@@ -229,28 +213,36 @@
     }
 
     function gerarRelatorio() {
-        const escola = document.getElementById('escola').value.toUpperCase() || "NOME DA INSTITUIÇÃO";
-        const nomeAlu = document.getElementById('crianca').value.toUpperCase() || "________________";
+        const escola = document.getElementById('escola').value.toUpperCase() || "_________________________________";
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase() || "_________________________________";
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
         const conc = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">ESCOLA: ${escola}</div>
+            <div class="esc-nome">${escola}</div>
             <div class="bloco-dados">
-                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase() || "________________"}<br>
                 <b>CRIANÇA:</b> ${nomeAlu}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <b>FASE:</b> ${document.getElementById('fase').value || "________________"} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase() || "________________"}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto">${conc}</div>
             <div class="data-local">${document.getElementById('cidade').value || 'Sua Cidade'}, ${new Date().toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'})}.</div>
-            <div class="assinaturas-duplas">
-                <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
-                <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação</span></div>
+            
+            <div class="assinaturas-container">
+                <div class="assinaturas-duplas">
+                    <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
+                    <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span></div>
+                </div>
+                <div style="width: 60%; margin: 0 auto; text-align: center;">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Responsável</span>
+                </div>
             </div>`;
+
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
         document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
