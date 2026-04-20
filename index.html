@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="pt-br"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Limpa</title>
+    <title>CONTAÊ PROFE - Versão 7 Linhas</title>
     <meta name="theme-color" content="#ff4757">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -44,38 +44,35 @@
         
         .info-pedagogica { display: none; font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.5; animation: fadeIn 0.3s ease; }
         .info-pedagogica.show { display: block; }
-        .info-pedagogica b { color: #ffeaa7; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
-        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
-        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
+        .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
+        .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
+        .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
 
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #edeff2; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #57606f; background: #f1f2f6; }
-        .btn-limpar:hover { background: #dfe4ea; }
 
         #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 12pt; color: #000; display: none; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         
-        .corpo-texto { text-align: justify; line-height: 1.6; margin-bottom: 1.2em; text-indent: 1.25cm; }
+        .corpo-texto { text-align: justify; line-height: 1.4; margin-bottom: 0.8em; text-indent: 1.25cm; }
 
-        .data-local { text-align: center; margin-top: 3em; margin-bottom: 3.5em; }
+        .data-local { text-align: center; margin-top: 2em; margin-bottom: 2.5em; }
         
-        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2em; }
         .bloco-assinatura { width: 45%; text-align: center; }
         .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         .btns-finais { display: flex; gap: 10px; justify-content: center; margin-bottom: 50px; }
-        .btn-print { padding:15px 30px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem; }
-        .btn-save { padding:15px 30px; background:var(--cor-avancado); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem; }
+        .btn-print { padding:15px 30px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; }
+        .btn-save { padding:15px 30px; background:var(--cor-avancado); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; }
 
         @page { size: A4; margin: 0; }
         @media print { 
@@ -137,34 +134,45 @@
     }
 
     const camposBNCC = [
-        { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e Identidade", info: "Avalia a interação e autonomia do aluno." },
-        { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Expressividade", info: "Avalia coordenação motora e consciência corporal." },
-        { n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Artes e Sentidos", info: "Avalia a percepção estética e criatividade." },
-        { n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Linguagem", info: "Avalia oralidade e interpretação de histórias." },
-        { n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio", info: "Avalia noções matemáticas e ambientais." }
+        { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e Identidade", info: "Avalia a interação e autonomia." },
+        { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Expressividade", info: "Avalia coordenação e consciência corporal." },
+        { n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Artes e Sentidos", info: "Avalia percepção e criatividade." },
+        { n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Linguagem", info: "Avalia oralidade e interpretação." },
+        { n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio", info: "Avalia noções matemáticas." }
     ];
 
     const db = {
         inicio: [
-            "Com base na observação intencional das interações no ambiente escolar e garantindo os direitos de aprendizagem, organizamos vivências que uniram o cuidar e o educar. Ao longo deste ciclo, a mediação pedagógica focou no protagonismo de ",
-            "Considerando a criança como sujeito de direitos, estruturamos nossa prática no respeito às individualidades e na documentação das experiências coletivas. Por meio de ambientes preparados para a investigação e descoberta, notou-se que ",
-            "Fundamentando nossa ação na pedagogia da escuta e no acolhimento das hipóteses infantis, promovemos um percurso rico em experiências sensoriais. Através de propostas que incentivam a autonomia constante, observamos que durante este processo ",
-            "Em consonância com as diretrizes da BNCC, desenvolvemos estratégias para assegurar a ampliação do repertório cultural e social. Pela imersão em projetos que conectam o saber escolar à realidade, acompanhamos o desenvolvimento integral no qual "
+            "Mediante a observação das interações escolares e direitos de aprendizagem, notou-se que ",
+            "Com base na BNCC e na valorização das hipóteses infantis, acompanhamos o processo onde ",
+            "A partir de contextos significativos que integram o cuidar e o educar, observamos que ",
+            "Pautados no respeito às singularidades e documentação pedagógica, identificamos que ",
+            "Considerando a criança como sujeito de direitos e protagonista, verificamos que ",
+            "Através da ludicidade e das múltiplas linguagens no ambiente escolar, percebe-se que ",
+            "Pela mediação docente intencional e acolhimento das vivências, registramos que ",
+            "Dentro da rotina escolar e das propostas de investigação coletiva, notamos que ",
+            "Considerando os eixos estruturantes do brincar e do conviver, acompanhamos como ",
+            "A partir da escuta ativa e do estímulo à curiosidade natural da infância, vimos que ",
+            "Focando no desenvolvimento integral e na ampliação de repertórios, observou-se que ",
+            "Nas experiências diárias que conectam o saber à realidade da criança, vimos que ",
+            "Com olhar sensível voltado às conquistas individuais no grupo, percebeu-se que ",
+            "Promovendo desafios que estimulam a autonomia e o senso crítico, notamos como ",
+            "Analisando o percurso educativo sob a ótica da pedagogia da escuta, vimos que "
         ],
         meio: [
-            "apresentou um percurso marcado por conquistas e autonomia. Nas rodas de conversa, expressou sentimentos e compreendeu as normas de convivência social com empatia. Seu engajamento nas propostas permitiu consolidar saberes essenciais através da exploração de novos significados, respeitando sempre o ritmo das vivências estabelecidas com o grupo. ",
-            "vivenciou os direitos de conviver e brincar de forma plena, atuando com segurança em suas escolhas diárias. Houve um avanço notório na expressão oral e na construção de vínculos afetivos. Sua curiosidade natural serviu como motor para investigações sobre o mundo físico, revelando um raciocínio lógico em evolução e sensibilidade artística original. ",
-            "demonstrou um percurso rico em descobertas, mantendo uma postura investigativa diante dos desafios. Através da interação com o meio, desenvolveu competências socioemocionais vitais, aprendendo a colaborar ativamente em projetos. Sua trajetória integra saberes prévios a novas experiências, demonstrando foco e resiliência na resolução de problemas. "
+            "apresentou um percurso marcado por autonomia e conquistas. Nas rodas, expressou sentimentos e compreendeu normas sociais com empatia. Seu engajamento permitiu consolidar saberes explorando novos significados no grupo. ",
+            "vivenciou os direitos de conviver e brincar plenamente, agindo com segurança. Houve avanço na oralidade e nos vínculos afetivos. Sua curiosidade revelou raciocínio lógico em evolução e sensibilidade artística singular. ",
+            "demonstrou descobertas ricas e postura investigativa. Através da interação, desenvolveu competências socioemocionais, colaborando em projetos. Sua trajetória integra saberes prévios com foco e resiliência. "
         ],
         detalhes: [
-            "Evidenciou-se também evolução na coordenação motora fina, permitindo o domínio de suportes artísticos com precisão. A relação com a literatura fortaleceu-se, demonstrando prazer nas contações de histórias e autonomia ao formular hipóteses sobre o sistema de escrita. Sua postura diante de relações matemáticas traduz um aprendizado sólido e prático. ",
-            "Vale destacar a independência nas rotinas de autocuidado e organização de materiais. Nas atividades de expressão cultural, explorou ritmos e formas com sensibilidade técnica, refletindo sua visão de mundo singular. O interesse por desafios lógicos e sequências numéricas foi constante, comunicando descobertas com clareza linguística e espacial. ",
-            "Destaca-se sua participação proativa em projetos de grupo, manifestando espírito colaborativo e liderança. No campo da oralidade, ampliou o vocabulário para justificar preferências e mediar brincadeiras. A consciência rítmica foi potencializada através de vivências musicais, revelando equilíbrio e uma expressividade corporal que comunica intenções de forma criativa. "
+            "Evidenciou-se evolução na motricidade e domínio de suportes artísticos. A relação com a literatura fortaleceu-se, com autonomia na interpretação de histórias. Sua postura matemática traduz um aprendizado prático e sólido. ",
+            "Vale destacar a independência nas rotinas de autocuidado. Nas artes, explorou ritmos com sensibilidade, refletindo sua visão de mundo. O interesse por desafios lógicos foi constante, comunicando descobertas com clareza. ",
+            "Destaca-se a participação proativa em projetos, manifestando espírito colaborativo. Na oralidade, ampliou o vocabulário para mediar brincadeiras. A consciência rítmica revelou expressividade corporal e criatividade. "
         ],
         conclusao: [
-            "Concluímos este ciclo celebrando vitórias individuais e reafirmando o compromisso com uma educação de excelência. Finalizamos esta etapa com a certeza de que a base oferecida serviu como alicerce seguro para o crescimento integral, garantindo que o aprendizado ocorresse de forma lúdica, respeitosa e cheia de significados reais para a vida. ",
-            "Encerramos este semestre com a satisfação de observar uma criança segura de suas capacidades. Os registros comprovam um desenvolvimento equilibrado, respeitando as singularidades. Reafirmamos a parceria família-escola como pilar para que este florescer continue com harmonia e descobertas constantes no próximo período letivo. ",
-            "Ao finalizar este parecer, percebemos que a criança consolidou saberes fundamentais, avançando com segurança emocional. Os registros mostram um processo evolutivo sólido, onde cada vivência transformou-se em conhecimento duradouro. Celebramos o sucesso deste percurso e seguimos oferecendo contextos ricos para o pleno desenvolvimento humano. "
+            "Concluímos este ciclo celebrando vitórias e reafirmando o compromisso com uma educação lúdica e de excelência. ",
+            "Encerramos este semestre com a satisfação de observar um desenvolvimento equilibrado e seguro da criança. ",
+            "Ao finalizar este parecer, vemos um processo evolutivo sólido, transformando cada vivência em conhecimento duradouro. "
         ]
     };
 
@@ -221,7 +229,7 @@
     function salvarRelatorio() {
         const conteudo = document.getElementById('editor').innerHTML;
         const nomeAlu = document.getElementById('crianca').value || "Relatorio";
-        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:20px;line-height:1.6;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
+        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:10px;line-height:1.4;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = `Relatorio_${nomeAlu}.html`;
