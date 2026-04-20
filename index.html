@@ -2,6 +2,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONTAÊ PROFE - Versão Limpa</title>
+    <meta name="theme-color" content="#ff4757">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+    
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -19,6 +24,9 @@
         .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
+
+        /* Banner de Instalação */
+        #pwa-install { display: none; background: #2f3542; color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 9999; font-weight: bold; cursor: pointer; }
 
         .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
@@ -48,7 +56,8 @@
 
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
-        .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
+        .btn-limpar { padding: 20px; border: 2px solid #edeff2; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #57606f; background: #f1f2f6; }
+        .btn-limpar:hover { background: #dfe4ea; }
 
         #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 12pt; color: #000; display: none; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
@@ -65,13 +74,21 @@
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
         .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
+        .btns-finais { display: flex; gap: 10px; justify-content: center; margin-bottom: 50px; }
+        .btn-print { padding:15px 30px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem; }
+        .btn-save { padding:15px 30px; background:var(--cor-avancado); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem; }
+
         @page { size: A4; margin: 0; }
         @media print { 
             .no-print { display: none !important; } 
             body { background: white; }
             #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
         }
-    </style></head><body><header class="no-print">
+    </style></head><body>
+
+<div id="pwa-install" class="no-print" onclick="instalarApp()">📲 CLIQUE AQUI PARA INSTALAR O APP NO SEU CELULAR</div>
+
+<header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
     <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div></header><div class="container no-print">
     <div class="grid-inputs">
@@ -91,8 +108,36 @@
     <div class="acoes-container">
         <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
-    </div></div><div id="editor" contenteditable="true"></div><div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button></div><script>
+    </div></div>
+
+    <div id="editor" contenteditable="true"></div>
+
+    <div class="no-print btns-finais" id="btn-print" style="display:none;">
+        <button class="btn-save" onclick="salvarRelatorio()">💾 SALVAR NO DISPOSITIVO</button>
+        <button class="btn-print" onclick="window.print()">🖨️ IMPRIMIR AGORA</button>
+    </div>
+
+<script>
+    // Gerenciamento de Instalação (PWA)
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('pwa-install').style.display = 'block';
+    });
+
+    function instalarApp() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    document.getElementById('pwa-install').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    }
+
     const camposBNCC = [
         { 
             n: "1. O EU, O OUTRO E O NÓS", 
@@ -211,7 +256,19 @@
             <div class="assinatura-unica"><div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span></div>
         `;
         document.getElementById('editor').style.display = 'block';
-        document.getElementById('btn-print').style.display = 'block';
+        document.getElementById('btn-print').style.display = 'flex';
         window.scrollTo(0, document.body.scrollHeight);
     }
-    iniciar();</script></body></html>
+
+    function salvarRelatorio() {
+        const conteudo = document.getElementById('editor').innerHTML;
+        const nomeAlu = document.getElementById('crianca').value || "Relatorio";
+        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:20px;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Relatorio_${nomeAlu}.html`;
+        link.click();
+    }
+
+    iniciar();
+</script></body></html>
