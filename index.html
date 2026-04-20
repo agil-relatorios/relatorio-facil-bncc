@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Inteligência Pedagógica</title>
+    <title>CONTAÊ PROFE - Versão Final</title>
     <style>
         :root { 
             --primaria: #ff4757; 
@@ -33,13 +33,13 @@
         .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; }
         .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
         .info-pedagogica { font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 5px; }
+        .info-pedagogica strong { color: #ffeaa7; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
-        .btn-v.active { color: white; }
-        .btn-v.ini.active { background: var(--cor-inicial); border-color: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); border-color: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); border-color: var(--cor-avancado); }
+        .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
+        .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
+        .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
 
         .acoes-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
@@ -48,15 +48,18 @@
         #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1em; text-transform: uppercase; font-size: 12pt; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
         
         .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
-        .bloco-assinatura { width: 45%; text-align: center; font-size: 9pt; }
+        .bloco-assinatura { width: 45%; text-align: center; }
+        .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
         .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
+        @page { size: A4; margin: 0; }
         @media print { 
             .no-print { display: none !important; } 
             body { background: white; }
@@ -74,13 +77,14 @@
 <div class="container no-print">
     <div class="grid-inputs">
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
+        <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Gênero</label><select id="genero"><option value="a criança">A CRIANÇA</option><option value="o aluno">O ALUNO</option><option value="a aluna">A ALUNA</option></select></div>
         <div class="campo"><label>Período</label><select id="periodo">
-            <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
+            <option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option>
             <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
         </select></div>
     </div>
@@ -98,109 +102,137 @@
 
 <script>
     const camposBNCC = [
-        { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e Identidade", info: "Interação, autonomia e respeito às regras." },
-        { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Coordenação e Espaço", info: "Motricidade fina, ampla e limites corporais." },
-        { n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Artes e Musicalidade", info: "Expressão artística e exploração de materiais." },
-        { n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Linguagem e Oralidade", info: "Comunicação, contação de histórias e leitura." },
-        { n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Lógica e Natureza", info: "Números, sequências e fenômenos naturais." }
+        {
+            n: "1. O EU, O OUTRO E O NÓS", 
+            p: "Vínculos, Identidade e Alteridade",
+            info: "<strong>O que observar:</strong> A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
+        },
+        {
+            n: "2. CORPO, GESTOS E MOVIMENTOS", 
+            p: "Expressividade e Coordenação",
+            info: "<strong>O que observar:</strong> Explora o espaço com segurança? Domina a coordenação motora fina (desenho/recorte) e ampla (correr/pular)? Reconhece sensações e limites do corpo?"
+        },
+        {
+            n: "3. TRAÇOS, SONS, CORES E FORMAS", 
+            p: "Sensorialidade e Criação Artística",
+            info: "<strong>O que observar:</strong> Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta, colagem)? Reconhece cores e formas no ambiente?"
+        },
+        {
+            n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+            p: "Linguagem e Oralidade",
+            info: "<strong>O que observar:</strong> Expressa ideias e sentimentos com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias? Conhece gêneros textuais?"
+        },
+        {
+            n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+            p: "Mundo Físico e Raciocínio Lógico",
+            info: "<strong>O que observar:</strong> Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Demonstra curiosidade sobre fenômenos naturais e sociais?"
+        }
     ];
 
-    // BANCO DE DADOS ROBUSTO - SEÇÃO POR SEÇÃO
-    const DB_PEDAGOGICO = {
-        introducoes: [
-            "Pautados nas diretrizes da BNCC e na observação sensível do cotidiano escolar, este registro reflete o percurso de aprendizagem de [NOME] ao longo deste período. Através de contextos intencionais que integram o cuidar e o educar, buscamos garantir os direitos fundamentais de conviver, brincar, participar, explorar, expressar e conhecer-se.",
-            "O presente relatório é fruto de um olhar atento sobre as vivências de [NOME] no ambiente coletivo. Compreendemos a criança como sujeito histórico e de direitos, que constrói sua identidade através das interações. Abaixo, descrevemos de forma técnica e afetuosa as conquistas e os desafios deste processo singular."
+    const db = {
+        inicio: [
+            "Ao longo deste período letivo, pautamos nossa prática na observação sensível e intencional das interações estabelecidas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem. ",
+            "Através da organização de contextos significativos e desafiadores que integram o cuidar e o educar, a docente buscou pautar sua mediação na escuta ativa das necessidades individuais. ",
+            "Mediante a estruturação de ambientes que provocam o protagonismo e a curiosidade natural da infância, oportunizou-se ao longo deste processo pedagógico que ",
+            "Pautada no respeito às singularidades e nos registros contínuos de cada vivência escolar, a prática pedagógica foi direcionada para assegurar que ",
+            "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
-        
-        desenvolvimento: {
-            vermelho: [
-                "Nesta etapa, observamos que [NOME] necessita de uma mediação constante e individualizada para estabelecer vínculos de confiança com o grupo e com a rotina. No campo 'O Eu, o Outro e o Nós', a criança demonstra estar em fase de adaptação, exigindo suporte emocional para participar das propostas coletivas. Suas reações ao ambiente escolar são acolhidas com escuta ativa, priorizando o estabelecimento de segurança para que a exploração do espaço e dos materiais ocorra de forma gradual e protegida.",
-                "Identificamos que [NOME] apresenta um tempo singular de resposta aos estímulos pedagógicos. No campo 'Corpo, Gestos e Movimentos', percebe-se que a coordenação motora e a percepção espacial ainda demandam auxílio direto da docente. A intencionalidade pedagógica tem focado no fortalecimento da autoestima e no encorajamento, garantindo que a criança se sinta pertencente ao grupo, mesmo em momentos de maior introspecção ou necessidade de suporte físico e verbal."
-            ],
-            misto: [
-                "O percurso de [NOME] revela um desenvolvimento dinâmico e diversificado. Observamos que a criança demonstra grande entusiasmo no campo 'Traços, Sons, Cores e Formas', expressando-se com criatividade e autonomia ao manipular diferentes suportes artísticos. Entretanto, em momentos que exigem o cumprimento de regras sociais e limites coletivos (O Eu, o Outro e o Nós), [NOME] ainda necessita de mediação pontual para compreender a perspectiva do próximo e autorregular suas emoções, o que caracteriza um processo saudável de maturação social.",
-                "Durante as vivências, [NOME] mostrou-se uma criança curiosa e participativa. No campo 'Escuta, Fala, Pensamento e Imaginação', demonstra clareza ao expressar seus desejos e ao recontar pequenas histórias, exercendo seu protagonismo. No entanto, notamos que o campo 'Espaço, Tempo, Quantidades e Relações' ainda é um território de novas descobertas que demanda mediação, onde a criança está aprendendo a organizar sequências lógicas e identificar relações temporais através da experimentação lúdica."
-            ],
-            verde: [
-                "Com notável autonomia e protagonismo, [NOME] consolidou saberes fundamentais neste ciclo. No campo 'O Eu, o Outro e o Nós', atua de forma colaborativa, liderando brincadeiras e demonstrando empatia nas interações com os pares. Sua segurança emocional permite que transite pelos ambientes com independência, fazendo escolhas conscientes e respeitando o coletivo. É um percurso marcado pela confiança e pela apropriação sólida das rotinas escolares, onde a criança se vê como sujeito ativo de seu aprendizado.",
-                "A trajetória de [NOME] é caracterizada por uma curiosidade aguçada e prontidão cognitiva. No campo 'Espaço, Tempo, Quantidades e Relações', a criança formula hipóteses, resolve situações-problema e relaciona conceitos de forma autônoma. Sua comunicação é fluida e rica em vocabulário, demonstrando um excelente domínio do campo 'Escuta, Fala, Pensamento e Imaginação'. [NOME] encerra este período com conquistas significativas, revelando-se preparada para desafios cada vez mais complexos e criativos."
-            ]
-        },
-
-        conclusoes: [
-            "Concluímos este registro celebrando as conquistas alcançadas. O progresso observado é alicerce para as futuras vivências, reafirmando nosso compromisso com uma educação que respeita a infância em toda sua plenitude.",
-            "Encerramos este ciclo com a certeza de que a base oferecida serviu como trampolim para o crescimento integral da criança. Seguimos em parceria com a família, valorizando cada passo deste florescimento tão singular.",
-            "As descobertas deste período são fundamentais para o desenvolvimento cognitivo e emocional. O sucesso desta etapa reflete a harmonia entre o brincar e o aprender, garantindo segurança para os próximos passos."
-        ]
+        meio: [
+            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
+            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
+            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
+            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado e autonomia. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente. ",
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. "
+        ],
+        detalhes: [
+            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
+            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
+            "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
+            "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
+            "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
+        ],
+        conclusao: [
+            "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com a excelência pedagógica. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas descobertas.",
+            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como trampolim para o crescimento integral. O aprendizado ocorreu de forma lúdica e cheia de significados reais, garantindo autonomia na trajetória escolar.",
+            "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional e uma curiosidade aguçada.",
+            "O progresso alcançado reflete a harmonia entre o brincar e o aprender. Estamos confiantes de que a próxima etapa será encarada com o mesmo protagonismo e alegria que marcaram este período fascinante.",
+            "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos."
+        ],
+        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "Sua curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria.", "Continue explorando com esse olhar."]
     };
 
-    const frasesFinais = ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "A curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria."];
     let selecoes = {};
-
     function iniciar() {
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `
-                <div class="secao-pergunta">
-                    <span class="campo-nome">${item.n}</span>
-                    <span class="pergunta-texto">${item.p}</span>
-                    <div class="info-pedagogica">${item.info}</div>
-                </div>
-                <div class="grid-botoes" id="c-${idx}">
-                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">MEDIAÇÃO</div>
-                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AUTONOMIA</div>
-                </div>`;
+            div.innerHTML = `<div class="secao-pergunta">
+                <span class="campo-nome">${item.n}</span>
+                <span class="pergunta-texto">${item.p}</span>
+                <div class="info-pedagogica">${item.info}</div>
+            </div>
+            <div class="grid-botoes" id="c-${idx}">
+                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
+                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
+            </div>`;
             cCont.appendChild(div);
         });
     }
 
-    function marcar(idx, valor, botao) {
-        const pai = document.getElementById(`c-${idx}`);
-        Array.from(pai.children).forEach(b => b.classList.remove('active'));
-        botao.classList.add('active');
-        selecoes[idx] = valor;
+    function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
+    
+    function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
+
+    function formatarCidade(cidade) {
+        const excessoes = ["de", "do", "da", "dos", "das", "e"];
+        return cidade.toLowerCase().split(' ').map((palavra, index) => {
+            if (index > 0 && excessoes.includes(palavra)) return palavra;
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+        }).join(' ');
     }
 
-    function sortear(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
     function gerarRelatorio() {
-        const nome = document.getElementById('crianca').value.toUpperCase() || "CRIANÇA";
-        const escola = document.getElementById('escola').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value || "Sua Cidade";
+        let escRaw = document.getElementById('escola').value.trim();
+        let esc = escRaw.toUpperCase();
+        if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
+
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
+        const cidadeFormatada = formatarCidade(cidadeRaw);
         
-        const valores = Object.values(selecoes);
-        if (valores.length < 5) { alert("Responda todos os campos!"); return; }
-
-        const contagem = { ini: 0, pro: 0, ava: 0 };
-        valores.forEach(v => contagem[v]++);
-
-        let perfil = "misto";
-        if (contagem.ini >= 3) perfil = "vermelho";
-        else if (contagem.ava >= 4) perfil = "verde";
-
-        const intro = sortear(DB_PEDAGOGICO.introducoes).replace(/\[NOME\]/g, nome);
-        const desenvolvimento = sortear(DB_PEDAGOGICO.desenvolvimento[perfil]).replace(/\[NOME\]/g, nome);
-        const conclusao = sortear(DB_PEDAGOGICO.conclusoes);
-        const fraseM = sortear(frasesFinais);
+        const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
+        const p2 = sortear(db.detalhes);
+        const conc = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">ESCOLA: ${escola}</div>
+            <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>CRIANÇA:</b> ${nome}<br>
-                <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()} | <b>PERÍODO:</b> ${document.getElementById('periodo').value}
+                <b>CRIANÇA:</b> ${nomeAlu}<br>
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL</div>
-            <div class="corpo-texto">${intro}</div>
-            <div class="corpo-texto">${desenvolvimento}</div>
-            <div class="corpo-texto">${conclusao}</div>
-            <div class="msg-final">"${fraseM}"</div>
-            <div class="data-local">${cidade}, 2026.</div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
+            <div class="corpo-texto">${p1}</div>
+            <div class="corpo-texto">${p2}</div>
+            <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
+            <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
+            <div class="data-local">${cidadeFormatada}, 19 de abril de 2026.</div>
+            
             <div class="assinaturas-duplas">
-                <div class="bloco-assinatura"><div class="linha-assinatura"></div>PROFESSOR(A)</div>
-                <div class="bloco-assinatura"><div class="linha-assinatura"></div>COORDENAÇÃO / DIREÇÃO</div>
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Professor(a)</span>
+                </div>
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Coordenação / Direção</span>
+                </div>
+            </div>
+            
+            <div class="assinatura-unica">
+                <div class="linha-assinatura"></div>
+                <span class="label-assinatura">Responsável</span>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
