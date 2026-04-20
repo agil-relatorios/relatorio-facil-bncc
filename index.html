@@ -92,7 +92,7 @@
     <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div></header><div class="container no-print">
     <div class="grid-inputs">
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder=""></div>
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder=""></div>
+        <div class="campo"><label>Escola:</label><input type="text" id="escola" placeholder=""></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder=""></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder=""></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="">Selecione...</option><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -196,7 +196,7 @@
         const p3 = sortear(db.conclusao);
 
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">${document.getElementById('escola').value.toUpperCase() || "INSTITUIÇÃO NÃO INFORMADA"}</div>
+            <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase() || "NÃO INFORMADA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>CRIANÇA:</b> ${nomeAlu}<br>
