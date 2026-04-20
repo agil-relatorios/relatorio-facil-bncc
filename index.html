@@ -85,7 +85,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="EX: MANAUS"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="EX: Manaus"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="NOME DA INSTITUIÇÃO"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -100,9 +100,9 @@
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
-                <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
-                <option>3º BIMESTRE</option><option>4º BIMESTRE</option>
-                <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
+                <option value="1B">1º BIMESTRE</option><option value="2B">2º BIMESTRE</option>
+                <option value="3B">3º BIMESTRE</option><option value="4B">4º BIMESTRE</option>
+                <option value="1S">1º SEMESTRE</option><option value="2S">2º SEMESTRE</option>
             </select>
         </div>
     </div>
@@ -143,61 +143,99 @@
     ];
 
     const db = {
-        inicio: [
-            "Pautamos nossa prática docente na observação sensível das interações vividas no cotidiano escolar, garantindo os direitos fundamentais de aprendizagem e desenvolvimento. Através de contextos organizados de forma intencional para promover o cuidar e o educar, a mediação buscou ouvir as necessidades singulares. Notou-se que ",
-            "Ao longo deste período letivo, estruturamos ambientes que provocam o protagonismo e a curiosidade natural de cada criança. Respeitando as trajetórias individuais e os registros contínuos das vivências, as propostas pedagógicas foram direcionadas com foco na excelência e no acolhimento afetivo. Percebeu-se que ",
-            "Com base nas diretrizes da BNCC e em uma visão integral da infância, organizamos situações de aprendizagem que colocam o estudante como centro do processo educativo. Focamos em estratégias potentes que permitissem uma evolução segura e cheia de significados reais para a vida. Durante as atividades, "
-        ],
-        meio: [
-            "demonstrou um percurso de aprendizagem rico em descobertas, participando ativamente de propostas que exigiam autonomia. Nas rodas de conversa e brincadeiras coletivas, expressou suas emoções com clareza e compreendeu as normas de convivência social que regem o grupo. Mostrou-se engajado(a) e receptivo(a) aos novos desafios apresentados. ",
-            "explorou diversas linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova experiência. Revelou-se uma criança curiosa, capaz de investigar o mundo ao seu redor com olhar atento e pensamento crítico apurado. ",
-            "vivenciou os direitos de conviver, brincar e participar de forma plena e protagonista. Houve um avanço notório na construção de vínculos afetivos sólidos com os colegas e docentes, fortalecendo sua posição como sujeito social. Nas vivências práticas, mostrou segurança para tomar decisões e colaborar com o bem-estar do coletivo escolar. "
-        ],
+        introducao: {
+            inicio: [
+                "Neste início de jornada pedagógica, pautamos nossa observação nas primeiras interações cotidianas, assegurando os direitos fundamentais de adaptação e acolhimento. ",
+                "Ao abrir este ciclo letivo, estruturamos contextos de escuta sensível para compreender as necessidades singulares da criança em seu novo ambiente social. "
+            ],
+            meio: [
+                "Ao longo deste percurso letivo, as estratégias pedagógicas focaram na consolidação de vínculos e na exploração intencional de novos conhecimentos práticos. ",
+                "Pautada no registro contínuo das vivências, a prática docente direcionou-se para assegurar que o desenvolvimento ocorresse de forma segura e plena. "
+            ],
+            fim: [
+                "Ao encerrarmos este ciclo de aprendizagens, observamos o amadurecimento dos processos iniciados e a conquista de novos patamares de autonomia e saber. ",
+                "Nesta fase de síntese e transição, focamos em contextos que evidenciam o protagonismo alcançado pela criança diante de sua trajetória escolar. "
+            ]
+        },
+        desenvolvimento: {
+            ini: [
+                "demonstrou estar em fase inicial de entrosamento com o grupo, explorando os materiais de forma individual e buscando a mediação constante do professor. ",
+                "revelou curiosidade diante das novas propostas, embora ainda sinta necessidade de apoio para realizar escolhas e seguir a rotina estabelecida. "
+            ],
+            pro: [
+                "encontra-se em pleno processo de desenvolvimento de suas habilidades, participando com interesse das rodas de conversa e colaborando com o coletivo. ",
+                "demonstra segurança ao realizar propostas que exigem autonomia, testando hipóteses e comunicando suas descobertas de forma cada vez mais clara. "
+            ],
+            ava: [
+                "revelou um domínio excepcional das competências propostas, liderando iniciativas nas brincadeiras e expressando um pensamento crítico avançado. ",
+                "consolidou saberes fundamentais com protagonismo, demonstrando empatia nas relações e um repertório imaginativo vasto e diversificado. "
+            ]
+        },
         detalhes: [
-            "Além disso, apresentou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando um cuidado admirável consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação frequente em saraus, contação de histórias e momentos de dramatização criativa. ",
-            "Nas atividades voltadas ao corpo e movimento, revelou um controle motor progressivo e harmonioso, explorando diversos suportes artísticos e materiais naturais com sensibilidade. A manipulação de texturas e cores permitiu a ampliação de seu repertório imaginativo, transformando cada vivência em uma produção única. ",
-            "Observamos também um crescente interesse por desafios de raciocínio lógico, onde testou hipóteses e comunicou suas descobertas sobre quantidades e espaço. Essa postura investigativa foi fundamental para a construção de conceitos matemáticos e geográficos, aplicados de forma prática e lúdica em sua rotina diária."
+            "Além disso, observamos uma evolução notória na coordenação motora e na percepção espacial, o que permite à criança circular com segurança pelos ambientes. ",
+            "Sua relação com a oralidade e com a escuta atenta foi ampliada através de projetos de leitura e contação de histórias, enriquecendo seu vocabulário. ",
+            "Destaca-se ainda o cuidado demonstrado com os materiais de uso coletivo e a prontidão em ajudar os colegas em situações de conflito ou cooperação. ",
+            "A curiosidade científica despertada por investigações sobre a natureza permitiu que a criança estabelecesse relações complexas sobre o mundo ao seu redor. "
         ],
-        conclusao: [
-            "Concluímos este ciclo celebrando as vitórias individuais e reafirmando o compromisso com uma educação de excelência. O progresso aqui registrado é fruto de uma mediação afetuosa, preparando a criança para novas e fascinantes descobertas em sua jornada acadêmica e pessoal. ",
-            "Finalizamos esta etapa com a certeza de que a base oferecida serviu como alicerce sólido para o crescimento integral. O aprendizado ocorreu de forma lúdica, garantindo segurança emocional e autonomia. Estamos confiantes de que os próximos passos serão encarados com o mesmo protagonismo e alegria. ",
-            "Os registros revelam um processo evolutivo contínuo e consistente. A criança consolidou saberes essenciais e segue para as próximas vivências escolares com uma curiosidade aguçada e um olhar transformador. Celebramos cada conquista alcançada, certos de que o florescimento aqui iniciado será duradouro."
-        ],
-        frasesFinais: [
-            "Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", 
-            "Sua curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria.",
-            "Continue explorando com esse olhar atento.", "Sua jornada está apenas começando e já é brilhante."
-        ]
+        conclusao: {
+            inicio: ["Concluímos este período celebrando os primeiros passos e reafirmando o compromisso com o acolhimento constante."],
+            meio: ["Finalizamos esta etapa com a certeza de que as sementes do conhecimento estão florescendo de forma lúdica e sólida."],
+            fim: ["Encerramos o ano celebrando a autonomia conquistada e o preparo emocional para os novos desafios que virão."]
+        },
+        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "Sua jornada é inspiradora."]
     };
 
+    let selecoes = {};
     function marcar(idx, n, b) {
         Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active'));
         b.classList.add('active');
+        selecoes[idx] = n;
     }
 
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
     function gerarRelatorio() {
-        let esc = document.getElementById('escola').value.toUpperCase().trim();
-        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA: " + esc;
-        const nome = document.getElementById('crianca').value.toUpperCase();
+        const esc = document.getElementById('escola').value.toUpperCase().trim();
+        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const prof = document.getElementById('prof').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value.toUpperCase();
-        const dataAtual = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+        const cidade = document.getElementById('cidade').value || "Manaus";
+        const periodoCod = document.getElementById('periodo').value;
+        const periodoTexto = document.querySelector("#periodo option:checked").text;
+        
+        let intro, conc;
+        if(periodoCod === "1B" || periodoCod === "1S") {
+            intro = sortear(db.introducao.inicio);
+            conc = sortear(db.conclusao.inicio);
+        } else if(periodoCod === "2B" || periodoCod === "3B") {
+            intro = sortear(db.introducao.meio);
+            conc = sortear(db.conclusao.meio);
+        } else {
+            intro = sortear(db.introducao.fim);
+            conc = sortear(db.conclusao.fim);
+        }
+
+        // Analisa a média das seleções para definir o corpo principal
+        const vals = Object.values(selecoes);
+        const freq = vals.reduce((acc, v) => { acc[v] = (acc[v] || 0) + 1; return acc; }, {});
+        const dominante = Object.keys(freq).reduce((a, b) => freq[a] > freq[b] ? a : b, 'pro');
+
+        const textoDesenv = sortear(db.desenvolvimento[dominante]);
+        const textoDet1 = sortear(db.detalhes);
+        const textoDet2 = db.detalhes.filter(f => f !== textoDet1)[Math.floor(Math.random()*3)];
 
         document.getElementById('editor').innerHTML = `
-            <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:0.8cm;">${esc || 'ESCOLA: INSTITUIÇÃO NÃO INFORMADA'}</div>
+            <div style="font-size:14pt; font-weight:bold; text-align:center; margin-bottom:0.8cm;">${esc ? 'ESCOLA: ' + esc : 'ESCOLA: INSTITUIÇÃO NÃO INFORMADA'}</div>
             <div style="line-height:1.5; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:0.8cm; text-transform:uppercase;">
                 <b>DOCENTE:</b> ${prof}<br>
                 <b>CRIANÇA:</b> <b>${nome}</b><br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div style="text-align:center; font-weight:bold; margin-bottom:0.8cm; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
-            <div class="corpo-texto">${sortear(db.inicio)} ${nome} ${sortear(db.meio)}</div>
-            <div class="corpo-texto">${sortear(db.detalhes)}</div>
-            <div class="corpo-texto" style="margin-bottom:0;">${sortear(db.conclusao)}</div>
+            <div style="text-align:center; font-weight:bold; margin-bottom:0.8cm; text-transform:uppercase;">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodoTexto}</div>
+            <div class="corpo-texto">${intro} ${nome} ${textoDesenv}</div>
+            <div class="corpo-texto">${textoDet1} ${textoDet2}</div>
+            <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
             <div style="text-align:center; font-style:italic; margin-top:1cm; margin-bottom:1cm;">"${sortear(db.frasesFinais)}"</div>
-            <div style="text-align:center; margin:0.8cm 0;">${cidade || '____________________'}, ${dataAtual}.</div>
+            <div style="text-align:center; margin:0.8cm 0;">${cidade}, 19 de abril de 2026.</div>
             <div style="margin-top:1.5cm; text-align:center;">
                 <div class="linha-assinatura"></div><small>PROFESSOR(A)</small><br><br>
                 <div class="linha-assinatura"></div><small>COORDENAÇÃO / DIREÇÃO</small>
