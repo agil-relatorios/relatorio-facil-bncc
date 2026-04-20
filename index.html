@@ -1,38 +1,17 @@
-<!DOCTYPE html><html lang="pt-br"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONTAÊ PROFE - Versão Final</title>
-    <style>
-        :root { 
-            --primaria: #ff4757; 
-            --azul: #1e90ff; 
-            --bg: #f8f9fa; 
-            --texto: #2f3542; 
-            --branco: #ffffff;
-            --cor-inicial: #e74c3c; 
-            --cor-processo: #f1c40f; 
-            --cor-avancado: #2ecc71; 
-        }
+header-pergunta { display: flex; justify-content: space-between; align-items: flex-start; }
+        .campo-nome { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #ffeaa7; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 4px; display: block; }
+        .pergunta-texto { font-size: 1.1rem; font-weight: 700; margin-bottom: 0; line-height: 1.4; }
         
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 25px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .logo { font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
-        .logo span { color: #ffeaa7; }
-        .slogan { font-size: 1rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; }
-
-        .container { max-width: 900px; margin: 30px auto; background: var(--branco); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        /* Estilo da caixa oculta com Interrogação */
+        .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .btn-ajuda:hover { background: white; color: var(--azul); }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .campo { display: flex; flex-direction: column; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; }
-        
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 8px; margin: 25px 0 10px; display: flex; flex-direction: column; }
-        .campo-nome { font-size: 0.7rem; font-weight: bold; opacity: 0.9; text-transform: uppercase; margin-bottom: 4px; }
-        .pergunta-texto { font-size: 1rem; font-weight: 600; }
+        .info-pedagogica { display: none; font-size: 0.85rem; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.5; animation: fadeIn 0.3s ease; }
+        .info-pedagogica.show { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn-v { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; }
+        .btn-v { padding: 14px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
         .btn-v.ini:hover, .btn-v.ini.active { background: var(--cor-inicial); color: white; border-color: var(--cor-inicial); }
         .btn-v.pro:hover, .btn-v.pro.active { background: var(--cor-processo); color: white; border-color: var(--cor-processo); }
         .btn-v.ava:hover, .btn-v.ava.active { background: var(--cor-avancado); color: white; border-color: var(--cor-avancado); }
@@ -41,15 +20,18 @@
         .btn-gerar { padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 20px; border: 2px solid #dcdde1; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: #747d8c; background: white; }
 
-        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; overflow: hidden; border: 1px solid #eee; }
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 11.5pt; color: #000; display: none; border: 1px solid #eee; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
         .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
         .corpo-texto { text-align: justify; text-indent: 1.25cm; line-height: 1.6; margin-bottom: 1.2em; }
-        .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
-        .linha-assinatura { border-top: 1px solid #000; width: 60%; margin: 0 auto 5px auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; text-align: center; display: block; margin-bottom: 2.5em; }
+        
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
+        .bloco-assinatura { width: 45%; text-align: center; }
+        .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
+        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         @page { size: A4; margin: 0; }
         @media print { 
@@ -57,16 +39,12 @@
             body { background: white; }
             #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; } 
         }
-    </style></head><body>
-
-<header class="no-print">
+    </style></head><body><header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">"A voz do professor, a história da criança."</div>
-</header>
-
-<div class="container no-print">
+    <div class="slogan">"A voz do professor, a história da criança, transformando vivências em registros."</div></header><div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="DIGITE O NOME DA ESCOLA"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
+        <div class="campo"><label>Nome da Instituição</label><input type="text" id="escola" placeholder="NOME DA ESCOLA"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Fase</label><select id="fase"><option value="1º PERÍODO">1º PERÍODO</option><option value="2º PERÍODO">2º PERÍODO</option></select></div>
@@ -81,21 +59,34 @@
     <div class="acoes-container">
         <button class="btn-limpar" onclick="location.reload()">+ NOVO ALUNO</button>
         <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
-    </div>
-</div>
-
-<div id="editor" contenteditable="true"></div>
-<div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
-    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button>
-</div>
-
-<script>
+    </div></div><div id="editor" contenteditable="true"></div><div class="no-print" id="btn-print" style="display:none; text-align:center; margin-bottom: 50px;">
+    <button onclick="window.print()" style="padding:15px 60px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1.1rem;">🖨️ IMPRIMIR</button></div><script>
     const camposBNCC = [
-        {n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e identidade."},
-        {n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Autonomia motora."},
-        {n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Expressão artística."},
-        {n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Comunicação e leitura."},
-        {n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio lógico."}
+        {
+            n: "1. O EU, O OUTRO E O NÓS", 
+            p: "Vínculos, Identidade e Alteridade",
+            info: "<strong>O que observar:</strong> A criança interage com pares e adultos? Respeita regras de convivência? Manifesta empatia e reconhece suas características físicas e preferências?"
+        },
+        {
+            n: "2. CORPO, GESTOS E MOVIMENTOS", 
+            p: "Expressividade e Coordenação",
+            info: "<strong>O que observar:</strong> Explora o espaço com segurança? Domina a coordenação motora fina (desenho/recorte) e ampla (correr/pular)? Reconhece sensações e limites do corpo?"
+        },
+        {
+            n: "3. TRAÇOS, SONS, CORES E FORMAS", 
+            p: "Sensorialidade e Criação Artística",
+            info: "<strong>O que observar:</strong> Participa de produções musicais e teatrais? Expressa-se através de diferentes suportes (argila, tinta, colagem)? Reconhece cores e formas no ambiente?"
+        },
+        {
+            n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+            p: "Linguagem e Oralidade",
+            info: "<strong>O que observar:</strong> Expressa ideias e sentimentos com clareza? Demonstra interesse pela leitura? Participa de relatos e reconto de histórias? Conhece gêneros textuais?"
+        },
+        {
+            n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+            p: "Mundo Físico e Raciocínio Lógico",
+            info: "<strong>O que observar:</strong> Relaciona números às quantidades? Identifica relações temporais (ontem/hoje)? Demonstra curiosidade sobre fenômenos naturais e sociais?"
+        }
     ];
 
     const db = {
@@ -107,15 +98,15 @@
             "Ao planejar situações que colocam a criança como centro do processo educativo, focamos em estratégias que permitissem de forma potente e acolhedora que "
         ],
         meio: [
-            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando ativamente de todas as propostas voltadas à autonomia. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
-            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos. ",
-            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas, fortalecendo sua posição como sujeito social e crítico. ",
-            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente, respeitando as diversidades e contribuindo para o bem-estar. ",
-            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais ao seu redor no dia a dia. "
+            "demonstrasse um percurso de aprendizagem rico em descobertas e conquistas significativas, participando com autonomia de todas as propostas. Nas rodas de conversa, expressou suas emoções e compreendeu progressivamente as normas de convivência social que regem o grupo. ",
+            "explorasse linguagens e sentidos, consolidando saberes essenciais para sua faixa etária. Sua trajetória escolar é marcada pela alegria do encontro e pelo respeito ao tempo de maturação de cada nova vivência, revelando-se engajado(a) e curioso(a) diante dos desafios propostos com autonomia. ",
+            "vivenciasse os direitos de conviver, brincar e participar de forma plena e protagonista, agindo com autonomia. Percebeu-se um avanço notório na capacidade de expressão e na construção de vínculos afetivos sólidos com os colegas. ",
+            "protagonizasse escolhas de materiais, temas de investigação e brincadeiras simbólicas, evidenciando um pensamento criativo apurado e autonomia. Nas vivências coletivas em sala, mostrou-se receptivo(a), colaborativo(a) e resiliente. ",
+            "ampliasse sua percepção espacial e temporal através de jogos, brincadeiras de quintal e vivências lúdicas com autonomia. Demonstrou segurança ao enfrentar desafios motores complexos e uma curiosidade científica ao investigar fenômenos naturais e sociais. "
         ],
         detalhes: [
-            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas próprias vivências. ",
-            "Nas atividades voltadas ao corpo e movimento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
+            "Além disso, demonstrou grande autonomia ao realizar suas atividades de higiene e alimentação, revelando cuidado consigo e com o próximo. Sua relação com a oralidade foi ampliada significativamente através da participação em saraus literários, contação de histórias e dramatizações, onde associou a ficção com suas prõprias vivências. ",
+            "Nas atividades voltadas ao corpo e movemento, revelou um controle progressivo e harmonioso de sua motricidade ampla e fina, explorando os diversos suportes artísticos oferecidos com sensibilidade e técnica. A manipulação de materiais diversos permitiu a ampliação de seu repertório imaginativo. ",
             "Observamos também um crescente interesse por desafios lógicos, onde a criança testou hipóteses e comunicou suas descobertas com clareza. Essa postura investigativa foi fundamental para a construção de conceitos sobre quantidades, tempo e espaço, aplicados de forma prática em sua rotina escolar. ",
             "A participação em projetos voltados ao meio ambiente despertou um olhar atento para a preservação, promovendo a compreensão de relações complexas no mundo físico. Nas interações de brincadeira livre, manifestou criatividade ao ressignificar objetos, demonstrando um desenvolvimento cognitivo saudável.",
             "A construção da identidade pessoal foi fortalecida por momentos de autoconhecimento e valorização das diferenças. A criança aprendeu a reconhecer suas próprias potencialidades e a respeitar o limite do outro, agindo com empatia e celebrando conquistas."
@@ -126,32 +117,57 @@
             "Os registros mostram um processo evolutivo contínuo e sólido. A criança consolidou saberes essenciais e segue para as próximas vivências com segurança emocional e uma curiosidade aguçada.",
             "O progresso alcançado reflete a harmonia entre o brincar e o aprender. Estamos confiantes de que a próxima etapa será encarada com o mesmo protagonismo e alegria que marcaram este período fascinante.",
             "As conquistas deste período são alicerces fundamentais. Encerramos o bimestre com gratidão por acompanhar um florescimento tão singular, certos de que a curiosidade continuará a guiar seus passos."
-        ],
-        frasesFinais: ["Seu brilho único ilumina nossa sala.", "Cada descoberta sua é um motivo para sorrir.", "Sua curiosidade é a semente do futuro.", "O mundo fica colorido com sua alegria.", "Continue explorando com esse olhar."]
+        ]
     };
 
     let selecoes = {};
+    
+    function alternarAjuda(idx) {
+        const box = document.getElementById(`info-${idx}`);
+        box.classList.toggle('show');
+    }
+
     function iniciar() {
         const cCont = document.getElementById('campos-container');
         camposBNCC.forEach((item, idx) => {
             const div = document.createElement('div');
-            div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><span class="pergunta-texto">${item.p}</span></div>
-                <div class="grid-botoes" id="c-${idx}">
-                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
-                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AVANÇADO</div>
-                </div>`;
+            div.innerHTML = `<div class="secao-pergunta">
+                <span class="campo-nome">${item.n}</span>
+                <div class="header-pergunta">
+                    <p class="pergunta-texto">${item.p}</p>
+                    <button class="btn-ajuda" onclick="alternarAjuda(${idx})" title="Dica pedagógica">?</button>
+                </div>
+                <div class="info-pedagogica" id="info-${idx}">${item.info}</div>
+            </div>
+            <div class="grid-botoes" id="c-${idx}">
+                <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
+                <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
+                <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
+            </div>`;
             cCont.appendChild(div);
         });
     }
 
     function marcar(idx, n, b) { Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); b.classList.add('active'); selecoes[idx] = n; }
+    
     function sortear(l) { return l[Math.floor(Math.random() * l.length)]; }
 
+    function formatarCidade(cidade) {
+        const excessoes = ["de", "do", "da", "dos", "das", "e"];
+        return cidade.toLowerCase().split(' ').map((palavra, index) => {
+            if (index > 0 && excessoes.includes(palavra)) return palavra;
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+        }).join(' ');
+    }
+
     function gerarRelatorio() {
-        let esc = document.getElementById('escola').value.toUpperCase().trim();
-        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
+        let escRaw = document.getElementById('escola').value.trim();
+        let esc = escRaw.toUpperCase();
+        if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
+
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
+        const cidadeFormatada = formatarCidade(cidadeRaw);
         
         const p1 = sortear(db.inicio) + nomeAlu + " " + sortear(db.meio);
         const p2 = sortear(db.detalhes);
@@ -161,22 +177,33 @@
             <div class="esc-nome">${esc || "INSTITUIÇÃO NÃO INFORMADA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>CRIANÇA:</b> <b>${nomeAlu}</b><br>
+                <b>CRIANÇA:</b> ${nomeAlu}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="corpo-texto">${p1}</div>
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto" style="margin-bottom:0;">${conc}</div>
-            <div class="msg-final">"${sortear(db.frasesFinais)}"</div>
-            <div class="data-local">Manaus, 18 de abril de 2026.</div>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span>
-            <div class="linha-assinatura"></div><span class="label-assinatura">Responsável</span>
+            <div class="data-local" style="margin-top:2em;">${cidadeFormatada}, 20 de abril de 2026.</div>
+            
+            <div class="assinaturas-duplas">
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Professor(a)</span>
+                </div>
+                <div class="bloco-assinatura">
+                    <div class="linha-assinatura"></div>
+                    <span class="label-assinatura">Coordenação / Direção</span>
+                </div>
+            </div>
+            
+            <div class="assinatura-unica">
+                <div class="linha-assinatura"></div>
+                <span class="label-assinatura">Responsável</span>
+            </div>
         `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
     }
-    iniciar();
-</script></body></html>
+    iniciar();</script></body></html>
