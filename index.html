@@ -51,7 +51,6 @@
         .msg-final { text-align: center; font-style: italic; margin-top: 2em; margin-bottom: 2em; }
         .data-local { text-align: center; margin-bottom: 3.5em; }
         
-        /* Layout de Assinaturas */
         .assinaturas-duplas { display: flex; justify-content: space-between; margin-bottom: 2.5em; }
         .bloco-assinatura { width: 45%; text-align: center; }
         .assinatura-unica { width: 60%; margin: 0 auto; text-align: center; }
@@ -147,9 +146,9 @@
             const div = document.createElement('div');
             div.innerHTML = `<div class="secao-pergunta"><span class="campo-nome">${item.n}</span><span class="pergunta-texto">${item.p}</span></div>
                 <div class="grid-botoes" id="c-${idx}">
-                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">INICIAL</div>
-                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AVANÇADO</div>
+                    <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
+                    <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AUTONOMIA</div>
                 </div>`;
             cCont.appendChild(div);
         });
