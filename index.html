@@ -148,7 +148,7 @@
                 <div class="grid-botoes" id="c-${idx}">
                     <div class="btn-v ini" onclick="marcar(${idx}, 'ini', this)">COM MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${idx}, 'pro', this)">EM PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">AUTONOMIA</div>
+                    <div class="btn-v ava" onclick="marcar(${idx}, 'ava', this)">COM AUTONOMIA</div>
                 </div>`;
             cCont.appendChild(div);
         });
@@ -169,7 +169,8 @@
     function gerarRelatorio() {
         let escRaw = document.getElementById('escola').value.trim();
         let esc = escRaw.toUpperCase();
-        if (esc !== "" && !esc.startsWith("ESCOLA")) esc = "ESCOLA " + esc;
+        // Adicionado os dois pontos após a palavra ESCOLA
+        if (esc !== "" && !esc.startsWith("ESCOLA:")) esc = "ESCOLA: " + esc;
 
         const nomeAlu = document.getElementById('crianca').value.toUpperCase();
         const cidadeRaw = document.getElementById('cidade').value.trim() || "Sua Cidade";
