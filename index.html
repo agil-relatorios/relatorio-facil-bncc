@@ -143,50 +143,110 @@
 <div id="editor" contenteditable="true"></div>
 
 <script>
+    // MATRIZ DE COMBINAÇÕES - Variações Pedagógicas Expandidas
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
-            ini: "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", 
-            pro: "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", 
-            ava: "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo." 
+            ini: [
+                "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.",
+                "demonstra timidez ao interagir, requerendo suporte do docente para participar de atividades coletivas.",
+                "está em fase inicial de socialização, demandando mediação contínua para compartilhar materiais."
+            ], 
+            pro: [
+                "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.",
+                "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras de convivência.",
+                "estabelece vínculos positivos com colegas e professores, agindo de forma colaborativa."
+            ], 
+            ava: [
+                "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo.",
+                "apresenta liderança positiva em grupo, respeitando a diversidade e as opiniões alheia.",
+                "manifesta atitudes de solidariedade e autonomia, sendo referência positiva para o grupo."
+            ] 
           },
-          conectivos: ["Além disso, ", "No que tange ao convívio, ", "Quanto às relações sociais, "]
+          conectivos: ["Além disso, ", "No que tange ao convívio, ", "Quanto às relações sociais, ", "Em termos de interação, "]
         },
         { t: "2. CORPO, GESTOS E MOVIMENTOS", 
           frases: { 
-            ini: "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", 
-            pro: "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", 
-            ava: "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial." 
+            ini: [
+                "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.",
+                "está desenvolvendo a coordenação motora ampla, necessitando de estímulo em circuitos físicos.",
+                "demonstra cautela em movimentos que exigem equilíbrio, evoluindo sob supervisão."
+            ], 
+            pro: [
+                "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.",
+                "demonstra controle motor em atividades de recorte e colagem, evoluindo na precisão dos gestos.",
+                "coordena bem seus movimentos em atividades rítmicas e brincadeiras de roda."
+            ], 
+            ava: [
+                "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial.",
+                "possui excelente coordenação motora fina e ampla, realizando tarefas complexas com destreza.",
+                "expressa-se corporalmente com criatividade, utilizando o corpo como ferramenta de comunicação."
+            ] 
           },
-          conectivos: ["Em relação ao desenvolvimento motor, ", "Vale destacar que, no campo motor, ", "Sobre suas habilidades corporais, "]
+          conectivos: ["Em relação ao desenvolvimento motor, ", "Vale destacar que, no campo motor, ", "Sobre suas habilidades corporais, ", "No aspecto físico e gestual, "]
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
           frases: { 
-            ini: "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.", 
-            pro: "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", 
-            ava: "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas." 
+            ini: [
+                "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.",
+                "está descobrindo novas texturas e sons, iniciando sua expressão em suportes variados.",
+                "demonstra interesse por produções artísticas, explorando cores com auxílio docente."
+            ], 
+            pro: [
+                "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.",
+                "identifica diferentes sons e ritmos, participando de produções musicais coletivas.",
+                "utiliza diversos materiais para criar produções bidimensionais e tridimensionais."
+            ], 
+            ava: [
+                "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas.",
+                "utiliza a linguagem visual e sonora de forma autônoma para representar suas ideias.",
+                "demonstra domínio de diferentes técnicas artísticas, expressando-se com autoria e estilo."
+            ] 
           },
-          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, "]
+          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, ", "Sobre a sensibilidade estética, "]
         },
         { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
           frases: { 
-            ini: "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", 
-            pro: "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", 
-            ava: "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita." 
+            ini: [
+                "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.",
+                "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos cotidianos.",
+                "demonstra atenção às histórias lidas, iniciando a estruturação de frases curtas."
+            ], 
+            pro: [
+                "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.",
+                "demonstra interesse por livros e narrativas, recontando histórias com sequência lógica.",
+                "expressa opiniões e sentimentos com clareza, ampliando seu repertório comunicativo."
+            ], 
+            ava: [
+                "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita.",
+                "argumenta com coerência, demonstrando domínio da linguagem oral e interesse pela leitura.",
+                "elabora narrativas criativas e demonstra compreensão da função social da escrita."
+            ] 
           },
-          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, "]
+          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, ", "Quanto ao desenvolvimento da linguagem, "]
         },
         { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
           frases: { 
-            ini: "está em processo de percepção das noções temporais e espaciais através do concreto.", 
-            pro: "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.", 
-            ava: "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo." 
+            ini: [
+                "está em processo de percepção das noções temporais e espaciais através do concreto.",
+                "identifica noções básicas de posição (dentro/fora, cima/baixo) com auxílio.",
+                "necessita de mediação para organizar a rotina e compreender sequências temporais."
+            ], 
+            pro: [
+                "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.",
+                "identifica números e formas geométricas no ambiente, relacionando-os com o dia a dia.",
+                "consegue organizar objetos por atributos, demonstrando noções de ordem e classificação."
+            ], 
+            ava: [
+                "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo.",
+                "domina noções temporais e espaciais complexas, agindo com autonomia na organização da rotina.",
+                "realiza contagens e comparações lógicas de forma independente e precisa."
+            ] 
           },
-          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, "]
+          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, ", "Relativo à percepção lógica e matemática, "]
         }
     ];
 
-    // MEMÓRIA LOCAL: Carregar e salvar dados fixos
     function carregarDadosSalvos() {
         if(localStorage.getItem('cidade')) document.getElementById('cidade').value = localStorage.getItem('cidade');
         if(localStorage.getItem('escola')) document.getElementById('escola').value = localStorage.getItem('escola');
@@ -206,9 +266,9 @@
             cont.innerHTML += `
                 <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
                 <div id="dica-${i}" class="dica-pedagogica">
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Nível inicial de desenvolvimento.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Em evolução constante.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> Pleno domínio da habilidade.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Necessita de suporte e incentivo constante.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Desenvolve-se bem com mediação pontual.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> Realiza com independência e autoria.</div>
                 </div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
@@ -237,7 +297,7 @@
     }
 
     function gerarRelatorioFinal() {
-        salvarDadosFixos(); // Salva sempre que gerar um relatório
+        salvarDadosFixos();
         const periodo = document.getElementById('periodo').value;
         const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const cidade = formatarCidade(document.getElementById('cidade').value);
@@ -248,8 +308,15 @@
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+                
+                // SORTEIO DA MATRIZ: Escolhe uma das frases disponíveis
+                const opcoesFrases = item.frases[nivel];
+                const fraseEscolhida = opcoesFrases[Math.floor(Math.random() * opcoesFrases.length)];
+                
+                // SORTEIO DO CONECTIVO
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
-                textoBNCC += `${conect} <b>${nome}</b> ${item.frases[nivel]} `;
+                
+                textoBNCC += `${conect} <b>${nome}</b> ${fraseEscolhida} `;
             }
         });
 
@@ -277,7 +344,7 @@
     }
 
     function novoAluno() {
-        salvarDadosFixos(); // Salva antes de limpar para garantir
+        salvarDadosFixos();
         document.getElementById('crianca').value = "";
         document.getElementById('editor').style.display = 'none';
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
