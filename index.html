@@ -15,7 +15,6 @@
         .logo { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
 
-        /* Botão de Ajuda Flutuante */
         #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -24,8 +23,22 @@
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 20px 0 10px; }
-        .pergunta-texto { font-size: 0.9rem; font-weight: bold; margin: 0; }
+        /* Estilo da Seção de Pergunta com Inteligência */
+        .secao-pergunta { 
+            background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; 
+            margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
+        .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+
+        /* Box de Dicas Pedagógicas */
+        .dica-pedagogica { 
+            display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; 
+            margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul);
+            animation: fadeIn 0.3s;
+        }
+        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 80px; text-align: center; text-transform: uppercase; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
@@ -34,8 +47,9 @@
         .btn-v.pro.active { background: var(--cor-processo); }
         .btn-v.ava.active { background: var(--cor-avancado); }
 
-        /* Estilo da Impressão */
         #editor { width: 100%; max-width: 800px; margin: 20px auto; background: white; padding: 40px; display: none; font-family: Arial, sans-serif; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
             @page { size: A4; margin: 0; }
@@ -46,7 +60,7 @@
 </head>
 <body>
 
-<button id="btn-ajuda-master" class="no-print" onclick="alert('Instruções:\n1. Adicione à Tela de Início (Instalar).\n2. Na Impressão, desmarque Cabeçalhos/Rodapés.\n3. Margem de 3cm já configurada.')">?</button>
+<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA CONTAÊ:\n\nUse os botões de interrogação (?) em cada campo para ver os critérios pedagógicos da BNCC.')">?</button>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
@@ -71,19 +85,76 @@
 <div id="editor"></div>
 
 <script>
-    const campos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+    // BANCO DE DADOS DA INTELIGÊNCIA DE CORES
+    const infoBNCC = [
+        { 
+            t: "1. O EU, O OUTRO E O NÓS", 
+            d: { 
+                ini: "A criança ainda busca segurança no adulto para interagir e resolver pequenos conflitos sociais.", 
+                pro: "Interage com os pares de forma produtiva, mas requer mediação em situações de desafio coletivo.", 
+                ava: "Demonstra empatia, liderança positiva e resolve conflitos com autonomia e respeito às normas." 
+            } 
+        },
+        { 
+            t: "2. CORPO, GESTOS E MOVIMENTOS", 
+            d: { 
+                ini: "Apresenta necessidade de apoio motor e explora o espaço com certa timidez ou cautela.", 
+                pro: "Desenvolve coordenação e equilíbrio, participando ativamente de brincadeiras corporais.", 
+                ava: "Domina o corpo com agilidade, expressividade e demonstra plena consciência espacial." 
+            } 
+        },
+        { 
+            t: "3. TRAÇOS, SONS, CORES E FORMAS", 
+            d: { 
+                ini: "Inicia a exploração de materiais artísticos e sons sob orientação e estímulo direto.", 
+                pro: "Identifica elementos visuais e sonoros, criando produções com traços próprios e identidade.", 
+                ava: "Expressa-se artisticamente com sensibilidade, utilizando diversos suportes de forma criativa." 
+            } 
+        },
+        { 
+            t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+            d: { 
+                ini: "Expressa desejos e necessidades básicas, ampliando o vocabulário através da escuta atenta.", 
+                pro: "Participa de rodas de conversa e relata fatos, apresentando uma sequência lógica em evolução.", 
+                ava: "Argumenta com clareza, interpreta histórias complexas e demonstra forte interesse na escrita." 
+            } 
+        },
+        { 
+            t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+            d: { 
+                ini: "Percebe noções de tempo e contagem através de vivências concretas e auxílio docente.", 
+                pro: "Identifica sequências e relações espaciais com crescente autonomia e raciocínio lógico.", 
+                ava: "Resolve situações-problema e relaciona conceitos matemáticos e naturais com facilidade." 
+            } 
+        }
+    ];
     
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
-        campos.forEach((c, i) => {
+        infoBNCC.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${c}</p></div>
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
+                </div>
+                
+                <div id="dica-${i}" class="dica-pedagogica">
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> ${item.d.ini}</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> ${item.d.pro}</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> ${item.d.ava}</div>
+                </div>
+
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 0)">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 1)">PROCESSO</div>
                     <div class="btn-v ava" onclick="marcar(${i}, 2)">AUTONOMIA</div>
                 </div>`;
         });
+    }
+
+    function toggleDica(i) {
+        const d = document.getElementById(`dica-${i}`);
+        d.style.display = (d.style.display === 'block') ? 'none' : 'block';
     }
 
     function marcar(gi, bi) {
@@ -93,8 +164,12 @@
     }
 
     function gerar() {
-        const nome = document.getElementById('crianca').value.toUpperCase();
-        document.getElementById('editor').innerHTML = `<h2>RELATÓRIO: ${nome}</h2><p>Base pronta. Aguardando o comando MEGA BANCO.</p>`;
+        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        document.getElementById('editor').innerHTML = `
+            <h2>RELATÓRIO: ${nome}</h2>
+            <p>Inteligência de Cores ativada! Você já pode selecionar os níveis baseados nas dicas pedagógicas.</p>
+            <p><strong>Aguardando o próximo comando: MEGA BANCO.</strong></p>
+        `;
         document.getElementById('editor').style.display = 'block';
         window.print();
     }
