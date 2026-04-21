@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CONTAÊ PROFE - Premium v3</title>
+    <title>CONTAÊ PROFE - Versão Final Premium</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
@@ -31,9 +31,6 @@
         .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
         .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
 
-        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); animation: fadeIn 0.3s; }
-        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 85px; text-align: center; text-transform: uppercase; }
-
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
         .btn-v.active { color: white; border-color: transparent; }
@@ -45,7 +42,6 @@
         .btn-acao { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
-        .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
 
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
@@ -55,9 +51,6 @@
         
         .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
-        .bloco-full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
             @page { size: A4; margin: 0; }
@@ -182,7 +175,6 @@
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
                 <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
-                <div id="dica-${i}" class="dica-pedagogica">Selecione o nível que melhor descreve o estágio atual.</div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
@@ -191,33 +183,61 @@
         });
     }
 
-    function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
-    function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
+    function marcar(gi, niv) { 
+        const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); 
+        btns.forEach(b => b.classList.remove('active')); 
+        document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); 
+    }
 
     function gerarRelatorioFinal() {
         salvarDadosFixos();
         const nomeCompleto = formatarNomeProprio(document.getElementById('crianca').value || "O Aluno");
         const primeiroNome = nomeCompleto.split(' ')[0];
         const gen = document.getElementById('genero').value;
-        const pronome = gen === 'o' ? 'Ele' : 'Ela';
+        const pronomeOriginal = gen === 'o' ? 'Ele' : 'Ela';
         const termoArtigo = gen === 'o' ? 'o aluno' : 'a aluna';
-        const sujeitos = [primeiroNome, pronome, "", termoArtigo, pronome];
+        const sujeitos = [primeiroNome, pronomeOriginal, "", termoArtigo, pronomeOriginal];
 
         let textoBNCC = "";
+        let somaPontos = 0;
         let count = 0;
 
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+                
+                // Pontuação para finalização inteligente
+                if(nivel === 'ini') somaPontos += 1;
+                else if(nivel === 'pro') somaPontos += 2;
+                else somaPontos += 3;
+
                 const frase = item.frases[nivel][Math.floor(Math.random() * item.frases[nivel].length)];
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
-                const sujeito = sujeitos[count % sujeitos.length];
-                const espaco = sujeito === "" ? "" : " ";
-                textoBNCC += `${conect}<b>${sujeito}</b>${espaco}${frase} `;
+                
+                // Ajuste Gramatical: Pronome minúsculo após conectivo
+                let sujeitoDaVez = sujeitos[count % sujeitos.length];
+                if (sujeitoDaVez.toLowerCase() === 'ele' || sujeitoDaVez.toLowerCase() === 'ela') {
+                    sujeitoDaVez = sujeitoDaVez.toLowerCase();
+                }
+
+                const espaco = sujeitoDaVez === "" ? "" : " ";
+                textoBNCC += `${conect}${sujeitoDaVez}${espaco}${frase} `;
                 count++;
             }
         });
+
+        // Lógica de Finalização Inteligente
+        let parFinal = "";
+        const media = somaPontos / 5;
+        if(media >= 2.6) {
+            parFinal = `Finalizamos este ciclo com alegria pelos grandes avanços demonstrados, reafirmando nosso compromisso em oferecer experiências que potencializem ainda mais o protagonismo e as descobertas de nossa aluna.`;
+        } else if(media >= 1.8) {
+            parFinal = `Concluímos este período celebrando cada conquista e o entusiasmo demonstrado diante das novas aprendizagens, mantendo nosso olhar atento para encorajar seu desenvolvimento integral e contínuo.`;
+        } else {
+            parFinal = `Encerramos este ciclo com um olhar acolhedor sobre o tempo de cada descoberta, reafirmando a importância da parceria entre escola e família para continuarmos estimulando, com carinho e paciência, o florescer de todo o seu potencial.`;
+        }
+        if(gen === 'o') parFinal = parFinal.replace(/aluna/g, 'aluno').replace(/nossa/g, 'nosso');
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
@@ -229,8 +249,12 @@
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
-            <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial de noss${gen} alun${gen}.</div>
+            <div class="paragrafo">${parFinal}</div>
             <div style="text-align:center; margin-top:50px;">${formatarNomeProprio(document.getElementById('cidade').value)}, ${new Date().getDate()} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][new Date().getMonth()]} de ${new Date().getFullYear()}</div>
+            <div class="assinaturas">
+                <div class="bloco-ass">Assinatura do Docente</div>
+                <div class="bloco-ass">Equipe Pedagógica / Direção</div>
+            </div>
         `;
         document.getElementById('editor').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
