@@ -10,14 +10,7 @@
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        html, body { 
-            overflow-x: hidden; 
-            position: relative;
-            height: 100%;
-            width: 100%;
-            overscroll-behavior-y: contain;
-        }
-
+        html, body { overflow-x: hidden; position: relative; height: 100%; width: 100%; overscroll-behavior-y: contain; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         
         header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
@@ -27,8 +20,6 @@
         .logo { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
-
-        #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
         
@@ -56,10 +47,6 @@
         .btn-novo { background: #747d8c; color: white; }
         .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
 
-        #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
-        .step { margin: 15px 0; font-size: 0.9rem; text-align: left; }
-
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
@@ -81,17 +68,6 @@
 </head>
 <body>
 
-<div id="modal-instalar" class="no-print">
-    <div class="modal-content">
-        <h3>📲 Como instalar no Celular</h3>
-        <div class="step"><b>No iPhone (Safari):</b> Clique no ícone de compartilhar (quadrado com seta) e escolha "Adicionar à Tela de Início".</div>
-        <div class="step"><b>No Android (Chrome):</b> Clique nos 3 pontinhos no canto superior e selecione "Instalar Aplicativo".</div>
-        <button onclick="fecharModal()" class="btn-acao btn-gerar">ENTENDI</button>
-    </div>
-</div>
-
-<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: Clique no (?) azul em cada campo para ver o critério de avaliação da cor!')">?</button>
-
 <header class="no-print">
     <div class="logo-container">
         <div class="icon-book"></div>
@@ -105,7 +81,7 @@
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Rio de Janeiro"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Criança (Nome Completo)</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
                 <option value="o">MENINO (O ALUNO)</option>
@@ -125,8 +101,6 @@
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
                 <option value="3º BIMESTRE">3º BIMESTRE</option>
                 <option value="4º BIMESTRE">4º BIMESTRE</option>
-                <option value="1º SEMESTRE">1º SEMESTRE</option>
-                <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
         </div>
     </div>
@@ -136,7 +110,6 @@
     <div class="btn-container no-print">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO</button>
         <button onclick="novoAluno()" class="btn-acao btn-novo">👤 NOVO ALUNO</button>
-        <button onclick="abrirModal()" class="btn-acao btn-instalar">📲 INSTALAR APP NO CELULAR</button>
     </div>
 </div>
 
@@ -146,43 +119,43 @@
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
-            ini: ["necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", "demonstra timidez ao interagir, requerendo suporte do docente para participar de atividades coletivas.", "está em fase inicial de socialização, demandando mediação contínua para compartilhar materiais."], 
-            pro: ["já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras de convivência.", "estabelece vínculos positivos com colegas e professores, agindo de forma colaborativa."], 
-            ava: ["demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo.", "apresenta liderança positiva em grupo, respeitando a diversidade e as opiniões alheia.", "manifesta atitudes de solidariedade e autonomia, sendo referência positiva para o grupo."] 
+            ini: ["necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", "demonstra timidez ao interagir, requerendo suporte para participar de atividades coletivas."], 
+            pro: ["já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras."], 
+            ava: ["demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo.", "apresenta liderança positiva em grupo, respeitando a diversidade e as opiniões alheias."] 
           },
-          conectivos: ["No que tange ao convívio, ", "Quanto às relações sociais, ", "Em termos de interação, ", "No campo da sociabilidade, "]
+          conectivos: ["No que tange ao convívio, ", "Iniciando pela área social, ", "No cotidiano escolar, "]
         },
         { t: "2. CORPO, GESTOS E MOVIMENTOS", 
           frases: { 
-            ini: ["iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", "está desenvolvendo a coordenação motora ampla, necessitando de estímulo em circuitos físicos.", "demonstra cautela em movimentos que exigem equilíbrio, evoluindo sob supervisão."], 
-            pro: ["apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", "demonstra controle motor em atividades de recorte e colagem, evoluindo na precisão dos gestos.", "coordena bem seus movimentos em atividades rítmicas e brincadeiras de roda."], 
-            ava: ["domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial.", "possui excelente coordenação motora fina e ampla, realizando tarefas complexas com destreza.", "expressa-se corporalmente com criatividade, utilizando o corpo como ferramenta de comunicação."] 
+            ini: ["iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", "está desenvolvendo a coordenação motora ampla, necessitando de estímulo."], 
+            pro: ["apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", "demonstra controle motor em atividades de precisão, evoluindo constantemente."], 
+            ava: ["domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial.", "possui excelente coordenação motora fina e ampla, realizando tarefas com destreza."] 
           },
-          conectivos: ["Em relação ao desenvolvimento motor, ", "No que se refere ao campo motor, ", "Sobre as habilidades corporais, ", "Quanto ao aspecto físico, "]
+          conectivos: ["Observamos ainda que, no desenvolvimento motor, ", "Paralelamente a isso, ", "Em relação às suas habilidades corporais, "]
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
           frases: { 
-            ini: ["experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.", "está descobrindo novas texturas e sons, iniciando sua expressão em suportes variados.", "demonstra interesse por produções artísticas, explorando cores com auxílio docente."], 
-            pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais coletivas.", "utiliza diversos materiais para criar produções bidimensionais e tridimensionais."], 
-            ava: ["manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas.", "utiliza a linguagem visual e sonora de forma autônoma para representar suas ideias.", "demonstra domínio de diferentes técnicas artísticas, expressando-se com autoria e estilo."] 
+            ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobrindo novas texturas e sons, iniciando sua expressão artística."], 
+            pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais."], 
+            ava: ["manifesta sensibilidade estética singular, criando produções ricas e detalhadas.", "utiliza a linguagem visual de forma autônoma para representar suas ideias."] 
           },
-          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, ", "No que diz respeito à sensibilidade estética, "]
+          conectivos: ["No que diz respeito à criatividade, ", "Ainda nesse sentido, ", "Já nas atividades de expressão artística, "]
         },
         { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
           frases: { 
-            ini: ["comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos cotidianos.", "demonstra atenção às histórias lidas, iniciando a estruturação de frases curtas."], 
-            pro: ["organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", "demonstra interesse por livros e narrativas, recontando histórias com sequência lógica.", "expressa opiniões e sentimentos com clareza, ampliando seu repertório comunicativo."], 
-            ava: ["expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita.", "argumenta com coerência, demonstrando domínio da linguagem oral e interesse pela leitura.", "elabora narrativas criativas e demonstra compreensão da função social da escrita."] 
+            ini: ["comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos."], 
+            pro: ["organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", "expressa opiniões e sentimentos com clareza, ampliando seu repertório."], 
+            ava: ["expressa ideias complexas com fluidez e demonstra forte curiosidade pela escrita.", "argumenta com coerência, demonstrando domínio da linguagem oral."] 
           },
-          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, ", "Quanto ao desenvolvimento da oralidade, "]
+          conectivos: ["Quanto ao desenvolvimento da linguagem, ", "Vale destacar também que ", "Sobre a comunicação e fala, "]
         },
         { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
           frases: { 
-            ini: ["está em processo de percepção das noções temporais e espaciais através do concreto.", "identifica noções básicas de posição (dentro/fora, cima/baixo) com auxílio.", "necessita de mediação para organizar a rotina e compreender sequências temporais."], 
-            pro: ["relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.", "identifica números e formas geométricas no ambiente, relacionando-os com o dia a dia.", "consegue organizar objetos por atributos, demonstrando noções de ordem e classificação."], 
-            ava: ["resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo.", "domina noções temporais e espaciais complexas, agindo com autonomia na organização da rotina.", "realiza contagens e comparações lógicas de forma independente e precisa."] 
+            ini: ["está em processo de percepção das noções temporais e espaciais.", "identifica noções básicas de posição (dentro/fora) com auxílio."], 
+            pro: ["relaciona quantidades e identifica sequências lógicas no cotidiano.", "identifica números e formas geométricas no ambiente escolar."], 
+            ava: ["resolve situações-problema matemáticas e lógicas com raciocínio assertivo.", "domina noções temporais complexas, agindo com autonomia na organização da rotina."] 
           },
-          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, ", "Relativo à percepção lógica, "]
+          conectivos: ["Por fim, sobre o raciocínio lógico, ", "Para concluir, no campo das relações espaciais, ", "Relativo à percepção de tempo e espaço, "]
         }
     ];
 
@@ -198,17 +171,18 @@
         localStorage.setItem('prof', document.getElementById('prof').value);
     }
 
+    function formatarNomeProprio(nome) {
+        const excessoes = ["de", "da", "do", "das", "dos", "e"];
+        return nome.toLowerCase().split(' ').map(p => excessoes.includes(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+    }
+
     function iniciar() {
         carregarDadosSalvos();
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
                 <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
-                <div id="dica-${i}" class="dica-pedagogica">
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Necessita de suporte e incentivo constante.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Desenvolve-se bem com mediação pontual.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> Realiza com independência e autoria.</div>
-                </div>
+                <div id="dica-${i}" class="dica-pedagogica">Selecione o nível que melhor descreve o estágio atual.</div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
@@ -217,35 +191,17 @@
         });
     }
 
-    function abrirModal() { document.getElementById('modal-instalar').style.display = 'flex'; }
-    function fecharModal() { document.getElementById('modal-instalar').style.display = 'none'; }
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
 
-    function formatarCidade(cidade) {
-        const preposicoes = ["da", "de", "do", "das", "dos", "e"];
-        return cidade.toLowerCase().split(' ').map(palavra => preposicoes.includes(palavra) ? palavra : palavra.charAt(0).toUpperCase() + palavra.slice(1)).join(' ');
-    }
-
-    function obterDataExtenso() {
-        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-        const hoje = new Date();
-        return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
-    }
-
     function gerarRelatorioFinal() {
         salvarDadosFixos();
-        const periodo = document.getElementById('periodo').value;
-        const nomeBruto = document.getElementById('crianca').value;
-        const nomeCap = nomeBruto.charAt(0).toUpperCase() + nomeBruto.slice(1).toLowerCase();
-        const nomeFull = nomeBruto.toUpperCase() || "O ALUNO";
-        const cidade = formatarCidade(document.getElementById('cidade').value);
+        const nomeCompleto = formatarNomeProprio(document.getElementById('crianca').value || "O Aluno");
+        const primeiroNome = nomeCompleto.split(' ')[0];
         const gen = document.getElementById('genero').value;
-        
-        // ELEMENTOS DO FILTRO DE COESÃO
         const pronome = gen === 'o' ? 'Ele' : 'Ela';
         const termoArtigo = gen === 'o' ? 'o aluno' : 'a aluna';
-        const sujeitos = [nomeCap, pronome, "", termoArtigo, pronome]; // Ordem de aparição para variar
+        const sujeitos = [primeiroNome, pronome, "", termoArtigo, pronome];
 
         let textoBNCC = "";
         let count = 0;
@@ -256,12 +212,9 @@
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
                 const frase = item.frases[nivel][Math.floor(Math.random() * item.frases[nivel].length)];
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
-                
-                // Aplica o sujeito da vez (Filtro de Coesão)
-                const sujeitoDaVez = sujeitos[count % sujeitos.length];
-                const espaco = sujeitoDaVez === "" ? "" : " ";
-                
-                textoBNCC += `${conect}<b>${sujeitoDaVez}</b>${espaco}${frase} `;
+                const sujeito = sujeitos[count % sujeitos.length];
+                const espaco = sujeito === "" ? "" : " ";
+                textoBNCC += `${conect}<b>${sujeito}</b>${espaco}${frase} `;
                 count++;
             }
         });
@@ -270,19 +223,14 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUN${gen.toUpperCase()}:</b> ${nomeFull}<br>
+                <b>ALUN${gen.toUpperCase()}:</b> ${nomeCompleto.toUpperCase()}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
+            <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial de noss${gen} alun${gen}.</div>
-            <div style="text-align:center; margin-top:50px;">${cidade}, ${obterDataExtenso()}</div>
-            <div class="assinaturas">
-                <div class="bloco-ass">Assinatura do Docente</div>
-                <div class="bloco-ass">Equipe Pedagógica / Diretor</div>
-                <div class="bloco-ass bloco-full">Assinatura do Responsável</div>
-            </div>
+            <div style="text-align:center; margin-top:50px;">${formatarNomeProprio(document.getElementById('cidade').value)}, ${new Date().getDate()} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][new Date().getMonth()]} de ${new Date().getFullYear()}</div>
         `;
         document.getElementById('editor').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
@@ -290,7 +238,6 @@
     }
 
     function novoAluno() {
-        salvarDadosFixos();
         document.getElementById('crianca').value = "";
         document.getElementById('editor').style.display = 'none';
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
