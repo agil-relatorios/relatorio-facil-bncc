@@ -143,107 +143,46 @@
 <div id="editor" contenteditable="true"></div>
 
 <script>
-    // MATRIZ DE COMBINAÇÕES - Variações Pedagógicas Expandidas
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
-            ini: [
-                "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.",
-                "demonstra timidez ao interagir, requerendo suporte do docente para participar de atividades coletivas.",
-                "está em fase inicial de socialização, demandando mediação contínua para compartilhar materiais."
-            ], 
-            pro: [
-                "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.",
-                "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras de convivência.",
-                "estabelece vínculos positivos com colegas e professores, agindo de forma colaborativa."
-            ], 
-            ava: [
-                "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo.",
-                "apresenta liderança positiva em grupo, respeitando a diversidade e as opiniões alheia.",
-                "manifesta atitudes de solidariedade e autonomia, sendo referência positiva para o grupo."
-            ] 
+            ini: ["necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", "demonstra timidez ao interagir, requerendo suporte do docente para participar de atividades coletivas.", "está em fase inicial de socialização, demandando mediação contínua para compartilhar materiais."], 
+            pro: ["já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras de convivência.", "estabelece vínculos positivos com colegas e professores, agindo de forma colaborativa."], 
+            ava: ["demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo.", "apresenta liderança positiva em grupo, respeitando a diversidade e as opiniões alheia.", "manifesta atitudes de solidariedade e autonomia, sendo referência positiva para o grupo."] 
           },
-          conectivos: ["Além disso, ", "No que tange ao convívio, ", "Quanto às relações sociais, ", "Em termos de interação, "]
+          conectivos: ["No que tange ao convívio, ", "Quanto às relações sociais, ", "Em termos de interação, ", "No campo da sociabilidade, "]
         },
         { t: "2. CORPO, GESTOS E MOVIMENTOS", 
           frases: { 
-            ini: [
-                "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.",
-                "está desenvolvendo a coordenação motora ampla, necessitando de estímulo em circuitos físicos.",
-                "demonstra cautela em movimentos que exigem equilíbrio, evoluindo sob supervisão."
-            ], 
-            pro: [
-                "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.",
-                "demonstra controle motor em atividades de recorte e colagem, evoluindo na precisão dos gestos.",
-                "coordena bem seus movimentos em atividades rítmicas e brincadeiras de roda."
-            ], 
-            ava: [
-                "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial.",
-                "possui excelente coordenação motora fina e ampla, realizando tarefas complexas com destreza.",
-                "expressa-se corporalmente com criatividade, utilizando o corpo como ferramenta de comunicação."
-            ] 
+            ini: ["iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", "está desenvolvendo a coordenação motora ampla, necessitando de estímulo em circuitos físicos.", "demonstra cautela em movimentos que exigem equilíbrio, evoluindo sob supervisão."], 
+            pro: ["apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", "demonstra controle motor em atividades de recorte e colagem, evoluindo na precisão dos gestos.", "coordena bem seus movimentos em atividades rítmicas e brincadeiras de roda."], 
+            ava: ["domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial.", "possui excelente coordenação motora fina e ampla, realizando tarefas complexas com destreza.", "expressa-se corporalmente com criatividade, utilizando o corpo como ferramenta de comunicação."] 
           },
-          conectivos: ["Em relação ao desenvolvimento motor, ", "Vale destacar que, no campo motor, ", "Sobre suas habilidades corporais, ", "No aspecto físico e gestual, "]
+          conectivos: ["Em relação ao desenvolvimento motor, ", "No que se refere ao campo motor, ", "Sobre as habilidades corporais, ", "Quanto ao aspecto físico, "]
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
           frases: { 
-            ini: [
-                "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.",
-                "está descobrindo novas texturas e sons, iniciando sua expressão em suportes variados.",
-                "demonstra interesse por produções artísticas, explorando cores com auxílio docente."
-            ], 
-            pro: [
-                "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.",
-                "identifica diferentes sons e ritmos, participando de produções musicais coletivas.",
-                "utiliza diversos materiais para criar produções bidimensionais e tridimensionais."
-            ], 
-            ava: [
-                "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas.",
-                "utiliza a linguagem visual e sonora de forma autônoma para representar suas ideias.",
-                "demonstra domínio de diferentes técnicas artísticas, expressando-se com autoria e estilo."
-            ] 
+            ini: ["experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.", "está descobrindo novas texturas e sons, iniciando sua expressão em suportes variados.", "demonstra interesse por produções artísticas, explorando cores com auxílio docente."], 
+            pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais coletivas.", "utiliza diversos materiais para criar produções bidimensionais e tridimensionais."], 
+            ava: ["manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas.", "utiliza a linguagem visual e sonora de forma autônoma para representar suas ideias.", "demonstra domínio de diferentes técnicas artísticas, expressando-se com autoria e estilo."] 
           },
-          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, ", "Sobre a sensibilidade estética, "]
+          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, ", "No que diz respeito à sensibilidade estética, "]
         },
         { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
           frases: { 
-            ini: [
-                "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.",
-                "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos cotidianos.",
-                "demonstra atenção às histórias lidas, iniciando a estruturação de frases curtas."
-            ], 
-            pro: [
-                "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.",
-                "demonstra interesse por livros e narrativas, recontando histórias com sequência lógica.",
-                "expressa opiniões e sentimentos com clareza, ampliando seu repertório comunicativo."
-            ], 
-            ava: [
-                "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita.",
-                "argumenta com coerência, demonstrando domínio da linguagem oral e interesse pela leitura.",
-                "elabora narrativas criativas e demonstra compreensão da função social da escrita."
-            ] 
+            ini: ["comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos cotidianos.", "demonstra atenção às histórias lidas, iniciando a estruturação de frases curtas."], 
+            pro: ["organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", "demonstra interesse por livros e narrativas, recontando histórias com sequência lógica.", "expressa opiniões e sentimentos com clareza, ampliando seu repertório comunicativo."], 
+            ava: ["expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita.", "argumenta com coerência, demonstrando domínio da linguagem oral e interesse pela leitura.", "elabora narrativas criativas e demonstra compreensão da função social da escrita."] 
           },
-          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, ", "Quanto ao desenvolvimento da linguagem, "]
+          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, ", "Quanto ao desenvolvimento da oralidade, "]
         },
         { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
           frases: { 
-            ini: [
-                "está em processo de percepção das noções temporais e espaciais através do concreto.",
-                "identifica noções básicas de posição (dentro/fora, cima/baixo) com auxílio.",
-                "necessita de mediação para organizar a rotina e compreender sequências temporais."
-            ], 
-            pro: [
-                "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.",
-                "identifica números e formas geométricas no ambiente, relacionando-os com o dia a dia.",
-                "consegue organizar objetos por atributos, demonstrando noções de ordem e classificação."
-            ], 
-            ava: [
-                "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo.",
-                "domina noções temporais e espaciais complexas, agindo com autonomia na organização da rotina.",
-                "realiza contagens e comparações lógicas de forma independente e precisa."
-            ] 
+            ini: ["está em processo de percepção das noções temporais e espaciais através do concreto.", "identifica noções básicas de posição (dentro/fora, cima/baixo) com auxílio.", "necessita de mediação para organizar a rotina e compreender sequências temporais."], 
+            pro: ["relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.", "identifica números e formas geométricas no ambiente, relacionando-os com o dia a dia.", "consegue organizar objetos por atributos, demonstrando noções de ordem e classificação."], 
+            ava: ["resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo.", "domina noções temporais e espaciais complexas, agindo com autonomia na organização da rotina.", "realiza contagens e comparações lógicas de forma independente e precisa."] 
           },
-          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, ", "Relativo à percepção lógica e matemática, "]
+          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, ", "Relativo à percepção lógica, "]
         }
     ];
 
@@ -285,9 +224,7 @@
 
     function formatarCidade(cidade) {
         const preposicoes = ["da", "de", "do", "das", "dos", "e"];
-        return cidade.toLowerCase().split(' ').map(palavra => 
-            preposicoes.includes(palavra) ? palavra : palavra.charAt(0).toUpperCase() + palavra.slice(1)
-        ).join(' ');
+        return cidade.toLowerCase().split(' ').map(palavra => preposicoes.includes(palavra) ? palavra : palavra.charAt(0).toUpperCase() + palavra.slice(1)).join(' ');
     }
 
     function obterDataExtenso() {
@@ -299,24 +236,33 @@
     function gerarRelatorioFinal() {
         salvarDadosFixos();
         const periodo = document.getElementById('periodo').value;
-        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const nomeBruto = document.getElementById('crianca').value;
+        const nomeCap = nomeBruto.charAt(0).toUpperCase() + nomeBruto.slice(1).toLowerCase();
+        const nomeFull = nomeBruto.toUpperCase() || "O ALUNO";
         const cidade = formatarCidade(document.getElementById('cidade').value);
         const gen = document.getElementById('genero').value;
         
+        // ELEMENTOS DO FILTRO DE COESÃO
+        const pronome = gen === 'o' ? 'Ele' : 'Ela';
+        const termoArtigo = gen === 'o' ? 'o aluno' : 'a aluna';
+        const sujeitos = [nomeCap, pronome, "", termoArtigo, pronome]; // Ordem de aparição para variar
+
         let textoBNCC = "";
+        let count = 0;
+
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                
-                // SORTEIO DA MATRIZ: Escolhe uma das frases disponíveis
-                const opcoesFrases = item.frases[nivel];
-                const fraseEscolhida = opcoesFrases[Math.floor(Math.random() * opcoesFrases.length)];
-                
-                // SORTEIO DO CONECTIVO
+                const frase = item.frases[nivel][Math.floor(Math.random() * item.frases[nivel].length)];
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 
-                textoBNCC += `${conect} <b>${nome}</b> ${fraseEscolhida} `;
+                // Aplica o sujeito da vez (Filtro de Coesão)
+                const sujeitoDaVez = sujeitos[count % sujeitos.length];
+                const espaco = sujeitoDaVez === "" ? "" : " ";
+                
+                textoBNCC += `${conect}<b>${sujeitoDaVez}</b>${espaco}${frase} `;
+                count++;
             }
         });
 
@@ -324,7 +270,7 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUN${gen.toUpperCase()}(A):</b> ${nome}<br>
+                <b>ALUN${gen.toUpperCase()}:</b> ${nomeFull}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
