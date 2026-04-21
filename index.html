@@ -3,134 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONTAÊ PROFE - Oficial</title>
+    <title>CONTAÊ PROFE - Versão Premium</title>
+    <meta name="theme-color" content="#ff4757">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+    
     <style>
         :root { 
-            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
+            --primaria: #ff4757; 
+            --azul: #1e90ff; 
+            --bg: #f8f9fa; 
+            --texto: #2f3542; 
+            --branco: #ffffff;
+            --cor-inicial: #e74c3c; 
+            --cor-processo: #f1c40f; 
+            --cor-avancado: #2ecc71; 
         }
         
-        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 20px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0; }
+        /* Design Responsivo e Toque Amigável */
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-size: 2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
+        .slogan { font-size: 0.9rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; line-height: 1.2; }
 
-        /* --- BOTÃO FLUTUANTE DE AJUDA/INSTALAÇÃO --- */
-        #btn-ajuda-instalar {
+        /* Botão Flutuante Master */
+        #btn-ajuda-master {
             position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
             background: var(--azul); color: white; border-radius: 50%; border: none;
             font-size: 30px; font-weight: bold; cursor: pointer; z-index: 10000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;
+            transition: transform 0.2s;
         }
+        #btn-ajuda-master:active { transform: scale(0.9); }
 
-        /* Modal de Instruções */
-        #modal-guia {
+        /* Modal de Instruções (Tela Flutuante) */
+        #modal-instrucao {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 10001; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
+            background: rgba(0,0,0,0.8); z-index: 10001; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
         }
-        .guia-conteudo { background: white; padding: 25px; border-radius: 20px; max-width: 450px; width: 100%; position: relative; }
-        .fechar-guia { position: absolute; top: 15px; right: 15px; font-size: 24px; cursor: pointer; color: var(--primaria); font-weight: bold; }
-        .passo-guia { margin-bottom: 15px; font-size: 0.95rem; line-height: 1.5; border-bottom: 1px solid #eee; padding-bottom: 10px; color: #444; }
+        .modal-card { background: white; padding: 25px; border-radius: 20px; max-width: 400px; width: 100%; position: relative; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .passo { margin-bottom: 15px; font-size: 0.9rem; line-height: 1.4; color: #444; border-left: 3px solid var(--azul); padding-left: 10px; }
 
-        /* --- ESTÉTICA MASTER: FORMULÁRIO --- */
-        .container { max-width: 900px; width: 92%; margin: 20px auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .container { max-width: 900px; width: 92%; margin: 20px auto; background: var(--branco); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
+        
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; width: 100%; box-sizing: border-box; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 1rem; outline: none; text-transform: uppercase; width: 100%; box-sizing: border-box; background: #fff; }
         
-        .secao-titulo { background: var(--azul); color: white; padding: 12px; border-radius: 12px; margin: 20px 0 10px; font-size: 0.85rem; font-weight: bold; text-align: center; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 15px; border-radius: 12px; margin: 25px 0 10px; }
+        .header-pergunta { display: flex; justify-content: space-between; align-items: center; }
+        .campo-nome { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; color: #ffeaa7; margin-bottom: 4px; display: block; }
+        .pergunta-texto { font-size: 1rem; font-weight: 700; margin: 0; line-height: 1.2; }
+        
+        /* Botões Inteligentes e Elásticos */
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; }
+        .btn-v:active { transform: scale(0.95); }
+        .btn-v.active { color: white; border-color: transparent; }
+        .btn-v.ini.active { background: var(--cor-inicial); }
+        .btn-v.pro.active { background: var(--cor-processo); }
+        .btn-v.ava.active { background: var(--cor-avancado); }
 
-        /* --- ÁREA DO RELATÓRIO (IMPRESSÃO) --- */
-        #editor { width: 95%; max-width: 800px; margin: 20px auto; background: white; padding: 40px; display: none; border: 1px solid #ddd; font-family: Arial, sans-serif; box-sizing: border-box; }
-        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; font-size: 11pt; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; line-height: 1.6; text-indent: 1.25cm; margin-bottom: 12px; font-size: 12pt; }
-        .assinaturas { display: flex; justify-content: space-between; margin-top: 60px; }
-        .bloco-ass { width: 45%; text-align: center; border-top: 1px solid #000; padding-top: 5px; font-size: 10pt; }
+        .btn-gerar { width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); margin-top: 20px; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
 
-        @media print {
-            @page { size: A4; margin: 3.0cm 1.5cm 1.5cm 1.5cm; } /* AQUI ESTÁ SUA MARGEM DE 3,0CM */
-            header, .container, #btn-ajuda-instalar, .no-print, #btn-print { display: none !important; }
-            body { background: white !important; }
-            #editor { display: block !important; margin: 0 !important; padding: 0 !important; width: 100% !important; border: none !important; box-shadow: none !important; }
-            .assinaturas { display: flex !important; }
+        /* Configuração de Impressão (Margem 3.0cm) */
+        #editor { width: 210mm; min-height: 297mm; margin: 20px auto; background: white; box-sizing: border-box; padding: 30mm 20mm 10mm 25mm; font-family: Arial, sans-serif; font-size: 12pt; display: none; }
+
+        @media print { 
+            @page { size: A4; margin: 0; }
+            .no-print { display: none !important; } 
+            body { background: white; }
+            #editor { display: block !important; margin: 0 !important; border: none !important; width: 100%; padding-top: 3.0cm !important; } 
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .grid-botoes { grid-template-columns: 1fr; }
+            .btn-v { padding: 12px; font-size: 0.8rem; }
+            .logo { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 
-<button id="btn-ajuda-instalar" class="no-print" onclick="abrirGuia()">?</button>
+<button id="btn-ajuda-master" class="no-print" onclick="abrirModal()">?</button>
 
-<div id="modal-guia" class="no-print" onclick="fecharGuia()">
-    <div class="guia-conteudo" onclick="event.stopPropagation()">
-        <span class="fechar-guia" onclick="fecharGuia()">&times;</span>
-        <h3 style="color:var(--azul); margin-top:0;">🚀 Use como um Aplicativo</h3>
-        <div class="passo-guia"><b>1. Instalar:</b> No Android (3 pontinhos) ou iPhone (ícone compartilhar), selecione <b>"Adicionar à Tela de Início"</b>.</div>
-        <div class="passo-guia"><b>2. Impressão Limpa:</b> Ao imprimir, clique em <b>+ Definições</b> e desmarque <b>"Cabeçalhos e Rodapés"</b>. Isso remove o link do site do papel.</div>
-        <div class="passo-guia"><b>3. Margem:</b> O sistema já reserva 3,0cm no topo para você!</div>
-        <button onclick="fecharGuia()" style="width:100%; padding:12px; background:var(--azul); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">ESTÁ ÓTIMO!</button>
+<div id="modal-instrucao" class="no-print" onclick="fecharModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="color:var(--azul); margin-top:0;">Como usar o App:</h3>
+        <div class="passo"><b>1. Instalar:</b> No navegador, clique em "Adicionar à Tela de Início" para ter o ícone no seu celular.</div>
+        <div class="passo"><b>2. Cores:</b> Cada cor representa um nível de autonomia da criança.</div>
+        <div class="passo"><b>3. Impressão:</b> Nas configurações da impressora, desmarque "Cabeçalhos e Rodapés".</div>
+        <button onclick="fecharModal()" style="width:100%; padding:12px; background:var(--primaria); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">ENTENDI!</button>
     </div>
 </div>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
+    <div class="slogan">"A voz do professor, a história da criança."</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade/Data</label><input type="text" id="cidade" placeholder="Ex: Manaus-AM"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><input type="text" id="fase" placeholder="Ex: 1º Período"></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: A"></div>
+        <div class="campo"><label>Fase</label>
+            <select id="fase">
+                <option value="1º PERÍODO">1º PERÍODO</option>
+                <option value="2º PERÍODO">2º PERÍODO</option>
+            </select>
+        </div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
-                <option value="1º BIMESTRE">1º BIMESTRE</option>
-                <option value="2º BIMESTRE">2º BIMESTRE</option>
-                <option value="3º BIMESTRE">3º BIMESTRE</option>
-                <option value="4º BIMESTRE">4º BIMESTRE</option>
-                <option value="1º SEMESTRE">1º SEMESTRE</option>
-                <option value="2º SEMESTRE">2º SEMESTRE</option>
+                <option>1º BIMESTRE</option><option>2º BIMESTRE</option>
+                <option>3º BIMESTRE</option><option>4º BIMESTRE</option>
+                <option>1º SEMESTRE</option><option>2º SEMESTRE</option>
             </select>
         </div>
     </div>
 
-    <div class="secao-titulo">CAMPOS DE EXPERIÊNCIA (BNCC)</div>
-    <p style="text-align:center; font-size:0.8rem; color:#666;">Aguardando ativação dos botões de inteligência...</p>
-
-    <button onclick="gerarBasico()" style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; font-size:1.1rem; margin-top:20px; cursor:pointer;">📝 GERAR RELATÓRIO</button>
+    <div id="campos-container"></div>
+    
+    <button class="btn-gerar" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
 </div>
 
-<div id="editor"></div>
+<div id="editor" contenteditable="true"></div>
+
+<div class="no-print" id="btn-print" style="display:none; text-align:center; padding: 20px;">
+    <button class="btn-save" style="padding:15px 30px; background:var(--cor-avancado); color:white; border:none; border-radius:12px; font-weight:bold; margin-right:10px;" onclick="salvarRelatorio()">💾 SALVAR</button>
+    <button class="btn-print" style="padding:15px 30px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold;" onclick="window.print()">🖨️ IMPRIMIR</button>
+</div>
 
 <script>
-    function abrirGuia() { document.getElementById('modal-guia').style.display = 'flex'; }
-    function fecharGuia() { document.getElementById('modal-guia').style.display = 'none'; }
+    const camposBNCC = [
+        { n: "1. O EU, O OUTRO E O NÓS", p: "Vínculos e Identidade" },
+        { n: "2. CORPO, GESTOS E MOVIMENTOS", p: "Expressividade" },
+        { n: "3. TRAÇOS, SONS, CORES E FORMAS", p: "Artes e Sentidos" },
+        { n: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", p: "Linguagem" },
+        { n: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", p: "Raciocínio" }
+    ];
 
-    function gerarBasico() {
-        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
-        const escola = document.getElementById('escola').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value;
-        const prof = document.getElementById('prof').value.toUpperCase();
+    function abrirModal() { document.getElementById('modal-instrucao').style.display = 'flex'; }
+    function fecharModal() { document.getElementById('modal-instrucao').style.display = 'none'; }
 
-        let rel = `
-            <div class="esc-nome">ESCOLA: ${escola}</div>
-            <div class="bloco-dados">
-                <b>DOCENTE:</b> ${prof}<br>
-                <b>CRIANÇA:</b> ${nome}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value.toUpperCase()} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
-            </div>
-            <div class="tit-parecer">PARECER PEDAGÓGICO - ${document.getElementById('periodo').value}</div>
-            <div class="corpo-texto">Relatório em fase de processamento de frases...</div>
-            <div style="text-align:center; margin-top:40px;">${cidade}, ${new Date().toLocaleDateString('pt-BR')}.</div>
-            <div class="assinaturas"><div class="bloco-ass">Assinatura do Docente</div><div class="bloco-ass">Coordenação / Direção</div></div>
-        `;
-        document.getElementById('editor').innerHTML = rel;
-        document.getElementById('editor').style.display = 'block';
-        window.print();
+    function iniciar() {
+        const cCont = document.getElementById('campos-container');
+        camposBNCC.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <div class="secao-pergunta">
+                    <span class="campo-nome">${item.n}</span>
+                    <p class="pergunta-texto">${item.p}</p>
+                </div>
+                <div class="grid-botoes" id="c-${idx}">
+                    <div class="btn-v ini" onclick="marcar(${idx}, this)">COM MEDIAÇÃO</div>
+                    <div class="btn-v pro" onclick="marcar(${idx}, this)">EM PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${idx}, this)">COM AUTONOMIA</div>
+                </div>`;
+            cCont.appendChild(div);
+        });
     }
+
+    function marcar(idx, b) { 
+        Array.from(document.getElementById(`c-${idx}`).children).forEach(x => x.classList.remove('active')); 
+        b.classList.add('active'); 
+    }
+
+    // ... (Mantenha as funções sortear, formatarCidade, gerarRelatorio e salvarRelatorio do seu código original aqui) ...
+    // Vou colocar a gerarRelatorio básica apenas para o código ser funcional:
+
+    function gerarRelatorio() {
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        document.getElementById('editor').innerHTML = `
+            <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
+            <div class="bloco-dados">
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
+                <b>CRIANÇA:</b> ${nomeAlu}<br>
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+            </div>
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO - ${document.getElementById('periodo').value}</div>
+            <p class="corpo-texto">Relatório gerado com sucesso. (As frases do seu banco de dados entrarão aqui no próximo comando).</p>
+        `;
+        document.getElementById('editor').style.display = 'block';
+        document.getElementById('btn-print').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    iniciar();
 </script>
 </body>
 </html>
