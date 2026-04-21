@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONTAÊ PROFE - Oficial</title>
+    <title>CONTAÊ PROFE - Mega Banco Ativado</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
@@ -23,44 +23,40 @@
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
-        /* Estilo da Seção de Pergunta com Inteligência */
-        .secao-pergunta { 
-            background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; 
-            margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center;
-        }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
         .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
         .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
 
-        /* Box de Dicas Pedagógicas */
-        .dica-pedagogica { 
-            display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; 
-            margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul);
-            animation: fadeIn 0.3s;
-        }
-        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
-        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 80px; text-align: center; text-transform: uppercase; }
+        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); }
+        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
+        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 80px; text-align: center; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
+        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
         .btn-v.active { color: white; border-color: transparent; }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
         .btn-v.ava.active { background: var(--cor-avancado); }
 
-        #editor { width: 100%; max-width: 800px; margin: 20px auto; background: white; padding: 40px; display: none; font-family: Arial, sans-serif; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Estética do Relatório na Tela */
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.6; }
+        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
+        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
+        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
+        .assinaturas { display: flex; justify-content: space-between; margin-top: 80px; }
+        .bloco-ass { width: 45%; border-top: 1px solid #000; text-align: center; font-size: 10pt; padding-top: 5px; }
 
         @media print {
             @page { size: A4; margin: 0; }
             .no-print { display: none !important; }
-            #editor { display: block !important; padding-top: 3.0cm !important; margin: 0 !important; width: 100% !important; }
+            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; padding-top: 3.0cm !important; }
         }
     </style>
 </head>
 <body>
 
-<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA CONTAÊ:\n\nUse os botões de interrogação (?) em cada campo para ver os critérios pedagógicos da BNCC.')">?</button>
+<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: O texto gerado é EDITÁVEL. Clique nele para apagar ou escrever algo antes de imprimir!')">?</button>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
@@ -68,111 +64,129 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Manaus-AM"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
+        <div class="campo"><label>Fase</label><input type="text" id="fase"></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo"><label>Período</label><select id="periodo"><option>1º SEMESTRE</option><option>2º SEMESTRE</option></select></div>
+        <div class="campo"><label>Período</label>
+            <select id="periodo">
+                <option>1º SEMESTRE</option>
+                <option>2º SEMESTRE</option>
+            </select>
+        </div>
     </div>
 
     <div id="campos-bncc"></div>
 
-    <button onclick="gerar()" style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:20px;">📝 GERAR RELATÓRIO</button>
+    <button onclick="gerarRelatorioCompleto()" style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:20px;">📝 GERAR RELATÓRIO COMPLETO</button>
 </div>
 
-<div id="editor"></div>
+<div id="editor" contenteditable="true"></div>
 
 <script>
-    // BANCO DE DADOS DA INTELIGÊNCIA DE CORES
     const infoBNCC = [
-        { 
-            t: "1. O EU, O OUTRO E O NÓS", 
-            d: { 
-                ini: "A criança ainda busca segurança no adulto para interagir e resolver pequenos conflitos sociais.", 
-                pro: "Interage com os pares de forma produtiva, mas requer mediação em situações de desafio coletivo.", 
-                ava: "Demonstra empatia, liderança positiva e resolve conflitos com autonomia e respeito às normas." 
-            } 
-        },
-        { 
-            t: "2. CORPO, GESTOS E MOVIMENTOS", 
-            d: { 
-                ini: "Apresenta necessidade de apoio motor e explora o espaço com certa timidez ou cautela.", 
-                pro: "Desenvolve coordenação e equilíbrio, participando ativamente de brincadeiras corporais.", 
-                ava: "Domina o corpo com agilidade, expressividade e demonstra plena consciência espacial." 
-            } 
-        },
-        { 
-            t: "3. TRAÇOS, SONS, CORES E FORMAS", 
-            d: { 
-                ini: "Inicia a exploração de materiais artísticos e sons sob orientação e estímulo direto.", 
-                pro: "Identifica elementos visuais e sonoros, criando produções com traços próprios e identidade.", 
-                ava: "Expressa-se artisticamente com sensibilidade, utilizando diversos suportes de forma criativa." 
-            } 
-        },
-        { 
-            t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-            d: { 
-                ini: "Expressa desejos e necessidades básicas, ampliando o vocabulário através da escuta atenta.", 
-                pro: "Participa de rodas de conversa e relata fatos, apresentando uma sequência lógica em evolução.", 
-                ava: "Argumenta com clareza, interpreta histórias complexas e demonstra forte interesse na escrita." 
-            } 
-        },
-        { 
-            t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-            d: { 
-                ini: "Percebe noções de tempo e contagem através de vivências concretas e auxílio docente.", 
-                pro: "Identifica sequências e relações espaciais com crescente autonomia e raciocínio lógico.", 
-                ava: "Resolve situações-problema e relaciona conceitos matemáticos e naturais com facilidade." 
-            } 
-        }
+        { t: "1. O EU, O OUTRO E O NÓS", frases: {
+            ini: "ainda demonstra necessidade de mediação constante para interagir com o grupo e resolver conflitos.",
+            pro: "apresenta boa interação com os colegas, embora às vezes precise de auxílio para partilhar brinquedos.",
+            ava: "demonstra plena autonomia nas relações, agindo com empatia e respeitando os sentimentos dos outros."
+        }},
+        { t: "2. CORPO, GESTOS E MOVIMENTOS", frases: {
+            ini: "encontra-se em fase de descoberta das suas possibilidades motoras, requerendo estímulo e segurança.",
+            pro: "movimenta-se com crescente agilidade, demonstrando coordenação motora ampla em desenvolvimento.",
+            ava: "possui excelente domínio corporal, participando de desafios motores com equilíbrio e confiança."
+        }},
+        { t: "3. TRAÇOS, SONS, CORES E FORMAS", frases: {
+            ini: "explora diferentes materiais artísticos com curiosidade, necessitando de auxílio para manuseá-los.",
+            pro: "expressa-se através de desenhos e sons de forma criativa, reconhecendo cores e formas básicas.",
+            ava: "manifesta grande sensibilidade artística, criando produções ricas em detalhes e originalidade."
+        }},
+        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", frases: {
+            ini: "comunica-se de forma simples, ampliando seu repertório vocal através da escuta de histórias.",
+            pro: "consegue relatar vivências com sequência lógica, participando ativamente das rodas de conversa.",
+            ava: "expressa ideias e desejos com clareza argumentativa, demonstrando grande interesse pela leitura."
+        }},
+        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", frases: {
+            ini: "percebe noções espaciais e temporais básicas mediante vivências práticas orientadas pelo docente.",
+            pro: "identifica quantidades e sequências temporais com autonomia, relacionando conceitos ao cotidiano.",
+            ava: "resolve situações-problema lógicas com facilidade, demonstrando domínio sobre noções de tempo e espaço."
+        }}
     ];
-    
+
+    const intros = [
+        "Considerando o percurso educativo e a observação atenta das vivências escolares, notamos que ",
+        "Pautados nos direitos de aprendizagem e desenvolvimento da BNCC, verificamos que o aluno ",
+        "Sob a luz da documentação pedagógica e do olhar sensível às conquistas infantis, observamos que "
+    ];
+
+    const conclusoes = [
+        "Encerramos este ciclo celebrando as conquistas alcançadas e reafirmando a importância da parceria família-escola.",
+        "Concluímos que a criança apresenta um desenvolvimento harmonioso, estando pronta para os novos desafios que virão.",
+        "Fica o registro de um período de ricas descobertas e aprendizados significativos para a jornada da criança."
+    ];
+
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
         infoBNCC.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta">
-                    <p class="pergunta-texto">${item.t}</p>
-                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
-                </div>
-                
-                <div id="dica-${i}" class="dica-pedagogica">
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> ${item.d.ini}</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> ${item.d.pro}</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> ${item.d.ava}</div>
-                </div>
-
+                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p></div>
                 <div class="grid-botoes" id="g-${i}">
-                    <div class="btn-v ini" onclick="marcar(${i}, 0)">MEDIAÇÃO</div>
-                    <div class="btn-v pro" onclick="marcar(${i}, 1)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${i}, 2)">AUTONOMIA</div>
+                    <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
+                    <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
                 </div>`;
         });
     }
 
-    function toggleDica(i) {
-        const d = document.getElementById(`dica-${i}`);
-        d.style.display = (d.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function marcar(gi, bi) {
+    function marcar(gi, niv) {
         const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v');
         btns.forEach(b => b.classList.remove('active'));
-        btns[bi].classList.add('active');
+        document.querySelector(`#g-${gi} .${niv}`).classList.add('active');
     }
 
-    function gerar() {
+    function gerarRelatorioCompleto() {
         const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const escola = document.getElementById('escola').value.toUpperCase();
+        const prof = document.getElementById('prof').value.toUpperCase();
+        const fase = document.getElementById('fase').value.toUpperCase();
+        const turma = document.getElementById('turma').value.toUpperCase();
+        const periodo = document.getElementById('periodo').value;
+        const cidade = document.getElementById('cidade').value;
+
+        let textoBNCC = "";
+        infoBNCC.forEach((item, i) => {
+            const btnAtivo = document.querySelector(`#g-${i} .active`);
+            if (btnAtivo) {
+                const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+                textoBNCC += `${item.frases[nivel]} `;
+            }
+        });
+
+        const introSorteadas = intros[Math.floor(Math.random() * intros.length)];
+        const concSorteadas = conclusoes[Math.floor(Math.random() * conclusoes.length)];
+
         document.getElementById('editor').innerHTML = `
-            <h2>RELATÓRIO: ${nome}</h2>
-            <p>Inteligência de Cores ativada! Você já pode selecionar os níveis baseados nas dicas pedagógicas.</p>
-            <p><strong>Aguardando o próximo comando: MEGA BANCO.</strong></p>
+            <div class="esc-nome">ESCOLA: ${escola}</div>
+            <div class="dados-aluno">
+                <b>DOCENTE:</b> ${prof}<br>
+                <b>ALUNO(A):</b> ${nome}<br>
+                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${turma}
+            </div>
+            <div class="tit-rel">PARECER PEDAGÓGICO - ${periodo}</div>
+            <div class="paragrafo">${introSorteadas} <b>${nome}</b> ${textoBNCC}</div>
+            <div class="paragrafo">${concSorteadas}</div>
+            <div style="text-align:center; margin-top:50px;">${cidade}, ${new Date().toLocaleDateString('pt-BR')}</div>
+            <div class="assinaturas">
+                <div class="bloco-ass">Assinatura do Docente</div>
+                <div class="bloco-ass">Coordenação Pedagógica</div>
+            </div>
         `;
         document.getElementById('editor').style.display = 'block';
-        window.print();
+        window.scrollTo(0, document.body.scrollHeight);
+        setTimeout(() => { window.print(); }, 500);
     }
+
     iniciar();
 </script>
 </body>
