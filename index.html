@@ -3,63 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONTAÊ PROFE - Sistema Profissional</title>
+    <title>CONTAÊ PROFE - Oficial</title>
+    
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
-            --cor-inicial: #e74c3c; /* Vermelho: Mediação */
-            --cor-processo: #f1c40f; /* Amarelo: Processo */
-            --cor-avancado: #2ecc71; /* Verde: Autonomia */
+            --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 20px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        header { background: var(--primaria); color: white; padding: 20px 15px; text-align: center; }
         .logo { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0; }
         .logo span { color: #ffeaa7; }
-
-        #btn-ajuda-geral { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 24px; font-weight: bold; cursor: pointer; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-
+        
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: var(--branco); padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
         
+        /* Botão de Ajuda Flutuante */
+        #btn-ajuda-geral {
+            position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
+            background: var(--azul); color: white; border-radius: 50%; border: none;
+            font-size: 24px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10000;
+        }
+
+        /* Modal de Instruções */
+        #modal-instrucao {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 10001; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
+        }
+        .modal-conteudo { background: white; padding: 20px; border-radius: 15px; max-width: 400px; width: 100%; position: relative; }
+        .fechar-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; font-weight: bold; color: #ff4757; }
+        .passo { margin-bottom: 15px; font-size: 0.95rem; line-height: 1.4; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        /* Estilos do Formulário */
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; text-transform: uppercase; width: 100%; box-sizing: border-box; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 12px; margin: 20px 0 5px; display: flex; justify-content: space-between; align-items: center; }
-        .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
-        .btn-dica { background: rgba(255,255,255,0.3); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
-        
-        .dica-box { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 12px; font-size: 0.85rem; border-left: 5px solid var(--azul); }
-        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
-        .tag { padding: 3px 8px; border-radius: 5px; color: white; font-size: 0.65rem; font-weight: bold; min-width: 85px; text-align: center; text-transform: uppercase; }
-
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .btn-v { padding: 12px 5px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; transition: 0.3s; color: #747d8c; }
-        .btn-v.active { color: white; border-color: transparent; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 12px; margin: 20px 0 10px; }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .btn-v { padding: 10px 5px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; transition: 0.3s; }
+        .btn-v.active { color: white; }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
         .btn-v.ava.active { background: var(--cor-avancado); }
 
-        #editor { width: 95%; max-width: 800px; margin: 20px auto; background: white; padding: 40px; display: none; border: 1px solid #ddd; font-family: Arial, sans-serif; box-sizing: border-box; }
+        #editor { width: 95%; max-width: 800px; margin: 20px auto; background: white; padding: 40px; display: none; border: 1px solid #ddd; font-family: Arial, sans-serif; }
         .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; font-size: 11pt; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
         .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
-        .corpo-texto { text-align: justify; line-height: 1.6; text-indent: 1.25cm; margin-bottom: 12px; font-size: 12pt; }
-        .assinaturas { display: flex; justify-content: space-between; margin-top: 50px; }
-        .bloco-ass { width: 45%; text-align: center; border-top: 1px solid #000; padding-top: 5px; font-size: 10pt; }
+        .corpo-texto { text-align: justify; line-height: 1.6; margin-bottom: 0.8em; text-indent: 1.25cm; font-size: 12pt; }
+        .frase-incentivo { text-align: center; font-style: italic; font-weight: bold; margin: 1.5em 0; border: 1px dashed #ccc; padding: 10px; }
+        .assinaturas-duplas { display: flex; justify-content: space-between; margin-top: 50px; }
+        .bloco-assinatura { width: 45%; text-align: center; }
+        .linha-assinatura { border-top: 1px solid #000; width: 100%; }
 
         @media print {
             @page { size: A4; margin: 3.0cm 1.5cm 1.5cm 1.5cm; }
-            header, .container, #btn-ajuda-geral, .no-print, #btn-print { display: none !important; }
+            header, .container, .btns-finais, #btn-ajuda-geral, .no-print, script, iframe, ins, [id*="netlify"], [class*="ad"] { display: none !important; }
             body { background: white !important; }
             #editor { display: block !important; margin: 0 !important; padding: 0 !important; width: 100% !important; border: none !important; box-shadow: none !important; }
+            .assinaturas-duplas { display: flex !important; flex-direction: row !important; }
         }
     </style>
 </head>
 <body>
 
-<button id="btn-ajuda-geral" class="no-print" onclick="alert('AJUDA CONTAÊ:\n\n1. MARGEM: O sistema já está com 3,0cm no topo.\n2. CORES: Escolha o nível de cada campo. Use o ? para ver a descrição técnica.\n3. IMPRESSÃO: Desmarque Cabeçalhos e Rodapés nas configurações da impressora.')">?</button>
+<button id="btn-ajuda-geral" class="no-print" onclick="abrirModal()">?</button>
+
+<div id="modal-instrucao" class="no-print" onclick="fecharModal()">
+    <div class="modal-conteudo" onclick="event.stopPropagation()">
+        <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+        <h3 style="color:var(--azul); margin-top:0;">Como usar o App:</h3>
+        <div class="passo"><b>1. Instalar no Celular:</b> Clique nos 3 pontinhos (Android) ou no ícone de "Compartilhar" (iPhone) e escolha <b>"Adicionar à tela de início"</b>.</div>
+        <div class="passo"><b>2. Gerar Relatório:</b> Preencha os dados e clique nos botões coloridos de desempenho.</div>
+        <div class="passo"><b>3. Imprimir:</b> Após gerar, clique em Imprimir. Nas configurações da impressora, desmarque <b>"Cabeçalhos e rodapés"</b> para limpar a propaganda.</div>
+        <button onclick="fecharModal()" style="width:100%; padding:10px; background:var(--azul); color:white; border:none; border-radius:8px;">Entendi!</button>
+    </div>
+</div>
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
@@ -67,111 +88,65 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Manaus-AM"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo"><label>Fase</label><input type="text" id="fase" placeholder="Ex: 1º Período"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Manaus"></div>
+        <div class="campo"><label>Escola:</label><input type="text" id="escola" placeholder="Nome da Escola"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu Nome"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do Aluno"></div>
+        <div class="campo"><label>Fase</label><select id="fase"><option>1º PERÍODO</option><option>2º PERÍODO</option></select></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: A"></div>
-        <div class="campo"><label>Período</label>
-            <select id="periodo">
-                <option value="1º SEMESTRE">1º SEMESTRE</option>
-                <option value="2º SEMESTRE">2º SEMESTRE</option>
-            </select>
-        </div>
+        <div class="campo"><label>Período</label><select id="periodo"><option>1º BIMESTRE</option><option>2º BIMESTRE</option><option>3º BIMESTRE</option><option>4º BIMESTRE</option></select></div>
     </div>
-
-    <div id="campos-bncc"></div>
-
-    <button onclick="gerarRelatorio()" style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; font-size:1.1rem; margin-top:20px; cursor:pointer;">📝 GERAR RELATÓRIO COMPLETO</button>
+    <div id="campos-container"></div>
+    <button style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; margin-top:20px; cursor:pointer;" onclick="gerarRelatorio()">📝 GERAR RELATÓRIO</button>
 </div>
 
-<div id="editor"></div>
+<div id="editor" contenteditable="true"></div>
 
-<div class="no-print" id="btn-print" style="display:none; justify-content:center; padding: 30px;">
-    <button onclick="window.print()" style="padding:18px 50px; background:var(--azul); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR AGORA</button>
+<div class="no-print" id="btn-print" style="display:none; justify-content:center; padding: 20px;">
+    <button onclick="window.print()" style="padding:15px 40px; background:var(--azul); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ IMPRIMIR AGORA</button>
 </div>
 
 <script>
-    const bnccInfo = [
-        { t: "1. O EU, O OUTRO E O NÓS", d: { ini: "Necessita de mediação para interagir e resolver conflitos.", pro: "Interage bem, mas busca apoio em novos desafios.", ava: "Autonomia plena, empatia e liderança positiva." }},
-        { t: "2. CORPO, GESTOS E MOVIMENTOS", d: { ini: "Apresenta timidez motora e busca segurança no adulto.", pro: "Desenvolve coordenação e equilíbrio com firmeza.", ava: "Domina o corpo com agilidade e expressividade." }},
-        { t: "3. TRAÇOS, SONS, CORES E FORMAS", d: { ini: "Explora materiais com auxílio e curiosidade inicial.", pro: "Identifica elementos visuais e cria com identidade.", ava: "Sensibilidade artística aguçada e grande criatividade." }},
-        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", d: { ini: "Expressa desejos simples e amplia vocabulário.", pro: "Relata fatos com sequência lógica e participa de rodas.", ava: "Argumenta com clareza e demonstra interesse na escrita." }},
-        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", d: { ini: "Percebe rotinas e contagem com apoio concreto.", pro: "Organiza sequências temporais e espaciais com autonomia.", ava: "Resolve problemas e domina noções lógicas com facilidade." }}
-    ];
-
-    const bancoFrases = {
-        intros: {
-            "1º SEMESTRE": [
-                "Considerando a adaptação e o acolhimento como eixos deste início de jornada, observamos que ",
-                "Sob a luz da BNCC e o olhar sensível aos Direitos de Aprendizagem neste semestre, verificamos que "
-            ],
-            "2º SEMESTRE": [
-                "Ao concluir este ciclo letivo, pautado pelo desenvolvimento integral, observamos que ",
-                "Consolidando as aprendizagens construídas e as metas alcançadas neste ano, verificamos que "
-            ]
-        },
-        niveis: {
-            ini: ["ainda requer mediação constante para organizar ideias e interagir.", "está em fase de construção de confiança, buscando suporte pedagógico."],
-            pro: ["demonstra avanços significativos e participa com crescente interesse.", "encontra-se em pleno desenvolvimento, solucionando desafios com apoio pontual."],
-            ava: ["age com autonomia plena, demonstrando protagonismo em suas escolhas.", "manifesta postura investigativa e segura, relacionando saberes com clareza."]
-        }
+    const db = {
+        inicio: ["A partir da escuta ativa e do estímulo à curiosidade natural da infância, vimos que "],
+        meio: ["apresentou um percurso marcado por autonomia e conquistas visíveis. Nas rodas de conversa, expressou sentimentos com clareza. "],
+        detalhes: ["Evidenciou-se uma evolução significativa na motricidade ampla e no domínio de diversos suportes artísticos. "],
+        conclusao: ["Encerramos este semestre com a satisfação de observar um desenvolvimento equilibrado e seguro. "],
+        incentivo: ["Cada descoberta sua é um motivo para sorrir! ✨"]
     };
 
     function iniciar() {
-        const cont = document.getElementById('campos-bncc');
-        bnccInfo.forEach((item, i) => {
-            cont.innerHTML += `
-                <div class="secao-pergunta">
-                    <p class="pergunta-texto">${item.t}</p>
-                    <button class="btn-dica" onclick="toggleDica(${i})">?</button>
-                </div>
-                <div id="dica-${i}" class="dica-box">
-                    <div class="dica-item"><span class="tag" style="background:var(--cor-inicial)">Mediação</span> ${item.d.ini}</div>
-                    <div class="dica-item"><span class="tag" style="background:var(--cor-processo)">Processo</span> ${item.d.pro}</div>
-                    <div class="dica-item"><span class="tag" style="background:var(--cor-avancado)">Autonomia</span> ${item.d.ava}</div>
-                </div>
-                <div class="grid-botoes" data-id="${i}">
-                    <div class="btn-v ini" onclick="marcar(this)">MEDIAÇÃO</div>
-                    <div class="btn-v pro" onclick="marcar(this)">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(this)">AUTONOMIA</div>
-                </div>`;
+        const titulos = ["1. O EU, O OUTRO E O NÓS", "2. CORPO, GESTOS E MOVIMENTOS", "3. TRAÇOS, SONS, CORES E FORMAS", "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES"];
+        const cCont = document.getElementById('campos-container');
+        titulos.forEach((t, i) => {
+            cCont.innerHTML += `<div class="secao-pergunta">${t}</div><div class="grid-botoes"><div class="btn-v ini" onclick="marcar(this)">MEDIAÇÃO</div><div class="btn-v pro" onclick="marcar(this)">PROCESSO</div><div class="btn-v ava" onclick="marcar(this)">AUTONOMIA</div></div>`;
         });
     }
 
-    function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = d.style.display==='block'?'none':'block'; }
-    function marcar(b) { b.parentElement.querySelectorAll('.btn-v').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
+    function marcar(b) { b.parentElement.querySelectorAll('.btn-v').forEach(btn => btn.classList.remove('active')); b.classList.add('active'); }
+    function abrirModal() { document.getElementById('modal-instrucao').style.display = 'flex'; }
+    function fecharModal() { document.getElementById('modal-instrucao').style.display = 'none'; }
 
     function gerarRelatorio() {
-        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
-        const periodo = document.getElementById('periodo').value;
-        const escola = document.getElementById('escola').value.toUpperCase();
-        
-        let rel = `<div class="esc-nome">ESCOLA: ${escola}</div>
+        const nomeAlu = document.getElementById('crianca').value.toUpperCase();
+        document.getElementById('editor').innerHTML = `
+            <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase() || "NOME DA ESCOLA"}</div>
             <div class="bloco-dados">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>CRIANÇA:</b> ${nome}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value.toUpperCase()} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <b>CRIANÇA:</b> ${nomeAlu}<br>
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-parecer">PARECER PEDAGÓGICO - ${periodo}</div>`;
-
-        const intro = bancoFrases.intros[periodo][Math.floor(Math.random() * bancoFrases.intros[periodo].length)];
-        rel += `<div class="corpo-texto">${intro} <strong>${nome}</strong>...</div>`;
-
-        document.querySelectorAll('.grid-botoes').forEach(grid => {
-            const btn = grid.querySelector('.active');
-            if(btn) {
-                let niv = btn.classList.contains('ini')?'ini':btn.classList.contains('pro')?'pro':'ava';
-                let frase = bancoFrases.niveis[niv][Math.floor(Math.random() * bancoFrases.niveis[niv].length)];
-                rel += `<div class="corpo-texto">${frase}</div>`;
-            }
-        });
-
-        rel += `<div style="text-align:center; margin-top:40px;">${document.getElementById('cidade').value}, ${new Date().toLocaleDateString('pt-BR')}.</div>
-                <div class="assinaturas"><div class="bloco-ass">Docente</div><div class="bloco-ass">Coordenação</div></div>`;
-
-        document.getElementById('editor').innerHTML = rel;
+            <div class="tit-parecer">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').value}</div>
+            <div class="corpo-texto">${db.inicio[0]} ${nomeAlu} ${db.meio[0]}</div>
+            <div class="corpo-texto">${db.detalhes[0]}</div>
+            <div class="corpo-texto">${db.conclusao[0]}</div>
+            <div class="frase-incentivo">${db.incentivo[0]}</div>
+            <div style="text-align:center; margin: 30px 0;">${document.getElementById('cidade').value}, ${new Date().toLocaleDateString('pt-BR')}.</div>
+            <div class="assinaturas-duplas">
+                <div class="bloco-assinatura"><div class="linha-assinatura"></div><span style="font-size:9pt">Professor(a)</span></div>
+                <div class="bloco-assinatura"><div class="linha-assinatura"></div><span style="font-size:9pt">Coordenação / Direção</span></div>
+            </div>
+        `;
         document.getElementById('editor').style.display = 'block';
         document.getElementById('btn-print').style.display = 'flex';
         window.scrollTo(0, document.getElementById('editor').offsetTop);
