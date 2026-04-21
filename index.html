@@ -27,7 +27,7 @@
             color: var(--texto); 
             margin: 0; 
             padding: 0; 
-            overflow-x: hidden; /* Impede o balanço lateral */
+            overflow-x: hidden;
         }
 
         header { 
@@ -42,11 +42,12 @@
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.85rem; font-weight: 300; font-style: italic; opacity: 0.9; margin-top: 5px; line-height: 1.2; }
 
+        /* Banner de Instalação */
         #pwa-install { display: none; background: #2f3542; color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 9999; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
 
         .container { 
             max-width: 900px; 
-            width: 92%; /* Ajuste para telas pequenas */
+            width: 92%; 
             margin: 20px auto; 
             background: var(--branco); 
             padding: 20px; 
@@ -64,7 +65,7 @@
 
         .campo { display: flex; flex-direction: column; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; }
+        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
         .secao-pergunta { background: var(--azul); color: white; padding: 12px; border-radius: 12px; margin: 20px 0 10px; position: relative; }
         .header-pergunta { display: flex; justify-content: space-between; align-items: center; }
@@ -73,7 +74,7 @@
         
         .btn-ajuda { background: rgba(255,255,255,0.2); border: none; color: white; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; }
         
-        .info-pedagogica { display: none; font-size: 0.8rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.4; animation: fadeIn 0.3s ease; }
+        .info-pedagogica { display: none; font-size: 0.8rem; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #ffeaa7; line-height: 1.4; }
         .info-pedagogica.show { display: block; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -86,40 +87,37 @@
         .btn-gerar { padding: 18px; border: none; border-radius: 15px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; background: var(--primaria); box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3); }
         .btn-limpar { padding: 15px; border: 2px solid #edeff2; border-radius: 15px; font-size: 0.9rem; font-weight: bold; cursor: pointer; color: #57606f; background: #f1f2f6; }
 
-        /* Estilo do Relatório na Tela */
+        /* Estilo do Relatório (VISUALIZAÇÃO NA TELA) */
         #editor { 
             width: 95%; 
-            max-width: 210mm; 
-            min-height: auto; 
+            max-width: 800px; 
             margin: 20px auto; 
             background: white; 
-            box-sizing: border-box; 
-            padding: 20px; 
+            padding: 40px 20px; 
             font-family: Arial, sans-serif; 
-            font-size: 11pt; 
-            color: #000; 
             display: none; 
             border: 1px solid #ddd; 
-            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        .esc-nome { font-size: 12pt; font-weight: bold; text-align: center; margin-bottom: 1em; text-transform: uppercase; }
-        .bloco-dados { line-height: 1.4; border-bottom: 1px solid #000; padding-bottom: 5px; margin-bottom: 1em; text-transform: uppercase; font-size: 10pt; }
-        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1em; text-transform: uppercase; font-size: 11pt; }
-        .corpo-texto { text-align: justify; line-height: 1.5; margin-bottom: 0.8em; text-indent: 1cm; }
-        .frase-incentivo { text-align: center; font-style: italic; font-weight: bold; color: #2f3542; margin: 1em 0; border: 1px dashed #ccc; padding: 8px; border-radius: 10px; font-size: 10pt; }
-
-        .data-local { text-align: center; margin-top: 1.5em; margin-bottom: 1.5em; font-size: 10pt; }
-        .assinaturas-duplas { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
+        .esc-nome { font-size: 14pt; font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; }
+        .bloco-dados { line-height: 1.5; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 1.5em; text-transform: uppercase; }
+        .tit-parecer { font-weight: bold; text-align: center; margin-bottom: 1.5em; text-transform: uppercase; font-size: 12pt; }
+        .corpo-texto { text-align: justify; line-height: 1.6; margin-bottom: 0.8em; text-indent: 1.25cm; }
+        .frase-incentivo { text-align: center; font-style: italic; font-weight: bold; color: #2f3542; margin: 1.5em 0; border: 1px dashed #ccc; padding: 10px; border-radius: 10px; }
+        .data-local { text-align: center; margin-top: 2em; margin-bottom: 2em; }
+        
+        .assinaturas-duplas { display: flex; flex-direction: column; gap: 30px; margin-top: 40px; }
         .bloco-assinatura, .assinatura-unica { width: 100%; text-align: center; }
-        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; width: 80%; margin-left: auto; margin-right: auto; }
-        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 8pt; }
+        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 5px; width: 80%; margin: 0 auto; }
+        .label-assinatura { font-weight: bold; text-transform: uppercase; font-size: 9pt; }
 
         .btns-finais { display: flex; flex-direction: column; gap: 10px; align-items: center; margin-bottom: 50px; padding: 0 20px; }
         .btn-print, .btn-save { width: 100%; max-width: 300px; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; color: white; }
         .btn-print { background: var(--azul); }
         .btn-save { background: var(--cor-avancado); }
 
+        /* AJUSTES PARA COMPUTADORES (TELAS MAIORES) */
         @media (min-width: 600px) {
             .acoes-container { grid-template-columns: 1fr 1fr; }
             .assinaturas-duplas { flex-direction: row; justify-content: space-between; }
@@ -127,18 +125,21 @@
             .btns-finais { flex-direction: row; justify-content: center; }
         }
 
+        /* CONFIGURAÇÃO MÁGICA DE IMPRESSÃO */
         @media print { 
-            .no-print { display: none !important; } 
-            body { background: white; }
+            .no-print, #pwa-install, header, .container, .btns-finais { display: none !important; } 
+            body { background: white; margin: 0; padding: 0; }
             #editor { 
                 display: block !important; 
                 margin: 0 !important; 
                 border: none !important; 
-                width: 100%; 
-                padding: 30mm 20mm 10mm 25mm; /* Margens A4 */
+                width: 100% !important; 
+                box-shadow: none !important;
+                padding: 20mm 15mm !important; /* Margem da folha A4 */
             } 
-            .assinaturas-duplas { flex-direction: row; }
-            .bloco-assinatura { width: 45%; }
+            .assinaturas-duplas { flex-direction: row !important; justify-content: space-between !important; }
+            .bloco-assinatura { width: 45% !important; }
+            .linha-assinatura { width: 100% !important; }
         }
     </style>
 </head>
@@ -153,16 +154,16 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder=""></div>
-        <div class="campo"><label>Escola:</label><input type="text" id="escola" placeholder=""></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder=""></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder=""></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Manaus"></div>
+        <div class="campo"><label>Escola:</label><input type="text" id="escola" placeholder="Nome da Escola"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu Nome"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do Aluno"></div>
         <div class="campo"><label>Fase</label><select id="fase">
             <option value="">Selecione...</option>
             <option value="1º PERÍODO">1º PERÍODO</option>
             <option value="2º PERÍODO">2º PERÍODO</option>
         </select></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder=""></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: A"></div>
         <div class="campo"><label>Gênero</label><select id="genero">
             <option value="a criança">A CRIANÇA</option>
             <option value="o aluno">O ALUNO</option>
@@ -308,7 +309,7 @@
             <div class="corpo-texto">${p2}</div>
             <div class="corpo-texto">${p3}</div>
             <div class="frase-incentivo">✨ ${incentivo} ✨</div>
-            <div class="data-local">${formatarCidade(document.getElementById('cidade').value || "Cidade")}, 20 de Abril de 2026.</div>
+            <div class="data-local">${formatarCidade(document.getElementById('cidade').value || "Cidade")}, ${new Date().toLocaleDateString('pt-BR', {day: '2-digit', month: 'long', year: 'numeric'})}.</div>
             <div class="assinaturas-duplas">
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Professor(a)</span></div>
                 <div class="bloco-assinatura"><div class="linha-assinatura"></div><span class="label-assinatura">Coordenação / Direção</span></div>
@@ -323,7 +324,7 @@
     function salvarRelatorio() {
         const conteudo = document.getElementById('editor').innerHTML;
         const nomeAlu = document.getElementById('crianca').value || "Relatorio";
-        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;} .corpo-texto{text-align:justify;margin-bottom:10px;line-height:1.4;} .frase-incentivo{text-align:center;font-style:italic;font-weight:bold;margin:20px 0;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
+        const blob = new Blob(['<html><head><meta charset="UTF-8"><style>body{padding:20px;font-family:Arial;} .linha-assinatura{border-top:1px solid #000;margin-top:40px;width:100%;} .corpo-texto{text-align:justify;margin-bottom:10px;line-height:1.4;} .frase-incentivo{text-align:center;font-style:italic;font-weight:bold;margin:20px 0;}</style></head><body>' + conteudo + '</body></html>'], {type: "text/html"});
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
         link.download = `Relatorio_${nomeAlu}.html`;
