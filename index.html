@@ -102,7 +102,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Rio de Janeiro"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -186,7 +186,21 @@
         }
     ];
 
+    // MEMÓRIA LOCAL: Carregar e salvar dados fixos
+    function carregarDadosSalvos() {
+        if(localStorage.getItem('cidade')) document.getElementById('cidade').value = localStorage.getItem('cidade');
+        if(localStorage.getItem('escola')) document.getElementById('escola').value = localStorage.getItem('escola');
+        if(localStorage.getItem('prof')) document.getElementById('prof').value = localStorage.getItem('prof');
+    }
+
+    function salvarDadosFixos() {
+        localStorage.setItem('cidade', document.getElementById('cidade').value);
+        localStorage.setItem('escola', document.getElementById('escola').value);
+        localStorage.setItem('prof', document.getElementById('prof').value);
+    }
+
     function iniciar() {
+        carregarDadosSalvos();
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
@@ -223,11 +237,11 @@
     }
 
     function gerarRelatorioFinal() {
+        salvarDadosFixos(); // Salva sempre que gerar um relatório
         const periodo = document.getElementById('periodo').value;
         const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const cidade = formatarCidade(document.getElementById('cidade').value);
-        const gen = document.getElementById('genero').value; // 'o' ou 'a'
-        const termoAluno = gen === 'o' ? 'o aluno' : 'a aluna';
+        const gen = document.getElementById('genero').value;
         
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
@@ -263,6 +277,7 @@
     }
 
     function novoAluno() {
+        salvarDadosFixos(); // Salva antes de limpar para garantir
         document.getElementById('crianca').value = "";
         document.getElementById('editor').style.display = 'none';
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
