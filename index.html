@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONTAÊ PROFE - Premium v2</title>
+    <title>CONTAÊ PROFE - Premium</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
@@ -12,6 +12,7 @@
         
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         
+        /* LOGO ESTILIZADA */
         header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .icon-book { width: 35px; height: 25px; border: 3px solid #ffeaa7; border-radius: 4px; position: relative; }
@@ -20,40 +21,40 @@
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
+        #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
+        /* SEÇÃO DE PERGUNTA COM BOTÃO ? */
         .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
         .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
-        .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+        .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
 
-        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); }
-        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
-        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 85px; text-align: center; }
+        /* BOX DE DICAS PEDAGÓGICAS */
+        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); animation: fadeIn 0.3s; }
+        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 85px; text-align: center; text-transform: uppercase; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
+        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
         .btn-v.active { color: white; border-color: transparent; }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
         .btn-v.ava.active { background: var(--cor-avancado); }
 
-        .btn-acoes { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-main { flex: 2; padding: 20px; background: var(--primaria); color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
-        .btn-reset { flex: 1; padding: 20px; background: #747d8c; color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
-
-        /* Estilo do Relatório A4 */
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.6; }
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.6; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
-        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 12pt; }
         .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
-        .assinaturas { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 10pt; padding-top: 5px; text-transform: uppercase; }
-        .ass-full { grid-column: span 2; margin: 40px auto 0; width: 60%; }
+        .assinaturas { display: flex; justify-content: space-between; margin-top: 60px; }
+        .bloco-ass { width: 45%; border-top: 1px solid #000; text-align: center; font-size: 10pt; padding-top: 5px; text-transform: uppercase; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
             @page { size: A4; margin: 0; }
@@ -64,35 +65,26 @@
 </head>
 <body>
 
+<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: Clique no (?) azul em cada campo para ver o critério de avaliação da cor!')">?</button>
+
 <header class="no-print">
     <div class="logo-container">
         <div class="icon-book"></div>
         <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
     </div>
-    <div class="slogan">Relatórios Pedagógicos Inteligentes</div>
+    <div class="slogan">A história da criança transformada em registro.</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Manaus-AM"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo">
-            <label>Fase</label>
-            <select id="fase">
-                <option value="1º PERÍODO">1º PERÍODO</option>
-                <option value="2º PERÍODO">2º PERÍODO</option>
-            </select>
-        </div>
+        <div class="campo"><label>Fase</label><input type="text" id="fase"></div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo">
-            <label>Período</label>
+        <div class="campo"><label>Período</label>
             <select id="periodo">
-                <option value="1º BIMESTRE">1º BIMESTRE</option>
-                <option value="2º BIMESTRE">2º BIMESTRE</option>
-                <option value="3º BIMESTRE">3º BIMESTRE</option>
-                <option value="4º BIMESTRE">4º BIMESTRE</option>
                 <option value="1º SEMESTRE">1º SEMESTRE</option>
                 <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
@@ -101,33 +93,107 @@
 
     <div id="campos-bncc"></div>
 
-    <div class="btn-acoes no-print">
-        <button onclick="gerarRelatorioFinal()" class="btn-main">📝 GERAR RELATÓRIO</button>
-        <button onclick="novoAluno()" class="btn-reset">👤 NOVO ALUNO</button>
-    </div>
+    <button onclick="gerarRelatorioFinal()" style="width:100%; padding:20px; background:var(--primaria); color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:20px;">📝 GERAR RELATÓRIO FINAL</button>
 </div>
 
 <div id="editor" contenteditable="true"></div>
 
 <script>
+    // BANCO DE DADOS COMPLETO (TEMPORAL + CORES + FRASES)
     const dbRelatorios = [
-        { t: "1. O EU, O OUTRO E O NÓS", dica: { ini: "Necessita apoio constante.", pro: "Interage bem, requer mediação.", ava: "Lidera com autonomia." }, frases: { ini: "necessita de apoio constante para se integrar.", pro: "interage bem com os pares de forma afetiva.", ava: "demonstra plena segurança e autonomia social." } },
-        { t: "2. CORPO, GESTOS E MOVIMENTOS", dica: { ini: "Início da exploração motora.", pro: "Coordenação em evolução.", ava: "Domínio total do corpo." }, frases: { ini: "explora o espaço com cautela e apoio.", pro: "apresenta boa agilidade e equilíbrio.", ava: "possui excelente domínio de movimentos e ritmos." } },
-        { t: "3. TRAÇOS, SONS, CORES E FORMAS", dica: { ini: "Explora curiosidade guiada.", pro: "Cria com traços próprios.", ava: "Sensibilidade e criatividade." }, frases: { ini: "demonstra curiosidade sensorial por materiais.", pro: "cria produções artísticas com identidade.", ava: "manifesta sensibilidade artística singular." } },
-        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", dica: { ini: "Comunica desejos básicos.", pro: "Relata com lógica.", ava: "Argumenta com clareza." }, frases: { ini: "expressa suas necessidades de forma simples.", pro: "participa de conversas com sequência lógica.", ava: "argumenta ideias e demonstra interesse em letras." } },
-        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", dica: { ini: "Noções básicas no concreto.", pro: "Identifica quantidades.", ava: "Resolve problemas lógicos." }, frases: { ini: "percebe noções temporais mediante vivência.", pro: "identifica quantidades no cotidiano.", ava: "resolve desafios lógicos com assertividade." } }
+        { 
+            t: "1. O EU, O OUTRO E O NÓS", 
+            dica: { 
+                ini: "Necessita de apoio constante para interagir.", 
+                pro: "Interage bem, mas requer mediação em conflitos.", 
+                ava: "Resolve conflitos e lidera com autonomia." 
+            },
+            frases: {
+                ini: "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.",
+                pro: "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.",
+                ava: "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo."
+            }
+        },
+        { 
+            t: "2. CORPO, GESTOS E MOVIMENTOS", 
+            dica: { 
+                ini: "Início da exploração motora com cautela.", 
+                pro: "Boa coordenação e equilíbrio em evolução.", 
+                ava: "Domínio total do corpo e consciência espacial." 
+            },
+            frases: {
+                ini: "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.",
+                pro: "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.",
+                ava: "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial."
+            }
+        },
+        { 
+            t: "3. TRAÇOS, SONS, CORES E FORMAS", 
+            dica: { 
+                ini: "Explora materiais com curiosidade guiada.", 
+                pro: "Cria produções com traços próprios.", 
+                ava: "Usa diversos suportes de forma criativa e sensível." 
+            },
+            frases: {
+                ini: "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.",
+                pro: "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.",
+                ava: "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas."
+            }
+        },
+        { 
+            t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+            dica: { 
+                ini: "Comunica desejos básicos e amplia vocabulário.", 
+                pro: "Relata fatos com sequência lógica.", 
+                ava: "Argumenta com clareza e interesse na escrita." 
+            },
+            frases: {
+                ini: "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.",
+                pro: "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.",
+                ava: "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita."
+            }
+        },
+        { 
+            t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+            dica: { 
+                ini: "Percebe noções básicas através do concreto.", 
+                pro: "Relaciona quantidades e sequências lógicas.", 
+                ava: "Resolve problemas e relaciona conceitos com facilidade." 
+            },
+            frases: {
+                ini: "está em processo de percepção das noções temporais e espaciais através do concreto.",
+                pro: "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.",
+                ava: "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo."
+            }
+        }
     ];
+
+    const dbTemporal = {
+        "1º SEMESTRE": {
+            intros: ["Neste primeiro semestre, focamos no acolhimento e na adaptação da criança à rotina escolar. Observamos que ", "Durante este período inicial de socialização e integração, verificamos que "],
+            conclusao: "Finalizamos esta etapa com alegria, observando uma adaptação positiva e preparando o caminho para o próximo semestre."
+        },
+        "2º SEMESTRE": {
+            intros: ["Nesta segunda etapa do ano, observamos a consolidação das aprendizagens e o amadurecimento do aluno. Verificamos que ", "Concluindo este ciclo letivo com foco na autonomia e na transição pedagógica, registramos que "],
+            conclusao: "Encerramos o ano letivo com a satisfação de ver o crescimento integral da criança, que se mostra pronta para os novos desafios."
+        }
+    };
 
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
+                </div>
+                
                 <div id="dica-${i}" class="dica-pedagogica">
                     <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> ${item.dica.ini}</div>
                     <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> ${item.dica.pro}</div>
                     <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> ${item.dica.ava}</div>
                 </div>
+
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
@@ -147,22 +213,10 @@
         document.querySelector(`#g-${gi} .${niv}`).classList.add('active');
     }
 
-    function obterDataExtenso(cidade) {
-        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-        const d = new Date();
-        const cidFormatada = cidade.split(' ').map(w => w[0].toUpperCase() + w.substring(1).toLowerCase()).join(' ');
-        return `${cidFormatada}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
-    }
-
     function gerarRelatorioFinal() {
-        const nome = document.getElementById('crianca').value.toUpperCase() || "O ALUNO";
-        const escola = document.getElementById('escola').value.toUpperCase();
-        const prof = document.getElementById('prof').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value;
         const periodo = document.getElementById('periodo').value;
-        const fase = document.getElementById('fase').value;
-        const turma = document.getElementById('turma').value.toUpperCase();
-
+        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
@@ -172,33 +226,28 @@
             }
         });
 
+        const infoTempo = dbTemporal[periodo];
+        const intro = infoTempo.intros[Math.floor(Math.random() * infoTempo.intros.length)];
+
         document.getElementById('editor').innerHTML = `
-            <div class="esc-nome">ESCOLA: ${escola}</div>
+            <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
-                <b>DOCENTE:</b> ${prof}<br>
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>ALUNO(A):</b> ${nome}<br>
-                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${turma}
+                <b>FASE:</b> ${document.getElementById('fase').value.toUpperCase()} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO - ${periodo}</div>
-            <div class="paragrafo">Com base nas observações pedagógicas e nos direitos de aprendizagem, verificamos que <b>${nome}</b> ${textoBNCC}</div>
-            <div class="paragrafo">Encerramos este ciclo reafirmando o compromisso com o desenvolvimento integral da criança.</div>
-            <div style="text-align:center; margin-top:40px;">${obterDataExtenso(cidade)}</div>
+            <div class="tit-rel">PARECER PEDAGÓGICO - ${periodo}</div>
+            <div class="paragrafo">${intro} <b>${nome}</b> ${textoBNCC}</div>
+            <div class="paragrafo">${infoTempo.conclusao}</div>
+            <div style="text-align:center; margin-top:50px;">${document.getElementById('cidade').value}, ${new Date().toLocaleDateString('pt-BR')}</div>
             <div class="assinaturas">
-                <div class="bloco-ass">Assinatura do Docente</div>
+                <div class="bloco-ass">Docente Responsável</div>
                 <div class="bloco-ass">Equipe Pedagógica</div>
-                <div class="bloco-ass ass-full">Assinatura do Responsável</div>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(() => { window.print(); }, 500);
-    }
-
-    function novoAluno() {
-        document.getElementById('crianca').value = "";
-        document.getElementById('editor').style.display = 'none';
-        document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
-        window.scrollTo(0, 0);
     }
 
     iniciar();
