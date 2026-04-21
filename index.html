@@ -116,15 +116,15 @@
 <script>
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", dica: { ini: "Necessita de apoio constante.", pro: "Interage bem, requer mediação.", ava: "Lidera com autonomia." }, 
-          frases: { ini: "demonstra que ainda está em processo de adaptação, necessitando de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", pro: "já interage de forma positiva com os pares, demonstrando empatia e cooperação em momentos de brincadeiras mediadas.", ava: "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo e exercendo liderança positiva." } },
+          frases: { ini: "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", pro: "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", ava: "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo." } },
         { t: "2. CORPO, GESTOS E MOVIMENTOS", dica: { ini: "Exploração motora cautelosa.", pro: "Boa coordenação motora.", ava: "Domínio total do corpo." }, 
-          frases: { ini: "iniciou a exploração do espaço físico com cautela, desenvolvendo gradualmente sua confiança e coordenação motora sob orientação.", pro: "apresenta boa agilidade e equilíbrio, participando ativamente de atividades que envolvem ritmo, saltos e deslocamentos.", ava: "domina diversas formas de expressão corporal com harmonia, demonstrando excelente agilidade e plena consciência espacial." } },
+          frases: { ini: "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", pro: "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", ava: "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial." } },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", dica: { ini: "Explora materiais com auxílio.", pro: "Cria com traços próprios.", ava: "Uso criativo e sensível." }, 
-          frases: { ini: "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial ao manipular tintas, papéis e massas.", pro: "consegue utilizar cores e traços para expressar sua criatividade, identificando formas e sons no ambiente escolar.", ava: "manifesta sensibilidade estética singular, criando produções artísticas ricas em detalhes e utilizando diversos suportes de forma criativa." } },
+          frases: { ini: "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.", pro: "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", ava: "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas." } },
         { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", dica: { ini: "Comunicação básica guiada.", pro: "Relata fatos com sequência.", ava: "Argumenta com clareza." }, 
-          frases: { ini: "comunica desejos básicos e amplia seu vocabulário diariamente, participando de momentos de contação de histórias com atenção.", pro: "organiza o pensamento com clareza, participando das rodas de conversa com relatos coerentes sobre suas vivências e rotina.", ava: "expressa ideias complexas com fluidez, interpreta narrativas e demonstra forte curiosidade e interesse pelo mundo da escrita." } },
+          frases: { ini: "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", pro: "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", ava: "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita." } },
         { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", dica: { ini: "Noções básicas concretas.", pro: "Relaciona quantidades.", ava: "Resolve problemas lógicos." }, 
-          frases: { ini: "está em processo de percepção das noções temporais e espaciais (dentro/fora, antes/depois) através de atividades concretas.", pro: "relaciona quantidades e identifica sequências lógicas no cotidiano, demonstrando compreensão sobre os fenômenos naturais.", ava: "resolve situações-problema matemáticas e lógicas com raciocínio rápido, relacionando conceitos de tempo e medida com facilidade." } }
+          frases: { ini: "está em processo de percepção das noções temporais e espaciais através do concreto.", pro: "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.", ava: "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo." } }
     ];
 
     function iniciar() {
@@ -179,12 +179,9 @@
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                textoBNCC += `No campo "${item.t}", observamos que <b>${nome}</b> ${item.frases[nivel]} `;
+                textoBNCC += `${item.frases[nivel]} `;
             }
         });
-
-        // Adição das 4 linhas extras de desenvolvimento pedagógico no corpo
-        const linhasExtras = `<br><br>Vale ressaltar que a criança demonstra um progresso significativo em sua jornada de aprendizagem, respeitando os ritmos individuais e os marcos do desenvolvimento infantil. O engajamento nas atividades coletivas tem fortalecido sua autoconfiança e a percepção de si em relação ao outro. <br><br>As vivências lúdicas proporcionadas neste período serviram como base para a construção de novos saberes, estimulando a curiosidade e o pensamento crítico. Continuaremos acompanhando atentamente cada avanço, garantindo um ambiente acolhedor e estimulante para o pleno desenvolvimento integral.`;
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
@@ -194,8 +191,7 @@
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
-            <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, verificamos que:</div>
-            <div class="paragrafo">${textoBNCC} ${linhasExtras}</div>
+            <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, verificamos que <b>${nome}</b> ${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
             <div style="text-align:center; margin-top:50px;">${cidade}, ${obterDataExtenso()}</div>
             <div class="assinaturas">
