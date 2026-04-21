@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CONTAÊ PROFE - Premium v2</title>
+    <title>CONTAÊ PROFE - Ultra Premium</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
@@ -24,14 +24,14 @@
         
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
+        input, select, textarea { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; }
+        input, select { text-transform: uppercase; }
         
         .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
         .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
         .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
 
         .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); }
-        .dica-item { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; }
         .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 85px; text-align: center; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
@@ -45,15 +45,15 @@
         .btn-main { flex: 2; padding: 20px; background: var(--primaria); color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
         .btn-reset { flex: 1; padding: 20px; background: #747d8c; color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; }
 
-        /* Estilo do Relatório A4 */
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.6; }
+        /* Estilo Impressão A4 */
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
-        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
-        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
-        .assinaturas { margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 20px; font-size: 12pt; }
+        .msg-docente { font-style: italic; border-top: 1px dashed #ccc; padding-top: 15px; margin-top: 20px; text-align: center; color: #444; }
+        .assinaturas { margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 10pt; padding-top: 5px; text-transform: uppercase; }
-        .ass-full { grid-column: span 2; margin: 40px auto 0; width: 60%; }
+        .ass-full { grid-column: span 2; margin: 30px auto 0; width: 60%; }
 
         @media print {
             @page { size: A4; margin: 0; }
@@ -69,25 +69,23 @@
         <div class="icon-book"></div>
         <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
     </div>
-    <div class="slogan">Relatórios Pedagógicos Inteligentes</div>
+    <div class="slogan">Relatórios Pedagógicos Estruturados</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: rio de janeiro"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
-        <div class="campo">
-            <label>Fase</label>
+        <div class="campo"><label>Fase</label>
             <select id="fase">
                 <option value="1º PERÍODO">1º PERÍODO</option>
                 <option value="2º PERÍODO">2º PERÍODO</option>
             </select>
         </div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
-        <div class="campo">
-            <label>Período</label>
+        <div class="campo"><label>Período</label>
             <select id="periodo">
                 <option value="1º BIMESTRE">1º BIMESTRE</option>
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
@@ -101,8 +99,13 @@
 
     <div id="campos-bncc"></div>
 
+    <div class="campo" style="margin-top:20px;">
+        <label>Mensagem da Professora (Opcional)</label>
+        <textarea id="msg_prof" rows="2" placeholder="Ex: 'Educar é semear com sabedoria...'"></textarea>
+    </div>
+
     <div class="btn-acoes no-print">
-        <button onclick="gerarRelatorioFinal()" class="btn-main">📝 GERAR RELATÓRIO</button>
+        <button onclick="gerarRelatorioFinal()" class="btn-main">📝 GERAR PARECER COMPLETO</button>
         <button onclick="novoAluno()" class="btn-reset">👤 NOVO ALUNO</button>
     </div>
 </div>
@@ -111,23 +114,38 @@
 
 <script>
     const dbRelatorios = [
-        { t: "1. O EU, O OUTRO E O NÓS", dica: { ini: "Necessita apoio constante.", pro: "Interage bem, requer mediação.", ava: "Lidera com autonomia." }, frases: { ini: "necessita de apoio constante para se integrar.", pro: "interage bem com os pares de forma afetiva.", ava: "demonstra plena segurança e autonomia social." } },
-        { t: "2. CORPO, GESTOS E MOVIMENTOS", dica: { ini: "Início da exploração motora.", pro: "Coordenação em evolução.", ava: "Domínio total do corpo." }, frases: { ini: "explora o espaço com cautela e apoio.", pro: "apresenta boa agilidade e equilíbrio.", ava: "possui excelente domínio de movimentos e ritmos." } },
-        { t: "3. TRAÇOS, SONS, CORES E FORMAS", dica: { ini: "Explora curiosidade guiada.", pro: "Cria com traços próprios.", ava: "Sensibilidade e criatividade." }, frases: { ini: "demonstra curiosidade sensorial por materiais.", pro: "cria produções artísticas com identidade.", ava: "manifesta sensibilidade artística singular." } },
-        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", dica: { ini: "Comunica desejos básicos.", pro: "Relata com lógica.", ava: "Argumenta com clareza." }, frases: { ini: "expressa suas necessidades de forma simples.", pro: "participa de conversas com sequência lógica.", ava: "argumenta ideias e demonstra interesse em letras." } },
-        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", dica: { ini: "Noções básicas no concreto.", pro: "Identifica quantidades.", ava: "Resolve problemas lógicos." }, frases: { ini: "percebe noções temporais mediante vivência.", pro: "identifica quantidades no cotidiano.", ava: "resolve desafios lógicos com assertividade." } }
+        { t: "1. O EU, O OUTRO E O NÓS", frases: { 
+            ini: "apresenta necessidade de mediação constante para se integrar ao grupo, demonstrando que ainda está em processo de construção da confiança social.", 
+            pro: "interage de forma participativa com os colegas, respeitando as regras básicas de convivência e demonstrando empatia nas brincadeiras.", 
+            ava: "demonstra plena autonomia em suas relações sociais, agindo com liderança positiva, empatia e segurança na resolução de pequenos conflitos." 
+        }},
+        { t: "2. CORPO, GESTOS E MOVIMENTOS", frases: { 
+            ini: "encontra-se em fase inicial de exploração das suas capacidades motoras, necessitando de estímulo para participar de desafios físicos.", 
+            pro: "movimenta-se com segurança, demonstrando boa coordenação motora ampla e equilíbrio em atividades de ritmo e direção.", 
+            ava: "possui excelente domínio corporal, expressando-se com agilidade e consciência espacial em todas as vivências de movimento propostas." 
+        }},
+        { t: "3. TRAÇOS, SONS, CORES E FORMAS", frases: { 
+            ini: "inicia a exploração de materiais diversos com curiosidade, necessitando de orientação para manusear suportes artísticos variados.", 
+            pro: "utiliza cores, sons e traços de forma criativa, expressando sua identidade em produções artísticas cada vez mais detalhadas.", 
+            ava: "manifesta uma sensibilidade estética singular, utilizando diferentes linguagens artísticas para expressar suas emoções e descobertas." 
+        }},
+        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", frases: { 
+            ini: "comunica-se de forma simples, ampliando seu vocabulário através da escuta atenta de histórias e da mediação do professor.", 
+            pro: "expressa seus pensamentos com clareza e sequência lógica, participando ativamente das rodas de conversa e relatos da rotina escolar.", 
+            ava: "demonstra fluência argumentativa, interpreta narrativas complexas e manifesta um interesse genuíno pela leitura e escrita espontânea." 
+        }},
+        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", frases: { 
+            ini: "percebe as noções de tempo e espaço por meio de vivências concretas, necessitando de auxílio para relacionar conceitos lógicos.", 
+            pro: "identifica quantidades, sequências e relações temporais com crescente autonomia, aplicando o raciocínio em situações do cotidiano.", 
+            ava: "resolve situações-problema lógicas com facilidade, demonstrando pleno domínio sobre noções de quantidade, tempo e medidas." 
+        }}
     ];
 
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
-                <div id="dica-${i}" class="dica-pedagogica">
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> ${item.dica.ini}</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> ${item.dica.pro}</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> ${item.dica.ava}</div>
-                </div>
+                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p></div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
@@ -136,53 +154,56 @@
         });
     }
 
-    function toggleDica(i) {
-        const d = document.getElementById(`dica-${i}`);
-        d.style.display = (d.style.display === 'block') ? 'none' : 'block';
-    }
-
     function marcar(gi, niv) {
         const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v');
         btns.forEach(b => b.classList.remove('active'));
         document.querySelector(`#g-${gi} .${niv}`).classList.add('active');
     }
 
-    function obterDataExtenso(cidade) {
-        const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-        const d = new Date();
-        const cidFormatada = cidade.split(' ').map(w => w[0].toUpperCase() + w.substring(1).toLowerCase()).join(' ');
-        return `${cidFormatada}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
+    function corrigirCidade(cidade) {
+        const excessoes = ["da", "de", "do", "das", "dos", "e"];
+        return cidade.toLowerCase().split(' ').map(palavra => 
+            excessoes.includes(palavra) ? palavra : palavra.charAt(0).toUpperCase() + palavra.slice(1)
+        ).join(' ');
     }
 
     function gerarRelatorioFinal() {
         const nome = document.getElementById('crianca').value.toUpperCase() || "O ALUNO";
         const escola = document.getElementById('escola').value.toUpperCase();
         const prof = document.getElementById('prof').value.toUpperCase();
-        const cidade = document.getElementById('cidade').value;
+        const cidadeInput = document.getElementById('cidade').value || "Sua Cidade";
         const periodo = document.getElementById('periodo').value;
-        const fase = document.getElementById('fase').value;
-        const turma = document.getElementById('turma').value.toUpperCase();
+        const msg = document.getElementById('msg_prof').value;
 
-        let textoBNCC = "";
+        // ESTRUTURA DE TEXTO
+        const intro = `Pautados nos direitos de aprendizagem e desenvolvimento previstos pela BNCC, apresentamos o parecer pedagógico referente ao desempenho de <b>${nome}</b>. Durante este período, observamos que a criança vivenciou experiências fundamentais para sua formação integral, demonstrando engajamento nas propostas educativas. `;
+        
+        let desenvolvimento = "";
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                textoBNCC += `${item.frases[nivel]} `;
+                desenvolvimento += `No que tange ao campo ${item.t.toLowerCase()}, notamos que <b>${nome}</b> ${item.frases[nivel]} `;
             }
         });
+
+        const conclusao = `Considerando os avanços apresentados, concluímos que este ciclo foi de ricas descobertas. Reafirmamos a importância da continuidade do estímulo e da parceria entre família e escola para fortalecer as conquistas de <b>${nome}</b> nos próximos desafios escolares.`;
+
+        const dataExtenso = `${corrigirCidade(cidadeInput)}, ${new Date().toLocaleDateString('pt-BR', {day:'numeric', month:'long', year:'numeric'})}.`;
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">ESCOLA: ${escola}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${prof}<br>
                 <b>ALUNO(A):</b> ${nome}<br>
-                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${turma}
+                <b>PERÍODO:</b> ${periodo}
             </div>
-            <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO - ${periodo}</div>
-            <div class="paragrafo">Com base nas observações pedagógicas e nos direitos de aprendizagem, verificamos que <b>${nome}</b> ${textoBNCC}</div>
-            <div class="paragrafo">Encerramos este ciclo reafirmando o compromisso com o desenvolvimento integral da criança.</div>
-            <div style="text-align:center; margin-top:40px;">${obterDataExtenso(cidade)}</div>
+            <div class="tit-rel">PARECER DESCRITIVO DO DESENVOLVIMENTO INFANTIL</div>
+            <div class="paragrafo">${intro}</div>
+            <div class="paragrafo">${desenvolvimento}</div>
+            <div class="paragrafo">${conclusao}</div>
+            ${msg ? `<div class="msg-docente">"${msg}"</div>` : ''}
+            <div style="text-align:center; margin-top:40px; font-weight:bold;">${dataExtenso}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica</div>
@@ -196,6 +217,7 @@
 
     function novoAluno() {
         document.getElementById('crianca').value = "";
+        document.getElementById('msg_prof').value = "";
         document.getElementById('editor').style.display = 'none';
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
         window.scrollTo(0, 0);
