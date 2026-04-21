@@ -10,13 +10,12 @@
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        /* CAMADA ANTI-FLUTUAÇÃO E TRAVA DE TELA */
         html, body { 
             overflow-x: hidden; 
             position: relative;
             height: 100%;
             width: 100%;
-            overscroll-behavior-y: contain; /* Impede o "puxar para atualizar" que quebra o app */
+            overscroll-behavior-y: contain;
         }
 
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -57,7 +56,6 @@
         .btn-novo { background: #747d8c; color: white; }
         .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
 
-        /* TUTORIAL DE INSTALAÇÃO MODAL */
         #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
         .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
         .step { margin: 15px 0; font-size: 0.9rem; text-align: left; }
@@ -108,6 +106,12 @@
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Gênero</label>
+            <select id="genero">
+                <option value="o">MENINO (O ALUNO)</option>
+                <option value="a">MENINA (A ALUNA)</option>
+            </select>
+        </div>
         <div class="campo"><label>Fase</label>
             <select id="fase">
                 <option value="1º PERÍODO">1º PERÍODO</option>
@@ -139,7 +143,6 @@
 <div id="editor" contenteditable="true"></div>
 
 <script>
-    // CÉREBRO DE VARIAÇÕES - Banco de dados com evolução por período
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
@@ -223,13 +226,14 @@
         const periodo = document.getElementById('periodo').value;
         const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const cidade = formatarCidade(document.getElementById('cidade').value);
+        const gen = document.getElementById('genero').value; // 'o' ou 'a'
+        const termoAluno = gen === 'o' ? 'o aluno' : 'a aluna';
         
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                // Sorteia um conectivo para cada campo para o texto não ficar igual
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 textoBNCC += `${conect} <b>${nome}</b> ${item.frases[nivel]} `;
             }
@@ -239,13 +243,13 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUNO(A):</b> ${nome}<br>
+                <b>ALUN${gen.toUpperCase()}(A):</b> ${nome}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
-            <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
+            <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial de noss${gen} alun${gen}.</div>
             <div style="text-align:center; margin-top:50px;">${cidade}, ${obterDataExtenso()}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
