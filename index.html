@@ -23,7 +23,6 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 0.65rem; text-transform: uppercase; color: #57606f; margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         
-        /* Estética Clean para os Inputs */
         input, select { 
             padding: 12px; 
             border: 1px solid #e2e8f0; 
@@ -56,9 +55,7 @@
         .btn-acao { width: 100%; padding: 16px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
         .btn-gerar { background: var(--primaria); color: white; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3); }
         .btn-novo { background: #747d8c; color: white; }
-        .btn-acao:active { transform: scale(0.98); }
 
-        /* Estilo da Folha A4 */
         #editor { 
             width: 210mm; min-height: 297mm; margin: 20px auto; background: white; 
             padding: 20mm 15mm 15mm 20mm; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
@@ -96,18 +93,18 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="Nome da Instituição"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu nome"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do Aluno"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
                 <option value="o">MENINO (O ALUNO)</option>
                 <option value="a">MENINA (A ALUNA)</option>
             </select>
         </div>
-        <div class="campo"><label>Fase</label><input type="text" id="fase" placeholder="Ex: 1º Período"></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: Turma A"></div>
+        <div class="campo"><label>Fase</label><input type="text" id="fase"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
                 <option value="1º BIMESTRE">1º BIMESTRE</option>
@@ -148,7 +145,7 @@
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
           frases: { 
-            ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobindo novas texturas e sons, iniciando sua expressão artística."], 
+            ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobrindo novas texturas e sons, iniciando sua expressão artística."], 
             pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais."], 
             ava: ["manifesta sensibilidade estética singular, criando produções ricas e detalhadas.", "utiliza a linguagem visual de forma autônoma para representar suas ideias."] 
           },
