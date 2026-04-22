@@ -23,7 +23,6 @@
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
         label { font-weight: bold; font-size: 0.65rem; text-transform: uppercase; color: #57606f; margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         
-        /* Inputs de cadastro limpos */
         input, select { 
             padding: 12px; 
             border: 1px solid #e2e8f0; 
@@ -46,7 +45,6 @@
         .pergunta-texto { font-size: 0.75rem; font-weight: bold; margin: 0; text-transform: uppercase; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        /* Palavras mantidas nos botões de experiência */
         .btn-v { padding: 12px 2px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; font-size: 0.6rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
         .btn-v.active { color: white; border-color: transparent; transform: translateY(-1px); }
         .btn-v.ini.active { background: var(--cor-inicial); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2); }
@@ -89,16 +87,15 @@
 
 <header class="no-print">
     <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">Transformando observações em registros que encantam.</div>
-    <button onclick="alert('PARA INSTALAR NO CELULAR:\n1. Clique nos três pontinhos (Chrome) ou no ícone de Compartilhar (Safari).\n2. Selecione: ADICIONAR À TELA DE INÍCIO.')" style="margin-top:10px; background:none; border:1px solid white; color:white; border-radius:5px; font-size:0.7rem; padding:4px 8px; cursor:pointer;">📲 COMO INSTALAR NO CELULAR</button>
+    <div class="slogan">Relatórios pedagógicos de forma simples e rápida.</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" autocomplete="off"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola" autocomplete="off"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" autocomplete="off"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" autocomplete="off"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
                 <option value="" disabled selected></option>
@@ -106,8 +103,16 @@
                 <option value="a">A ALUNA</option>
             </select>
         </div>
-        <div class="campo"><label>Fase</label><input type="text" id="fase"></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Fase</label>
+            <select id="fase">
+                <option value="" disabled selected></option>
+                <option value="1º PERÍODO">1º PERÍODO</option>
+                <option value="2º PERÍODO">2º PERÍODO</option>
+                <option value="MATERNAL">MATERNAL</option>
+                <option value="BERÇÁRIO">BERÇÁRIO</option>
+            </select>
+        </div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma" autocomplete="off"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
                 <option value="" disabled selected></option>
@@ -123,13 +128,20 @@
 
     <div class="btn-container no-print">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO</button>
-        <button onclick="novoAluno()" class="btn-acao btn-novo">👤 NOVO ALUNO</button>
+        <button onclick="limparTudo()" class="btn-acao btn-novo">👤 NOVO ALUNO / LIMPAR CAMPOS</button>
     </div>
 </div>
 
 <div id="editor"></div>
 
 <script>
+    // Iniciar garantindo limpeza absoluta
+    window.onload = function() {
+        document.querySelectorAll('input').forEach(i => i.value = "");
+        document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+        iniciar();
+    };
+
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
@@ -173,26 +185,14 @@
         }
     ];
 
-    function carregarDados() {
-        if(localStorage.getItem('cidade')) document.getElementById('cidade').value = localStorage.getItem('cidade');
-        if(localStorage.getItem('escola')) document.getElementById('escola').value = localStorage.getItem('escola');
-        if(localStorage.getItem('prof')) document.getElementById('prof').value = localStorage.getItem('prof');
-    }
-
-    function salvarDados() {
-        localStorage.setItem('cidade', document.getElementById('cidade').value);
-        localStorage.setItem('escola', document.getElementById('escola').value);
-        localStorage.setItem('prof', document.getElementById('prof').value);
-    }
-
     function formatarNome(nome) {
         const excessoes = ["de", "da", "do", "das", "dos", "e"];
         return nome.toLowerCase().split(' ').map(p => excessoes.includes(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
     }
 
     function iniciar() {
-        carregarDados();
         const cont = document.getElementById('campos-bncc');
+        cont.innerHTML = "";
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
                 <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p></div>
@@ -211,7 +211,6 @@
     }
 
     function gerarRelatorioFinal() {
-        salvarDados();
         const nomeCompleto = formatarNome(document.getElementById('crianca').value || "A Criança");
         const primeiroNome = nomeCompleto.split(' ')[0];
         const gen = document.getElementById('genero').value || 'o';
@@ -228,22 +227,13 @@
             if (btn) {
                 const nivel = btn.classList.contains('ini') ? 'ini' : (btn.classList.contains('pro') ? 'pro' : 'ava');
                 soma += (nivel === 'ini' ? 1 : nivel === 'pro' ? 2 : 3);
-                
                 const frase = item.frases[nivel][Math.floor(Math.random() * item.frases[nivel].length)];
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 let sj = sujeitos[count % sujeitos.length];
-
                 textoBNCC += `${conect}${sj}${sj === "" ? "" : " "}${frase} `;
                 count++;
             }
         });
-
-        const media = soma / 5;
-        let final = media >= 2.6 ? "Finalizamos este ciclo com alegria pelos grandes avanços demonstrados, reafirmando nosso compromisso em oferecer experiências que potencializem ainda mais o protagonismo de nossa aluna." : 
-                    media >= 1.8 ? "Concluímos este período celebrando cada conquista e o entusiasmo demonstrado diante das novas aprendizagens, mantendo nosso olhar atento para encorajar seu desenvolvimento integral." :
-                    "Encerramos este ciclo com um olhar acolhedor sobre o tempo de cada descoberta, reafirmando a importância da parceria entre escola e família para continuarmos estimulando o florescer de todo o seu potencial.";
-        
-        if(gen === 'o') final = final.replace(/aluna/g, 'aluno').replace(/nossa/g, 'nosso');
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${document.getElementById('escola').value.toUpperCase()}</div>
@@ -253,9 +243,7 @@
                 <b>FASE:</b> ${document.getElementById('fase').value.toUpperCase()} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">PARECER PEDAGÓGICO - ${document.getElementById('periodo').value}</div>
-            <div class="paragrafo">Apresentamos o parecer fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
-            <div class="paragrafo">${final}</div>
             <div style="text-align:center; margin-top:30px;">${formatarNome(document.getElementById('cidade').value)}, ${new Date().getDate()} de ${["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][new Date().getMonth()]} de ${new Date().getFullYear()}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
@@ -267,17 +255,13 @@
         window.print();
     }
 
-    function novoAluno() {
-        document.getElementById('crianca').value = "";
-        document.getElementById('genero').value = "";
-        document.getElementById('periodo').value = "";
-        document.getElementById('fase').value = "";
-        document.getElementById('turma').value = "";
-        document.getElementById('editor').style.display = 'none';
+    function limparTudo() {
+        document.querySelectorAll('input').forEach(i => i.value = "");
+        document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
+        document.getElementById('editor').style.display = 'none';
         window.scrollTo(0, 0);
     }
-    iniciar();
 </script>
 </body>
 </html>
