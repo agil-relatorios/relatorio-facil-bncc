@@ -3,92 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CONTAÊ PROFE - Versão Final Consolidada</title>
+    <title>CONTAÊ PROFE - Premium v4</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        /* Ajuste para não flutuar no celular */
-        html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; background: var(--bg); }
-        body { font-family: 'Segoe UI', sans-serif; color: var(--texto); }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
         
-        header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
+        header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-size: 2rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
         .logo span { color: #ffeaa7; }
-        .slogan { font-size: 0.8rem; font-style: italic; opacity: 0.9; }
+        .slogan { font-size: 0.95rem; font-style: italic; opacity: 0.9; margin-top: 5px; font-weight: 300; }
 
-        .container { max-width: 900px; width: 95%; margin: 15px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); box-sizing: border-box; }
+        .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
-        label { font-weight: bold; font-size: 0.65rem; text-transform: uppercase; color: #57606f; margin-bottom: 4px; display: block; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; width: 100%; box-sizing: border-box; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 10px; border-radius: 10px; margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; }
-        .pergunta-texto { font-size: 0.75rem; font-weight: bold; margin: 0; text-transform: uppercase; }
+        /* Caixas limpas e modernas */
+        input, select { padding: 12px; border: 1px solid #dcdde1; border-radius: 10px; font-size: 0.9rem; width: 100%; box-sizing: border-box; background: #fafafa; transition: 0.3s; }
+        input:focus, select:focus { border-color: var(--azul); background: #fff; outline: none; box-shadow: 0 0 8px rgba(30,144,255,0.1); }
+        
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+        .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
+        
+        .btn-info { background: rgba(255,255,255,0.25); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; }
+        .btn-info:hover { background: rgba(255,255,255,0.4); }
 
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .btn-v { padding: 12px 2px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.6rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
-        .btn-v.active { color: white; border-color: transparent; }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .btn-v { padding: 15px 5px; border: 1px solid #dcdde1; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
+        .btn-v.active { color: white; border-color: transparent; transform: scale(1.02); }
         .btn-v.ini.active { background: var(--cor-inicial); }
         .btn-v.pro.active { background: var(--cor-processo); }
         .btn-v.ava.active { background: var(--cor-avancado); }
 
-        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .btn-acao { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 25px; }
+        .btn-acao { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
+        .instrucoes-mobile { margin-top: 30px; padding: 15px; background: #f1f2f6; border-radius: 10px; font-size: 0.75rem; color: #57606f; line-height: 1.4; border-left: 4px solid var(--primaria); }
+
         /* Estilo da Folha A4 */
         #editor { 
-            width: 210mm; min-height: 297mm; margin: 20px auto; background: white; 
-            padding: 20mm 15mm 15mm 20mm; box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-            display: none; box-sizing: border-box; color: #000; line-height: 1.6; font-size: 11pt;
+            width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 25mm 20mm; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; font-size: 12pt;
         }
-        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 13pt; border-bottom: 1px solid #000; padding-bottom: 5px; }
-        .dados-aluno { margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; line-height: 1.4; }
-        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; text-decoration: underline; }
-        .paragrafo { text-align: justify; text-indent: 1.25cm; margin-bottom: 12px; }
-        
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
-        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 4px; text-transform: uppercase; }
-        .bloco-full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
+        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
+        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
+        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 12pt; }
+        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
 
-        @media (max-width: 768px) {
-            #editor { width: 95%; padding: 10mm; margin: 10px auto; }
-            .assinaturas { grid-template-columns: 1fr; }
-            .bloco-full { width: 100%; }
-        }
-
-        @media print {
-            @page { size: A4; margin: 0; }
-            .no-print { display: none !important; }
-            #editor { display: block !important; width: 100%; height: 100%; margin: 0; padding-top: 2.5cm !important; }
-        }
+        @media (max-width: 768px) { #editor { width: 95%; padding: 10mm; } }
+        @media print { .no-print { display: none !important; } #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; } }
     </style>
 </head>
 <body>
 
 <header class="no-print">
-    <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
-    <div class="slogan">Relatório de Desenvolvimento Integral</div>
-    <button onclick="alert('PARA INSTALAR NO CELULAR:\n1. Clique nos três pontinhos (Chrome) ou no ícone de Compartilhar (Safari).\n2. Selecione: ADICIONAR À TELA DE INÍCIO.')" style="margin-top:10px; background:none; border:1px solid white; color:white; border-radius:5px; font-size:0.7rem; padding:4px 8px; cursor:pointer;">📲 COMO INSTALAR NO CELULAR</button>
+    <div class="logo-container">
+        <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
+    </div>
+    <div class="slogan">Transformando observações em registros que encantam.</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="NOME COMPLETO"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
-                <option value="o">MENINO (O ALUNO)</option>
-                <option value="a">MENINA (A ALUNA)</option>
+                <option value="o">O ALUNO</option>
+                <option value="a">A ALUNA</option>
             </select>
         </div>
-        <div class="campo"><label>Fase</label><input type="text" id="fase" placeholder="Ex: 1º Período"></div>
+        <div class="campo"><label>Fase</label>
+            <select id="fase">
+                <option value="1º PERÍODO">1º PERÍODO</option>
+                <option value="2º PERÍODO">2º PERÍODO</option>
+            </select>
+        </div>
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
@@ -96,6 +96,8 @@
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
                 <option value="3º BIMESTRE">3º BIMESTRE</option>
                 <option value="4º BIMESTRE">4º BIMESTRE</option>
+                <option value="1º SEMESTRE">1º SEMESTRE</option>
+                <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
         </div>
     </div>
@@ -104,7 +106,14 @@
 
     <div class="btn-container no-print">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO</button>
-        <button onclick="novoAluno()" class="btn-acao btn-novo">👤 NOVO ALUNO</button>
+        <button onclick="novoAluno()" class="btn-acao btn-novo">👤 PRÓXIMO ALUNO</button>
+    </div>
+
+    <div class="instrucoes-mobile no-print">
+        <strong>DICA DE USO NO CELULAR:</strong><br>
+        1. Após clicar em "Gerar", abrirá a tela de impressão.<br>
+        2. No Android, escolha "Salvar como PDF". No iPhone, use o gesto de "pinça" na imagem para abrir o PDF e salvar.<br>
+        3. Para facilitar, adicione este App à sua tela inicial pelo menu do navegador.
     </div>
 </div>
 
@@ -113,6 +122,7 @@
 <script>
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
+          dica: "VERMELHO: Necessita mediação constante.\nAMARELO: Em processo de socialização.\nVERDE: Demonstra autonomia e liderança.",
           frases: { 
             ini: ["necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", "demonstra timidez ao interagir, requerendo suporte para participar de atividades coletivas."], 
             pro: ["já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", "participa ativamente das dinâmicas de grupo, demonstrando respeito às regras."], 
@@ -121,6 +131,7 @@
           conectivos: ["No que tange ao convívio, ", "Iniciando pela área social, ", "No cotidiano escolar, "]
         },
         { t: "2. CORPO, GESTOS E MOVIMENTOS", 
+          dica: "VERMELHO: Em fase inicial de coordenação.\nAMARELO: Desenvolvendo agilidade.\nVERDE: Domínio amplo e coordenação fina.",
           frases: { 
             ini: ["iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", "está desenvolvendo a coordenação motora ampla, necessitando de estímulo."], 
             pro: ["apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", "demonstra controle motor em atividades de precisão, evoluindo constantemente."], 
@@ -129,6 +140,7 @@
           conectivos: ["Observamos ainda que, no desenvolvimento motor, ", "Paralelamente a isso, ", "Em relação às suas habilidades corporais, "]
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
+          dica: "VERMELHO: Exploração inicial.\nAMARELO: Criatividade em desenvolvimento.\nVERDE: Expressão artística autônoma.",
           frases: { 
             ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobrindo novas texturas e sons, iniciando sua expressão artística."], 
             pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais."], 
@@ -137,6 +149,7 @@
           conectivos: ["No que diz respeito à criatividade, ", "Ainda nesse sentido, ", "Já nas atividades de expressão artística, "]
         },
         { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
+          dica: "VERMELHO: Ampliando vocabulário.\nAMARELO: Organiza bem o pensamento.\nVERDE: Argumentação fluida e clara.",
           frases: { 
             ini: ["comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", "está desenvolvendo a oralidade, necessitando de incentivo para relatar fatos."], 
             pro: ["organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", "expressa opiniões e sentimentos com clareza, ampliando seu repertório."], 
@@ -145,6 +158,7 @@
           conectivos: ["Quanto ao desenvolvimento da linguagem, ", "Vale destacar também que ", "Sobre a comunicação e fala, "]
         },
         { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
+          dica: "VERMELHO: Noções básicas com auxílio.\nAMARELO: Identifica relações lógicas.\nVERDE: Resolve situações-problema.",
           frases: { 
             ini: ["está em processo de percepção das noções temporais e espaciais.", "identifica noções básicas de posição (dentro/fora) com auxílio."], 
             pro: ["relaciona quantidades e identifica sequências lógicas no cotidiano.", "identifica números e formas geométricas no ambiente escolar."], 
@@ -176,7 +190,10 @@
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p></div>
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="alert('${item.dica}')">?</button>
+                </div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
                     <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
@@ -193,7 +210,7 @@
 
     function gerarRelatorioFinal() {
         salvarDados();
-        const nomeCompleto = formatarNome(document.getElementById('crianca').value || "A Criança");
+        const nomeCompleto = formatarNome(document.getElementById('crianca').value || "A CRIANÇA");
         const primeiroNome = nomeCompleto.split(' ')[0];
         const gen = document.getElementById('genero').value;
         const pronome = gen === 'o' ? 'ele' : 'ela';
@@ -209,29 +226,27 @@
             if (btn) {
                 const nivel = btn.classList.contains('ini') ? 'ini' : (btn.classList.contains('pro') ? 'pro' : 'ava');
                 soma += (nivel === 'ini' ? 1 : nivel === 'pro' ? 2 : 3);
-                
                 const frase = item.frases[nivel][Math.floor(Math.random() * item.frases[nivel].length)];
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 let sj = sujeitos[count % sujeitos.length];
-
                 textoBNCC += `${conect}${sj}${sj === "" ? "" : " "}${frase} `;
                 count++;
             }
         });
 
         const media = soma / 5;
-        let final = media >= 2.6 ? "Finalizamos este ciclo com alegria pelos grandes avanços demonstrados, reafirmando nosso compromisso em oferecer experiências que potencializem ainda mais o protagonismo de nossa aluna." : 
+        let final = media >= 2.6 ? "Finalizamos este ciclo com alegria pelos grandes avanços demonstrados, reafirmando nosso compromisso em oferecer experiências que potencializem ainda mais o protagonismo de nosso aluno." : 
                     media >= 1.8 ? "Concluímos este período celebrando cada conquista e o entusiasmo demonstrado diante das novas aprendizagens, mantendo nosso olhar atento para encorajar seu desenvolvimento integral." :
                     "Encerramos este ciclo com um olhar acolhedor sobre o tempo de cada descoberta, reafirmando a importância da parceria entre escola e família para continuarmos estimulando o florescer de todo o seu potencial.";
         
-        if(gen === 'o') final = final.replace(/aluna/g, 'aluno').replace(/nossa/g, 'nosso');
+        if(gen === 'a') final = final.replace(/aluno/g, 'aluna').replace(/nosso/g, 'nossa');
 
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>ALUN${gen.toUpperCase()}:</b> ${nomeCompleto.toUpperCase()}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value.toUpperCase()} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">PARECER PEDAGÓGICO - ${document.getElementById('periodo').value}</div>
             <div class="paragrafo">Apresentamos o parecer fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
@@ -241,7 +256,7 @@
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Direção</div>
-                <div class="bloco-ass bloco-full">Assinatura do Responsável</div>
+                <div class="bloco-ass">Assinatura do Responsável</div>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
