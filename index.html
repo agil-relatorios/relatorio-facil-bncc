@@ -10,7 +10,6 @@
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        /* Ajuste para não flutuar no celular */
         html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; background: var(--bg); }
         body { font-family: 'Segoe UI', sans-serif; color: var(--texto); }
         
@@ -19,26 +18,45 @@
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.8rem; font-style: italic; opacity: 0.9; }
 
-        .container { max-width: 900px; width: 95%; margin: 15px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); box-sizing: border-box; }
+        .container { max-width: 900px; width: 95%; margin: 15px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
         
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
-        label { font-weight: bold; font-size: 0.65rem; text-transform: uppercase; color: #57606f; margin-bottom: 4px; display: block; }
-        input, select { padding: 10px; border: 2px solid #edeff2; border-radius: 8px; font-size: 0.9rem; width: 100%; box-sizing: border-box; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        label { font-weight: bold; font-size: 0.65rem; text-transform: uppercase; color: #57606f; margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
         
-        .secao-pergunta { background: var(--azul); color: white; padding: 10px; border-radius: 10px; margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+        /* Estética Clean para os Inputs */
+        input, select { 
+            padding: 12px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 10px; 
+            font-size: 0.9rem; 
+            width: 100%; 
+            box-sizing: border-box; 
+            background-color: #fcfcfc; 
+            transition: all 0.3s ease;
+            color: var(--texto);
+        }
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: var(--azul); 
+            background-color: #fff; 
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+        }
+        
+        .secao-pergunta { background: var(--azul); color: white; padding: 10px; border-radius: 10px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
         .pergunta-texto { font-size: 0.75rem; font-weight: bold; margin: 0; text-transform: uppercase; }
 
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-        .btn-v { padding: 12px 2px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.6rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
-        .btn-v.active { color: white; border-color: transparent; }
-        .btn-v.ini.active { background: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); }
+        .btn-v { padding: 12px 2px; border: 1px solid #e2e8f0; border-radius: 10px; cursor: pointer; font-size: 0.6rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
+        .btn-v.active { color: white; border-color: transparent; transform: translateY(-1px); }
+        .btn-v.ini.active { background: var(--cor-inicial); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2); }
+        .btn-v.pro.active { background: var(--cor-processo); box-shadow: 0 4px 10px rgba(241, 196, 15, 0.2); }
+        .btn-v.ava.active { background: var(--cor-avancado); box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2); }
 
-        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .btn-acao { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
-        .btn-gerar { background: var(--primaria); color: white; }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 25px; }
+        .btn-acao { width: 100%; padding: 16px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
+        .btn-gerar { background: var(--primaria); color: white; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3); }
         .btn-novo { background: #747d8c; color: white; }
+        .btn-acao:active { transform: scale(0.98); }
 
         /* Estilo da Folha A4 */
         #editor { 
@@ -79,9 +97,9 @@
 <div class="container no-print">
     <div class="grid-inputs">
         <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
-        <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
-        <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Escola</label><input type="text" id="escola" placeholder="Nome da Instituição"></div>
+        <div class="campo"><label>Professor(a)</label><input type="text" id="prof" placeholder="Seu nome"></div>
+        <div class="campo"><label>Criança</label><input type="text" id="crianca" placeholder="Nome do Aluno"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
                 <option value="o">MENINO (O ALUNO)</option>
@@ -89,7 +107,7 @@
             </select>
         </div>
         <div class="campo"><label>Fase</label><input type="text" id="fase" placeholder="Ex: 1º Período"></div>
-        <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
+        <div class="campo"><label>Turma</label><input type="text" id="turma" placeholder="Ex: Turma A"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
                 <option value="1º BIMESTRE">1º BIMESTRE</option>
@@ -130,7 +148,7 @@
         },
         { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
           frases: { 
-            ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobrindo novas texturas e sons, iniciando sua expressão artística."], 
+            ini: ["experimenta diferentes materiais artísticos sob mediação.", "está descobindo novas texturas e sons, iniciando sua expressão artística."], 
             pro: ["consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", "identifica diferentes sons e ritmos, participando de produções musicais."], 
             ava: ["manifesta sensibilidade estética singular, criando produções ricas e detalhadas.", "utiliza a linguagem visual de forma autônoma para representar suas ideias."] 
           },
