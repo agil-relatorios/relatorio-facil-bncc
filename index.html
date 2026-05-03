@@ -42,8 +42,12 @@
         .pergunta-texto { font-size: 0.8rem; font-weight: bold; margin: 0; text-transform: uppercase; }
         .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; }
 
-        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); animation: fadeIn 0.3s; }
-        
+        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); animation: fadeIn 0.3s; line-height: 1.5; }
+        .guia-cor { display: inline-block; padding: 2px 8px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.75rem; margin-right: 5px; }
+        .g-ini { background: var(--cor-inicial); }
+        .g-pro { background: var(--cor-processo); color: #000; }
+        .g-ava { background: var(--cor-avancado); }
+
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
         .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
         .btn-v.active { color: white; border-color: transparent; }
@@ -81,7 +85,7 @@
         }
 
         @media print {
-            .no-print, #btn-ajuda-master, footer { display: none !important; }
+            .no-print, #btn-ajuda-master, footer, header, .container, #modal-instalar { display: none !important; }
             #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; }
         }
     </style>
@@ -183,9 +187,15 @@
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
+                </div>
                 <div id="dica-${i}" class="dica-pedagogica">
-                    <b>Mediação:</b> Nível inicial. | <b>Processo:</b> Em evolução. | <b>Autonomia:</b> Pleno domínio.
+                    <strong>Guia de Avaliação:</strong><br>
+                    <span class="guia-cor g-ini">MEDIAÇÃO</span> A criança requer auxílio direto para realizar as ações descritas.<br>
+                    <span class="guia-cor g-pro">PROCESSO</span> A criança realiza com alguma ajuda ou está começando a fazer só.<br>
+                    <span class="guia-cor g-ava">AUTONOMIA</span> A criança realiza a ação de forma independente e segura.
                 </div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
