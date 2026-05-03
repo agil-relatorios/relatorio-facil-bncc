@@ -4,159 +4,325 @@
 
 <head>
 
-    <meta charset="UTF-8">
+    <meta
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+charset="UTF-8">
 
-    <title>CONTAÊ PROFE - Premium v3</title>
+    <meta
+
+name="viewport" content="width=device-width, initial-scale=1.0,
+
+maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+   <title>CONTAÊ PROFE - Premium v3</title>
 
     <style>
 
-        :root { 
+        :root {
 
-            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
+           --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542;
 
-            --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
+--branco: #ffffff;
 
-        }
+           --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado:
 
-        
-
-        /* CAMADA ANTI-FLUTUAÇÃO E TRAVA DE TELA */
-
-        html, body { 
-
-            overflow-x: hidden; 
-
-            position: relative;
-
-            height: 100%;
-
-            width: 100%;
-
-            overscroll-behavior-y: contain; /* Impede o "puxar para atualizar" que quebra o app */
+#2ecc71;
 
         }
 
+       
 
+        /* CAMADA
 
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
+ANTI-FLUTUAÇÃO E TRAVA DE TELA */
 
-        
+        html, body {
 
-        header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+           overflow-x: hidden;
 
-        .logo-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
+            position:
 
-        .icon-book { width: 35px; height: 25px; border: 3px solid #ffeaa7; border-radius: 4px; position: relative; }
+relative;
 
-        .icon-book::after { content: ''; position: absolute; left: 50%; top: 0; width: 3px; height: 100%; background: #ffeaa7; }
+            height:
 
-        .logo { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
+100%;
 
-        .logo span { color: #ffeaa7; }
+            width:
 
-        .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
+100%;
 
+           overscroll-behavior-y: contain; /* Impede o "puxar para
 
+atualizar" que quebra o app */
 
-        #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        }
 
+ 
 
+        body {
 
-        .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
+font-family: 'Segoe UI', sans-serif; background: var(--bg); color:
 
-        
+var(--texto); margin: 0; padding: 0; }
 
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
+       
 
-        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
+        header {
 
-        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
+background: var(--primaria); color: white; padding: 30px 20px; text-align:
 
-        
+center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+       .logo-container { display: flex; align-items: center; justify-content:
 
-        .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
+center; gap: 10px; }
 
-        .btn-info { background: rgba(255,255,255,0.3); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
+        .icon-book {
 
+width: 35px; height: 25px; border: 3px solid #ffeaa7; border-radius: 4px;
 
+position: relative; }
 
-        .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); animation: fadeIn 0.3s; }
+       .icon-book::after { content: ''; position: absolute; left: 50%; top: 0;
 
-        .tag-cor { padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight: bold; min-width: 85px; text-align: center; text-transform: uppercase; }
+width: 3px; height: 100%; background: #ffeaa7; }
 
+        .logo {
 
+font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0;
 
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+letter-spacing: -1px; }
 
-        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
+        .logo span {
 
-        .btn-v.active { color: white; border-color: transparent; }
+color: #ffeaa7; }
 
-        .btn-v.ini.active { background: var(--cor-inicial); }
+        .slogan {
 
-        .btn-v.pro.active { background: var(--cor-processo); }
+font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        .btn-v.ava.active { background: var(--cor-avancado); }
+ 
 
+       #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width:
 
+60px; height: 60px; background: var(--azul); color: white; border-radius: 50%;
 
-        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+border: none; font-size: 30px; cursor: pointer; z-index: 1000; box-shadow: 0
 
-        .btn-acao { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+4px 15px rgba(0,0,0,0.3); }
 
-        .btn-gerar { background: var(--primaria); color: white; }
+ 
 
-        .btn-novo { background: #747d8c; color: white; }
+        .container {
 
-        .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
+max-width: 900px; width: 92%; margin: 20px auto; background: white; padding:
 
+25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 
+box-sizing: border-box; }
 
-        /* TUTORIAL DE INSTALAÇÃO MODAL */
+       
 
-        #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
+        .grid-inputs {
 
-        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
+display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 
-        .step { margin: 15px 0; font-size: 0.9rem; text-align: left; }
+gap: 12px; margin-bottom: 25px; }
 
+        label {
 
+font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color:
 
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
+#57606f; margin-bottom: 5px; display: block; }
 
-        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
+        input, select
 
-        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
+{ padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size:
 
-        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 12pt; }
+0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
 
-        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
+       
 
-        
+        .secao-pergunta
 
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+{ background: var(--azul); color: white; padding: 12px 15px; border-radius:
 
-        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
+12px; margin: 25px 0 10px; display: flex; justify-content: space-between;
 
-        .bloco-full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
+align-items: center; }
 
+       .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform:
 
+uppercase; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-info {
 
+background: rgba(255,255,255,0.3); border: none; color: white; width: 30px;
 
+height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold;
+
+font-size: 1.1rem; }
+
+ 
+
+       .dica-pedagogica { display: none; background: #f1f2f6; border-radius:
+
+10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px
+
+solid var(--azul); animation: fadeIn 0.3s; }
+
+        .tag-cor {
+
+padding: 2px 8px; border-radius: 4px; color: white; font-size: 0.6rem; font-weight:
+
+bold; min-width: 85px; text-align: center; text-transform: uppercase; }
+
+ 
+
+        .grid-botoes {
+
+display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom:
+
+20px; }
+
+        .btn-v {
+
+padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor:
+
+pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background:
+
+white; color: #747d8c; transition: 0.2s; }
+
+        .btn-v.active
+
+{ color: white; border-color: transparent; }
+
+       .btn-v.ini.active { background: var(--cor-inicial); }
+
+       .btn-v.pro.active { background: var(--cor-processo); }
+
+       .btn-v.ava.active { background: var(--cor-avancado); }
+
+ 
+
+        .btn-container
+
+{ display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+
+        .btn-acao {
+
+width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight:
+
+bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+
+        .btn-gerar {
+
+background: var(--primaria); color: white; }
+
+        .btn-novo {
+
+background: #747d8c; color: white; }
+
+        .btn-instalar
+
+{ background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
+
+ 
+
+        /* TUTORIAL DE
+
+INSTALAÇÃO MODAL */
+
+       #modal-instalar { display: none; position: fixed; top: 0; left: 0;
+
+width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000;
+
+justify-content: center; align-items: center; }
+
+        .modal-content
+
+{ background: white; width: 85%; padding: 25px; border-radius: 20px;
+
+text-align: center; }
+
+        .step {
+
+margin: 15px 0; font-size: 0.9rem; text-align: left; }
+
+ 
+
+        #editor {
+
+width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding:
+
+30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none;
+
+box-sizing: border-box; color: #000; line-height: 1.8; }
+
+        .esc-nome {
+
+font-weight: bold; text-align: center; margin-bottom: 20px; text-transform:
+
+uppercase; font-size: 14pt; }
+
+        .dados-aluno {
+
+border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px;
+
+text-transform: uppercase; font-size: 11pt; }
+
+        .tit-rel {
+
+text-align: center; font-weight: bold; margin-bottom: 20px; text-transform:
+
+uppercase; font-size: 12pt; }
+
+        .paragrafo { text-align:
+
+justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
+
+       
+
+        .assinaturas {
+
+display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+
+        .bloco-ass {
+
+border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top:
+
+5px; text-transform: uppercase; }
+
+        .bloco-full {
+
+grid-column: span 2; width: 60%; margin: 30px auto 0; }
+
+ 
+
+        @keyframes
+
+fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1;
+
+transform: translateY(0); } }
+
+ 
 
         @media print {
 
-            @page { size: A4; margin: 0; }
+            @page {
 
-            .no-print { display: none !important; }
+size: A4; margin: 0; }
 
-            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; padding-top: 3.0cm !important; }
+            .no-print
+
+{ display: none !important; }
+
+            #editor {
+
+display: block !important; box-shadow: none; margin: 0; width: 100%;
+
+padding-top: 3.0cm !important; }
 
         }
 
@@ -166,40 +332,700 @@
 
 <body>
 
+ 
 
+<div id="modal-instalar"
 
-<div id="modal-instalar" class="no-print">
+class="no-print">
 
-    <div class="modal-content">
+    <div
 
-        <h3>📲 Como instalar no Celular</h3>
+class="modal-content">
 
-        <div class="step"><b>No iPhone (Safari):</b> Clique no ícone de compartilhar (quadrado com seta) e escolha "Adicionar à Tela de Início".</div>
+        <h3>📲
 
-        <div class="step"><b>No Android (Chrome):</b> Clique nos 3 pontinhos no canto superior e selecione "Instalar Aplicativo".</div>
+Como instalar no Celular</h3>
 
-        <button onclick="fecharModal()" class="btn-acao btn-gerar">ENTENDI</button>
+        <div
+
+class="step"><b>No iPhone (Safari):</b> Clique no
+
+ícone de compartilhar (quadrado com seta) e escolha "Adicionar à Tela de
+
+Início".</div>
+
+        <div
+
+class="step"><b>No Android (Chrome):</b> Clique nos 3
+
+pontinhos no canto superior e selecione "Instalar
+
+Aplicativo".</div>
+
+        <button
+
+onclick="fecharModal()" class="btn-acao
+
+btn-gerar">ENTENDI</button>
 
     </div>
 
 </div>
 
+ 
 
+<button id="btn-ajuda-master"
 
-<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: Clique no (?) azul em cada campo para ver o critério de avaliação da cor!')">?</button>
+class="no-print" onclick="alert('DICA: Clique no (?) azul em
 
+cada campo para ver o critério de avaliação da cor!')">?</button>
 
+ 
 
 <header class="no-print">
 
-    <div class="logo-container">
+    <div
 
-        <div class="icon-book"></div>
+class="logo-container">
 
-        <h1 class="logo">CONTAÊ <span>PROFE</span></h1>
+        <div
+
+class="icon-book"></div>
+
+        <h1
+
+class="logo">CONTAÊ <span>PROFE</span></h1>
 
     </div>
 
-    <div class="slogan">Relatório de Desenvolvimento Integral</div>
+    <div
+
+class="slogan">Relatório de Desenvolvimento Integral</div>
 
 </header>
+
+ 
+
+<div class="container no-print">
+
+    <div
+
+class="grid-inputs">
+
+        <div
+
+class="campo"><label>Cidade</label><input
+
+type="text" id="cidade" value="Rio de
+
+Janeiro"></div>
+
+        <div
+
+class="campo"><label>Escola</label><input
+
+type="text" id="escola"></div>
+
+        <div
+
+class="campo"><label>Professor(a)</label><input
+
+type="text" id="prof"></div>
+
+        <div
+
+class="campo"><label>Criança</label><input
+
+type="text" id="crianca"></div>
+
+        <div
+
+class="campo"><label>Fase</label>
+
+            <select id="fase">
+
+               <option value="1º PERÍODO">1º PERÍODO</option>
+
+               <option value="2º PERÍODO">2º PERÍODO</option>
+
+           </select>
+
+        </div>
+
+        <div
+
+class="campo"><label>Turma</label><input
+
+type="text" id="turma"></div>
+
+        <div
+
+class="campo"><label>Período</label>
+
+            <select
+
+id="periodo">
+
+               <option value="1º BIMESTRE">1º BIMESTRE</option>
+
+               <option value="2º BIMESTRE">2º BIMESTRE</option>
+
+               <option value="3º BIMESTRE">3º BIMESTRE</option>
+
+               <option value="4º BIMESTRE">4º BIMESTRE</option>
+
+               <option value="1º SEMESTRE">1º SEMESTRE</option>
+
+                <option
+
+value="2º SEMESTRE">2º SEMESTRE</option>
+
+           </select>
+
+        </div>
+
+    </div>
+
+ 
+
+    <div
+
+id="campos-bncc"></div>
+
+ 
+
+    <div
+
+class="btn-container no-print">
+
+        <button
+
+onclick="gerarRelatorioFinal()" class="btn-acao
+
+btn-gerar">📝 GERAR RELATÓRIO</button>
+
+        <button
+
+onclick="novoAluno()" class="btn-acao btn-novo">👤
+
+NOVO ALUNO</button>
+
+        <button
+
+onclick="abrirModal()" class="btn-acao btn-instalar">📲
+
+INSTALAR APP NO CELULAR</button>
+
+    </div>
+
+</div>
+
+ 
+
+<div id="editor" contenteditable="true"></div>
+
+ 
+
+<script>
+
+    // CÉREBRO DE
+
+VARIAÇÕES - Banco de dados com evolução por período
+
+    const dbRelatorios
+
+= [
+
+        { t: "1.
+
+O EU, O OUTRO E O NÓS",
+
+          frases: {
+
+            ini:
+
+"necessita de apoio constante para se integrar e estabelecer vínculos
+
+afetivos com o grupo.",
+
+            pro:
+
+"já interage bem com os pares, demonstrando empatia em momentos de
+
+brincadeiras mediadas.",
+
+            ava:
+
+"demonstra plena segurança e autonomia nas relações sociais, resolvendo
+
+conflitos com diálogo."
+
+          },
+
+          conectivos:
+
+["Além disso, ", "No que tange ao convívio, ", "Quanto
+
+às relações sociais, "]
+
+        },
+
+        { t: "2.
+
+CORPO, GESTOS E MOVIMENTOS",
+
+          frases: {
+
+            ini:
+
+"iniciou a exploração do espaço físico, desenvolvendo gradualmente sua
+
+confiança motora.",
+
+            pro:
+
+"apresenta boa agilidade e equilíbrio, participando ativamente de
+
+atividades de movimento.",
+
+            ava:
+
+"domina diversas formas de expressão corporal, demonstrando agilidade e
+
+consciência espacial."
+
+          },
+
+          conectivos:
+
+["Em relação ao desenvolvimento motor, ", "Vale destacar que, no
+
+campo motor, ", "Sobre suas habilidades corporais, "]
+
+        },
+
+        { t: "3.
+
+TRAÇOS, SONS, CORES E FORMAS",
+
+          frases: {
+
+            ini:
+
+"experimenta diferentes materiais artísticos sob mediação, demonstrando
+
+curiosidade sensorial.",
+
+            pro:
+
+"consegue utilizar cores e traços para expressar sua criatividade de forma
+
+autêntica.",
+
+            ava:
+
+"manifesta sensibilidade estética singular, criando produções artísticas
+
+ricas e detalhadas."
+
+          },
+
+          conectivos:
+
+["No campo das artes, ", "Em suas expressões artísticas, ",
+
+"Quanto à criatividade, "]
+
+        },
+
+        { t: "4.
+
+ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO",
+
+          frases: {
+
+            ini:
+
+"comunica desejos básicos e amplia seu vocabulário através da contação de
+
+histórias.",
+
+            pro:
+
+"organiza o pensamento com clareza, participando das rodas com relatos
+
+sobre sua rotina.",
+
+            ava:
+
+"expressa ideias complexas com fluidez e demonstra forte curiosidade pelo
+
+mundo da escrita."
+
+          },
+
+          conectivos:
+
+["Já na área da linguagem, ", "No que se refere à comunicação,
+
+", "Sobre a fala e escuta, "]
+
+        },
+
+        { t: "5.
+
+ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES",
+
+          frases: {
+
+            ini:
+
+"está em processo de percepção das noções temporais e espaciais através do
+
+concreto.",
+
+            pro:
+
+"relaciona quantidades e identifica sequências lógicas no cotidiano com
+
+crescente autonomia.",
+
+            ava:
+
+"resolve situações-problema matemáticas e lógicas com raciocínio rápido e
+
+assertivo."
+
+          },
+
+          conectivos:
+
+["Por fim, quanto ao raciocínio lógico, ", "No campo das
+
+relações espaciais e temporais, ", "Encerrando, sobre noções de tempo
+
+e espaço, "]
+
+        }
+
+    ];
+
+ 
+
+    function iniciar()
+
+{
+
+        const cont =
+
+document.getElementById('campos-bncc');
+
+       dbRelatorios.forEach((item, i) => {
+
+           cont.innerHTML += `
+
+               <div class="secao-pergunta"><p
+
+class="pergunta-texto">${item.t}</p><button class="btn-info"
+
+onclick="toggleDica(${i})">?</button></div>
+
+               <div id="dica-${i}" class="dica-pedagogica">
+
+                   <div class="dica-item"><span
+
+class="tag-cor"
+
+style="background:var(--cor-inicial)">Mediação</span> Nível
+
+inicial de desenvolvimento.</div>
+
+                   <div class="dica-item"><span
+
+class="tag-cor"
+
+style="background:var(--cor-processo)">Processo</span> Em
+
+evolução constante.</div>
+
+                   <div class="dica-item"><span
+
+class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span>
+
+Pleno domínio da habilidade.</div>
+
+               </div>
+
+               <div class="grid-botoes" id="g-${i}">
+
+                   <div class="btn-v ini" onclick="marcar(${i},
+
+'ini')">MEDIAÇÃO</div>
+
+                    <div class="btn-v pro"
+
+onclick="marcar(${i}, 'pro')">PROCESSO</div>
+
+                   <div class="btn-v ava" onclick="marcar(${i},
+
+'ava')">AUTONOMIA</div>
+
+               </div>`;
+
+        });
+
+    }
+
+ 
+
+    function
+
+abrirModal() { document.getElementById('modal-instalar').style.display =
+
+'flex'; }
+
+    function
+
+fecharModal() { document.getElementById('modal-instalar').style.display =
+
+'none'; }
+
+    function
+
+toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display
+
+= (d.style.display === 'block') ? 'none' : 'block'; }
+
+    function
+
+marcar(gi, niv) { const btns =
+
+document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b
+
+=> b.classList.remove('active')); document.querySelector(`#g-${gi}
+
+.${niv}`).classList.add('active'); }
+
+ 
+
+    function
+
+formatarCidade(cidade) {
+
+        const
+
+preposicoes = ["da", "de", "do", "das",
+
+"dos", "e"];
+
+        return
+
+cidade.toLowerCase().split(' ').map(palavra =>
+
+           preposicoes.includes(palavra) ? palavra :
+
+palavra.charAt(0).toUpperCase() + palavra.slice(1)
+
+        ).join(' ');
+
+    }
+
+ 
+
+    function
+
+obterDataExtenso() {
+
+        const meses =
+
+["janeiro", "fevereiro", "março",
+
+"abril", "maio", "junho", "julho",
+
+"agosto", "setembro", "outubro",
+
+"novembro", "dezembro"];
+
+        const hoje =
+
+new Date();
+
+        return
+
+`${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`;
+
+    }
+
+ 
+
+    function
+
+gerarRelatorioFinal() {
+
+        const periodo
+
+= document.getElementById('periodo').value;
+
+        const nome =
+
+document.getElementById('crianca').value.toUpperCase() || "A
+
+CRIANÇA";
+
+        const cidade =
+
+formatarCidade(document.getElementById('cidade').value);
+
+       
+
+        let textoBNCC
+
+= "";
+
+       dbRelatorios.forEach((item, i) => {
+
+            const
+
+btnAtivo = document.querySelector(`#g-${i} .active`);
+
+            if
+
+(btnAtivo) {
+
+                const
+
+nivel = btnAtivo.classList.contains('ini') ? 'ini' :
+
+(btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+
+                //
+
+Sorteia um conectivo para cada campo para o texto não ficar igual
+
+                const
+
+conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
+
+               textoBNCC += `${conect} <b>${nome}</b> ${item.frases[nivel]}
+
+`;
+
+            }
+
+        });
+
+ 
+
+       document.getElementById('editor').innerHTML = `
+
+            <div
+
+class="esc-nome">ESCOLA:
+
+${document.getElementById('escola').value.toUpperCase()}</div>
+
+            <div
+
+class="dados-aluno">
+
+               <b>DOCENTE:</b>
+
+${document.getElementById('prof').value.toUpperCase()}<br>
+
+                <b>ALUNO(A):</b> ${nome}<br>
+
+               <b>FASE:</b> ${document.getElementById('fase').value} |
+
+<b>TURMA:</b>
+
+${document.getElementById('turma').value.toUpperCase()}
+
+           </div>
+
+            <div
+
+class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL -
+
+${periodo}</div>
+
+            <div
+
+class="paragrafo">Apresentamos o parecer pedagógico fundamentado
+
+nas observações diárias e nos direitos de aprendizagem previstos pela BNCC.
+
+Durante o período letivo, observamos que:</div>
+
+            <div
+
+class="paragrafo">${textoBNCC}</div>
+
+            <div
+
+class="paragrafo">Finalizamos este ciclo com a certeza de grandes
+
+avanços, reafirmando o compromisso de oferecer as melhores experiências para o
+
+florescer de cada potencial.</div>
+
+            <div
+
+style="text-align:center; margin-top:50px;">${cidade},
+
+${obterDataExtenso()}</div>
+
+            <div
+
+class="assinaturas">
+
+               <div class="bloco-ass">Assinatura do Docente</div>
+
+               <div class="bloco-ass">Equipe Pedagógica /
+
+Diretor</div>
+
+                <div class="bloco-ass
+
+bloco-full">Assinatura do Responsável</div>
+
+           </div>
+
+        `;
+
+       document.getElementById('editor').style.display = 'block';
+
+       window.scrollTo(0, document.body.scrollHeight);
+
+        setTimeout(()
+
+=> { window.print(); }, 500);
+
+    }
+
+ 
+
+    function
+
+novoAluno() {
+
+       document.getElementById('crianca').value = "";
+
+       document.getElementById('editor').style.display = 'none';
+
+       document.querySelectorAll('.btn-v').forEach(b =>
+
+b.classList.remove('active'));
+
+       window.scrollTo(0, 0);
+
+    }
+
+ 
+
+    iniciar();
+
+</script>
+
+</body>
+
+</html>
