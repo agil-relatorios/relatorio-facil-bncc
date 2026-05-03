@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CONTAÊ PROFE - Premium v3</title>
-    <style>
-        :root { 
-            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
-            --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
-        }
-        
-        * { box-sizing: border-box; }
-
-        html, body { 
+html, body { 
             overflow-x: hidden; 
             width: 100%;
             margin: 0; padding: 0;
@@ -56,7 +42,6 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        /* MODAL */
         #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 25px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; }
         .instrucao-box { text-align: left; background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0; font-size: 0.9rem; }
@@ -114,18 +99,20 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" value="Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="DIGITE A CIDADE"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
         <div class="campo"><label>Gênero</label>
             <select id="genero">
+                <option value="">SELECIONAR</option>
                 <option value="M">Masculino</option>
                 <option value="F">Feminino</option>
             </select>
         </div>
         <div class="campo"><label>Fase</label>
             <select id="fase">
+                <option value="">SELECIONAR</option>
                 <option value="1º PERÍODO">1º PERÍODO</option>
                 <option value="2º PERÍODO">2º PERÍODO</option>
             </select>
@@ -133,6 +120,7 @@
         <div class="campo"><label>Turma</label><input type="text" id="turma"></div>
         <div class="campo"><label>Período</label>
             <select id="periodo">
+                <option value="">SELECIONAR</option>
                 <option value="1º BIMESTRE">1º BIMESTRE</option>
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
                 <option value="3º BIMESTRE">3º BIMESTRE</option>
@@ -197,6 +185,7 @@
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
 
     function formatarCidade(cidade) {
+        if(!cidade) return "";
         const preposicoes = ["da", "de", "do", "das", "dos", "e"];
         return cidade.toLowerCase().split(' ').map(palavra => preposicoes.includes(palavra) ? palavra : palavra.charAt(0).toUpperCase() + palavra.slice(1)).join(' ');
     }
@@ -211,7 +200,8 @@
         const periodo = document.getElementById('periodo').value;
         const nomeCompleto = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const genero = document.getElementById('genero').value;
-        const cidade = formatarCidade(document.getElementById('cidade').value);
+        const cidadeInput = document.getElementById('cidade').value;
+        const cidade = formatarCidade(cidadeInput);
         
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
@@ -220,7 +210,6 @@
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 const referencia = obterReferenciaNome(nomeCompleto, genero);
-                // REMOVIDO O NEGRITO DA REFERÊNCIA ABAIXO
                 textoBNCC += `${conect} ${referencia} ${item.frases[nivel]} `;
             }
         });
@@ -236,7 +225,7 @@
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
-            <div style="text-align:center; margin-top:50px;">${cidade}, ${obterDataExtenso()}</div>
+            <div style="text-align:center; margin-top:50px;">${cidade ? cidade + ', ' : ''}${obterDataExtenso()}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Diretor</div>
