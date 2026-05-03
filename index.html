@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CONTAÊ PROFE - Edição Acadêmica</title>
+    <title>CONTAÊ PROFE - Inteligência Acadêmica</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
@@ -34,17 +34,19 @@
 
         .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; background: var(--primaria); color: white; font-size: 1rem; margin-top: 20px; }
 
-        /* Estilo Folha A4 */
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 25mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.6; font-size: 12pt; }
-        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 14pt; }
-        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; line-height: 1.4; }
-        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 12px; }
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
-        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
+        /* ESTILO IMPRESSÃO A4 */
+        #editor { width: 210mm; min-height: 297mm; margin: 0 auto; background: white; padding: 20mm 15mm; display: none; color: #000; line-height: 1.5; font-size: 11pt; box-sizing: border-box; }
+        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 10px; text-transform: uppercase; font-size: 13pt; }
+        .dados-aluno { border-bottom: 1px solid #000; padding-bottom: 8px; margin-bottom: 15px; text-transform: uppercase; font-size: 9pt; display: grid; grid-template-columns: 1fr 1fr; }
+        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
+        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 8px; font-weight: 400; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 5px; text-transform: uppercase; }
 
         @media print {
             .no-print { display: none !important; }
-            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; }
+            #editor { display: block !important; box-shadow: none; width: 100%; height: 100%; margin: 0; padding: 15mm; }
+            body { background: white; }
         }
     </style>
 </head>
@@ -52,7 +54,7 @@
 
 <header class="no-print">
     <div class="logo">CONTAÊ <span>PROFE</span></div>
-    <div class="slogan">Relatórios Pedagógicos com Rigor Acadêmico</div>
+    <div class="slogan">Relatórios Pedagógicos de Alta Performance</div>
 </header>
 
 <div class="container no-print">
@@ -76,66 +78,69 @@
         <div><label>Turma</label><input type="text" id="turma"></div>
         <div><label>Período</label>
             <select id="periodo">
-                <option value="1º BIMESTRE">1º BIMESTRE</option>
-                <option value="2º BIMESTRE">2º BIMESTRE</option>
-                <option value="3º BIMESTRE">3º BIMESTRE</option>
-                <option value="4º BIMESTRE">4º BIMESTRE</option>
+                <option value="1B">1º BIMESTRE</option>
+                <option value="2B">2º BIMESTRE</option>
+                <option value="3B">3º BIMESTRE</option>
+                <option value="4B">4º BIMESTRE</option>
+                <option value="1S">1º SEMESTRE</option>
+                <option value="2S">2º SEMESTRE</option>
             </select>
         </div>
     </div>
 
     <div id="campos-bncc"></div>
-    <button onclick="gerarRelatorioFinal()" class="btn-gerar">📝 GERAR RELATÓRIO PROFISSIONAL</button>
+    <button onclick="gerarRelatorioFinal()" class="btn-gerar">📝 GERAR PARECER ACADÊMICO</button>
 </div>
 
-<div id="editor" contenteditable="true"></div>
+<div id="editor"></div>
 
 <script>
+    // MOTOR DE INTELIGÊNCIA - BANCO DE DADOS TEMPORAL E VARIADO
     const dbRelatorios = [
         { 
             t: "1. O EU, O OUTRO E O NÓS", 
             frases: {
-                ini: "tem sido encorajado(a) a fortalecer seus vínculos afetivos, recebendo mediação constante para transitar com segurança entre as interações coletivas e a rotina escolar.",
-                pro: "demonstra um desenvolvimento social em franca evolução, participando de atividades em grupo com empatia e respeitando os combinados de convivência de forma gradual.",
-                ava: "manifesta protagonismo singular em suas interações, acolhendo os pares com respeito e liderando pequenas iniciativas que fortalecem a harmonia do grupo."
+                ini: ["apresenta-se em fase de adaptação aos vínculos afetivos.", "necessita de mediação pontual para interagir com o grupo.", "explora o ambiente social com cautela e apoio docente."],
+                pro: ["demonstra evolução na empatia e no respeito aos pares.", "participa ativamente das interações com mediação lúdica.", "reconhece gradualmente as normas de convivência coletiva."],
+                ava: ["manifesta protagonismo e liderança positiva nas relações.", "resolve conflitos interpessoais com autonomia e diálogo.", "acolhe os colegas com empatia, demonstrando segurança emocional."]
             },
-            conectivos: ["No que concerne à construção da identidade, ", "Quanto às relações socioafetivas, ", "Em relação ao convívio coletivo, "]
+            conectivos: ["Quanto ao convívio social, ", "No que tange à construção da identidade, ", "Em relação à integração grupal, "]
         },
         { 
             t: "2. CORPO, GESTOS E MOVIMENTOS", 
             frases: {
-                ini: "explora o espaço escolar sob orientação, desenvolvendo gradualmente sua consciência corporal e coordenação em atividades que desafiam o equilíbrio e a agilidade.",
-                pro: "apresenta um domínio motor harmonioso, participando com entusiasmo de circuitos e jogos que exigem controle postural e percepção espacial.",
-                ava: "exibe ampla destreza motora e consciência do próprio corpo, dominando movimentos complexos e expressando-se com segurança em desafios físicos e coreográficos."
+                ini: ["explora as possibilidades motoras sob orientação constante.", "desenvolve a consciência corporal através de estímulos.", "demonstra cautela em desafios que exigem equilíbrio físico."],
+                pro: ["apresenta coordenação motora em pleno desenvolvimento.", "utiliza o corpo com criatividade em jogos e brincadeiras.", "demonstra agilidade crescente em circuitos e desafios."],
+                ava: ["exibe domínio corporal harmonioso e consciência espacial.", "coordena movimentos complexos com precisão e segurança.", "expressa-se corporalmente de forma autêntica e vigorosa."]
             },
-            conectivos: ["Acerca do desenvolvimento psicomotor, ", "No campo das experiências corporais, ", "Sobre a consciência do corpo e movimento, "]
+            conectivos: ["Acerca do desenvolvimento psicomotor, ", "Sobre as habilidades corporais e gestuais, ", "No campo das experiências físicas, "]
         },
         { 
             t: "3. TRAÇOS, SONS, CORES E FORMAS", 
             frases: {
-                ini: "demonstra curiosidade sensorial ao manipular diversos materiais artísticos, sendo mediado(a) na exploração de novas cores, texturas e fontes sonoras.",
-                pro: "conecta-se de forma criativa com as artes visuais e musicais, utilizando diferentes suportes para expressar suas percepções estéticas com autenticidade.",
-                ava: "revela uma sensibilidade artística apurada, criando produções ricas em detalhes e demonstrando profundo prazer na apreciação de múltiplas linguagens culturais."
+                ini: ["inicia a exploração de suportes e fontes sonoras diversas.", "manipula materiais artísticos com curiosidade sensorial.", "demonstra interesse inicial por linguagens estéticas."],
+                pro: ["expressa sua subjetividade através de traços e cores.", "identifica diferentes sons e texturas em suas produções.", "participa de momentos artísticos com engajamento criativo."],
+                ava: ["manifesta sensibilidade estética apurada e autoral.", "cria produções ricas em detalhes e repertório visual.", "domina variados suportes artísticos com originalidade."]
             },
-            conectivos: ["No âmbito da sensibilidade artística, ", "Quanto à exploração de linguagens estéticas, ", "Sobre a criatividade e percepção visual, "]
+            conectivos: ["No âmbito da sensibilidade artística, ", "Quanto à exploração de linguagens estéticas, ", "Sobre o pensamento criativo e visual, "]
         },
         { 
             t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
             frases: {
-                ini: "amplia seu repertório vocabular através da escuta atenta de histórias, sendo incentivado(a) a organizar o pensamento para relatar vivências pessoais.",
-                pro: "comunica-se com clareza e coerência, participando de rodas de conversa com hipóteses criativas e demonstrando interesse crescente pelo universo da escrita.",
-                ava: "expressa ideias com fluência e riqueza vocabular, demonstrando autonomia na interpretação de narrativas e protagonismo em momentos de letramento lúdico."
+                ini: ["amplia o vocabulário através da escuta atenta de histórias.", "utiliza gestos e palavras para comunicar necessidades.", "demonstra interesse gradual pela narrativa e literatura."],
+                pro: ["comunica ideias de forma clara e organiza o pensamento.", "relata vivências pessoais com coerência e entusiasmo.", "demonstra interesse ativo pelo universo da cultura escrita."],
+                ava: ["expressa-se com fluência, riqueza vocabular e clareza.", "interpreta narrativas com criticidade e imaginação.", "demonstra autonomia e protagonismo em atos de letramento."]
             },
-            conectivos: ["Em relação à comunicação e ao letramento, ", "Sobre a fluência verbal e o pensamento criativo, ", "No campo da fala e do universo imaginário, "]
+            conectivos: ["No que concerne à comunicação e linguagem, ", "Acerca da fluência verbal e imaginação, ", "Sobre a construção do pensamento e fala, "]
         },
         { 
             t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
             frases: {
-                ini: "iniciou a percepção de noções temporais e espaciais básicas, explorando o ambiente através de vivências concretas e relações de causa e efeito.",
-                pro: "relaciona quantidades, identifica sequências lógicas e demonstra curiosidade investigativa sobre os fenômenos naturais ao seu redor.",
-                ava: "resolve situações-problema lógicas com raciocínio rápido, demonstrando domínio de noções matemáticas e uma postura científica diante do cotidiano."
+                ini: ["percebe noções básicas de tempo e espaço com apoio.", "explora quantidades através da manipulação de objetos.", "identifica fenômenos naturais sob mediação pedagógica."],
+                pro: ["relaciona números a quantidades com crescente segurança.", "identifica sequências lógicas no cotidiano escolar.", "demonstra curiosidade científica sobre o meio ambiente."],
+                ava: ["resolve situações-problema lógicas com raciocínio rápido.", "domina noções temporais e espaciais com precisão.", "conecta conhecimentos sobre o mundo com autonomia."]
             },
-            conectivos: ["Quanto ao raciocínio lógico e percepção de mundo, ", "Sobre as noções matemáticas e espaciais, ", "Acerca da exploração científica e temporal, "]
+            conectivos: ["Por fim, quanto ao raciocínio lógico-científico, ", "Sobre a percepção de mundo e relações matemáticas, ", "Acerca da exploração de espaços e quantidades, "]
         }
     ];
 
@@ -162,21 +167,35 @@
         const nomeCompleto = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const primeiroNome = nomeCompleto.split(' ')[0];
         const genero = document.getElementById('genero').value;
-        const periodo = document.getElementById('periodo').value;
-        const termoGenero = (genero === 'M') ? "o aluno" : "a aluna";
+        const periodoKey = document.getElementById('periodo').value;
+        const fase = document.getElementById('fase').value;
         
+        // Ajustes de Gênero
+        const termoAluno = (genero === 'M') ? "o aluno" : "a aluna";
+        const eleEla = (genero === 'M') ? "ele" : "ela";
+
+        // Introdução por Período
+        let intro = "";
+        if(periodoKey === "1B" || periodoKey === "1S") intro = `Neste início de jornada, acolhemos ${primeiroNome} com o intuito de fortalecer sua transição e segurança no ambiente escolar. `;
+        else if(periodoKey === "4B" || periodoKey === "2S") intro = `Ao findarmos este ciclo, observamos o amadurecimento e a consolidação das habilidades fundamentais de ${primeiroNome}. `;
+        else intro = `Dando continuidade ao processo pedagógico, acompanhamos o desenvolvimento singular de ${primeiroNome} neste período. `;
+
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+                
+                // Sorteio de Conectivo e Frase para Variedade
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
+                let fraseOriginal = item.frases[nivel][Math.floor(Math.random() * 3)];
                 
-                // Lógica de alternância de nomes
-                let nomeParaExibir = (i === 0) ? `<b>${nomeCompleto}</b>` : (i % 2 === 0 ? `<b>${primeiroNome}</b>` : `<b>${termoGenero}</b>`);
+                // Concordância Automática na Frase
+                let fraseFormatada = fraseOriginal.replace(/\(a\)/g, genero === 'M' ? '' : 'a');
                 
-                let fraseFinal = item.frases[nivel].replace(/\(a\)/g, genero === 'M' ? '' : 'a');
-                textoBNCC += `${conect} ${nomeParaExibir} ${fraseFinal} `;
+                // Alternância de nomes para evitar repetição
+                let sujeito = (i === 0) ? primeiroNome : (i % 2 === 0 ? termoAluno : eleEla);
+                textoBNCC += `${conect} ${sujeito} ${fraseFormatada} `;
             }
         });
 
@@ -185,20 +204,22 @@
         document.getElementById('editor').innerHTML = `
             <div class="esc-nome">${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
-                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ESTUDANTE:</b> ${nomeCompleto}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <div><b>ALUNO(A):</b> ${nomeCompleto}</div>
+                <div><b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}</div>
+                <div><b>FASE:</b> ${fase}</div>
+                <div><b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}</div>
             </div>
-            <div class="tit-rel">PARECER PEDAGÓGICO DE DESENVOLVIMENTO - ${periodo}</div>
-            <div class="paragrafo">Fundamentado nas diretrizes da BNCC e nas observações diárias, apresentamos o percurso educativo do(a) estudante. Durante este ciclo, observamos que:</div>
-            <div class="paragrafo">${textoBNCC}</div>
-            <div class="paragrafo">As experiências descritas foram planejadas para garantir os direitos de aprendizagem (conviver, brincar, participar, explorar, expressar e conhecer-se), assegurando a <b>${primeiroNome}</b> um ambiente de desenvolvimento integral e humanizado.</div>
-            <div style="text-align:right; margin-top:40px;">${document.getElementById('cidade').value}, ${dataExtenso}.</div>
+            <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${document.getElementById('periodo').options[document.getElementById('periodo').selectedIndex].text}</div>
+            <div class="paragrafo">A fundamentação deste parecer baseia-se na observação contínua e nos Direitos de Aprendizagem (Conviver, Brincar, Participar, Explorar, Expressar e Conhecer-se), conforme preconiza a BNCC.</div>
+            <div class="paragrafo">${intro} ${textoBNCC}</div>
+            <div class="paragrafo">Concluímos este parecer com a convicção de que os estímulos oferecidos serviram como base para novos saltos qualitativos em sua trajetória educativa.</div>
+            <div style="text-align:right; margin-top:20px;">${document.getElementById('cidade').value}, ${dataExtenso}.</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Coordenação Pedagógica</div>
             </div>
         `;
+
         document.getElementById('editor').style.display = 'block';
         setTimeout(() => { window.print(); }, 500);
     }
