@@ -10,13 +10,12 @@
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        /* CAMADA ANTI-FLUTUAÇÃO E TRAVA DE TELA */
         html, body { 
             overflow-x: hidden; 
             position: relative;
             height: 100%;
             width: 100%;
-            overscroll-behavior-y: contain; /* Impede o "puxar para atualizar" que quebra o app */
+            overscroll-behavior-y: contain;
         }
 
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
@@ -57,11 +56,6 @@
         .btn-novo { background: #747d8c; color: white; }
         .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
 
-        /* TUTORIAL DE INSTALAÇÃO MODAL */
-        #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
-        .step { margin: 15px 0; font-size: 0.9rem; text-align: left; }
-
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
@@ -86,13 +80,10 @@
 <div id="modal-instalar" class="no-print">
     <div class="modal-content">
         <h3>📲 Como instalar no Celular</h3>
-        <div class="step"><b>No iPhone (Safari):</b> Clique no ícone de compartilhar (quadrado com seta) e escolha "Adicionar à Tela de Início".</div>
-        <div class="step"><b>No Android (Chrome):</b> Clique nos 3 pontinhos no canto superior e selecione "Instalar Aplicativo".</div>
+        <div class="step"><b>No iPhone (Safari):</b> Clique no ícone de compartilhar e escolha "Adicionar à Tela de Início".</div>
         <button onclick="fecharModal()" class="btn-acao btn-gerar">ENTENDI</button>
     </div>
 </div>
-
-<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: Clique no (?) azul em cada campo para ver o critério de avaliação da cor!')">?</button>
 
 <header class="no-print">
     <div class="logo-container">
@@ -108,6 +99,12 @@
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Gênero</label>
+            <select id="genero">
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+            </select>
+        </div>
         <div class="campo"><label>Fase</label>
             <select id="fase">
                 <option value="1º PERÍODO">1º PERÍODO</option>
@@ -132,14 +129,25 @@
     <div class="btn-container no-print">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO</button>
         <button onclick="novoAluno()" class="btn-acao btn-novo">👤 NOVO ALUNO</button>
-        <button onclick="abrirModal()" class="btn-acao btn-instalar">📲 INSTALAR APP NO CELULAR</button>
     </div>
 </div>
 
 <div id="editor" contenteditable="true"></div>
 
 <script>
-    // CÉREBRO DE VARIAÇÕES - Banco de dados com evolução por período
+    // --- FUNÇÃO DE REFERÊNCIA NOMINAL (DR. LÍNGUA PORTUGUESA) ---
+    function obterReferenciaNome(nomeCompleto, genero) {
+        if (!nomeCompleto) return "a criança";
+        const primeiroNome = nomeCompleto.split(' ')[0].charAt(0).toUpperCase() + nomeCompleto.split(' ')[0].slice(1).toLowerCase();
+        const termos = [
+            primeiroNome,
+            (genero === 'M' ? 'o educando' : 'a educanda'),
+            (genero === 'M' ? 'ele' : 'ela'),
+            'a criança'
+        ];
+        return termos[Math.floor(Math.random() * termos.length)];
+    }
+
     const dbRelatorios = [
         { t: "1. O EU, O OUTRO E O NÓS", 
           frases: { 
@@ -189,9 +197,9 @@
             cont.innerHTML += `
                 <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
                 <div id="dica-${i}" class="dica-pedagogica">
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Nível inicial de desenvolvimento.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Em evolução constante.</div>
-                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> Pleno domínio da habilidade.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Nível inicial.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Em evolução.</div>
+                    <div class="dica-item"><span class="tag-cor" style="background:var(--cor-avancado)">Autonomia</span> Pleno domínio.</div>
                 </div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
@@ -201,8 +209,6 @@
         });
     }
 
-    function abrirModal() { document.getElementById('modal-instalar').style.display = 'flex'; }
-    function fecharModal() { document.getElementById('modal-instalar').style.display = 'none'; }
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
 
@@ -221,7 +227,8 @@
 
     function gerarRelatorioFinal() {
         const periodo = document.getElementById('periodo').value;
-        const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const nomeCompleto = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const genero = document.getElementById('genero').value;
         const cidade = formatarCidade(document.getElementById('cidade').value);
         
         let textoBNCC = "";
@@ -229,9 +236,11 @@
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                // Sorteia um conectivo para cada campo para o texto não ficar igual
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
-                textoBNCC += `${conect} <b>${nome}</b> ${item.frases[nivel]} `;
+                
+                // AQUI A MÁGICA ACONTECE: O nome varia a cada frase
+                const referencia = obterReferenciaNome(nomeCompleto, genero);
+                textoBNCC += `${conect} <b>${referencia}</b> ${item.frases[nivel]} `;
             }
         });
 
@@ -239,7 +248,7 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUNO(A):</b> ${nome}<br>
+                <b>ALUNO(A):</b> ${nomeCompleto}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
