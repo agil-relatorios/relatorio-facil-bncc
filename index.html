@@ -28,8 +28,7 @@
         .logo span { color: #ffeaa7; }
         .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
 
-        /* BOTÃO DE AJUDA/INSTALAÇÃO */
-        #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 24px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: bold; }
+        #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
         
@@ -56,12 +55,6 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        /* MODAL DE INSTALAÇÃO RESPONSIVO */
-        #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 85%; max-width: 400px; padding: 25px; border-radius: 25px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .modal-content h3 { color: var(--primaria); margin-top: 0; font-size: 1.2rem; }
-        .step { margin: 15px 0; font-size: 0.9rem; text-align: left; line-height: 1.4; color: var(--texto); padding: 10px; background: #f8f9fa; border-radius: 12px; }
-
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
@@ -74,40 +67,14 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 600px) {
-            .logo { font-size: 1.6rem; }
-            .grid-inputs { grid-template-columns: 1fr 1fr; }
-            .grid-botoes { gap: 5px; }
-            .btn-v { font-size: 0.6rem; padding: 12px 2px; }
-        }
-
         @media print {
             @page { size: A4; margin: 0; }
             .no-print { display: none !important; }
-            #btn-ajuda-master { display: none !important; }
             #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; padding-top: 3.0cm !important; }
         }
     </style>
 </head>
 <body>
-
-<!-- MODAL DE INSTALAÇÃO -->
-<div id="modal-instalar" class="no-print" onclick="fecharModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h3>📲 Instalar no Celular</h3>
-        <div class="step">
-            <b>iPhone (Safari):</b><br>
-            Toque no ícone de <b>Compartilhar</b> (quadrado com seta) e selecione <b>"Adicionar à Tela de Início"</b>.
-        </div>
-        <div class="step">
-            <b>Android (Chrome):</b><br>
-            Toque nos <b>3 pontinhos</b> no topo direito e selecione <b>"Instalar aplicativo"</b> ou "Adicionar à tela inicial".
-        </div>
-        <button onclick="fecharModalInstancia()" class="btn-acao btn-gerar">ENTENDI</button>
-    </div>
-</div>
-
-<button id="btn-ajuda-master" class="no-print" onclick="abrirModal()">?</button>
 
 <header class="no-print">
     <div class="logo-container">
@@ -159,10 +126,6 @@
 <div id="editor" contenteditable="true"></div>
 
 <script>
-    function abrirModal() { document.getElementById('modal-instalar').style.display = 'flex'; }
-    function fecharModalInstancia() { document.getElementById('modal-instalar').style.display = 'none'; }
-    function fecharModal(e) { if(e.target.id === 'modal-instalar') fecharModalInstancia(); }
-
     function obterReferenciaNome(nomeCompleto, genero) {
         if (!nomeCompleto) return "a criança";
         const primeiroNome = nomeCompleto.split(' ')[0].charAt(0).toUpperCase() + nomeCompleto.split(' ')[0].slice(1).toLowerCase();
@@ -264,6 +227,8 @@
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
+                
+                // Removido as tags <b> daqui
                 const referencia = obterReferenciaNome(nomeCompleto, genero);
                 textoBNCC += `${conect} ${referencia} ${item.frases[nivel]} `;
             }
