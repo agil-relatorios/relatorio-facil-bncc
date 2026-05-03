@@ -2,80 +2,79 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CONTAÊ PROFE - Edição Acadêmica</title>
     <style>
         :root { 
-            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; 
+            --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        header { background: var(--primaria); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .container { max-width: 900px; width: 95%; margin: 20px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        html, body { overflow-x: hidden; position: relative; width: 100%; overscroll-behavior-y: contain; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
+        header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .logo { font-size: 2.2rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
+        .logo span { color: #ffeaa7; }
+        .slogan { font-size: 0.9rem; font-style: italic; opacity: 0.9; margin-top: 5px; }
+
+        .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
+        label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
+        input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
         
-        /* Formulário */
-        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        label { font-weight: bold; font-size: 0.75rem; text-transform: uppercase; color: #57606f; }
-        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; }
+        .secao-pergunta { background: var(--azul); color: white; padding: 12px 15px; border-radius: 12px; margin: 25px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+        .pergunta-texto { font-size: 0.85rem; font-weight: bold; margin: 0; text-transform: uppercase; }
 
-        /* Botões de Seleção BNCC */
-        .secao-bncc { border-left: 4px solid var(--azul); padding-left: 15px; margin-bottom: 20px; }
-        .titulo-campo { font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; color: var(--azul); }
-        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .btn-v { padding: 12px 5px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-align: center; background: #fff; transition: 0.3s; }
-        .btn-v.active { color: white; }
-        .btn-v.ini.active { background: var(--cor-inicial); border-color: var(--cor-inicial); }
-        .btn-v.pro.active { background: var(--cor-processo); border-color: var(--cor-processo); }
-        .btn-v.ava.active { background: var(--cor-avancado); border-color: var(--cor-avancado); }
+        .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .btn-v { padding: 15px 5px; border: 2px solid #edeff2; border-radius: 12px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-align: center; background: white; color: #747d8c; transition: 0.2s; }
+        .btn-v.active { color: white; border-color: transparent; }
+        .btn-v.ini.active { background: var(--cor-inicial); }
+        .btn-v.pro.active { background: var(--cor-processo); }
+        .btn-v.ava.active { background: var(--cor-avancado); }
 
-        /* Estilo da Folha A4 */
-        #editor { 
-            width: 210mm; min-height: 297mm; padding: 20mm 20mm 20mm 25mm; 
-            margin: 30px auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-            display: none; box-sizing: border-box; color: #000; line-height: 1.6; font-size: 11pt;
-        }
-        .cabecalho-relatorio { text-align: center; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
+        .btn-gerar { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; background: var(--primaria); color: white; font-size: 1rem; margin-top: 20px; }
+
+        /* Estilo Folha A4 */
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 25mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.6; font-size: 12pt; }
+        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 14pt; }
+        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; line-height: 1.4; }
         .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 12px; }
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 40px; }
-        .campo-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
 
-        .no-print { display: block; }
         @media print {
             .no-print { display: none !important; }
             #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; }
-            body { background: white; }
         }
-
-        .btn-gerar { background: var(--primaria); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
 <header class="no-print">
-    <h1>CONTAÊ PROFE <span>PREMIUM</span></h1>
-    <p>Relatórios Pedagógicos com Inteligência BNCC</p>
+    <div class="logo">CONTAÊ <span>PROFE</span></div>
+    <div class="slogan">Relatórios Pedagógicos com Rigor Acadêmico</div>
 </header>
 
 <div class="container no-print">
     <div class="grid-inputs">
         <div><label>Cidade</label><input type="text" id="cidade" value="Rio de Janeiro"></div>
-        <div><label>Unidade Escolar</label><input type="text" id="escola"></div>
+        <div><label>Escola</label><input type="text" id="escola"></div>
         <div><label>Professor(a)</label><input type="text" id="prof"></div>
-        <div><label>Nome Completo da Criança</label><input type="text" id="crianca"></div>
+        <div><label>Criança</label><input type="text" id="crianca" placeholder="NOME COMPLETO"></div>
         <div><label>Gênero</label>
             <select id="genero">
-                <option value="F">Menina (A aluna)</option>
-                <option value="M">Menino (O aluno)</option>
+                <option value="F">MENINA</option>
+                <option value="M">MENINO</option>
             </select>
         </div>
-        <div><label>Etapa/Fase</label>
+        <div><label>Fase</label>
             <select id="fase">
                 <option value="1º PERÍODO">1º PERÍODO</option>
                 <option value="2º PERÍODO">2º PERÍODO</option>
             </select>
         </div>
-        <div><label>Período de Avaliação</label>
+        <div><label>Turma</label><input type="text" id="turma"></div>
+        <div><label>Período</label>
             <select id="periodo">
                 <option value="1º BIMESTRE">1º BIMESTRE</option>
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
@@ -85,203 +84,126 @@
         </div>
     </div>
 
-    <div id="lista-campos"></div>
-
-    <button class="btn-gerar" onclick="gerarRelatorio()">✨ GERAR RELATÓRIO PROFISSIONAL</button>
+    <div id="campos-bncc"></div>
+    <button onclick="gerarRelatorioFinal()" class="btn-gerar">📝 GERAR RELATÓRIO PROFISSIONAL</button>
 </div>
 
-<div id="editor"></div>
+<div id="editor" contenteditable="true"></div>
 
 <script>
     const dbRelatorios = [
-        {
-            id: 0,
-            t: "O EU, O OUTRO E O NÓS",
+        { 
+            t: "1. O EU, O OUTRO E O NÓS", 
             frases: {
-                "1º PERÍODO": {
-                    "1º BIMESTRE": {
-                        ini: ["vivenciou o período de adaptação necessitando de mediação constante para fortalecer seu sentimento de segurança e pertença.", "demonstrou cautela nas interações sociais, sendo encorajado(a) a participar de brincadeiras coletivas e rodas de conversa."],
-                        pro: ["integrou-se gradualmente à rotina escolar, demonstrando curiosidade em relação aos pares e respeito aos combinados iniciais.", "apresenta-se sociável, participando com alegria das propostas em grupo e manifestando seus desejos de forma clara."],
-                        ava: ["estabeleceu vínculos afetivos imediatos, demonstrando protagonismo e liderança positiva em todas as vivências coletivas."]
-                    },
-                    "4º BIMESTRE": {
-                        ini: ["consolidou sua identidade no grupo, embora ainda prefira a mediação do adulto em situações de resolução de conflitos.", "aprimorou sua capacidade de partilha e cooperação, atuando com mais autonomia nas interações cotidianas."],
-                        pro: ["demonstra empatia e cuidado com o outro, reconhecendo-se como parte integrante e fundamental do coletivo escolar.", "atua com autonomia na organização de seus pertences e na escolha de brincadeiras compartilhadas."],
-                        ava: ["encerra o ciclo com maturidade emocional exemplar, sendo referência de respeito, solidariedade e ética para seus colegas."]
-                    }
-                }
-                // (Aqui serão adicionadas as variações para o 2º período via atualização)
+                ini: "tem sido encorajado(a) a fortalecer seus vínculos afetivos, recebendo mediação constante para transitar com segurança entre as interações coletivas e a rotina escolar.",
+                pro: "demonstra um desenvolvimento social em franca evolução, participando de atividades em grupo com empatia e respeitando os combinados de convivência de forma gradual.",
+                ava: "manifesta protagonismo singular em suas interações, acolhendo os pares com respeito e liderando pequenas iniciativas que fortalecem a harmonia do grupo."
             },
-            conectivos: ["No que concerne à construção da identidade e autonomia, ", "Quanto às relações socioafetivas, ", "Em relação ao convívio coletivo, "]
+            conectivos: ["No que concerne à construção da identidade, ", "Quanto às relações socioafetivas, ", "Em relação ao convívio coletivo, "]
         },
-        {
-            id: 1,
-            t: "CORPO, GESTOS E MOVIMENTOS",
+        { 
+            t: "2. CORPO, GESTOS E MOVIMENTOS", 
             frases: {
-                "1º PERÍODO": {
-                    "1º BIMESTRE": {
-                        ini: ["explora o espaço escolar de forma contida, em processo de descoberta de suas potencialidades motoras e limites corporais.", "necessita de estímulo para participar de atividades que envolvam grandes deslocamentos e desafios físicos."],
-                        pro: ["demonstra boa coordenação motora e equilíbrio, participando com entusiasmo de circuitos e jogos de movimento.", "explora as possibilidades do corpo através da dança e de ritmos variados, demonstrando prazer na expressão corporal."],
-                        ava: ["exibe ampla consciência corporal e agilidade, dominando movimentos complexos com destreza e segurança espacial."]
-                    },
-                    "4º BIMESTRE": {
-                        ini: ["ampliou sua percepção espacial e refinou movimentos de coordenação fina, como o manuseio de pequenos objetos.", "demonstra maior segurança em desafios motores, superando obstáculos com persistência e auxílio pontual."],
-                        pro: ["apresenta um desenvolvimento psicomotor harmonioso, coordenando movimentos com ritmo e intencionalidade.", "domina o uso de diferentes suportes e ferramentas com precisão, revelando maturação da coordenação visomotora."],
-                        ava: ["conclui o ano com excelente domínio corporal, expressando-se através de gestos e movimentos de forma criativa e autônoma."]
-                    }
-                }
+                ini: "explora o espaço escolar sob orientação, desenvolvendo gradualmente sua consciência corporal e coordenação em atividades que desafiam o equilíbrio e a agilidade.",
+                pro: "apresenta um domínio motor harmonioso, participando com entusiasmo de circuitos e jogos que exigem controle postural e percepção espacial.",
+                ava: "exibe ampla destreza motora e consciência do próprio corpo, dominando movimentos complexos e expressando-se com segurança em desafios físicos e coreográficos."
             },
             conectivos: ["Acerca do desenvolvimento psicomotor, ", "No campo das experiências corporais, ", "Sobre a consciência do corpo e movimento, "]
         },
-        {
-            id: 2,
-            t: "TRAÇOS, SONS, CORES E FORMAS",
+        { 
+            t: "3. TRAÇOS, SONS, CORES E FORMAS", 
             frases: {
-                "1º PERÍODO": {
-                    "1º BIMESTRE": {
-                        ini: ["demonstra curiosidade sensorial ao manipular materiais artísticos, sendo estimulado(a) a explorar novas cores e texturas.", "aprecia momentos musicais com atenção, iniciando a percepção de diferentes ritmos e fontes sonoras."],
-                        pro: ["expressa sua criatividade através de traços livres e composições que refletem seu interesse pelo universo visual.", "demonstra sensibilidade ao ouvir músicas clássicas e cantigas de roda, acompanhando-as com gestos."],
-                        ava: ["manifesta um olhar sensível para o mundo das artes, produzindo criações originais com grande foco e detalhamento."]
-                    },
-                    "4º BIMESTRE": {
-                        ini: ["utiliza diversos recursos gráficos com autonomia, demonstrando evolução na organização de suas produções visuais.", "reconhece e reproduz sequências sonoras simples, demonstrando maior acuidade auditiva e interesse musical."],
-                        pro: ["ampliou seu repertório cultural e artístico, utilizando cores e formas para representar vivências e imaginações.", "cria cenários e objetos em atividades lúdicas, integrando diferentes linguagens de maneira criativa."],
-                        ava: ["encerra este período com uma expressão artística rica e diversificada, valorizando a estética de suas próprias produções."]
-                    }
-                }
+                ini: "demonstra curiosidade sensorial ao manipular diversos materiais artísticos, sendo mediado(a) na exploração de novas cores, texturas e fontes sonoras.",
+                pro: "conecta-se de forma criativa com as artes visuais e musicais, utilizando diferentes suportes para expressar suas percepções estéticas com autenticidade.",
+                ava: "revela uma sensibilidade artística apurada, criando produções ricas em detalhes e demonstrando profundo prazer na apreciação de múltiplas linguagens culturais."
             },
-            conectivos: ["No âmbito da sensibilidade artística, ", "Quanto à exploração de múltiplas linguagens, ", "Sobre a criatividade e percepção estética, "]
+            conectivos: ["No âmbito da sensibilidade artística, ", "Quanto à exploração de linguagens estéticas, ", "Sobre a criatividade e percepção visual, "]
         },
-        {
-            id: 3,
-            t: "ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO",
+        { 
+            t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
             frases: {
-                "1º PERÍODO": {
-                    "1º BIMESTRE": {
-                        ini: ["comunica-se predominantemente para expressar necessidades básicas, sendo incentivado(a) a relatar vivências ao grupo.", "mostra-se atento(a) às histórias contadas, participando de momentos de leitura com curiosidade visual."],
-                        pro: ["relata pequenos fatos do cotidiano com clareza, ampliando seu vocabulário e demonstrando interesse por narrativas.", "demonstra curiosidade pelo mundo das letras, identificando seu nome em suportes variados da sala."],
-                        ava: ["expressa-se com fluência e riqueza de detalhes, participando ativamente das rodas de conversa com opiniões próprias."]
-                    },
-                    "4º BIMESTRE": {
-                        ini: ["avançou significativamente em sua oratória, sendo capaz de recontar histórias seguindo uma sequência lógica temporal.", "demonstra interesse em registrar suas ideias através de desenhos e tentativas de escrita espontânea."],
-                        pro: ["formula perguntas complexas e demonstra grande interesse por gêneros textuais diversos, como poesias e receitas.", "organiza o pensamento de forma coerente ao narrar fatos, utilizando a linguagem para mediar interações."],
-                        ava: ["conclui o ciclo com excelente base de letramento, demonstrando profundo prazer no contato com a literatura e escrita."]
-                    }
-                }
+                ini: "amplia seu repertório vocabular através da escuta atenta de histórias, sendo incentivado(a) a organizar o pensamento para relatar vivências pessoais.",
+                pro: "comunica-se com clareza e coerência, participando de rodas de conversa com hipóteses criativas e demonstrando interesse crescente pelo universo da escrita.",
+                ava: "expressa ideias com fluência e riqueza vocabular, demonstrando autonomia na interpretação de narrativas e protagonismo em momentos de letramento lúdico."
             },
             conectivos: ["Em relação à comunicação e ao letramento, ", "Sobre a fluência verbal e o pensamento criativo, ", "No campo da fala e do universo imaginário, "]
         },
-        {
-            id: 4,
-            t: "ESPAÇOS, TEMPOS, QUANTIDADES E RELAÇÕES",
+        { 
+            t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
             frases: {
-                "1º PERÍODO": {
-                    "1º BIMESTRE": {
-                        ini: ["iniciou a exploração de noções espaciais básicas através de brincadeiras de encaixe e construção mediada.", "demonstra interesse pelos fenômenos naturais e pela rotina diária, aprendendo a identificar os momentos do dia."],
-                        pro: ["identifica relações de causa e efeito em suas explorações, além de realizar contagens espontâneas no brincar.", "reconhece formas e tamanhos em objetos do cotidiano, fazendo comparações simples com autonomia."],
-                        ava: ["resolve desafios lógicos com rapidez, demonstrando facilidade em organizar dados e quantidades."]
-                    },
-                    "4º BIMESTRE": {
-                        ini: ["compreende noções de tempo (antes/depois) e espaço (em cima/embaixo) aplicadas à organização da sala.", "demonstra cuidado com o meio ambiente e curiosidade sobre a vida de pequenos animais e plantas."],
-                        pro: ["associa números às suas quantidades com segurança, participando de situações-problema matemáticas lúdicas.", "demonstra consciência sobre sequências temporais e calendários, situando-se bem na cronologia escolar."],
-                        ava: ["encerra o ano com raciocínio lógico-matemático avançado e uma postura investigativa diante dos fatos naturais."]
-                    }
-                }
+                ini: "iniciou a percepção de noções temporais e espaciais básicas, explorando o ambiente através de vivências concretas e relações de causa e efeito.",
+                pro: "relaciona quantidades, identifica sequências lógicas e demonstra curiosidade investigativa sobre os fenômenos naturais ao seu redor.",
+                ava: "resolve situações-problema lógicas com raciocínio rápido, demonstrando domínio de noções matemáticas e uma postura científica diante do cotidiano."
             },
             conectivos: ["Quanto ao raciocínio lógico e percepção de mundo, ", "Sobre as noções matemáticas e espaciais, ", "Acerca da exploração científica e temporal, "]
         }
     ];
 
-    function montarCampos() {
-        const container = document.getElementById('lista-campos');
-        dbRelatorios.forEach(campo => {
-            container.innerHTML += `
-                <div class="secao-bncc">
-                    <div class="titulo-campo">${campo.t}</div>
-                    <div class="grid-botoes" id="grupo-${campo.id}">
-                        <div class="btn-v ini" onclick="selecionar(${campo.id}, 'ini')">MEDIAÇÃO</div>
-                        <div class="btn-v pro" onclick="selecionar(${campo.id}, 'pro')">PROCESSO</div>
-                        <div class="btn-v ava" onclick="selecionar(${campo.id}, 'ava')">AUTONOMIA</div>
-                    </div>
-                </div>
-            `;
+    function iniciar() {
+        const cont = document.getElementById('campos-bncc');
+        dbRelatorios.forEach((item, i) => {
+            cont.innerHTML += `
+                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p></div>
+                <div class="grid-botoes" id="g-${i}">
+                    <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
+                    <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
+                </div>`;
         });
     }
 
-    function selecionar(id, nivel) {
-        const botoes = document.querySelectorAll(`#grupo-${id} .btn-v`);
-        botoes.forEach(b => b.classList.remove('active'));
-        document.querySelector(`#grupo-${id} .${nivel}`).classList.add('active');
+    function marcar(gi, niv) {
+        const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v');
+        btns.forEach(b => b.classList.remove('active'));
+        document.querySelector(`#g-${gi} .${niv}`).classList.add('active');
     }
 
-    function ajustarGenero(texto, genero, primeiroNome) {
-        let t = texto.replace(/o\(a\)/g, genero === 'M' ? 'o' : 'a');
-        t = t.replace(/\{nome\}/g, primeiroNome);
-        return t;
-    }
-
-    function gerarRelatorio() {
-        const nomeCompleto = document.getElementById('crianca').value.toUpperCase();
+    function gerarRelatorioFinal() {
+        const nomeCompleto = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
         const primeiroNome = nomeCompleto.split(' ')[0];
         const genero = document.getElementById('genero').value;
-        const fase = document.getElementById('fase').value;
         const periodo = document.getElementById('periodo').value;
-        const cidade = document.getElementById('cidade').value;
+        const termoGenero = (genero === 'M') ? "o aluno" : "a aluna";
         
-        let corpoTexto = "";
-        let nomeParaUso = nomeCompleto;
-
-        dbRelatorios.forEach((campo, index) => {
-            const btnAtivo = document.querySelector(`#grupo-${campo.id} .active`);
+        let textoBNCC = "";
+        dbRelatorios.forEach((item, i) => {
+            const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
+                const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 
-                // Busca frases (Fallback para 1º período caso não ache o 2º ainda)
-                const base = campo.frases[fase] || campo.frases["1º PERÍODO"];
-                const frasesNivel = base[periodo] ? base[periodo][nivel] : base["1º BIMESTRE"][nivel];
-                const fraseSorteada = frasesNivel[Math.floor(Math.random() * frasesNivel.length)];
-                const conect = campo.conectivos[Math.floor(Math.random() * campo.conectivos.length)];
+                // Lógica de alternância de nomes
+                let nomeParaExibir = (i === 0) ? `<b>${nomeCompleto}</b>` : (i % 2 === 0 ? `<b>${primeiroNome}</b>` : `<b>${termoGenero}</b>`);
                 
-                // Alterna nomes para não repetir
-                let frasePronta = `${conect} <b>${nomeParaUso}</b> ${fraseSorteada} `;
-                corpoTexto += ajustarGenero(frasePronta, genero, primeiroNome);
-                
-                // Após a primeira frase, usa apenas o primeiro nome ou "a criança"
-                nomeParaUso = (index % 2 === 0) ? primeiroNome : (genero === 'M' ? "o aluno" : "a aluna");
+                let fraseFinal = item.frases[nivel].replace(/\(a\)/g, genero === 'M' ? '' : 'a');
+                textoBNCC += `${conect} ${nomeParaExibir} ${fraseFinal} `;
             }
         });
 
-        const dataAtual = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+        const dataExtenso = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 
         document.getElementById('editor').innerHTML = `
-            <div class="cabecalho-relatorio">
-                <h2 style="margin:0">${document.getElementById('escola').value.toUpperCase()}</h2>
-                <p style="margin:5px 0">PARECER PEDAGÓGICO DE DESENVOLVIMENTO INTEGRAL</p>
-            </div>
-            <div style="margin-bottom:20px">
+            <div class="esc-nome">${document.getElementById('escola').value.toUpperCase()}</div>
+            <div class="dados-aluno">
+                <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
                 <b>ESTUDANTE:</b> ${nomeCompleto}<br>
-                <b>PROFESSOR(A):</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ETAPA:</b> ${fase} | <b>PERÍODO:</b> ${periodo}
+                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
-            <div class="paragrafo">
-                Fundamentado nas diretrizes da Base Nacional Comum Curricular (BNCC) e nas observações sistemáticas do percurso educativo, apresentamos este relatório que reflete as vivências e conquistas da criança neste período.
-            </div>
-            <div class="paragrafo">${corpoTexto}</div>
-            <div class="paragrafo">
-                As experiências descritas foram planejadas para garantir os direitos de aprendizagem (conviver, brincar, participar, explorar, expressar e conhecer-se), assegurando a <b>${primeiroNome}</b> um ambiente de desenvolvimento respeitoso e humanizado. Reafirmamos nosso compromisso em florescer cada potencial em parceria com a família.
-            </div>
-            <div style="text-align:right; margin-top:30px;">${cidade}, ${dataAtual}</div>
+            <div class="tit-rel">PARECER PEDAGÓGICO DE DESENVOLVIMENTO - ${periodo}</div>
+            <div class="paragrafo">Fundamentado nas diretrizes da BNCC e nas observações diárias, apresentamos o percurso educativo do(a) estudante. Durante este ciclo, observamos que:</div>
+            <div class="paragrafo">${textoBNCC}</div>
+            <div class="paragrafo">As experiências descritas foram planejadas para garantir os direitos de aprendizagem (conviver, brincar, participar, explorar, expressar e conhecer-se), assegurando a <b>${primeiroNome}</b> um ambiente de desenvolvimento integral e humanizado.</div>
+            <div style="text-align:right; margin-top:40px;">${document.getElementById('cidade').value}, ${dataExtenso}.</div>
             <div class="assinaturas">
-                <div class="campo-ass">Assinatura do Docente</div>
-                <div class="campo-ass">Equipe Gestora/Coordenação</div>
+                <div class="bloco-ass">Assinatura do Docente</div>
+                <div class="bloco-ass">Coordenação Pedagógica</div>
             </div>
         `;
-
         document.getElementById('editor').style.display = 'block';
         setTimeout(() => { window.print(); }, 500);
     }
 
-    montarCampos();
+    iniciar();
 </script>
 </body>
 </html>
