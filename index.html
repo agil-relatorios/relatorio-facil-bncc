@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CONTAÊ PROFE - Premium v3</title>
+    <title>CONTAÊ PROFE - Premium v3.1</title>
     <style>
         :root { 
             --primaria: #ff4757; --azul: #1e90ff; --bg: #f8f9fa; --texto: #2f3542; --branco: #ffffff;
             --cor-inicial: #e74c3c; --cor-processo: #f1c40f; --cor-avancado: #2ecc71; 
         }
         
-        /* CAMADA ANTI-FLUTUAÇÃO E TRAVA DE TELA */
         html, body { 
-            overflow-x: hidden; 
-            position: relative;
-            height: 100%;
-            width: 100%;
-            overscroll-behavior-y: contain; /* Impede o "puxar para atualizar" que quebra o app */
+            overflow-x: hidden; position: relative; height: 100%; width: 100%;
+            overscroll-behavior-y: contain;
         }
 
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--texto); margin: 0; padding: 0; }
-        
         header { background: var(--primaria); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
         .icon-book { width: 35px; height: 25px; border: 3px solid #ffeaa7; border-radius: 4px; position: relative; }
@@ -32,7 +27,6 @@
         #btn-ajuda-master { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--azul); color: white; border-radius: 50%; border: none; font-size: 30px; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 
         .container { max-width: 900px; width: 92%; margin: 20px auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); box-sizing: border-box; }
-        
         .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 25px; }
         label { font-weight: bold; font-size: 0.7rem; text-transform: uppercase; color: #57606f; margin-bottom: 5px; display: block; }
         input, select { padding: 12px; border: 2px solid #edeff2; border-radius: 10px; font-size: 0.95rem; width: 100%; box-sizing: border-box; text-transform: uppercase; }
@@ -55,12 +49,6 @@
         .btn-acao { width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
-        .btn-instalar { background: #2f3542; color: white; font-size: 0.8rem; padding: 10px; }
-
-        /* TUTORIAL DE INSTALAÇÃO MODAL */
-        #modal-instalar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
-        .step { margin: 15px 0; font-size: 0.9rem; text-align: left; }
 
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
@@ -70,9 +58,6 @@
         
         .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
-        .bloco-full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
         @media print {
             @page { size: A4; margin: 0; }
@@ -82,17 +67,6 @@
     </style>
 </head>
 <body>
-
-<div id="modal-instalar" class="no-print">
-    <div class="modal-content">
-        <h3>📲 Como instalar no Celular</h3>
-        <div class="step"><b>No iPhone (Safari):</b> Clique no ícone de compartilhar (quadrado com seta) e escolha "Adicionar à Tela de Início".</div>
-        <div class="step"><b>No Android (Chrome):</b> Clique nos 3 pontinhos no canto superior e selecione "Instalar Aplicativo".</div>
-        <button onclick="fecharModal()" class="btn-acao btn-gerar">ENTENDI</button>
-    </div>
-</div>
-
-<button id="btn-ajuda-master" class="no-print" onclick="alert('DICA: Clique no (?) azul em cada campo para ver o critério de avaliação da cor!')">?</button>
 
 <header class="no-print">
     <div class="logo-container">
@@ -108,6 +82,12 @@
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
+        <div class="campo"><label>Gênero</label>
+            <select id="genero">
+                <option value="M">O ALUNO (MASCULINO)</option>
+                <option value="F">A ALUNA (FEMININO)</option>
+            </select>
+        </div>
         <div class="campo"><label>Fase</label>
             <select id="fase">
                 <option value="1º PERÍODO">1º PERÍODO</option>
@@ -121,8 +101,6 @@
                 <option value="2º BIMESTRE">2º BIMESTRE</option>
                 <option value="3º BIMESTRE">3º BIMESTRE</option>
                 <option value="4º BIMESTRE">4º BIMESTRE</option>
-                <option value="1º SEMESTRE">1º SEMESTRE</option>
-                <option value="2º SEMESTRE">2º SEMESTRE</option>
             </select>
         </div>
     </div>
@@ -132,54 +110,162 @@
     <div class="btn-container no-print">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO</button>
         <button onclick="novoAluno()" class="btn-acao btn-novo">👤 NOVO ALUNO</button>
-        <button onclick="abrirModal()" class="btn-acao btn-instalar">📲 INSTALAR APP NO CELULAR</button>
     </div>
 </div>
 
 <div id="editor" contenteditable="true"></div>
 
 <script>
-    // CÉREBRO DE VARIAÇÕES - Banco de dados com evolução por período
     const dbRelatorios = [
-        { t: "1. O EU, O OUTRO E O NÓS", 
-          frases: { 
-            ini: "necessita de apoio constante para se integrar e estabelecer vínculos afetivos com o grupo.", 
-            pro: "já interage bem com os pares, demonstrando empatia em momentos de brincadeiras mediadas.", 
-            ava: "demonstra plena segurança e autonomia nas relações sociais, resolvendo conflitos com diálogo." 
-          },
-          conectivos: ["Além disso, ", "No que tange ao convívio, ", "Quanto às relações sociais, "]
+        {
+            t: "1. O EU, O OUTRO E O NÓS",
+            fases: {
+                "1º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["apresentou-se em fase de acolhimento, buscando segurança no novo ambiente e apoio constante da professora.", "demonstrou necessidade de mediação frequente para interagir com os colegas e estabelecer vínculos iniciais."],
+                        pro: ["demonstrou curiosidade pelo espaço escolar e iniciou a construção de vínculos afetivos de forma gradativa.", "interage bem com os pares quando estimulado(a), demonstrando alegria nas rodas de conversa."],
+                        ava: ["adaptou-se prontamente à rotina, demonstrando autoconfiança e iniciativa nas interações sociais desde os primeiros dias."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["consolidou sua identidade no grupo e hoje participa das vivências coletivas com confiança mediada.", "respeita as regras de convivência e expressa seus sentimentos de forma mais clara ao grupo."],
+                        pro: ["demonstra autonomia ao resolver pequenos conflitos e partilha brinquedos e espaços com empatia.", "atua de forma colaborativa, valorizando a presença dos colegas em todas as atividades propostas."],
+                        ava: ["conclui o ano com excelente maturidade social, agindo com liderança positiva e profundo respeito pela diversidade do grupo."]
+                    }
+                },
+                "2º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["reintegrou-se ao ambiente escolar buscando retomar vínculos e a compreensão das novas rotinas do grupo.", "demonstra sensibilidade ao lidar com as emoções, requerendo mediação para se expressar com segurança."],
+                        pro: ["iniciou o ano com entusiasmo, demonstrando segurança ao expor suas ideias e acolher as propostas coletivas.", "interage de forma respeitosa, reconhecendo a importância dos combinados para o bem-estar de todos."],
+                        ava: ["exibe excelente adaptação e protagonismo, estabelecendo acordos de convivência de forma autônoma e justa."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["finaliza esta etapa demonstrando maior segurança emocional e respeito às vivências coletivas.", "aprimorou sua capacidade de cooperação, atuando em equipe com mediação pontual e assertiva."],
+                        pro: ["demonstra plena consciência de suas ações e do impacto delas no coletivo, agindo com crescente autonomia.", "atua como mediador entre os colegas, sugerindo soluções criativas para desafios de convivência."],
+                        ava: ["encerra o ciclo com um desenvolvimento socioemocional exemplar, sendo referência de empatia e ética para a turma."]
+                    }
+                }
+            },
+            conectivos: ["Além disso, ", "No que tange ao convívio social, ", "Quanto às relações com os pares, ", "Vale destacar que, no convívio coletivo, "]
         },
-        { t: "2. CORPO, GESTOS E MOVIMENTOS", 
-          frases: { 
-            ini: "iniciou a exploração do espaço físico, desenvolvendo gradualmente sua confiança motora.", 
-            pro: "apresenta boa agilidade e equilíbrio, participando ativamente de atividades de movimento.", 
-            ava: "domina diversas formas de expressão corporal, demonstrando agilidade e consciência espacial." 
-          },
-          conectivos: ["Em relação ao desenvolvimento motor, ", "Vale destacar que, no campo motor, ", "Sobre suas habilidades corporais, "]
+        {
+            t: "2. CORPO, GESTOS E MOVIMENTOS",
+            fases: {
+                "1º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["iniciou a exploração do espaço físico de forma cautelosa, desenvolvendo gradualmente sua confiança motora.", "demonstra necessidade de suporte para participar de atividades que envolvam grandes movimentos."],
+                        pro: ["participa com interesse de circuitos motores, demonstrando boa coordenação em atividades lúdicas.", "explora as possibilidades do corpo através da dança e do movimento com alegria e curiosidade."],
+                        ava: ["apresenta excelente agilidade e consciência espacial, dominando movimentos complexos com naturalidade."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["demonstra avanços na coordenação motora fina e ampla, participando das atividades com mais segurança.", "utiliza o corpo para se expressar em brincadeiras de faz-de-conta com crescente autonomia."],
+                        pro: ["possui bom equilíbrio e coordenação, realizando tarefas que exigem precisão manual com destreza.", "movimenta-se com autonomia em diferentes ritmos, acompanhando músicas e comandos sonoros."],
+                        ava: ["domina diversas formas de expressão corporal, demonstrando agilidade, força e consciência de suas capacidades."]
+                    }
+                },
+                "2º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["retomou as atividades motoras com disposição, explorando novos limites de equilíbrio e força.", "demonstra cuidado com o próprio corpo e com o do outro durante as vivências coletivas."],
+                        pro: ["apresenta agilidade e coordenação em atividades de salto, corrida e lançamentos, seguindo comandos complexos.", "expressa-se corporalmente com criatividade, utilizando gestos para narrar histórias e emoções."],
+                        ava: ["exibe um desenvolvimento psicomotor maduro, agindo com precisão manual e excelente domínio espacial."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["consolidou habilidades de coordenação fina, sendo capaz de manusear diversos materiais com segurança.", "demonstra consciência corporal ao participar de jogos e brincadeiras que exigem estratégia física."],
+                        pro: ["finaliza o ano demonstrando agilidade e harmonia em seus movimentos, tanto em espaços abertos quanto em sala.", "coordena com precisão o uso de tesouras, pincéis e lápis, demonstrando maturação motora."],
+                        ava: ["encerra o ciclo com pleno domínio de suas capacidades físicas, agindo com destreza, ritmo e autonomia motora."]
+                    }
+                }
+            },
+            conectivos: ["Em relação ao desenvolvimento motor, ", "No que se refere às habilidades corporais, ", "Vale pontuar que, no campo motor, ", "Sobre suas vivências físicas, "]
         },
-        { t: "3. TRAÇOS, SONS, CORES E FORMAS", 
-          frases: { 
-            ini: "experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial.", 
-            pro: "consegue utilizar cores e traços para expressar sua criatividade de forma autêntica.", 
-            ava: "manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas." 
-          },
-          conectivos: ["No campo das artes, ", "Em suas expressões artísticas, ", "Quanto à criatividade, "]
+        {
+            t: "3. TRAÇOS, SONS, CORES E FORMAS",
+            fases: {
+                "1º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["experimenta diferentes materiais artísticos sob mediação, demonstrando curiosidade sensorial e visual.", "está em fase de descoberta de sons e ritmos, participando das vivências musicais com atenção."],
+                        pro: ["demonstra interesse em criar produções próprias, utilizando cores e traços de forma espontânea.", "aprecia ouvir diferentes gêneros musicais, acompanhando o ritmo com palmas e movimentos."],
+                        ava: ["manifesta sensibilidade estética singular, criando produções artísticas ricas e detalhadas desde o início."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["ampliou seu repertório artístico, utilizando diversas técnicas de pintura e modelagem com segurança.", "reconhece diferentes sons do cotidiano e demonstra preferência por determinados instrumentos musicais."],
+                        pro: ["consegue expressar suas ideias através de desenhos e colagens, demonstrando cuidado estético.", "participa ativamente de momentos de expressão artística, explorando cores e texturas com autonomia."],
+                        ava: ["conclui o ano com produções criativas sofisticadas, demonstrando domínio de cores e formas com autonomia."]
+                    }
+                },
+                "2º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["iniciou o ano explorando novas técnicas de arte visual, demonstrando foco e curiosidade estética.", "demonstra percepção auditiva aguçada ao identificar diferentes instrumentos e ritmos musicais."],
+                        pro: ["cria composições artísticas utilizando variados suportes e ferramentas com crescente destreza.", "interage com obras de arte e manifestações culturais com respeito e interesse genuíno."],
+                        ava: ["exibe forte veia criativa, produzindo trabalhos originais que expressam seus sentimentos e visão de mundo."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["consolidou sua capacidade de expressão artística, utilizando traços e cores de forma intencional.", "identifica e reproduz sequências sonoras complexas, demonstrando maturação da percepção auditiva."],
+                        pro: ["finaliza o ciclo demonstrando sensibilidade artística e domínio de diferentes linguagens visuais.", "cria cenários e adereços para brincadeiras, integrando cores e formas com muita criatividade."],
+                        ava: ["encerra o ano como uma criança capaz de apreciar e produzir arte com técnica, emoção e pleno protagonismo."]
+                    }
+                }
+            },
+            conectivos: ["Quanto à expressão artística, ", "No campo da sensibilidade estética, ", "Sobre suas produções e criatividade, ", "Já no universo das artes e sons, "]
         },
-        { t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-          frases: { 
-            ini: "comunica desejos básicos e amplia seu vocabulário através da contação de histórias.", 
-            pro: "organiza o pensamento com clareza, participando das rodas com relatos sobre sua rotina.", 
-            ava: "expressa ideias complexas com fluidez e demonstra forte curiosidade pelo mundo da escrita." 
-          },
-          conectivos: ["Já na área da linguagem, ", "No que se refere à comunicação, ", "Sobre a fala e escuta, "]
+        {
+            t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO",
+            fases: {
+                "1º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["comunica seus desejos e necessidades básicas, ampliando seu vocabulário através da contação de histórias.", "demonstra atenção ao ouvir narrativas, participando com interrupções curiosas e pertinentes."],
+                        pro: ["organiza o pensamento com clareza inicial, relatando fatos simples de sua rotina ao grupo.", "demonstra grande interesse por livros e imagens, manuseando-os com cuidado e curiosidade."],
+                        ava: ["expressa ideias e sentimentos com fluidez, participando ativamente de rodas de conversa e debates."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["demonstra avanços na oratória, sendo capaz de recontar histórias curtas com sequência lógica.", "reconhece o próprio nome e demonstra curiosidade pela escrita espontânea de palavras familiares."],
+                        pro: ["formula perguntas complexas sobre temas do cotidiano, demonstrando sede de conhecimento e imaginação.", "interage com diversos gêneros textuais, demonstrando compreensão e gosto pela leitura mediada."],
+                        ava: ["conclui o ciclo demonstrando excelente fluência verbal e forte engajamento com o mundo da escrita e leitura."]
+                    }
+                },
+                "2º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["retomou o contato com a literatura demonstrando boa memória auditiva e interesse em novos vocábulos.", "expressa-se verbalmente com clareza, utilizando a fala para negociar e resolver situações de jogo."],
+                        pro: ["demonstra hipóteses iniciais de escrita, interessando-se pela grafia de palavras significativas.", "relata vivências com riqueza de detalhes, demonstrando organização de pensamento e repertório."],
+                        ava: ["exibe um vocabulário amplo e articula pensamentos abstratos com facilidade e criatividade narrativa."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["consolidou sua capacidade de argumentação, defendendo seus pontos de vista com respeito e clareza.", "reconhece as letras do alfabeto e demonstra segurança ao realizar tentativas de escrita autônoma."],
+                        pro: ["finaliza o ano com forte protagonismo na comunicação, sendo capaz de produzir narrativas coerentes e ricas.", "demonstra pleno entendimento das funções da escrita social, produzindo registros com intencionalidade."],
+                        ava: ["encerra o ciclo com uma base sólida de letramento e comunicação, preparado(a) para novos desafios acadêmicos."]
+                    }
+                }
+            },
+            conectivos: ["No que se refere à linguagem e comunicação, ", "Já na área da fala e do pensamento imagético, ", "Em relação ao letramento e escuta, ", "Vale destacar, sobre a comunicação verbal, "]
         },
-        { t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-          frases: { 
-            ini: "está em processo de percepção das noções temporais e espaciais através do concreto.", 
-            pro: "relaciona quantidades e identifica sequências lógicas no cotidiano com crescente autonomia.", 
-            ava: "resolve situações-problema matemáticas e lógicas com raciocínio rápido e assertivo." 
-          },
-          conectivos: ["Por fim, quanto ao raciocínio lógico, ", "No campo das relações espaciais e temporais, ", "Encerrando, sobre noções de tempo e espaço, "]
+        {
+            t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES",
+            fases: {
+                "1º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["está em processo de percepção das noções espaciais básico (dentro/fora) através do brincar concreto.", "demonstra curiosidade por fenômenos naturais, como o clima e o crescimento das plantas."],
+                        pro: ["identifica sequências lógicas simples e relaciona quantidades a números de forma mediada.", "reconhece a rotina escolar, compreendendo os momentos de lanche, brincar e repouso."],
+                        ava: ["resolve pequenas situações-problema matemáticas com raciocínio lógico rápido e assertivo."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["demonstra compreensão de conceitos temporais (ontem/hoje) e espaciais com segurança.", "classifica objetos por cores e tamanhos, demonstrando organização e pensamento lógico."],
+                        pro: ["relaciona números às suas respectivas quantidades com autonomia, participando de contagens coletivas.", "interessa-se por transformações da natureza e demonstra cuidado com o meio ambiente."],
+                        ava: ["conclui o ciclo com excelente raciocínio matemático e curiosidade científica sobre o mundo ao redor."]
+                    }
+                },
+                "2º PERÍODO": {
+                    "1º BIMESTRE": {
+                        ini: ["retomou o contato com noções de medida e tempo, demonstrando boa memória de fatos passados.", "explora o espaço físico com segurança, reconhecendo mapas simples e trajetos na escola."],
+                        pro: ["identifica e nomeia formas geométricas e relações de ordem, como maior, menor e igual.", "demonstra interesse em registrar quantidades e realizar operações simples de adição e subtração lúdica."],
+                        ava: ["exibe raciocínio lógico-matemático avançado, resolvendo desafios complexos com persistência."]
+                    },
+                    "4º BIMESTRE": {
+                        ini: ["consolidou a percepção de tempo e espaço, compreendendo calendários e medidas de forma prática.", "demonstra consciência sobre a importância da preservação ambiental e das relações entre seres vivos."],
+                        pro: ["finaliza o ano com autonomia para realizar contagens e registros matemáticos com precisão e clareza.", "compara diferentes informações e tira conclusões lógicas, agindo com pensamento crítico."],
+                        ava: ["encerra o ano com pleno domínio de noções lógico-matemáticas e espaciais, agindo com protagonismo científico."]
+                    }
+                }
+            },
+            conectivos: ["Por fim, quanto ao raciocínio lógico e noções de tempo, ", "No campo das relações espaciais e quantidades, ", "Sobre a percepção do mundo e lógica, ", "Encerrando, sobre noções matemáticas e temporais, "]
         }
     ];
 
@@ -187,7 +273,10 @@
         const cont = document.getElementById('campos-bncc');
         dbRelatorios.forEach((item, i) => {
             cont.innerHTML += `
-                <div class="secao-pergunta"><p class="pergunta-texto">${item.t}</p><button class="btn-info" onclick="toggleDica(${i})">?</button></div>
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
+                </div>
                 <div id="dica-${i}" class="dica-pedagogica">
                     <div class="dica-item"><span class="tag-cor" style="background:var(--cor-inicial)">Mediação</span> Nível inicial de desenvolvimento.</div>
                     <div class="dica-item"><span class="tag-cor" style="background:var(--cor-processo)">Processo</span> Em evolução constante.</div>
@@ -201,10 +290,25 @@
         });
     }
 
-    function abrirModal() { document.getElementById('modal-instalar').style.display = 'flex'; }
-    function fecharModal() { document.getElementById('modal-instalar').style.display = 'none'; }
-    function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
-    function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
+    function toggleDica(i) { 
+        const d = document.getElementById(`dica-${i}`); 
+        d.style.display = (d.style.display === 'block') ? 'none' : 'block'; 
+    }
+
+    function marcar(gi, niv) { 
+        const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); 
+        btns.forEach(b => b.classList.remove('active')); 
+        document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); 
+    }
+
+    function ajustarGerais(texto, nome, genero) {
+        let t = texto.replace(/aluno\(a\)/g, genero === 'M' ? 'aluno' : 'aluna');
+        t = t.replace(/adaptado\(a\)/g, genero === 'M' ? 'adaptado' : 'adaptada');
+        t = t.replace(/estimulado\(a\)/g, genero === 'M' ? 'estimulado' : 'estimulada');
+        t = t.replace(/preparado\(a\)/g, genero === 'M' ? 'preparado' : 'preparada');
+        t = t.replace(/seguro\(a\)/g, genero === 'M' ? 'seguro' : 'segura');
+        return t;
+    }
 
     function formatarCidade(cidade) {
         const preposicoes = ["da", "de", "do", "das", "dos", "e"];
@@ -221,17 +325,28 @@
 
     function gerarRelatorioFinal() {
         const periodo = document.getElementById('periodo').value;
+        const fase = document.getElementById('fase').value;
         const nome = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const genero = document.getElementById('genero').value;
         const cidade = formatarCidade(document.getElementById('cidade').value);
         
         let textoBNCC = "";
+        
         dbRelatorios.forEach((item, i) => {
             const btnAtivo = document.querySelector(`#g-${i} .active`);
             if (btnAtivo) {
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
-                // Sorteia um conectivo para cada campo para o texto não ficar igual
+                
+                // Filtro Inteligente: Busca frases pela Fase e pelo Período (ajusta se for semestre ou bimestre)
+                let periodoBusca = (periodo.includes("BIMESTRE")) ? periodo : "4º BIMESTRE"; // Se for semestre, pega a versão final
+                
+                const listaFrases = item.fases[fase][periodoBusca][nivel];
+                const fraseSorteada = listaFrases[Math.floor(Math.random() * listaFrases.length)];
+                
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
-                textoBNCC += `${conect} <b>${nome}</b> ${item.frases[nivel]} `;
+                
+                let frasePronta = `${conect} <b>${nome}</b> ${fraseSorteada} `;
+                textoBNCC += ajustarGerais(frasePronta, nome, genero);
             }
         });
 
@@ -239,8 +354,8 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUNO(A):</b> ${nome}<br>
-                <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
+                <b>${genero === 'M' ? 'ALUNO' : 'ALUNA'}:</b> ${nome}<br>
+                <b>FASE:</b> ${fase} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
@@ -250,7 +365,6 @@
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Diretor</div>
-                <div class="bloco-ass bloco-full">Assinatura do Responsável</div>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
