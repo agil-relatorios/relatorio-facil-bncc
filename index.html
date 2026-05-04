@@ -23,7 +23,7 @@
             margin: 0; padding: 0;
             background: var(--bg); color: var(--texto); font-family: 'Segoe UI', sans-serif;
             width: 100vw; min-height: 100vh; overflow-x: hidden;
-            overscroll-behavior: none;
+            overscroll-behavior: none; /* Evita o efeito flutuante/elástico */
         }
 
         header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; }
@@ -65,12 +65,8 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        /* BOX DE INSTRUÇÃO DENTRO DO APP */
-        .box-instrucao { background: #f1f2f6; border: 1px dashed var(--azul); border-radius: 15px; padding: 15px; margin-top: 30px; font-size: 0.8rem; color: #57606f; }
-        .box-instrucao h4 { margin-top: 0; color: var(--azul); text-transform: uppercase; font-size: 0.75rem; }
-
         #editor { 
-            width: 210mm; min-height: 280mm; margin: 0 auto; background: white; padding: 20mm; 
+            width: 210mm; min-height: 290mm; margin: 0 auto; background: white; padding: 20mm; 
             display: none; color: #000; line-height: 1.5; font-family: 'Times New Roman', serif;
         }
 
@@ -82,15 +78,27 @@
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 5px; text-transform: uppercase; }
         .bloco-ass.full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
 
+        /* AJUSTE PARA EVITAR FOLHA EM BRANCO NA IMPRESSÃO */
         @media print {
             html, body { height: auto; overflow: visible; background: white; }
-            .no-print, header, .container, .box-instrucao { display: none !important; }
+            .no-print, header, .container, #modal-instalar { display: none !important; }
             #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; padding: 10mm !important; page-break-after: avoid; }
             @page { margin: 1cm; size: auto; }
         }
+
+        #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
     </style>
 </head>
 <body>
+
+<div id="modal-instalar" class="no-print">
+    <div class="modal-content">
+        <h3>📲 Instalar Contaê Profe</h3>
+        <p id="inst-texto" style="font-size: 0.9rem; text-align: left;"></p>
+        <button onclick="fecharModalInstalar()" class="btn-acao btn-gerar">PRONTO!</button>
+    </div>
+</div>
 
 <header class="no-print">
     <div class="logo-row">
@@ -139,12 +147,6 @@
     <div style="margin-top: 30px;">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO PDF</button>
         <button onclick="novoAlunoo()" class="btn-acao btn-novo">👤 PRÓXIMO ALUNO</button>
-    </div>
-
-    <!-- INSTRUÇÕES INTEGRADAS AO APP -->
-    <div class="box-instrucao no-print">
-        <h4>📲 Como instalar no seu celular:</h4>
-        <p id="inst-texto"></p>
     </div>
 </div>
 
@@ -227,14 +229,16 @@
         const ua = navigator.userAgent || navigator.vendor || window.opera;
         const inst = document.getElementById('inst-texto');
         if (/iPhone|iPad|iPod/.test(ua)) {
-            inst.innerHTML = "Toque no ícone de <b>Compartilhar</b> e escolha <b>'Adicionar à Tela de Início'</b>.";
+            inst.innerHTML = "1. Toque no ícone de <b>Compartilhar</b> (quadrado com seta).<br>2. Role e escolha <b>'Adicionar à Tela de Início'</b>.<br>3. Assim, o Contaê Profe terá seu próprio ícone!";
         } else {
-            inst.innerHTML = "Toque nos <b>três pontinhos</b> e escolha <b>'Instalar Aplicativo'</b> ou 'Adicionar à Tela Inicial'.";
+            inst.innerHTML = "1. Toque nos <b>três pontinhos</b> do navegador.<br>2. Escolha <b>'Instalar Aplicativo'</b> ou 'Adicionar à Tela Inicial'.";
         }
+        document.getElementById('modal-instalar').style.display = 'flex';
     }
 
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
+    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
 
     function gerarRelatorioFinal() {
         const periodo = document.getElementById('periodo').value;
