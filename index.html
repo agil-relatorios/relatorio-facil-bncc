@@ -3,16 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- Configurações de Aplicativo (PWA / Mobile) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Contaê Profe">
-    
-    <!-- Ícone Gerado Automaticamente com as iniciais CP -->
-    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=CP&background=ff4757&color=fff&size=512&rounded=true">
-    <link rel="icon" href="https://ui-avatars.com/api/?name=CP&background=ff4757&color=fff&size=128&rounded=true">
-
     <title>CONTAÊ PROFE - Premium v3</title>
     <style>
         :root { 
@@ -26,8 +16,6 @@
             margin: 0; padding: 0;
             background: var(--bg); color: var(--texto); font-family: 'Segoe UI', sans-serif;
             width: 100vw; min-height: 100vh; overflow-x: hidden;
-            /* Trava para não flutuar no mobile */
-            overscroll-behavior-y: contain;
         }
 
         header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; }
@@ -73,21 +61,11 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        /* Estilo da Área de PIX e Instruções Internas */
-        .footer-info { margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
-        .pix-box { background: #fff3f3; border: 1px solid var(--primaria); border-radius: 15px; padding: 15px; text-align: center; margin-bottom: 20px; }
-        .pix-title { color: var(--primaria); font-weight: bold; font-size: 0.8rem; margin-bottom: 8px; display: block; }
-        .pix-chave { font-family: monospace; background: white; padding: 8px; border-radius: 5px; border: 1px solid #ddd; font-size: 0.7rem; display: block; word-break: break-all; }
-        
-        .instrucoes-internas { background: #f1f2f6; border-radius: 15px; padding: 15px; font-size: 0.8rem; line-height: 1.4; color: #57606f; }
-        .instrucoes-internas h4 { margin-top: 0; color: var(--azul); font-size: 0.75rem; text-transform: uppercase; }
+        #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
+        .instrucao-box { text-align: left; background: #f8f9fa; padding: 15px; border-radius: 15px; margin: 15px 0; font-size: 0.95rem; line-height: 1.6; }
 
-        /* Edição e Impressão Corrigida */
-        #editor { 
-            width: 210mm; min-height: 297mm; margin: 0 auto; background: white; padding: 20mm; 
-            display: none; color: #000; line-height: 1.6; font-family: 'Times New Roman', serif;
-        }
-
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.6; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 13pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; }
         .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; }
@@ -97,21 +75,22 @@
         .bloco-ass.full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
 
         @media print {
-            @page { size: A4; margin: 1cm; }
-            body { background: white; height: auto; overflow: visible; }
-            .no-print, header, .container, .footer-info { display: none !important; }
-            #editor { 
-                display: block !important; 
-                box-shadow: none; 
-                margin: 0; 
-                width: 100%; 
-                padding: 0 !important; 
-                page-break-after: avoid;
-            }
+            @page { size: A4; margin: 0; }
+            body { background: white; }
+            .no-print, header, .container, #modal-instalar { display: none !important; }
+            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; min-height: 100%; padding: 15mm !important; }
         }
     </style>
 </head>
 <body>
+
+<div id="modal-instalar" class="no-print">
+    <div class="modal-content">
+        <h3 id="inst-titulo">📲 Instalar no Celular</h3>
+        <div class="instrucao-box" id="inst-texto">Detectando dispositivo...</div>
+        <button onclick="fecharModalInstalar()" class="btn-acao btn-gerar">ENTENDI, VAMOS COMEÇAR!</button>
+    </div>
+</div>
 
 <header class="no-print">
     <div class="logo-row">
@@ -160,20 +139,6 @@
     <div style="margin-top: 30px;">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO PDF</button>
         <button onclick="novoAlunoo()" class="btn-acao btn-novo">👤 PRÓXIMO ALUNO</button>
-    </div>
-
-    <!-- ÁREA INTERNA DE PIX E INSTALAÇÃO -->
-    <div class="footer-info no-print">
-        <div class="pix-box">
-            <span class="pix-title">☕ Gostou do App? Me pague um café!</span>
-            <span class="pix-chave">7b36c36d-d1e4-48fc-bef5-a70108c13a03</span>
-            <small style="font-size: 0.6rem; color: #999;">Contribua para manter o projeto online via Mercado Pago</small>
-        </div>
-
-        <div class="instrucoes-internas">
-            <h4>📲 Como colocar na tela do celular:</h4>
-            <p id="inst-texto-final">Detectando sistema...</p>
-        </div>
     </div>
 </div>
 
@@ -230,9 +195,25 @@
     function obterDataExtenso(cidade) {
         const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
         const hoje = new Date();
+        const dia = hoje.getDate();
+        const mes = meses[hoje.getMonth()];
+        const ano = hoje.getFullYear();
         const local = formatarCidade(cidade) || "Brasil";
-        return `${local}, ${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}.`;
+        return `${local}, ${dia < 10 ? '0' + dia : dia} de ${mes} de ${ano}.`;
     }
+
+    function detectDevice() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const instTexto = document.getElementById('inst-texto');
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b>.<br>2. Escolha <b>'Adicionar à Tela de Início'</b>.";
+        } else {
+            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b>.<br>2. Escolha <b>'Instalar Aplicativo'</b>.";
+        }
+        document.getElementById('modal-instalar').style.display = 'flex';
+    }
+
+    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
 
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
@@ -254,15 +235,7 @@
                     <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
                 </div>`;
         });
-
-        // Configura texto de instalação interno
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        const inst = document.getElementById('inst-texto-final');
-        if (/iPad|iPhone|iPod/.test(ua)) {
-            inst.innerHTML = "No iPhone: Toque no ícone de <b>Compartilhar</b> (quadrado com seta) e escolha <b>'Adicionar à Tela de Início'</b>.";
-        } else {
-            inst.innerHTML = "No Android: Toque nos <b>3 pontinhos</b> no topo e escolha <b>'Instalar Aplicativo'</b> ou 'Adicionar à Tela Inicial'.";
-        }
+        detectDevice();
     }
 
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
@@ -273,6 +246,7 @@
         const nomeCompleto = document.getElementById('crianca').value || "A CRIANÇA";
         const primeiroNome = nomeCompleto.split(' ')[0].toUpperCase();
         const genero = document.getElementById('genero').value;
+        const cidade = document.getElementById('cidade').value;
         
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
@@ -297,7 +271,7 @@
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
-            <div style="text-align:center; margin-top:30px; font-size: 11pt;">${obterDataExtenso(document.getElementById('cidade').value)}</div>
+            <div style="text-align:center; margin-top:30px; font-size: 11pt;">${obterDataExtenso(cidade)}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Direção</div>
