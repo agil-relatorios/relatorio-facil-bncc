@@ -66,15 +66,15 @@
 
         footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #747d8c; line-height: 1.6; }
 
-        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 30mm 20mm 20mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.8; }
-        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 14pt; }
-        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-size: 11pt; }
-        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 12pt; }
-        .paragrafo { text-align: justify; text-indent: 1.5cm; margin-bottom: 15px; font-size: 12pt; }
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 20mm 20mm 10mm 25mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; box-sizing: border-box; color: #000; line-height: 1.6; }
+        .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 13pt; }
+        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; line-height: 1.4; }
+        .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; }
+        .paragrafo { text-align: justify; text-indent: 1.2cm; margin-bottom: 10px; font-size: 11pt; }
         
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
-        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 9pt; padding-top: 5px; text-transform: uppercase; }
-        .bloco-full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 5px; text-transform: uppercase; }
+        .bloco-full { grid-column: span 2; width: 50%; margin: 20px auto 0; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -85,8 +85,20 @@
         }
 
         @media print {
+            /* Remove URL, Data e Numeração da página */
+            @page { size: A4; margin: 1cm; }
+            
+            body { background: white; }
             .no-print, #btn-ajuda-master, footer, header, .container, #modal-instalar { display: none !important; }
-            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; }
+            
+            #editor { 
+                display: block !important; 
+                box-shadow: none; 
+                margin: 0; 
+                width: 100%; 
+                min-height: auto;
+                padding: 0 !important;
+            }
         }
     </style>
 </head>
@@ -249,7 +261,7 @@
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
-            <div style="text-align:center; margin-top:50px;">${cidade ? cidade + ', ' : ''}${obterDataExtenso()}</div>
+            <div style="text-align:center; margin-top:40px;">${cidade ? cidade + ', ' : ''}${obterDataExtenso()}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Diretor</div>
@@ -258,7 +270,11 @@
         `;
         document.getElementById('editor').style.display = 'block';
         window.scrollTo(0, document.body.scrollHeight);
-        setTimeout(() => { window.print(); }, 500);
+        
+        // Pequeno delay para garantir renderização antes do print
+        setTimeout(() => { 
+            window.print(); 
+        }, 500);
     }
 
     function novoAluno() {
