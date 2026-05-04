@@ -25,7 +25,6 @@
         .logo { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; margin: 0; letter-spacing: -1px; }
         .logo span { color: #ffeaa7; }
 
-        /* AJUSTE PARA TELA DO CELULAR NÃO FLUTUAR */
         .container { 
             width: 100%; max-width: 900px; margin: 0 auto; 
             background: white; padding: 20px; border-radius: 0; 
@@ -61,7 +60,6 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        /* MODAL DE INSTALAÇÃO */
         #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
         .instrucao-box { text-align: left; background: #f8f9fa; padding: 15px; border-radius: 15px; margin: 15px 0; font-size: 0.95rem; line-height: 1.6; }
@@ -72,26 +70,24 @@
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; }
         .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; }
         .paragrafo { text-align: justify; text-indent: 1.25cm; margin-bottom: 10px; font-size: 11pt; }
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 5px; text-transform: uppercase; }
+        .bloco-ass.full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
 
         @media print {
             @page { size: A4; margin: 0; }
             body { background: white; }
             .no-print, header, .container, #modal-instalar { display: none !important; }
-            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; height: 100%; padding: 15mm !important; }
+            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; min-height: 100%; padding: 15mm !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- MODAL AUTOMÁTICO DE INSTALAÇÃO -->
 <div id="modal-instalar" class="no-print">
     <div class="modal-content">
         <h3 id="inst-titulo">📲 Instalar no Celular</h3>
-        <div class="instrucao-box" id="inst-texto">
-            Detectando dispositivo...
-        </div>
+        <div class="instrucao-box" id="inst-texto">Detectando dispositivo...</div>
         <button onclick="fecharModalInstalar()" class="btn-acao btn-gerar">ENTENDI, VAMOS COMEÇAR!</button>
     </div>
 </div>
@@ -105,7 +101,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio de Janeiro"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio Preto da Erva"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -193,10 +189,10 @@
 
         if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
             instTitulo.innerHTML = "📲 Instalar no iPhone";
-            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b> (quadrado com seta abaixo).<br>2. Role para baixo e toque em <b>'Adicionar à Tela de Início'</b>.<br>3. O App ficará fixo na sua tela como um aplicativo real!";
+            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b>.<br>2. Toque em <b>'Adicionar à Tela de Início'</b>.";
         } else {
             instTitulo.innerHTML = "📲 Instalar no Android";
-            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b> no topo do navegador.<br>2. Escolha a opção <b>'Instalar Aplicativo'</b> ou 'Adicionar à Tela Inicial'.<br>3. Pronto! Use o App em tela cheia sem barras de navegação.";
+            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b>.<br>2. Escolha <b>'Instalar Aplicativo'</b>.";
         }
         document.getElementById('modal-instalar').style.display = 'flex';
     }
@@ -229,13 +225,22 @@
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
 
+    function formatarCidade(cidade) {
+        if (!cidade) return "";
+        const excecoes = ["da", "de", "do", "das", "dos", "e", "em"];
+        return cidade.toLowerCase().split(' ').map((palavra, index) => {
+            if (index > 0 && excecoes.includes(palavra)) return palavra;
+            return palavra.charAt(0).toUpperCase() + palavra.slice(1);
+        }).join(' ');
+    }
+
     function obterDataExtenso(cidade) {
         const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
         const hoje = new Date();
         const dia = hoje.getDate();
         const mes = meses[hoje.getMonth()];
         const ano = hoje.getFullYear();
-        const local = cidade ? cidade.charAt(0).toUpperCase() + cidade.slice(1).toLowerCase() : "Brasil";
+        const local = formatarCidade(cidade) || "Brasil";
         return `${local}, ${dia < 10 ? '0' + dia : dia} de ${mes} de ${ano}.`;
     }
 
@@ -271,8 +276,9 @@
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
             <div style="text-align:center; margin-top:30px; font-size: 11pt;">${obterDataExtenso(cidade)}</div>
             <div class="assinaturas">
-                <div class="bloco-ass">Docente</div>
-                <div class="bloco-ass">Coordenação / Direção</div>
+                <div class="bloco-ass">Assinatura do Docente</div>
+                <div class="bloco-ass">Equipe Pedagógica / Direção</div>
+                <div class="bloco-ass full">Assinatura do Responsável</div>
             </div>
         `;
         document.getElementById('editor').style.display = 'block';
