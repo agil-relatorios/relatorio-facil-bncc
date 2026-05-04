@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- Configurações de Aplicativo (PWA) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Contaê Profe">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
-    
     <title>CONTAÊ PROFE - Premium v3</title>
     <style>
         :root { 
@@ -23,7 +16,6 @@
             margin: 0; padding: 0;
             background: var(--bg); color: var(--texto); font-family: 'Segoe UI', sans-serif;
             width: 100vw; min-height: 100vh; overflow-x: hidden;
-            overscroll-behavior: none; /* Evita o efeito flutuante/elástico */
         }
 
         header { background: var(--primaria); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; }
@@ -37,7 +29,7 @@
         .container { 
             width: 100%; max-width: 900px; margin: 0 auto; 
             background: white; padding: 20px; border-radius: 0; 
-            min-height: calc(100vh - 80px);
+            box-shadow: none; min-height: calc(100vh - 80px);
         }
 
         @media (min-width: 600px) {
@@ -54,6 +46,10 @@
 
         .dica-pedagogica { display: none; background: #f1f2f6; border-radius: 10px; padding: 15px; margin-bottom: 15px; font-size: 0.85rem; border-left: 5px solid var(--azul); line-height: 1.5; }
         .guia-cor { display: inline-block; padding: 2px 8px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.7rem; margin-right: 5px; }
+        .g-ini { background: var(--cor-inicial); }
+        .g-pro { background: var(--cor-processo); color: #000; }
+        .g-ava { background: var(--cor-avancado); }
+
         .grid-botoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 20px; }
         .btn-v { padding: 12px 4px; border: 2px solid #edeff2; border-radius: 10px; cursor: pointer; font-size: 0.6rem; font-weight: bold; text-align: center; background: white; color: #747d8c; }
         .btn-v.active { color: white; border-color: transparent; }
@@ -65,38 +61,34 @@
         .btn-gerar { background: var(--primaria); color: white; }
         .btn-novo { background: #747d8c; color: white; }
 
-        #editor { 
-            width: 210mm; min-height: 290mm; margin: 0 auto; background: white; padding: 20mm; 
-            display: none; color: #000; line-height: 1.5; font-family: 'Times New Roman', serif;
-        }
+        #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
+        .instrucao-box { text-align: left; background: #f8f9fa; padding: 15px; border-radius: 15px; margin: 15px 0; font-size: 0.95rem; line-height: 1.6; }
 
+        #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.6; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 13pt; }
-        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; line-height: 1.8; }
+        .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; }
         .tit-rel { text-align: center; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; font-size: 11pt; }
         .paragrafo { text-align: justify; text-indent: 1.25cm; margin-bottom: 10px; font-size: 11pt; }
-        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .assinaturas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
         .bloco-ass { border-top: 1px solid #000; text-align: center; font-size: 8pt; padding-top: 5px; text-transform: uppercase; }
         .bloco-ass.full { grid-column: span 2; width: 60%; margin: 30px auto 0; }
 
-        /* AJUSTE PARA EVITAR FOLHA EM BRANCO NA IMPRESSÃO */
         @media print {
-            html, body { height: auto; overflow: visible; background: white; }
+            @page { size: A4; margin: 0; }
+            body { background: white; }
             .no-print, header, .container, #modal-instalar { display: none !important; }
-            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; padding: 10mm !important; page-break-after: avoid; }
-            @page { margin: 1cm; size: auto; }
+            #editor { display: block !important; box-shadow: none; margin: 0; width: 100%; min-height: 100%; padding: 15mm !important; }
         }
-
-        #modal-instalar { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div id="modal-instalar" class="no-print">
     <div class="modal-content">
-        <h3>📲 Instalar Contaê Profe</h3>
-        <p id="inst-texto" style="font-size: 0.9rem; text-align: left;"></p>
-        <button onclick="fecharModalInstalar()" class="btn-acao btn-gerar">PRONTO!</button>
+        <h3 id="inst-titulo">📲 Instalar no Celular</h3>
+        <div class="instrucao-box" id="inst-texto">Detectando dispositivo...</div>
+        <button onclick="fecharModalInstalar()" class="btn-acao btn-gerar">ENTENDI, VAMOS COMEÇAR!</button>
     </div>
 </div>
 
@@ -110,7 +102,7 @@
 
 <div class="container no-print">
     <div class="grid-inputs">
-        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Manaus"></div>
+        <div class="campo"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Rio Preto da Erva"></div>
         <div class="campo"><label>Escola</label><input type="text" id="escola"></div>
         <div class="campo"><label>Professor(a)</label><input type="text" id="prof"></div>
         <div class="campo"><label>Criança</label><input type="text" id="crianca"></div>
@@ -203,9 +195,25 @@
     function obterDataExtenso(cidade) {
         const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
         const hoje = new Date();
+        const dia = hoje.getDate();
+        const mes = meses[hoje.getMonth()];
+        const ano = hoje.getFullYear();
         const local = formatarCidade(cidade) || "Brasil";
-        return `${local}, ${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}.`;
+        return `${local}, ${dia < 10 ? '0' + dia : dia} de ${mes} de ${ano}.`;
     }
+
+    function detectDevice() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const instTexto = document.getElementById('inst-texto');
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b>.<br>2. Escolha <b>'Adicionar à Tela de Início'</b>.";
+        } else {
+            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b>.<br>2. Escolha <b>'Instalar Aplicativo'</b>.";
+        }
+        document.getElementById('modal-instalar').style.display = 'flex';
+    }
+
+    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
 
     function iniciar() {
         const cont = document.getElementById('campos-bncc');
@@ -216,8 +224,10 @@
                     <button class="btn-info" onclick="toggleDica(${i})">?</button>
                 </div>
                 <div id="dica-${i}" class="dica-pedagogica">
-                    <strong>Guia:</strong><br>
-                    🔴 Mediação | 🟡 Processo | 🟢 Autonomia
+                    <strong>Guia de Avaliação:</strong><br>
+                    <span class="guia-cor g-ini">MEDIAÇÃO</span> Precisa de auxílio.<br>
+                    <span class="guia-cor g-pro">PROCESSO</span> Em desenvolvimento.<br>
+                    <span class="guia-cor g-ava">AUTONOMIA</span> Realiza sozinho.
                 </div>
                 <div class="grid-botoes" id="g-${i}">
                     <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
@@ -225,26 +235,18 @@
                     <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
                 </div>`;
         });
-
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        const inst = document.getElementById('inst-texto');
-        if (/iPhone|iPad|iPod/.test(ua)) {
-            inst.innerHTML = "1. Toque no ícone de <b>Compartilhar</b> (quadrado com seta).<br>2. Role e escolha <b>'Adicionar à Tela de Início'</b>.<br>3. Assim, o Contaê Profe terá seu próprio ícone!";
-        } else {
-            inst.innerHTML = "1. Toque nos <b>três pontinhos</b> do navegador.<br>2. Escolha <b>'Instalar Aplicativo'</b> ou 'Adicionar à Tela Inicial'.";
-        }
-        document.getElementById('modal-instalar').style.display = 'flex';
+        detectDevice();
     }
 
     function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
     function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
-    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
 
     function gerarRelatorioFinal() {
         const periodo = document.getElementById('periodo').value;
         const nomeCompleto = document.getElementById('crianca').value || "A CRIANÇA";
         const primeiroNome = nomeCompleto.split(' ')[0].toUpperCase();
         const genero = document.getElementById('genero').value;
+        const cidade = document.getElementById('cidade').value;
         
         let textoBNCC = "";
         dbRelatorios.forEach((item, i) => {
@@ -269,7 +271,7 @@
             <div class="paragrafo">Apresentamos o parecer pedagógico fundamentado nas observações diárias e nos direitos de aprendizagem previstos pela BNCC. Durante o período letivo, observamos que:</div>
             <div class="paragrafo">${textoBNCC}</div>
             <div class="paragrafo">Finalizamos este ciclo com a certeza de grandes avanços, reafirmando o compromisso de oferecer as melhores experiências para o florescer de cada potencial.</div>
-            <div style="text-align:center; margin-top:30px;">${obterDataExtenso(document.getElementById('cidade').value)}</div>
+            <div style="text-align:center; margin-top:30px; font-size: 11pt;">${obterDataExtenso(cidade)}</div>
             <div class="assinaturas">
                 <div class="bloco-ass">Assinatura do Docente</div>
                 <div class="bloco-ass">Equipe Pedagógica / Direção</div>
