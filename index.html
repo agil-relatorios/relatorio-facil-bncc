@@ -64,7 +64,6 @@
         .modal-content { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; }
         .instrucao-box { text-align: left; background: #f8f9fa; padding: 15px; border-radius: 15px; margin: 15px 0; font-size: 0.95rem; line-height: 1.6; }
 
-        /* IMPRESSÃO */
         #editor { width: 210mm; min-height: 297mm; margin: 40px auto; background: white; padding: 20mm; box-shadow: 0 0 20px rgba(0,0,0,0.1); display: none; color: #000; line-height: 1.6; }
         .esc-nome { font-weight: bold; text-align: center; margin-bottom: 15px; text-transform: uppercase; font-size: 13pt; }
         .dados-aluno { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px; text-transform: uppercase; font-size: 10pt; }
@@ -137,7 +136,7 @@
 
     <div style="margin-top: 30px;">
         <button onclick="gerarRelatorioFinal()" class="btn-acao btn-gerar">📝 GERAR RELATÓRIO PDF</button>
-        <button onclick="novoAluno()" class="btn-acao btn-novo">👤 PRÓXIMO ALUNO</button>
+        <button onclick="novoAlunoo()" class="btn-acao btn-novo">👤 PRÓXIMO ALUNO</button>
     </div>
 </div>
 
@@ -147,83 +146,40 @@
     const dbRelatorios = [
         { 
             t: "1. O EU, O OUTRO E O NÓS", 
-            ini: ["demonstra necessidade de mediação constante para interagir com o grupo, estando em fase de adaptação social.", "requer suporte pedagógico para estabelecer vínculos afetivos e compartilhar espaços.", "está desenvolvendo gradualmente a percepção do 'outro', solicitando auxílio para mediar pequenos conflitos."],
-            pro: ["já manifesta iniciativa nas interações sociais, demonstrando empatia e respeito às normas.", "interage de forma colaborativa, participando de brincadeiras com crescente segurança.", "demonstra sentimentos de cuidado com os colegas, expressando-se com clareza em momentos de partilha."],
-            ava: ["atua com plena liderança e empatia, resolvendo conflitos interpessoais de forma dialógica.", "demonstra uma percepção refinada de si e do coletivo, respeitando a diversidade com naturalidade.", "possui vínculos afetivos sólidos, agindo como agente facilitador nas atividades de cooperação."],
-            conectivos: ["No que tange ao convívio social, ", "Quanto ao campo 'O Eu, o Outro e o Nós', ", "No âmbito das relações interpessoais, "]
+            ini: ["demonstra necessidade de mediação constante para interagir com o grupo, estando em fase de adaptação social.", "requer suporte pedagógico para estabelecer vínculos afetivos e compartilhar espaços de vivência coletiva.", "está desenvolvendo gradualmente a percepção do 'outro', solicitando auxílio docente para mediar pequenos conflitos cotidianos."],
+            pro: ["já manifesta iniciativa nas interações sociais, demonstrando empatia e respeito às normas de convivência.", "interage de forma colaborativa, participando de brincadeiras e propostas em grupo com crescente segurança.", "demonstra sentimentos de cuidado com os pares, expressando-se com clareza em momentos de partilha e diálogo."],
+            ava: ["atua com plena liderança e empatia, resolvendo conflitos interpessoais de forma dialógica e autônoma.", "demonstra uma percepção refinada de si e do coletivo, respeitando a diversidade com naturalidade e acolhimento.", "possui vínculos afetivos sólidos, agindo como agente facilitador nas atividades de cooperação e ajuda mútua."],
+            conectivos: ["No que tange ao convívio social, ", "Quanto ao campo 'O Eu, o Outro e o Nós', ", "No âmbito das relações interpessoais, ", "Considerando o desenvolvimento socioafetivo, "]
         },
         { 
             t: "2. CORPO, GESTOS E MOVIMENTOS", 
-            ini: ["está explorando suas possibilidades motoras, necessitando de estímulo para ampliar sua consciência corporal.", "demonstra cautela em atividades de equilíbrio, em pleno processo de maturação motora.", "iniciou a descoberta dos sentidos, requerendo apoio em circuitos que demandam agilidade física."],
-            pro: ["demonstra controle corporal e coordenação em desenvolvimento, participando ativamente de desafios.", "apresenta boa agilidade e consciência do corpo no espaço, executando movimentos rítmicos.", "consegue coordenar gestos e movimentos em atividades de expressão corporal e imitação."],
-            ava: ["domina com excelência sua motricidade ampla e fina, demonstrando precisão e equilíbrio.", "manifesta uma consciência espacial admirável, movendo-se com autonomia em diversos contextos.", "expressa-se corporalmente de forma coordenada, superando desafios com facilidade e confiança."],
-            conectivos: ["Em relação ao desenvolvimento motor, ", "No que concerne às habilidades corporais, ", "Vale destacar que, no campo motor, "]
+            ini: ["está explorando suas possibilidades motoras, necessitando de estímulo para ampliar sua consciência corporal.", "demonstra cautela em atividades de equilíbrio, encontrando-se em pleno processo de maturação motora e espacial.", "iniciou a descoberta dos sentidos e limites do corpo, requerendo apoio em circuitos que demandam agilidade."],
+            pro: ["demonstra controle corporal e coordenação em desenvolvimento, participando ativamente de desafios físicos.", "apresenta boa agilidade e consciência do corpo no espaço, executando movimentos rítmicos com harmonia.", "consegue coordenar gestos e movimentos em atividades de expressão corporal, imitação e dança."],
+            ava: ["domina com excelência sua motricidade ampla e fina, demonstrando precisão, equilíbrio e força.", "manifesta uma consciência espacial admirável, movendo-se com total autonomia em diversos contextos e terrenos.", "expressa-se corporalmente de forma coordenada, superando desafios motores com facilidade e confiança."],
+            conectivos: ["Em relação ao desenvolvimento motor, ", "No que concerne às habilidades corporais, ", "Vale destacar que, no campo motor, ", "Observamos que, em termos de motricidade, "]
         },
         { 
             t: "3. TRAÇOS, SONS, CORES E FORMAS", 
-            ini: ["experimenta materiais artísticos sob supervisão, demonstrando curiosidade tátil inicial.", "está em fase de descoberta de sons e cores, solicitando mediação para explorar instrumentos.", "demonstra interesse por produções culturais, iniciando registros por meio de garatujas livres."],
-            pro: ["utiliza cores e sons para expressar sua subjetividade, criando produções com intenção estética.", "demonstra sensibilidade musical e coordenação ao manipular materiais de artes visuais.", "explora diversas linguagens artísticas, identificando e reproduzindo padrões sonoros e visuais."],
-            ava: ["manifesta uma criatividade singular, produzindo obras ricas em detalhes e significados.", "demonstra refinada percepção estética e sonora, criando com diversos suportes e linguagens.", "atua de forma protagonista nas produções artísticas, dominando técnicas com autonomia."],
-            conectivos: ["No que diz respeito à sensibilidade artística, ", "Quanto às expressões culturais, ", "No campo da criatividade e artes, "]
+            ini: ["experimenta materiais artísticos sob supervisão, demonstrando curiosidade tátil inicial por texturas e cores.", "está em fase de descoberta de sons e ritmos, solicitando mediação para explorar instrumentos variados.", "demonstra interesse por produções culturais, iniciando seus registros autorais por meio de garatujas livres."],
+            pro: ["utiliza cores e sons para expressar sua subjetividade, criando produções com clara intenção estética.", "demonstra sensibilidade musical e coordenação ao manipular materiais diversos de artes visuais.", "explora diversas linguagens artísticas, identificando e reproduzindo padrões sonoros e visuais com interesse."],
+            ava: ["manifesta uma criatividade singular, produzindo obras ricas em detalhes, significados e combinações.", "demonstra refinada percepção estética e sonora, criando com diversos suportes, ferramentas e linguagens.", "atua de forma protagonista nas produções artísticas, dominando técnicas e conceitos com autonomia criativa."],
+            conectivos: ["No que diz respeito à sensibilidade artística, ", "Quanto às expressões culturais e estéticas, ", "No campo da criatividade e das artes, ", "Em se tratando da exploração de cores e formas, "]
         },
         { 
             t: "4. ESCUTA, FALA, PENSAMENTO E IMAGINAÇÃO", 
-            ini: ["está ampliando seu repertório vocabulário, utilizando gestos para comunicar desejos.", "demonstra interesse por narrativas, permanecendo em fase de estruturação do pensamento oral.", "iniciou o contato com o suporte escrito através da mediação e curiosidade pelas letras."],
-            pro: ["comunica-se com clareza, relatando fatos e histórias com sequência lógica e boa articulação.", "demonstra grande interesse pelo mundo da escrita, reconhecendo seu nome em contextos diversos.", "participa ativamente de rodas de conversa, expressando opiniões e escutando os colegas."],
-            ava: ["expressa ideias complexas com fluidez, demonstrando um pensamento imaginativo estruturado.", "possui uma relação madura com a linguagem escrita, sendo capaz de criar narrativas ricas.", "demonstra protagonismo na comunicação, utilizando a linguagem como ferramenta de descoberta."],
-            conectivos: ["Sobre a área da linguagem, ", "No que se refere à escuta e à fala, ", "No âmbito do pensamento e imaginação, "]
+            ini: ["está ampliando seu repertório vocabular, utilizando gestos e palavras isoladas para comunicar desejos.", "demonstra interesse por narrativas, permanecendo em fase de estruturação do pensamento oral e sequencial.", "iniciou o contato com o suporte escrito através da mediação e curiosidade latente pelas letras e símbolos."],
+            pro: ["comunica-se com clareza, relatando fatos e histórias com sequência lógica e boa articulação verbal.", "demonstra grande interesse pelo mundo da escrita, reconhecendo seu nome e grafias em contextos diversos.", "participa ativamente de rodas de conversa, expressando opiniões e mantendo uma escuta atenta aos colegas."],
+            ava: ["expressa ideias complexas com fluidez, demonstrando um pensamento imaginativo estruturado e crítico.", "possui uma relação madura com a linguagem escrita, sendo capaz de criar narrativas ricas e coesas.", "demonstra protagonismo na comunicação, utilizando a linguagem como ferramenta essencial de descoberta e interação."],
+            conectivos: ["Sobre a área da linguagem e comunicação, ", "No que se refere à escuta e à fala, ", "No âmbito do pensamento e imaginação, ", "Tocante à competência comunicativa, "]
         },
         { 
             t: "5. ESPAÇO, TEMPO, QUANTIDADES E RELAÇÕES", 
-            ini: ["está começando a perceber noções de tempo e espaço por meio da rotina mediada.", "demonstra curiosidade por quantidades, necessitando de apoio para realizar contagens básicas.", "explora o ambiente, solicitando auxílio para compreender relações de causa e efeito."],
-            pro: ["identifica relações espaciais com segurança, organizando-se bem dentro da rotina.", "consegue relacionar números a quantidades e realizar classificações com autonomia crescente.", "demonstra curiosidade científica, formulando hipóteses sobre fenômenos naturais."],
-            ava: ["resolve situações-problema matemáticas com raciocínio rápido, assertivo e autônomo.", "domina plenamente conceitos de lateralidade e temporalidade, aplicando-os com excelência.", "manifesta um espírito investigativo apurado, relacionando conhecimentos a novas descobertas."],
-            conectivos: ["Por fim, quanto ao raciocínio lógico, ", "Encerrando, no que tange às quantidades, ", "No campo das descobertas matemáticas, "]
+            ini: ["está começando a perceber noções de tempo e espaço por meio da rotina mediada e vivências diárias.", "demonstra curiosidade por quantidades, necessitando de apoio pedagógico para realizar contagens básicas.", "explora o ambiente físico, solicitando auxílio para compreender relações simples de causa e efeito."],
+            pro: ["identifica relações espaciais com segurança, organizando-se com eficácia dentro da rotina escolar.", "consegue relacionar números a quantidades e realizar classificações lógicas com autonomia crescente.", "demonstra curiosidade científica, formulando hipóteses coerentes sobre fenômenos naturais e sociais."],
+            ava: ["resolve situações-problema matemáticas com raciocínio rápido, assertivo e totalmente autônomo.", "domina plenamente conceitos de lateralidade, temporalidade e medida, aplicando-os com excelência.", "manifesta um espírito investigativo apurado, relacionando conhecimentos prévios a novas descobertas científicas."],
+            conectivos: ["Por fim, quanto ao raciocínio lógico-matemático, ", "Encerrando, no que tange às relações e quantidades, ", "No campo das descobertas e percepções espaciais, ", "Sobre a compreensão de mundo e relações lógicas, "]
         }
     ];
-
-    function detectDevice() {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const instTexto = document.getElementById('inst-texto');
-        const instTitulo = document.getElementById('inst-titulo');
-
-        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            instTitulo.innerHTML = "📲 Instalar no iPhone";
-            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b>.<br>2. Toque em <b>'Adicionar à Tela de Início'</b>.";
-        } else {
-            instTitulo.innerHTML = "📲 Instalar no Android";
-            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b>.<br>2. Escolha <b>'Instalar Aplicativo'</b>.";
-        }
-        document.getElementById('modal-instalar').style.display = 'flex';
-    }
-
-    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
-
-    function iniciar() {
-        const cont = document.getElementById('campos-bncc');
-        dbRelatorios.forEach((item, i) => {
-            cont.innerHTML += `
-                <div class="secao-pergunta">
-                    <p class="pergunta-texto">${item.t}</p>
-                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
-                </div>
-                <div id="dica-${i}" class="dica-pedagogica">
-                    <strong>Guia de Avaliação:</strong><br>
-                    <span class="guia-cor g-ini">MEDIAÇÃO</span> Precisa de auxílio constante.<br>
-                    <span class="guia-cor g-pro">PROCESSO</span> Realiza com alguma ajuda.<br>
-                    <span class="guia-cor g-ava">AUTONOMIA</span> Realiza sozinho e com segurança.
-                </div>
-                <div class="grid-botoes" id="g-${i}">
-                    <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
-                    <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
-                    <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
-                </div>`;
-        });
-        detectDevice();
-    }
-
-    function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
-    function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
 
     function formatarCidade(cidade) {
         if (!cidade) return "";
@@ -244,9 +200,49 @@
         return `${local}, ${dia < 10 ? '0' + dia : dia} de ${mes} de ${ano}.`;
     }
 
+    function detectDevice() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const instTexto = document.getElementById('inst-texto');
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            instTexto.innerHTML = "1. Toque no ícone de <b>Compartilhar</b>.<br>2. Escolha <b>'Adicionar à Tela de Início'</b>.";
+        } else {
+            instTexto.innerHTML = "1. Toque nos <b>3 pontinhos</b>.<br>2. Escolha <b>'Instalar Aplicativo'</b>.";
+        }
+        document.getElementById('modal-instalar').style.display = 'flex';
+    }
+
+    function fecharModalInstalar() { document.getElementById('modal-instalar').style.display = 'none'; }
+
+    function iniciar() {
+        const cont = document.getElementById('campos-bncc');
+        dbRelatorios.forEach((item, i) => {
+            cont.innerHTML += `
+                <div class="secao-pergunta">
+                    <p class="pergunta-texto">${item.t}</p>
+                    <button class="btn-info" onclick="toggleDica(${i})">?</button>
+                </div>
+                <div id="dica-${i}" class="dica-pedagogica">
+                    <strong>Guia de Avaliação:</strong><br>
+                    <span class="guia-cor g-ini">MEDIAÇÃO</span> Precisa de auxílio.<br>
+                    <span class="guia-cor g-pro">PROCESSO</span> Em desenvolvimento.<br>
+                    <span class="guia-cor g-ava">AUTONOMIA</span> Realiza sozinho.
+                </div>
+                <div class="grid-botoes" id="g-${i}">
+                    <div class="btn-v ini" onclick="marcar(${i}, 'ini')">MEDIAÇÃO</div>
+                    <div class="btn-v pro" onclick="marcar(${i}, 'pro')">PROCESSO</div>
+                    <div class="btn-v ava" onclick="marcar(${i}, 'ava')">AUTONOMIA</div>
+                </div>`;
+        });
+        detectDevice();
+    }
+
+    function toggleDica(i) { const d = document.getElementById(`dica-${i}`); d.style.display = (d.style.display === 'block') ? 'none' : 'block'; }
+    function marcar(gi, niv) { const btns = document.getElementById(`g-${gi}`).querySelectorAll('.btn-v'); btns.forEach(b => b.classList.remove('active')); document.querySelector(`#g-${gi} .${niv}`).classList.add('active'); }
+
     function gerarRelatorioFinal() {
         const periodo = document.getElementById('periodo').value;
-        const nomeCompleto = document.getElementById('crianca').value.toUpperCase() || "A CRIANÇA";
+        const nomeCompleto = document.getElementById('crianca').value || "A CRIANÇA";
+        const primeiroNome = nomeCompleto.split(' ')[0].toUpperCase();
         const genero = document.getElementById('genero').value;
         const cidade = document.getElementById('cidade').value;
         
@@ -257,9 +253,8 @@
                 const nivel = btnAtivo.classList.contains('ini') ? 'ini' : (btnAtivo.classList.contains('pro') ? 'pro' : 'ava');
                 const conect = item.conectivos[Math.floor(Math.random() * item.conectivos.length)];
                 const frase = item[nivel][Math.floor(Math.random() * item[nivel].length)];
-                const primeiroNome = nomeCompleto.split(' ')[0];
-                const referencia = [primeiroNome, (genero === 'M' ? 'ele' : 'ela'), 'a criança'][Math.floor(Math.random() * 3)];
-                textoBNCC += `${conect} ${referencia} ${frase} `;
+                const ref = [primeiroNome, (genero === 'M' ? 'ele' : 'ela'), 'a criança'][Math.floor(Math.random() * 3)];
+                textoBNCC += `${conect}${ref} ${frase} `;
             }
         });
 
@@ -267,7 +262,7 @@
             <div class="esc-nome">ESCOLA: ${document.getElementById('escola').value.toUpperCase()}</div>
             <div class="dados-aluno">
                 <b>DOCENTE:</b> ${document.getElementById('prof').value.toUpperCase()}<br>
-                <b>ALUNO(A):</b> ${nomeCompleto}<br>
+                <b>ALUNO(A):</b> ${nomeCompleto.toUpperCase()}<br>
                 <b>FASE:</b> ${document.getElementById('fase').value} | <b>TURMA:</b> ${document.getElementById('turma').value.toUpperCase()}
             </div>
             <div class="tit-rel">RELATÓRIO DE DESENVOLVIMENTO INTEGRAL - ${periodo}</div>
@@ -285,7 +280,7 @@
         window.print();
     }
 
-    function novoAluno() {
+    function novoAlunoo() {
         document.getElementById('crianca').value = "";
         document.getElementById('editor').style.display = 'none';
         document.querySelectorAll('.btn-v').forEach(b => b.classList.remove('active'));
